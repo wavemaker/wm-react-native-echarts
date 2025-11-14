@@ -4,8 +4,12 @@
       "collectionName": "charts",
       "path": "area_chart1.png",
       "description": "Area chart visualization",
-      "files": [],
-      "packages": [],
+      "files": [
+        "area_chart1.tsx"
+      ],
+      "packages": [
+        "react-native-svg"
+      ],
       "tags": ["area", "chart", "visualization"]
     },
     {
