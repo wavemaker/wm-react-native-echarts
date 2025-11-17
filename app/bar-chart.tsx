@@ -1,763 +1,67 @@
-import { ChartComponent } from '@/components/chart-component';
+import {
+  ActiveBarChart,
+  CustomLabelBarChart,
+  DefaultBarChart,
+  HorizontalBarChart,
+  InteractiveBarChart,
+  LabelBarChart,
+  MixedBarChart,
+  MultipleBarChart,
+  NegativeBarChart,
+  StackedBarChart,
+} from '@/components/chart/bar';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
-import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
-const { width: screenWidth } = Dimensions.get('window');
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function BarChartScreen() {
   const { colorScheme } = useTheme();
-
-  // Generate random visitor data
-  const generateRandomData = () => {
-    const data = [];
-    for (let i = 0; i < 13; i++) {
-      data.push(Math.floor(Math.random() * 2000) + 200); // Random values between 200-2200
-    }
-    return data;
-  };
-
-  const randomVisitorData = generateRandomData();
-
-  // Main Interactive Bar Chart
-  const interactiveBarOption = {
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow',
-      },
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true,
-    },
-    xAxis: {
-      type: 'category',
-      data: ['Apr 1', 'Apr 8', 'Apr 15', 'Apr 22', 'Apr 29', 'May 6', 'May 13', 'May 20', 'May 27', 'Jun 3', 'Jun 10', 'Jun 17', 'Jun 24'],
-      axisLabel: {
-        fontSize: 10,
-        color: colorScheme === 'dark' ? '#cccccc' : '#666666',
-      },
-    },
-    yAxis: {
-      type: 'value',
-      axisLabel: {
-        show: false,
-      },
-    },
-    series: [
-      {
-        data: randomVisitorData,
-        type: 'bar',
-        barWidth: '70%',
-        barGap: '10%',
-        itemStyle: {
-          color: '#3b82f6',
-        },
-        emphasis: {
-          disabled: true,
-        },
-      },
-    ],
-  };
-
-  // Basic Bar Chart
-  const basicBarOption = {
-    tooltip: {
-      trigger: 'axis',
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true,
-      show: true,
-      borderColor: 'transparent',
-      backgroundColor: 'transparent',
-      splitLine: {
-        show: false,
-      },
-    },
-    xAxis: {
-      type: 'category',
-      data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-      axisLine: {
-        show: false,
-      },
-      axisLabel: {
-        fontSize: 10,
-        color: colorScheme === 'dark' ? '#cccccc' : '#666666',
-      },
-    },
-    yAxis: {
-      type: 'value',
-      axisLabel: {
-        show: false,
-      },
-    },
-    series: [
-      {
-        data: [186, 305, 237, 73, 209, 214],
-        type: 'bar',
-        itemStyle: {
-          color: '#93c5fd',
-          borderRadius: [4, 4, 4, 4],
-        },
-        emphasis: {
-          disabled: true,
-        },
-      },
-    ],
-  };
-
-  // Horizontal Bar Chart
-  const horizontalBarOption = {
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow',
-      },
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true,
-      show: false,
-      splitLine: {
-        show: false,
-      },
-    },
-    xAxis: {
-      type: 'value',
-      axisLine: {
-        show: false,
-      },
-      axisLabel: {
-        show: false,
-      },
-      splitLine: {
-        show: false,
-      },
-    },
-    yAxis: {
-      type: 'category',
-      data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-      axisLine: {
-        show: false,
-      },
-      axisLabel: {
-        fontSize: 10,
-        color: colorScheme === 'dark' ? '#cccccc' : '#666666',
-      },
-      splitLine: {
-        show: false,
-      },
-    },
-    series: [
-      {
-        data: [186, 305, 237, 73, 209, 214],
-        type: 'bar',
-        barWidth: '80%',
-        itemStyle: {
-          color: '#93c5fd',
-          borderRadius: [4, 4, 4, 4],
-        },
-        emphasis: {
-          disabled: true,
-        },
-      },
-    ],
-  };
-
-  // Multiple Bar Chart
-  const multipleBarOption = {
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow',
-      },
-    },
-    legend: {
-      data: ['Series A', 'Series B'],
-      bottom: '5%',
-      textStyle: {
-        fontSize: 10,
-        color: colorScheme === 'dark' ? '#cccccc' : '#666666',
-      },
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '15%',
-      containLabel: true,
-      show: false,
-      splitLine: {
-        show: false,
-      },
-    },
-    xAxis: {
-      type: 'category',
-      data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-      axisLabel: {
-        show: true,
-        fontSize: 10,
-        color: colorScheme === 'dark' ? '#cccccc' : '#666666',
-      },
-      axisTick: {
-        show: false,
-      },
-      axisLine: {
-        show: false,
-      },
-    },
-    yAxis: {
-      type: 'value',
-      axisLabel: {
-        show: false,
-      },
-      axisTick: {
-        show: false,
-      },
-      axisLine: {
-        show: false,
-      },
-      splitLine: {
-        show: true,
-        lineStyle: {
-          color: colorScheme === 'dark' ? '#333333' : '#e5e7eb',
-          opacity: 0.5,
-        },
-      },
-    },
-    series: [
-      {
-        name: 'Series A',
-        type: 'bar',
-        data: [186, 305, 237, 73, 209, 214],
-        barWidth: '40%',
-        itemStyle: {
-          color: '#93c5fd',
-          borderRadius: [4, 4, 4, 4],
-        },
-        emphasis: {
-          disabled: true,
-        },
-      },
-      {
-        name: 'Series B',
-        type: 'bar',
-        data: [150, 280, 200, 90, 180, 190],
-        barWidth: '40%',
-        itemStyle: {
-          color: '#3b82f6',
-          borderRadius: [4, 4, 4, 4],
-        },
-        emphasis: {
-          disabled: true,
-        },
-      },
-    ],
-  };
-
-  // Stacked Bar Chart
-  const stackedBarOption = {
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow',
-      },
-    },
-    legend: {
-      data: ['Desktop', 'Mobile'],
-      bottom: '5%',
-      textStyle: {
-        fontSize: 10,
-        color: colorScheme === 'dark' ? '#cccccc' : '#666666',
-      },
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '15%',
-      containLabel: true,
-    },
-    xAxis: {
-      type: 'category',
-      data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-      axisLabel: {
-        show: true,
-        fontSize: 10,
-        color: colorScheme === 'dark' ? '#cccccc' : '#666666',
-      },
-      axisTick: {
-        show: false,
-      },
-      axisLine: {
-        show: false,
-      },
-    },
-    yAxis: {
-      type: 'value',
-      axisLabel: {
-        show: false,
-      },
-      axisTick: {
-        show: false,
-      },
-      axisLine: {
-        show: false,
-      },
-    },
-    series: [
-      {
-        name: 'Desktop',
-        type: 'bar',
-        stack: 'total',
-        data: [100, 150, 120, 40, 110, 120],
-        itemStyle: {
-          color: '#93c5fd',
-          borderRadius: [0, 0, 4, 4],
-        },
-        emphasis: {
-          disabled: true,
-        },
-      },
-      {
-        name: 'Mobile',
-        type: 'bar',
-        stack: 'total',
-        data: [86, 155, 117, 33, 99, 94],
-        itemStyle: {
-          color: '#3b82f6',
-          borderRadius: [4, 4, 0, 0],
-        },
-        emphasis: {
-          disabled: true,
-        },
-      },
-    ],
-  };
-
-  // Bar Chart with Labels
-  const labelBarOption = {
-    tooltip: {
-      trigger: 'axis',
-    },
-    grid: {
-      left: '5%',
-      right: '5%',
-      bottom: '3%',
-      top: '5%',
-      containLabel: true,
-    },
-    xAxis: {
-      type: 'category',
-      data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-      axisLabel: {
-        show: true,
-        fontSize: 10,
-        color: colorScheme === 'dark' ? '#cccccc' : '#666666',
-      },
-      axisTick: {
-        show: false,
-      },
-      axisLine: {
-        show: false,
-      },
-    },
-    yAxis: {
-      type: 'value',
-      axisLabel: {
-        show: false,
-      },
-      axisTick: {
-        show: false,
-      },
-      axisLine: {
-        show: false,
-      },
-      splitLine: {
-        show: true,
-        interval: 2,
-        lineStyle: {
-          color: colorScheme === 'dark' ? '#333333' : '#e5e7eb',
-          opacity: 0.5,
-        },
-      },
-    },
-    series: [
-      {
-        data: [186, 305, 237, 73, 209, 214],
-        type: 'bar',
-        itemStyle: {
-          color: '#93c5fd',
-          borderRadius: [4, 4, 4, 4],
-        },
-        label: {
-          show: true,
-          position: 'top',
-          fontSize: 10,
-          color: colorScheme === 'dark' ? '#cccccc' : '#666666',
-        },
-        emphasis: {
-          disabled: true,
-        },
-      },
-    ],
-  };
-
-  // Custom Label Bar Chart
-  const customLabelBarData = [100, 150, 120, 40, 110, 120];
-  const customLabelBarOption = {
-    tooltip: {
-      trigger: 'axis',
-      formatter: function(params: any) {
-        const param = params[0];
-        const months = ['January', 'February', 'March', 'April', 'May', 'June'];
-        return months[param.dataIndex] + ' ' + param.value;
-      },
-    },
-    grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
-      containLabel: true,
-    },
-    xAxis: {
-      type: 'value',
-      axisLabel: {
-        show: false,
-      },
-      axisTick: {
-        show: false,
-      },
-      axisLine: {
-        show: false,
-      },
-    },
-    yAxis: {
-      type: 'category',
-      data: ['January', 'February', 'March', 'April', 'May', 'June'],
-      axisLabel: {
-        show: false,
-      },
-      axisTick: {
-        show: false,
-      },
-      axisLine: {
-        show: false,
-      },
-    },
-    series: [
-      {
-        name: 'Series A',
-        data: customLabelBarData,
-        type: 'bar',
-        stack: 'total',
-        barWidth: '80%',
-        itemStyle: {
-          color: '#437fff',
-          borderRadius: [4, 4, 4, 4],
-        },
-        label: {
-          show: true,
-          position: 'insideLeft',
-          formatter: function(params: any) {
-            const months = ['January', 'February', 'March', 'April', 'May', 'June'];
-            return months[params.dataIndex];
-          },
-          fontSize: 10,
-          color: '#ffffff',
-          fontWeight: 'bold',
-        },
-        emphasis: {
-          disabled: true,
-        },
-      },
-      {
-        name: 'Series B',
-        data: [0, 0, 0, 0, 0, 0],
-        type: 'bar',
-        stack: 'total',
-        barWidth: '80%',
-        tooltip: {
-          show: false,
-        },
-        itemStyle: {
-          color: '#93c5fd',
-          borderRadius: [4, 4, 4, 4],
-        },
-        label: {
-          show: true,
-          position: 'right',
-          formatter: function(params: any) {
-            return customLabelBarData[params.dataIndex];
-          },
-          fontSize: 10,
-          color: colorScheme === 'dark' ? '#cccccc' : '#666666',
-        },
-        emphasis: {
-          disabled: true,
-        },
-      },
-    ],
-  };
-
-  // Mixed Bar Chart (Browser data)
-  const mixedBarOption = {
-    tooltip: {
-      show: false,
-    },
-    grid: {
-      left: '5%',
-      right: '5%',
-      bottom: '3%',
-      top: '5%',
-      containLabel: true,
-    },
-    xAxis: {
-      type: 'value',
-      axisLabel: {
-        show: false,
-      },
-      axisTick: {
-        show: false,
-      },
-      axisLine: {
-        show: false,
-      },
-      splitLine: {
-        show: false,
-      },
-    },
-    yAxis: {
-      type: 'category',
-      data: ['Other', 'Edge', 'Safari', 'Firefox', 'Chrome'],
-      axisLabel: {
-        show: true,
-        fontSize: 10,
-        color: colorScheme === 'dark' ? '#cccccc' : '#666666',
-      },
-      axisTick: {
-        show: false,
-      },
-      axisLine: {
-        show: false,
-      },
-    },
-    series: [
-      {
-        data: [
-          { value: 8, itemStyle: { color: '#000080', borderRadius: [4, 4, 4, 4] } },
-          { value: 12, itemStyle: { color: '#0000cd', borderRadius: [4, 4, 4, 4] } },
-          { value: 35, itemStyle: { color: '#4169e1', borderRadius: [4, 4, 4, 4] } },
-          { value: 40, itemStyle: { color: '#1e90ff', borderRadius: [4, 4, 4, 4] } },
-          { value: 65, itemStyle: { color: '#87ceeb', borderRadius: [4, 4, 4, 4] } },
-        ],
-        type: 'bar',
-        barWidth: '60%',
-        emphasis: {
-          disabled: true,
-        },
-      },
-    ],
-  };
-
-  // Active Bar Chart
-  const activeBarOption = {
-    tooltip: {
-      show: false,
-    },
-    grid: {
-      left: '5%',
-      right: '5%',
-      bottom: '3%',
-      top: '5%',
-      containLabel: true,
-    },
-    xAxis: {
-      type: 'category',
-      data: ['Chrome', 'Safari', 'Firefox', 'Edge', 'Other'],
-      axisLabel: {
-        show: true,
-        fontSize: 10,
-        color: colorScheme === 'dark' ? '#cccccc' : '#666666',
-      },
-      axisTick: {
-        show: false,
-      },
-      axisLine: {
-        show: false,
-      },
-    },
-    yAxis: {
-      type: 'value',
-      axisLabel: {
-        show: false,
-      },
-      axisTick: {
-        show: false,
-      },
-      axisLine: {
-        show: false,
-      },
-      splitLine: {
-        show: true,
-        lineStyle: {
-          color: colorScheme === 'dark' ? '#333333' : '#e5e7eb',
-          opacity: 0.5,
-        },
-      },
-    },
-    series: [
-      {
-        data: [
-          { value: Math.floor(Math.random() * 50) + 15, itemStyle: { color: '#93c5fd', borderRadius: [4, 4, 4, 4] } },
-          { value: Math.floor(Math.random() * 50) + 15, itemStyle: { color: '#93c5fd', borderRadius: [4, 4, 4, 4] } },
-          { value: Math.floor(Math.random() * 30) + 85, itemStyle: { color: '#3b82f6', borderColor: '#1d4ed8', borderWidth: 2, borderType: 'dashed', borderRadius: [4, 4, 4, 4] } },
-          { value: Math.floor(Math.random() * 50) + 15, itemStyle: { color: '#93c5fd', borderRadius: [4, 4, 4, 4] } },
-          { value: Math.floor(Math.random() * 50) + 15, itemStyle: { color: '#93c5fd', borderRadius: [4, 4, 4, 4] } },
-        ],
-        type: 'bar',
-        emphasis: {
-          disabled: true,
-        },
-      },
-    ],
-  };
-
-  // Negative Bar Chart
-  const negativeBarOption = {
-    tooltip: {
-      show: false,
-    },
-    grid: {
-      left: '5%',
-      right: '5%',
-      bottom: '3%',
-      top: '5%',
-      containLabel: true,
-    },
-    xAxis: {
-      type: 'category',
-      data: ['January', 'February', 'March', 'April', 'May', 'June'],
-      axisLabel: {
-        show: false,
-      },
-      axisTick: {
-        show: false,
-      },
-      axisLine: {
-        show: true,
-        lineStyle: {
-          color: '#aaa',
-        },
-      },
-    },
-    yAxis: {
-      type: 'value',
-      axisLabel: {
-        show: false,
-      },
-      axisTick: {
-        show: false,
-      },
-      axisLine: {
-        show: false,
-      },
-      splitLine: {
-        show: true,
-        lineStyle: {
-          color: colorScheme === 'dark' ? '#333333' : '#e5e7eb',
-          opacity: 0.5,
-        },
-      },
-    },
-    series: [
-      {
-        data: [120, 150, -180, 110, -80, 160],
-        type: 'bar',
-        barWidth: '60%',
-        itemStyle: {
-          color: function(params: any) {
-            return params.value >= 0 ? '#93c5fd' : '#3b82f6';
-          },
-          borderRadius: [4, 4, 4, 4],
-        },
-        label: {
-          show: true,
-          position: "outside",
-          formatter: function(params: any) {
-            const months = ['January', 'February', 'March', 'April', 'May', 'June'];
-            return months[params.dataIndex];
-          },
-          fontSize: 10,
-          color: colorScheme === 'dark' ? '#cccccc' : '#666666',
-        },
-        emphasis: {
-          disabled: true,
-        },
-      },
-    ],
-  };
 
   const chartCards = [
     {
       title: 'Bar Chart',
       timeframe: 'January - June 2024',
-      option: basicBarOption,
-      icon: 'bar-chart',
+      component: DefaultBarChart,
     },
     {
       title: 'Bar Chart - Horizontal',
       timeframe: 'January - June 2024',
-      option: horizontalBarOption,
-      icon: 'bar-chart',
+      component: HorizontalBarChart,
     },
     {
       title: 'Bar Chart - Multiple',
       timeframe: 'January - June 2024',
-      option: multipleBarOption,
-      icon: 'bar-chart',
+      component: MultipleBarChart,
     },
     {
       title: 'Bar Chart - Stacked + Legend',
       timeframe: 'January - June 2024',
-      option: stackedBarOption,
-      icon: 'bar-chart',
+      component: StackedBarChart,
     },
     {
       title: 'Bar Chart - Label',
       timeframe: 'January - June 2024',
-      option: labelBarOption,
-      icon: 'bar-chart',
+      component: LabelBarChart,
     },
     {
       title: 'Bar Chart - Custom Label',
       timeframe: 'January - June 2024',
-      option: customLabelBarOption,
-      icon: 'bar-chart',
+      component: CustomLabelBarChart,
     },
     {
       title: 'Bar Chart - Mixed',
       timeframe: 'January - June 2024',
-      option: mixedBarOption,
-      icon: 'bar-chart',
+      component: MixedBarChart,
     },
     {
       title: 'Bar Chart - Active',
       timeframe: 'January - June 2024',
-      option: activeBarOption,
-      icon: 'bar-chart',
+      component: ActiveBarChart,
     },
     {
       title: 'Bar Chart - Negative',
       timeframe: 'January - June 2024',
-      option: negativeBarOption,
-      icon: 'bar-chart',
+      component: NegativeBarChart,
     },
   ];
 
@@ -920,50 +224,49 @@ export default function BarChartScreen() {
           <Text style={styles.visitorNumber}>Mobile 25,010</Text>
         </View>
 
-        <ChartComponent
-          option={interactiveBarOption}
-          height={220}
-          style={styles.interactiveChart}
-        />
+        <View style={styles.interactiveChart}>
+          <InteractiveBarChart height={220} />
+        </View>
       </View>
 
       {/* Grid of Bar Charts */}
       <View style={styles.chartsGrid}>
-        {chartCards.map((chart, index) => (
-          <View key={index} style={styles.chartCard}>
-            <View style={styles.chartCardHeader}>
-              <View style={styles.chartCardIcon}>
-                <Ionicons name="bar-chart" size={20} color="#3b82f6" />
+        {chartCards.map((chart, index) => {
+          const ChartComponent = chart.component;
+          return (
+            <View key={index} style={styles.chartCard}>
+              <View style={styles.chartCardHeader}>
+                <View style={styles.chartCardIcon}>
+                  <Ionicons name="bar-chart" size={20} color="#3b82f6" />
+                </View>
+                <View style={{ flex: 1, marginLeft: 10 }}>
+                  <Text style={styles.chartCardTitle}>
+                    {chart.title}
+                  </Text>
+                  <Text style={styles.chartCardTimeframe}>
+                    {chart.timeframe}
+                  </Text>
+                </View>
+                <TouchableOpacity style={styles.viewCodeButton}>
+                  <Text style={styles.viewCodeText}>View Code</Text>
+                </TouchableOpacity>
               </View>
-              <View style={{ flex: 1, marginLeft: 10 }}>
-                <Text style={styles.chartCardTitle}>
-                  {chart.title}
+
+              <View style={styles.chartCardChart}>
+                <ChartComponent height={260} />
+              </View>
+
+              <View style={styles.chartCardFooter}>
+                <Text style={styles.chartCardFooterText}>
+                  Trending up by 5.2% this month
                 </Text>
-                <Text style={styles.chartCardTimeframe}>
-                  {chart.timeframe}
+                <Text style={styles.chartCardFooterText}>
+                  Showing total visitors for the last 6 months
                 </Text>
               </View>
-              <TouchableOpacity style={styles.viewCodeButton}>
-                <Text style={styles.viewCodeText}>View Code</Text>
-              </TouchableOpacity>
             </View>
-
-            <ChartComponent
-              option={chart.option}
-              height={260}
-              style={styles.chartCardChart}
-            />
-
-            <View style={styles.chartCardFooter}>
-              <Text style={styles.chartCardFooterText}>
-                Trending up by 5.2% this month
-              </Text>
-              <Text style={styles.chartCardFooterText}>
-                Showing total visitors for the last 6 months
-              </Text>
-            </View>
-          </View>
-        ))}
+          );
+        })}
       </View>
     </ScrollView>
   );
