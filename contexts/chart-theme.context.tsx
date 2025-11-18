@@ -36,6 +36,7 @@ export type ChartTheme = {
   grid: {
     x: GridLineStyle;
     y: GridLineStyle;
+    r: GridLineStyle;
   };
   tooltip: TooltipStyle;
   series: SeriesStyle;
@@ -73,6 +74,10 @@ const DEFAULT_THEME: ChartTheme = {
     y: {
       lineColor: '#AAAAAA',
       lineWidth: 1
+    },
+    r: {
+      lineColor: '#EEEEEE',
+      lineWidth: 1,
     }
   },
   tooltip: {
