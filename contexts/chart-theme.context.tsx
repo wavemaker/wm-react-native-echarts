@@ -31,6 +31,7 @@ export type ChartTheme = {
   axis: {
     x: AxisStyle;
     y: AxisStyle;
+    r: AxisStyle;
   };
   grid: {
     x: GridLineStyle;
@@ -51,6 +52,13 @@ const DEFAULT_THEME: ChartTheme = {
     },
     y: {
       lineColor: '#000000',
+      lineWidth: 1,
+      labelColor: '#666666',
+      tickColor: '#DDDDDD',
+      tickWidth: 1,
+    },
+    r: {
+      lineColor: '#DDDDDD',
       lineWidth: 1,
       labelColor: '#666666',
       tickColor: '#DDDDDD',
