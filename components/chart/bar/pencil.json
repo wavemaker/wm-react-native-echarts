@@ -4,7 +4,11 @@
       "collectionName": "charts",
       "path": "active-bar.chart.png",
       "description": "Bar chart with one highlighted active bar for emphasis and comparison",
-      "files": ["active-bar.chart.tsx"],
+      "files": [
+        "active-bar.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["bar", "chart", "active", "highlighted", "emphasis", "visualization", "selection", "focus"]
     },
@@ -12,7 +16,11 @@
       "collectionName": "charts",
       "path": "custom-label-bar.chart.png",
       "description": "Horizontal bar chart with custom labels inside bars and values displayed outside",
-      "files": ["custom-label-bar.chart.tsx"],
+      "files": [
+        "custom-label-bar.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["bar", "chart", "horizontal", "labels", "custom", "annotated", "visualization", "formatted"]
     },
@@ -20,7 +28,11 @@
       "collectionName": "charts",
       "path": "default-bar.chart.png",
       "description": "Simple vertical bar chart with rounded corners and clean styling",
-      "files": ["default-bar.chart.tsx"],
+      "files": [
+        "default-bar.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["bar", "chart", "simple", "vertical", "single-series", "visualization", "basic", "clean"]
     },
@@ -28,7 +40,11 @@
       "collectionName": "charts",
       "path": "horizontal-bar.chart.png",
       "description": "Horizontal bar chart with category labels on the y-axis",
-      "files": ["horizontal-bar.chart.tsx"],
+      "files": [
+        "horizontal-bar.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["bar", "chart", "horizontal", "single-series", "visualization", "sideways", "ranking"]
     },
@@ -36,7 +52,11 @@
       "collectionName": "charts",
       "path": "interactive-bar.chart.png",
       "description": "Interactive bar chart with extensive timeline data and tooltip functionality",
-      "files": ["interactive-bar.chart.tsx"],
+      "files": [
+        "interactive-bar.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["bar", "chart", "interactive", "tooltip", "timeline", "visualization", "detailed", "temporal"]
     },
@@ -44,7 +64,11 @@
       "collectionName": "charts",
       "path": "label-bar.chart.png",
       "description": "Vertical bar chart with value labels displayed above each bar",
-      "files": ["label-bar.chart.tsx"],
+      "files": [
+        "label-bar.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["bar", "chart", "labels", "values", "annotated", "visualization", "vertical", "numbers"]
     },
@@ -52,7 +76,11 @@
       "collectionName": "charts",
       "path": "mixed-bar.chart.png",
       "description": "Horizontal bar chart with individually colored bars in gradient shades",
-      "files": ["mixed-bar.chart.tsx"],
+      "files": [
+        "mixed-bar.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["bar", "chart", "horizontal", "gradient", "colored", "multi-color", "visualization", "custom-colors"]
     },
@@ -60,7 +88,11 @@
       "collectionName": "charts",
       "path": "multiple-bar.chart.png",
       "description": "Grouped bar chart with multiple series and legend for side-by-side comparison",
-      "files": ["multiple-bar.chart.tsx"],
+      "files": [
+        "multiple-bar.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["bar", "chart", "grouped", "multi-series", "legend", "comparison", "visualization", "multiple"]
     },
@@ -68,7 +100,11 @@
       "collectionName": "charts",
       "path": "negative-bar.chart.png",
       "description": "Bar chart displaying both positive and negative values with color differentiation",
-      "files": ["negative-bar.chart.tsx"],
+      "files": [
+        "negative-bar.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["bar", "chart", "negative", "positive", "diverging", "variance", "visualization", "bi-directional"]
     },
@@ -76,7 +112,11 @@
       "collectionName": "charts",
       "path": "stacked-bar.chart.png",
       "description": "Stacked bar chart showing cumulative values with multiple series and legend",
-      "files": ["stacked-bar.chart.tsx"],
+      "files": [
+        "stacked-bar.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["bar", "chart", "stacked", "cumulative", "multi-series", "legend", "visualization", "aggregate"]
     }

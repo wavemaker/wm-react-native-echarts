@@ -4,7 +4,11 @@
       "collectionName": "charts",
       "path": "label-radial.chart.png",
       "description": "Circular radial bar chart with multiple categories arranged in polar coordinates",
-      "files": ["label-radial.chart.tsx"],
+      "files": [
+        "label-radial.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["radial", "chart", "polar", "circular", "multi-category", "bars", "visualization", "progress"]
     },
@@ -12,7 +16,11 @@
       "collectionName": "charts",
       "path": "grid-radial.chart.png",
       "description": "Radial bar chart with visible grid lines and axis structure in polar layout",
-      "files": ["grid-radial.chart.tsx"],
+      "files": [
+        "grid-radial.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["radial", "chart", "polar", "grid", "axes", "circular", "structured", "visualization"]
     },
@@ -20,7 +28,11 @@
       "collectionName": "charts",
       "path": "text-radial.chart.png",
       "description": "Single ring radial progress chart with centered text displaying value and label",
-      "files": ["text-radial.chart.tsx"],
+      "files": [
+        "text-radial.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["radial", "chart", "progress", "ring", "circular", "text", "metric", "single", "visualization"]
     },
@@ -28,7 +40,11 @@
       "collectionName": "charts",
       "path": "shape-radial.chart.png",
       "description": "Thick radial ring progress indicator with centered value display and subtitle",
-      "files": ["shape-radial.chart.tsx"],
+      "files": [
+        "shape-radial.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["radial", "chart", "progress", "ring", "circular", "thick", "metric", "labeled", "visualization"]
     },
@@ -36,7 +52,11 @@
       "collectionName": "charts",
       "path": "stacked-radial.chart.png",
       "description": "Stacked radial bar chart with multiple series combined in circular ring with center text",
-      "files": ["stacked-radial.chart.tsx"],
+      "files": [
+        "stacked-radial.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["radial", "chart", "stacked", "multi-series", "circular", "ring", "combined", "visualization", "aggregate"]
     }

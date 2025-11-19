@@ -4,7 +4,11 @@
       "collectionName": "charts",
       "path": "basic-candlestick.chart.png",
       "description": "Basic candlestick chart with zoom controls for financial data visualization",
-      "files": ["basic-candlestick.chart.tsx"],
+      "files": [
+        "basic-candlestick.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["candlestick", "chart", "basic", "financial", "stock", "ohlc", "visualization", "trading", "zoom"]
     },
@@ -12,7 +16,11 @@
       "collectionName": "charts",
       "path": "candlestick-ma.chart.png",
       "description": "Candlestick chart with moving average lines (MA5, MA10, MA20) and legend for technical analysis",
-      "files": ["candlestick-ma.chart.tsx"],
+      "files": [
+        "candlestick-ma.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["candlestick", "chart", "moving-average", "technical-analysis", "stock", "financial", "ma", "overlay", "visualization", "trading"]
     },
@@ -20,7 +28,11 @@
       "collectionName": "charts",
       "path": "volume-candlestick.chart.png",
       "description": "Candlestick chart with volume bars displayed in separate panel below for trading analysis",
-      "files": ["volume-candlestick.chart.tsx"],
+      "files": [
+        "volume-candlestick.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["candlestick", "chart", "volume", "trading", "stock", "financial", "multi-panel", "bar", "visualization", "technical"]
     }

@@ -4,7 +4,11 @@
       "collectionName": "charts",
       "path": "basic-pie.chart.png",
       "description": "Simple pie chart showing data distribution without labels or legend",
-      "files": ["basic-pie.chart.tsx"],
+      "files": [
+        "basic-pie.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["pie", "chart", "simple", "basic", "circular", "visualization", "proportions", "distribution"]
     },
@@ -12,7 +16,11 @@
       "collectionName": "charts",
       "path": "donut-active.chart.png",
       "description": "Donut chart with one segment highlighted and selectable for emphasis",
-      "files": ["donut-active.chart.tsx"],
+      "files": [
+        "donut-active.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["pie", "donut", "chart", "active", "highlighted", "selection", "visualization", "interactive"]
     },
@@ -20,7 +28,11 @@
       "collectionName": "charts",
       "path": "donut-text.chart.png",
       "description": "Donut chart with centered text displaying total value and label",
-      "files": ["donut-text.chart.tsx"],
+      "files": [
+        "donut-text.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["pie", "donut", "chart", "text", "center-label", "visualization", "summary", "total"]
     },
@@ -28,7 +40,11 @@
       "collectionName": "charts",
       "path": "label-pie.chart.png",
       "description": "Pie chart with value labels and leader lines for each segment",
-      "files": ["label-pie.chart.tsx"],
+      "files": [
+        "label-pie.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["pie", "chart", "labels", "values", "annotated", "visualization", "detailed", "leader-lines"]
     },
@@ -36,7 +52,11 @@
       "collectionName": "charts",
       "path": "legend-pie.chart.png",
       "description": "Pie chart with legend showing category names and colors",
-      "files": ["legend-pie.chart.tsx"],
+      "files": [
+        "legend-pie.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["pie", "chart", "legend", "categories", "visualization", "labeled", "categorized"]
     },
@@ -44,7 +64,11 @@
       "collectionName": "charts",
       "path": "stacked-pie.chart.png",
       "description": "Multi-layer nested pie chart with concentric rings for comparing data sets",
-      "files": ["stacked-pie.chart.tsx"],
+      "files": [
+        "stacked-pie.chart.tsx",
+        "../../../contexts/chart-container.tsx",
+        "../../../contexts/chart-theme.context.tsx"
+      ],
       "packages": ["@wuba/react-native-echarts", "echarts"],
       "tags": ["pie", "chart", "stacked", "nested", "multi-layer", "concentric", "visualization", "comparison"]
     }

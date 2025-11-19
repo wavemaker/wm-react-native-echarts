@@ -5,7 +5,9 @@
             "path": "axes-area.chart.png",
             "description": "Area chart with multiple series and visible axes for data comparison",
             "files": [
-                "axes-area.chart.tsx"
+                "axes-area.chart.tsx",
+                "../../../contexts/chart-container.tsx",
+                "../../../contexts/chart-theme.context.tsx"
             ],
             "packages": [
                 "@wuba/react-native-echarts",
