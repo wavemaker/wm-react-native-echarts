@@ -1,7 +1,7 @@
 import {
-  GpuUsageGaugeChart,
-  ProgressGaugeChart,
-  TemperatureGaugeChart,
+  LabeledGaugeChart,
+  RadialGaugeChart,
+  AnimatedGaugeChart,
 } from '@/components/chart/gauge';
 import { useTheme } from '@/contexts/ThemeContext';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -44,12 +44,12 @@ export default function GaugeChartScreen() {
         </Text>
       </View>
 
-      <ProgressGaugeChart value={64}/>
-      <TemperatureGaugeChart value={76} />
-      <GpuUsageGaugeChart 
+      <RadialGaugeChart value={64}/>
+      <AnimatedGaugeChart value={48} />
+      <LabeledGaugeChart 
         value={45} 
-        title="GPU Usage" 
-        detailText="86% (100°C)" 
+        title="Metric A" 
+        detailText="45%" 
       />
     </ScrollView>
   );

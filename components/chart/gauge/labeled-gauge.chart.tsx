@@ -12,7 +12,7 @@ echarts.use([
   GaugeChart,
 ]);
 
-interface GpuUsageGaugeChartProps {
+interface LabeledGaugeChartProps {
   value?: number;
   min?: number;
   max?: number;
@@ -29,9 +29,9 @@ const ChartComponent = ({
   max = 100,
   width = 220,
   height = 240,
-  title = 'GPU Usage',
-  detailText = '86% (100°C)',
-}: GpuUsageGaugeChartProps) => {
+  title = 'Metric',
+  detailText = '30%',
+}: LabeledGaugeChartProps) => {
   const { colorScheme } = useTheme();
   const { theme: chartTheme } = useChartTheme();
   const chartRef = useRef<any>(null);
@@ -125,6 +125,6 @@ const ChartComponent = ({
   return <SkiaChart ref={chartRef} />;
 };
 
-export const GpuUsageGaugeChart = withResponsiveContainer(withChartTheme(ChartComponent));
+export const LabeledGaugeChart = withResponsiveContainer(withChartTheme(ChartComponent));
 
 

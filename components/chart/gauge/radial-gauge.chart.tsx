@@ -17,7 +17,7 @@ echarts.use([
   PolarComponent,
 ]);
 
-interface ProgressGaugeChartProps {
+interface RadialGaugeChartProps {
   value?: number;
   min?: number;
   max?: number;
@@ -32,7 +32,7 @@ const ChartComponent = ({
   max = 100,
   width = 220,
   height = 240,
-}: ProgressGaugeChartProps) => {
+}: RadialGaugeChartProps) => {
   const { colorScheme } = useTheme();
   const { theme: chartTheme } = useChartTheme();
   const chartRef = useRef<any>(null);
@@ -62,7 +62,7 @@ const ChartComponent = ({
       },
       radiusAxis: {
         type: 'category',
-        data: ['Visitors'],
+        data: ['Data'],
         show: false
       },
       series: [
@@ -88,7 +88,7 @@ const ChartComponent = ({
           type: 'bar',
           data: [value],
           coordinateSystem: 'polar',
-          name: 'Visitors',
+          name: 'Value',
           itemStyle: {
             color: progressColor,
             borderRadius: [50, 50],
@@ -309,4 +309,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export const ProgressGaugeChart = withResponsiveContainer(withChartTheme(ChartComponent));
+export const RadialGaugeChart = withResponsiveContainer(withChartTheme(ChartComponent));
+

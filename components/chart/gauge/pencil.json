@@ -1,0 +1,29 @@
+{
+  "images": [
+    {
+      "collectionName": "charts",
+      "path": "radial-gauge.chart.png",
+      "description": "Radial gauge chart with circular progress ring and animated pointer displaying values",
+      "files": ["radial-gauge.chart.tsx"],
+      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "tags": ["gauge", "chart", "radial", "circular", "progress", "ring", "visualization", "metric", "indicator"]
+    },
+    {
+      "collectionName": "charts",
+      "path": "animated-gauge.chart.png",
+      "description": "Animated gauge chart with smooth value transitions and gradient tick marks using SVG",
+      "files": ["animated-gauge.chart.tsx"],
+      "packages": ["react-native-svg"],
+      "tags": ["gauge", "chart", "animated", "svg", "gradient", "smooth", "visualization", "transition", "custom"]
+    },
+    {
+      "collectionName": "charts",
+      "path": "labeled-gauge.chart.png",
+      "description": "Gauge chart with custom title and detail text labels for metric display",
+      "files": ["labeled-gauge.chart.tsx"],
+      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "tags": ["gauge", "chart", "labeled", "title", "text", "custom", "visualization", "annotated", "metric"]
+    }
+  ]
+}
+

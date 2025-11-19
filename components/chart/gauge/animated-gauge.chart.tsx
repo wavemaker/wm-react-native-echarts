@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import Svg, { Circle, Defs, G, LinearGradient, Path, Stop, Text as SvgText } from 'react-native-svg';
 
-interface TemperatureGaugeChartProps {
+interface AnimatedGaugeChartProps {
   value?: number;
   min?: number;
   max?: number;
@@ -317,7 +317,7 @@ const SVGGaugeChart = ({
         fontSize="14"
         fill={labelColor}
       >
-        Temperature
+        Value
       </SvgText>
     </Svg>
   );
@@ -330,7 +330,7 @@ const ChartComponent = ({
   max = 90,
   width,
   height,
-}: TemperatureGaugeChartProps) => {
+}: AnimatedGaugeChartProps) => {
   return (
     <SVGGaugeChart 
       value={value} 
@@ -341,5 +341,5 @@ const ChartComponent = ({
   );
 };
 
-export const TemperatureGaugeChart = withResponsiveContainer(withChartTheme(ChartComponent));
+export const AnimatedGaugeChart = withResponsiveContainer(withChartTheme(ChartComponent));
 
