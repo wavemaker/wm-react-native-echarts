@@ -1,0 +1,202 @@
+{
+    "images": [
+        {
+            "collectionName": "charts",
+            "path": "axes-area.chart.png",
+            "description": "Area chart with multiple series and visible axes for data comparison",
+            "files": [
+                "axes-area.chart.tsx"
+            ],
+            "packages": [
+                "@wuba/react-native-echarts",
+                "echarts"
+            ],
+            "tags": [
+                "area",
+                "chart",
+                "visualization",
+                "multi-series",
+                "axes",
+                "comparison",
+                "data-analysis"
+            ]
+        },
+        {
+            "collectionName": "charts",
+            "path": "default-area.chart.png",
+            "description": "Simple single-series area chart with smooth curves and gradient fill",
+            "files": [
+                "default-area.chart.tsx"
+            ],
+            "packages": [
+                "@wuba/react-native-echarts",
+                "echarts"
+            ],
+            "tags": [
+                "area",
+                "chart",
+                "simple",
+                "smooth",
+                "single-series",
+                "visualization",
+                "basic",
+                "gradient"
+            ]
+        },
+        {
+            "collectionName": "charts",
+            "path": "gradient-area.chart.png",
+            "description": "Smooth area chart with gradient fill and multiple overlapping series",
+            "files": [
+                "gradient-area.chart.tsx"
+            ],
+            "packages": [
+                "@wuba/react-native-echarts",
+                "echarts"
+            ],
+            "tags": [
+                "area",
+                "chart",
+                "gradient",
+                "smooth",
+                "multi-series",
+                "visualization",
+                "modern",
+                "overlay"
+            ]
+        },
+        {
+            "collectionName": "charts",
+            "path": "icons-area.chart.png",
+            "description": "Area chart with data point markers and tooltip support for tracking values",
+            "files": [
+                "icons-area.chart.tsx"
+            ],
+            "packages": [
+                "@wuba/react-native-echarts",
+                "echarts"
+            ],
+            "tags": [
+                "area",
+                "chart",
+                "markers",
+                "icons",
+                "tooltip",
+                "data-points",
+                "visualization",
+                "interactive"
+            ]
+        },
+        {
+            "collectionName": "charts",
+            "path": "interactive-area.chart.png",
+            "description": "Multi-series interactive area chart with detailed tooltip and extensive data points",
+            "files": [
+                "interactive-area.chart.tsx"
+            ],
+            "packages": [
+                "@wuba/react-native-echarts",
+                "echarts"
+            ],
+            "tags": [
+                "area",
+                "chart",
+                "interactive",
+                "multi-series",
+                "tooltip",
+                "visualization",
+                "detailed",
+                "timeline"
+            ]
+        },
+        {
+            "collectionName": "charts",
+            "path": "linear-area.chart.png",
+            "description": "Area chart with straight lines connecting data points without curve smoothing",
+            "files": [
+                "linear-area.chart.tsx"
+            ],
+            "packages": [
+                "@wuba/react-native-echarts",
+                "echarts"
+            ],
+            "tags": [
+                "area",
+                "chart",
+                "linear",
+                "straight",
+                "single-series",
+                "visualization",
+                "sharp",
+                "angular"
+            ]
+        },
+        {
+            "collectionName": "charts",
+            "path": "stacked-area.chart.png",
+            "description": "Stacked area chart showing cumulative values of multiple series over time",
+            "files": [
+                "stacked-area.chart.tsx"
+            ],
+            "packages": [
+                "@wuba/react-native-echarts",
+                "echarts"
+            ],
+            "tags": [
+                "area",
+                "chart",
+                "stacked",
+                "cumulative",
+                "multi-series",
+                "visualization",
+                "total",
+                "aggregate"
+            ]
+        },
+        {
+            "collectionName": "charts",
+            "path": "stacked-expanded-area.chart.png",
+            "description": "100% stacked area chart displaying proportional distribution across series",
+            "files": [
+                "stacked-expanded-area.chart.tsx"
+            ],
+            "packages": [
+                "@wuba/react-native-echarts",
+                "echarts"
+            ],
+            "tags": [
+                "area",
+                "chart",
+                "stacked",
+                "percentage",
+                "proportion",
+                "multi-series",
+                "visualization",
+                "distribution",
+                "normalized"
+            ]
+        },
+        {
+            "collectionName": "charts",
+            "path": "step-area.chart.png",
+            "description": "Step area chart with step-line transitions for discrete value changes",
+            "files": [
+                "step-area.chart.tsx"
+            ],
+            "packages": [
+                "@wuba/react-native-echarts",
+                "echarts"
+            ],
+            "tags": [
+                "area",
+                "chart",
+                "step",
+                "discrete",
+                "single-series",
+                "visualization",
+                "stepped",
+                "threshold"
+            ]
+        }
+    ]
+}
