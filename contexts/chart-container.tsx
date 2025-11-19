@@ -67,6 +67,8 @@ const ChartContainer: React.FC<ChartContainerProps> = ({
 const styles = StyleSheet.create({
   container: {
     overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
