@@ -175,7 +175,7 @@ interface GpuUsageGaugeChartProps {
 ### Basic Usage
 
 ```typescript
-import { DefaultGaugeChart } from '@/components/chart/gauge/DefaultGaugeChart';
+import { DefaultGaugeChart } from '@/components/chart/gauge/default-gauge.chart';
 
 export default function MyScreen() {
   return (
@@ -189,7 +189,7 @@ export default function MyScreen() {
 ### Custom Colors
 
 ```typescript
-import { ProgressGaugeChart } from '@/components/chart/gauge/ProgressGaugeChart';
+import { ProgressGaugeChart } from '@/components/chart/gauge/progress-gauge.chart';
 
 export default function MyScreen() {
   return (
@@ -206,7 +206,7 @@ export default function MyScreen() {
 ### Temperature Display
 
 ```typescript
-import { TemperatureGaugeChart } from '@/components/chart/gauge/TemperatureGaugeChart';
+import { TemperatureGaugeChart } from '@/components/chart/gauge/temperature-gauge.chart';
 
 export default function MyScreen() {
   return (
@@ -223,7 +223,7 @@ export default function MyScreen() {
 ### Usage Monitoring
 
 ```typescript
-import { GpuUsageGaugeChart } from '@/components/chart/gauge/GpuUsageGaugeChart';
+import { GpuUsageGaugeChart } from '@/components/chart/gauge/gpu-usage-gauge.chart';
 
 export default function MyScreen() {
   return (
@@ -240,9 +240,9 @@ export default function MyScreen() {
 ### Using Multiple Charts
 
 ```typescript
-import { DefaultGaugeChart } from '@/components/chart/gauge/DefaultGaugeChart';
-import { TemperatureGaugeChart } from '@/components/chart/gauge/TemperatureGaugeChart';
-import { GpuUsageGaugeChart } from '@/components/chart/gauge/GpuUsageGaugeChart';
+import { DefaultGaugeChart } from '@/components/chart/gauge/default-gauge.chart';
+import { TemperatureGaugeChart } from '@/components/chart/gauge/temperature-gauge.chart';
+import { GpuUsageGaugeChart } from '@/components/chart/gauge/gpu-usage-gauge.chart';
 import { ScrollView, View } from 'react-native';
 
 export default function GaugeChartGallery() {

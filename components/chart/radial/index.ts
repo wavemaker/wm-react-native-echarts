@@ -1,6 +1,6 @@
-export { LabelRadialChart } from './LabelRadialChart';
-export { GridRadialChart } from './GridRadialChart';
-export { TextRadialChart } from './TextRadialChart';
-export { ShapeRadialChart } from './ShapeRadialChart';
-export { StackedRadialChart } from './StackedRadialChart';
+export { LabelRadialChart } from './label-radial.chart';
+export { GridRadialChart } from './grid-radial.chart';
+export { TextRadialChart } from './text-radial.chart';
+export { ShapeRadialChart } from './shape-radial.chart';
+export { StackedRadialChart } from './stacked-radial.chart';
 

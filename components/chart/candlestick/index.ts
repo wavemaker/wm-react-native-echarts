@@ -1,4 +1,4 @@
-export * from './BasicCandlestickChart';
-export * from './VolumeCandlestickChart';
-export * from './CandlestickMAChart';
+export * from './basic-candlestick.chart';
+export * from './volume-candlestick.chart';
+export * from './candlestick-ma.chart';
 

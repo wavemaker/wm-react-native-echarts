@@ -428,7 +428,7 @@ interface NegativeBarChartProps {
 ### Basic Usage
 
 ```typescript
-import { DefaultBarChart } from '@/components/chart/bar/DefaultBarChart';
+import { DefaultBarChart } from '@/components/chart/bar/default-bar.chart';
 
 export default function MyScreen() {
   return (
@@ -442,7 +442,7 @@ export default function MyScreen() {
 ### Using Custom Axis Labels (String Array)
 
 ```typescript
-import { DefaultBarChart } from '@/components/chart/bar/DefaultBarChart';
+import { DefaultBarChart } from '@/components/chart/bar/default-bar.chart';
 
 export default function MyScreen() {
   return (
@@ -458,7 +458,7 @@ export default function MyScreen() {
 ### Using Custom Axis Labels (Object Array)
 
 ```typescript
-import { DefaultBarChart } from '@/components/chart/bar/DefaultBarChart';
+import { DefaultBarChart } from '@/components/chart/bar/default-bar.chart';
 
 export default function MyScreen() {
   return (
@@ -479,7 +479,7 @@ export default function MyScreen() {
 ### Using Multiple Series
 
 ```typescript
-import { MultipleBarChart } from '@/components/chart/bar/MultipleBarChart';
+import { MultipleBarChart } from '@/components/chart/bar/multiple-bar.chart';
 
 export default function MyScreen() {
   return (
@@ -503,7 +503,7 @@ export default function MyScreen() {
 ### Using Horizontal Bar Chart
 
 ```typescript
-import { HorizontalBarChart } from '@/components/chart/bar/HorizontalBarChart';
+import { HorizontalBarChart } from '@/components/chart/bar/horizontal-bar.chart';
 
 export default function MyScreen() {
   return (
@@ -519,7 +519,7 @@ export default function MyScreen() {
 ### Using Negative Values
 
 ```typescript
-import { NegativeBarChart } from '@/components/chart/bar/NegativeBarChart';
+import { NegativeBarChart } from '@/components/chart/bar/negative-bar.chart';
 
 export default function MyScreen() {
   return (
@@ -536,9 +536,9 @@ export default function MyScreen() {
 ### Using Multiple Charts
 
 ```typescript
-import { InteractiveBarChart } from '@/components/chart/bar/InteractiveBarChart';
-import { MultipleBarChart } from '@/components/chart/bar/MultipleBarChart';
-import { StackedBarChart } from '@/components/chart/bar/StackedBarChart';
+import { InteractiveBarChart } from '@/components/chart/bar/interactive-bar.chart';
+import { MultipleBarChart } from '@/components/chart/bar/multiple-bar.chart';
+import { StackedBarChart } from '@/components/chart/bar/stacked-bar.chart';
 import { ScrollView } from 'react-native';
 
 export default function BarChartGallery() {

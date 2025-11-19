@@ -337,7 +337,7 @@ interface CustomLabelLineChartProps {
 ### Basic Usage
 
 ```typescript
-import { DefaultLineChart } from '@/components/chart/line/DefaultLineChart';
+import { DefaultLineChart } from '@/components/chart/line/default-line.chart';
 
 export default function MyScreen() {
   return (
@@ -351,7 +351,7 @@ export default function MyScreen() {
 ### Using Custom Axis Labels (String Array)
 
 ```typescript
-import { DefaultLineChart } from '@/components/chart/line/DefaultLineChart';
+import { DefaultLineChart } from '@/components/chart/line/default-line.chart';
 
 export default function MyScreen() {
   return (
@@ -366,7 +366,7 @@ export default function MyScreen() {
 ### Using Custom Axis Labels (Object Array)
 
 ```typescript
-import { DefaultLineChart } from '@/components/chart/line/DefaultLineChart';
+import { DefaultLineChart } from '@/components/chart/line/default-line.chart';
 
 export default function MyScreen() {
   return (
@@ -386,7 +386,7 @@ export default function MyScreen() {
 ### Using Multiple Series
 
 ```typescript
-import { MultipleLineChart } from '@/components/chart/line/MultipleLineChart';
+import { MultipleLineChart } from '@/components/chart/line/multiple-line.chart';
 
 export default function MyScreen() {
   return (
@@ -404,7 +404,7 @@ export default function MyScreen() {
 ### Using Custom Dot Colors
 
 ```typescript
-import { DotsColorsLineChart } from '@/components/chart/line/DotsColorsLineChart';
+import { DotsColorsLineChart } from '@/components/chart/line/dots-colors-line.chart';
 
 export default function MyScreen() {
   return (
@@ -427,9 +427,9 @@ export default function MyScreen() {
 ### Using Multiple Charts
 
 ```typescript
-import { InteractiveLineChart } from '@/components/chart/line/InteractiveLineChart';
-import { LinearLineChart } from '@/components/chart/line/LinearLineChart';
-import { StepLineChart } from '@/components/chart/line/StepLineChart';
+import { InteractiveLineChart } from '@/components/chart/line/interactive-line.chart';
+import { LinearLineChart } from '@/components/chart/line/linear-line.chart';
+import { StepLineChart } from '@/components/chart/line/step-line.chart';
 import { ScrollView } from 'react-native';
 
 export default function LineChartGallery() {

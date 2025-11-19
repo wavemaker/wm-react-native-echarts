@@ -237,7 +237,7 @@ export default function BarChartScreen() {
             <View key={index} style={styles.chartCard}>
               <View style={styles.chartCardHeader}>
                 <View style={styles.chartCardIcon}>
-                  <Ionicons name="bar-chart" size={20} color="#3b82f6" />
+                  <Ionicons name="bar.chart" size={20} color="#3b82f6" />
                 </View>
                 <View style={{ flex: 1, marginLeft: 10 }}>
                   <Text style={styles.chartCardTitle}>

@@ -54,7 +54,7 @@ World population map with visual mapping based on population data.
 
 **Usage:**
 ```tsx
-import { PopulationGeoChart } from '@/components/chart/geo/PopulationGeoChart';
+import { PopulationGeoChart } from '@/components/chart/geo/population-geo.chart';
 
 <PopulationGeoChart 
   data={[
@@ -85,7 +85,7 @@ World GDP map with visual mapping based on economic data.
 
 **Usage:**
 ```tsx
-import { GDPGeoChart } from '@/components/chart/geo/GDPGeoChart';
+import { GDPGeoChart } from '@/components/chart/geo/gdp-geo.chart';
 
 <GDPGeoChart 
   data={[
@@ -116,7 +116,7 @@ Basic world map with simple visual mapping.
 
 **Usage:**
 ```tsx
-import { DefaultGeoChart } from '@/components/chart/geo/DefaultGeoChart';
+import { DefaultGeoChart } from '@/components/chart/geo/default-geo.chart';
 
 <DefaultGeoChart 
   data={[
@@ -149,7 +149,7 @@ Feature-rich interactive world map with full customization.
 
 **Usage:**
 ```tsx
-import { InteractiveGeoChart } from '@/components/chart/geo/InteractiveGeoChart';
+import { InteractiveGeoChart } from '@/components/chart/geo/interactive-geo.chart';
 
 <InteractiveGeoChart 
   data={[

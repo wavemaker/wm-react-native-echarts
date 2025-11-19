@@ -191,7 +191,7 @@ export default function HomeScreen() {
           <Link key={chart.id} href={chart.id as any} asChild>
             <TouchableOpacity style={styles.chartCard}>
               <View style={[styles.iconContainer, { backgroundColor: chart.color }]}>
-                <Ionicons name={chart.icon} size={32} color="white" />
+                <Ionicons name={chart.icon as any} size={32} color="white" />
               </View>
               <View style={styles.chartInfo}>
                 <Text style={styles.chartTitle}>

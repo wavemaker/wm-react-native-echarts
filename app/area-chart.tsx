@@ -1,14 +1,14 @@
 import { useTheme } from '@/contexts/ThemeContext';
-import { AxesAreaChart } from '@/components/chart/area/AxesAreaChart';
-import { DefaultAreaChart } from '@/components/chart/area/DefaultAreaChart';
-import { GradientAreaChart } from '@/components/chart/area/GradientAreaChart';
-import { IconsAreaChart } from '@/components/chart/area/IconsAreaChart';
-import { InteractiveAreaChart } from '@/components/chart/area/InteractiveAreaChart';
-import { LegendAreaChart } from '@/components/chart/area/LegendAreaChart';
-import { LinearAreaChart } from '@/components/chart/area/LinearAreaChart';
-import { StackedAreaChart } from '@/components/chart/area/StackedAreaChart';
-import { StackedExpandedAreaChart } from '@/components/chart/area/StackedExpandedAreaChart';
-import { StepAreaChart } from '@/components/chart/area/StepAreaChart';
+import { AxesAreaChart } from '@/components/chart/area/axes-area.chart';
+import { DefaultAreaChart } from '@/components/chart/area/default-area.chart';
+import { GradientAreaChart } from '@/components/chart/area/gradient-area.chart';
+import { IconsAreaChart } from '@/components/chart/area/icons-area.chart';
+import { InteractiveAreaChart } from '@/components/chart/area/interactive-area.chart';
+import { LegendAreaChart } from '@/components/chart/area/legend-area.chart';
+import { LinearAreaChart } from '@/components/chart/area/linear-area.chart';
+import { StackedAreaChart } from '@/components/chart/area/stacked-area.chart';
+import { StackedExpandedAreaChart } from '@/components/chart/area/stacked-expanded-area.chart';
+import { StepAreaChart } from '@/components/chart/area/step-area.chart';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default function AreaChartScreen() {

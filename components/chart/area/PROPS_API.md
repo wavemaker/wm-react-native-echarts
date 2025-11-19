@@ -105,7 +105,7 @@ interface Props {
 ### 1. Default Usage (with default data)
 
 ```typescript
-import { DefaultAreaChart } from '@/components/chart/area/DefaultAreaChart';
+import { DefaultAreaChart } from '@/components/chart/area/default-area.chart';
 
 export default function MyScreen() {
   return <DefaultAreaChart />;
@@ -115,7 +115,7 @@ export default function MyScreen() {
 ### 2. Custom Data (Single Series)
 
 ```typescript
-import { DefaultAreaChart } from '@/components/chart/area/DefaultAreaChart';
+import { DefaultAreaChart } from '@/components/chart/area/default-area.chart';
 
 export default function MyScreen() {
   return (
@@ -133,7 +133,7 @@ export default function MyScreen() {
 ### 3. Custom Data with Y-Axis Labels
 
 ```typescript
-import { DefaultAreaChart } from '@/components/chart/area/DefaultAreaChart';
+import { DefaultAreaChart } from '@/components/chart/area/default-area.chart';
 
 export default function MyScreen() {
   return (
@@ -153,7 +153,7 @@ export default function MyScreen() {
 ### 4. Multiple Series with Legend
 
 ```typescript
-import { LegendAreaChart } from '@/components/chart/area/LegendAreaChart';
+import { LegendAreaChart } from '@/components/chart/area/legend-area.chart';
 
 export default function MyScreen() {
   return (
@@ -188,7 +188,7 @@ export default function MyScreen() {
 ### 5. Stacked Chart
 
 ```typescript
-import { StackedAreaChart } from '@/components/chart/area/StackedAreaChart';
+import { StackedAreaChart } from '@/components/chart/area/stacked-area.chart';
 
 export default function MyScreen() {
   return (
@@ -216,7 +216,7 @@ export default function MyScreen() {
 ### 6. Chart with Custom Gradient
 
 ```typescript
-import { GradientAreaChart } from '@/components/chart/area/GradientAreaChart';
+import { GradientAreaChart } from '@/components/chart/area/gradient-area.chart';
 
 export default function MyScreen() {
   return (
@@ -242,7 +242,7 @@ export default function MyScreen() {
 ### 7. Axes Chart with Grid (String Array)
 
 ```typescript
-import { AxesAreaChart } from '@/components/chart/area/AxesAreaChart';
+import { AxesAreaChart } from '@/components/chart/area/axes-area.chart';
 
 export default function MyScreen() {
   return (
@@ -262,7 +262,7 @@ export default function MyScreen() {
 ### 7b. Axes Chart with Object Array (Explicit Values)
 
 ```typescript
-import { AxesAreaChart } from '@/components/chart/area/AxesAreaChart';
+import { AxesAreaChart } from '@/components/chart/area/axes-area.chart';
 
 export default function MyScreen() {
   return (
@@ -291,7 +291,7 @@ export default function MyScreen() {
 ### 8. Dynamic Data from API
 
 ```typescript
-import { DefaultAreaChart } from '@/components/chart/area/DefaultAreaChart';
+import { DefaultAreaChart } from '@/components/chart/area/default-area.chart';
 import { useEffect, useState } from 'react';
 
 export default function MyScreen() {
@@ -325,7 +325,7 @@ export default function MyScreen() {
 ### 9. Interactive Chart with State
 
 ```typescript
-import { InteractiveAreaChart } from '@/components/chart/area/InteractiveAreaChart';
+import { InteractiveAreaChart } from '@/components/chart/area/interactive-area.chart';
 import { useState } from 'react';
 import { View, Button } from 'react-native';
 
@@ -375,9 +375,9 @@ export default function MyScreen() {
 
 ```typescript
 import { ScrollView, Text, View } from 'react-native';
-import { DefaultAreaChart } from '@/components/chart/area/DefaultAreaChart';
-import { LegendAreaChart } from '@/components/chart/area/LegendAreaChart';
-import { StackedAreaChart } from '@/components/chart/area/StackedAreaChart';
+import { DefaultAreaChart } from '@/components/chart/area/default-area.chart';
+import { LegendAreaChart } from '@/components/chart/area/legend-area.chart';
+import { StackedAreaChart } from '@/components/chart/area/stacked-area.chart';
 
 export default function DashboardScreen() {
   return (

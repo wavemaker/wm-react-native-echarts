@@ -299,7 +299,7 @@ interface AxesAreaChartProps {
 ### Basic Usage
 
 ```typescript
-import { DefaultAreaChart } from '@/components/chart/area/DefaultAreaChart';
+import { DefaultAreaChart } from '@/components/chart/area/default-area.chart';
 
 export default function MyScreen() {
   return (
@@ -313,7 +313,7 @@ export default function MyScreen() {
 ### Using Custom Axis Labels (String Array)
 
 ```typescript
-import { DefaultAreaChart } from '@/components/chart/area/DefaultAreaChart';
+import { DefaultAreaChart } from '@/components/chart/area/default-area.chart';
 
 export default function MyScreen() {
   return (
@@ -330,7 +330,7 @@ export default function MyScreen() {
 ### Using Custom Axis Labels (Object Array)
 
 ```typescript
-import { DefaultAreaChart } from '@/components/chart/area/DefaultAreaChart';
+import { DefaultAreaChart } from '@/components/chart/area/default-area.chart';
 
 export default function MyScreen() {
   return (
@@ -352,9 +352,9 @@ export default function MyScreen() {
 ### Using Multiple Charts
 
 ```typescript
-import { InteractiveAreaChart } from '@/components/chart/area/InteractiveAreaChart';
-import { LinearAreaChart } from '@/components/chart/area/LinearAreaChart';
-import { StepAreaChart } from '@/components/chart/area/StepAreaChart';
+import { InteractiveAreaChart } from '@/components/chart/area/interactive-area.chart';
+import { LinearAreaChart } from '@/components/chart/area/linear-area.chart';
+import { StepAreaChart } from '@/components/chart/area/step-area.chart';
 import { ScrollView } from 'react-native';
 
 export default function AreaChartGallery() {

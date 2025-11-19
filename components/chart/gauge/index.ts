@@ -1,5 +1,5 @@
-export { DefaultGaugeChart } from './DefaultGaugeChart';
-export { ProgressGaugeChart } from './ProgressGaugeChart';
-export { TemperatureGaugeChart } from './TemperatureGaugeChart';
-export { GpuUsageGaugeChart } from './GpuUsageGaugeChart';
+export { DefaultGaugeChart } from './default-gauge.chart';
+export { ProgressGaugeChart } from './progress-gauge.chart';
+export { TemperatureGaugeChart } from './temperature-gauge.chart';
+export { GpuUsageGaugeChart } from './gpu-usage-gauge.chart';
 

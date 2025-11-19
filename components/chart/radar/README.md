@@ -348,7 +348,7 @@ interface LegendRadarChartProps {
 ### Basic Usage
 
 ```typescript
-import { BasicRadarChart } from '@/components/chart/radar/BasicRadarChart';
+import { BasicRadarChart } from '@/components/chart/radar/basic-radar.chart';
 
 export default function MyScreen() {
   return (
@@ -362,7 +362,7 @@ export default function MyScreen() {
 ### Using Custom Indicators and Data
 
 ```typescript
-import { BasicRadarChart } from '@/components/chart/radar/BasicRadarChart';
+import { BasicRadarChart } from '@/components/chart/radar/basic-radar.chart';
 
 export default function MyScreen() {
   return (
@@ -384,7 +384,7 @@ export default function MyScreen() {
 ### Using Multiple Series
 
 ```typescript
-import { LegendRadarChart } from '@/components/chart/radar/LegendRadarChart';
+import { LegendRadarChart } from '@/components/chart/radar/legend-radar.chart';
 
 export default function MyScreen() {
   return (
@@ -409,7 +409,7 @@ export default function MyScreen() {
 ### Using Filled Grid Background
 
 ```typescript
-import { GridCircleFilledRadarChart } from '@/components/chart/radar/GridCircleFilledRadarChart';
+import { GridCircleFilledRadarChart } from '@/components/chart/radar/grid-circle-filled-radar.chart';
 
 export default function MyScreen() {
   return (
@@ -431,9 +431,9 @@ export default function MyScreen() {
 ### Using Multiple Charts
 
 ```typescript
-import { BasicRadarChart } from '@/components/chart/radar/BasicRadarChart';
-import { GridCircleRadarChart } from '@/components/chart/radar/GridCircleRadarChart';
-import { LegendRadarChart } from '@/components/chart/radar/LegendRadarChart';
+import { BasicRadarChart } from '@/components/chart/radar/basic-radar.chart';
+import { GridCircleRadarChart } from '@/components/chart/radar/grid-circle-radar.chart';
+import { LegendRadarChart } from '@/components/chart/radar/legend-radar.chart';
 import { ScrollView } from 'react-native';
 
 export default function RadarChartGallery() {

@@ -69,7 +69,7 @@ interface Props {
 ### 1. Default Usage (with default data)
 
 ```typescript
-import { BasicRadarChart } from '@/components/chart/radar/BasicRadarChart';
+import { BasicRadarChart } from '@/components/chart/radar/basic-radar.chart';
 
 export default function MyScreen() {
   return <BasicRadarChart />;
@@ -79,7 +79,7 @@ export default function MyScreen() {
 ### 2. Custom Data (Single Series)
 
 ```typescript
-import { BasicRadarChart } from '@/components/chart/radar/BasicRadarChart';
+import { BasicRadarChart } from '@/components/chart/radar/basic-radar.chart';
 
 export default function MyScreen() {
   return (
@@ -101,7 +101,7 @@ export default function MyScreen() {
 ### 3. Radar Chart with Dots/Markers
 
 ```typescript
-import { DotsRadarChart } from '@/components/chart/radar/DotsRadarChart';
+import { DotsRadarChart } from '@/components/chart/radar/dots-radar.chart';
 
 export default function MyScreen() {
   return (
@@ -123,7 +123,7 @@ export default function MyScreen() {
 ### 4. Lines Only (No Fill)
 
 ```typescript
-import { LinesOnlyRadarChart } from '@/components/chart/radar/LinesOnlyRadarChart';
+import { LinesOnlyRadarChart } from '@/components/chart/radar/lines-only-radar.chart';
 
 export default function MyScreen() {
   return (
@@ -144,7 +144,7 @@ export default function MyScreen() {
 ### 5. Custom Labels (Value Display)
 
 ```typescript
-import { CustomLabelRadarChart } from '@/components/chart/radar/CustomLabelRadarChart';
+import { CustomLabelRadarChart } from '@/components/chart/radar/custom-label-radar.chart';
 
 export default function MyScreen() {
   return (
@@ -166,7 +166,7 @@ export default function MyScreen() {
 ### 6. No Grid Lines
 
 ```typescript
-import { GridNoneRadarChart } from '@/components/chart/radar/GridNoneRadarChart';
+import { GridNoneRadarChart } from '@/components/chart/radar/grid-none-radar.chart';
 
 export default function MyScreen() {
   return (
@@ -189,7 +189,7 @@ export default function MyScreen() {
 ### 7. Circular Grid
 
 ```typescript
-import { GridCircleRadarChart } from '@/components/chart/radar/GridCircleRadarChart';
+import { GridCircleRadarChart } from '@/components/chart/radar/grid-circle-radar.chart';
 
 export default function MyScreen() {
   return (
@@ -211,7 +211,7 @@ export default function MyScreen() {
 ### 8. Circular Grid Without Axis Lines
 
 ```typescript
-import { GridCircleNoLinesRadarChart } from '@/components/chart/radar/GridCircleNoLinesRadarChart';
+import { GridCircleNoLinesRadarChart } from '@/components/chart/radar/grid-circle-no-lines-radar.chart';
 
 export default function MyScreen() {
   return (
@@ -232,7 +232,7 @@ export default function MyScreen() {
 ### 9. Circular Grid with Filled Background
 
 ```typescript
-import { GridCircleFilledRadarChart } from '@/components/chart/radar/GridCircleFilledRadarChart';
+import { GridCircleFilledRadarChart } from '@/components/chart/radar/grid-circle-filled-radar.chart';
 
 export default function MyScreen() {
   return (
@@ -255,7 +255,7 @@ export default function MyScreen() {
 ### 10. Polygon Grid with Filled Background
 
 ```typescript
-import { GridFilledRadarChart } from '@/components/chart/radar/GridFilledRadarChart';
+import { GridFilledRadarChart } from '@/components/chart/radar/grid-filled-radar.chart';
 
 export default function MyScreen() {
   return (
@@ -279,7 +279,7 @@ export default function MyScreen() {
 ### 11. Multiple Series
 
 ```typescript
-import { MultipleRadarChart } from '@/components/chart/radar/MultipleRadarChart';
+import { MultipleRadarChart } from '@/components/chart/radar/multiple-radar.chart';
 
 export default function MyScreen() {
   return (
@@ -303,7 +303,7 @@ export default function MyScreen() {
 ### 12. Multiple Series with Legend
 
 ```typescript
-import { LegendRadarChart } from '@/components/chart/radar/LegendRadarChart';
+import { LegendRadarChart } from '@/components/chart/radar/legend-radar.chart';
 
 export default function MyScreen() {
   return (
@@ -329,7 +329,7 @@ export default function MyScreen() {
 ### 13. Dynamic Data from API
 
 ```typescript
-import { BasicRadarChart } from '@/components/chart/radar/BasicRadarChart';
+import { BasicRadarChart } from '@/components/chart/radar/basic-radar.chart';
 import { useEffect, useState } from 'react';
 
 export default function MyScreen() {
@@ -365,7 +365,7 @@ export default function MyScreen() {
 ### 14. Character Stats Comparison
 
 ```typescript
-import { LegendRadarChart } from '@/components/chart/radar/LegendRadarChart';
+import { LegendRadarChart } from '@/components/chart/radar/legend-radar.chart';
 import { useState } from 'react';
 import { View, Button } from 'react-native';
 
@@ -406,9 +406,9 @@ export default function CharacterComparison() {
 
 ```typescript
 import { ScrollView, Text, View } from 'react-native';
-import { BasicRadarChart } from '@/components/chart/radar/BasicRadarChart';
-import { GridCircleFilledRadarChart } from '@/components/chart/radar/GridCircleFilledRadarChart';
-import { LegendRadarChart } from '@/components/chart/radar/LegendRadarChart';
+import { BasicRadarChart } from '@/components/chart/radar/basic-radar.chart';
+import { GridCircleFilledRadarChart } from '@/components/chart/radar/grid-circle-filled-radar.chart';
+import { LegendRadarChart } from '@/components/chart/radar/legend-radar.chart';
 
 export default function SkillsDashboard() {
   const technicalSkills = [
@@ -547,7 +547,7 @@ All components are fully typed with TypeScript interfaces. Your IDE will provide
 You can customize the theme by passing a theme prop:
 
 ```typescript
-import { BasicRadarChart } from '@/components/chart/radar/BasicRadarChart';
+import { BasicRadarChart } from '@/components/chart/radar/basic-radar.chart';
 
 export default function MyScreen() {
   return (

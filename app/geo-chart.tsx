@@ -1,8 +1,8 @@
 import { useTheme } from '@/contexts/ThemeContext';
-import { DefaultGeoChart } from '@/components/chart/geo/DefaultGeoChart';
-import { GDPGeoChart } from '@/components/chart/geo/GDPGeoChart';
-import { InteractiveGeoChart } from '@/components/chart/geo/InteractiveGeoChart';
-import { PopulationGeoChart } from '@/components/chart/geo/PopulationGeoChart';
+import { DefaultGeoChart } from '@/components/chart/geo/default-geo.chart';
+import { GDPGeoChart } from '@/components/chart/geo/gdp-geo.chart';
+import { InteractiveGeoChart } from '@/components/chart/geo/interactive-geo.chart';
+import { PopulationGeoChart } from '@/components/chart/geo/population-geo.chart';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default function GeoChartScreen() {

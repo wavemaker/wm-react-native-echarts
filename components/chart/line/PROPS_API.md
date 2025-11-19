@@ -79,7 +79,7 @@ interface Props {
 ### 1. Default Usage (with default data)
 
 ```typescript
-import { DefaultLineChart } from '@/components/chart/line/DefaultLineChart';
+import { DefaultLineChart } from '@/components/chart/line/default-line.chart';
 
 export default function MyScreen() {
   return <DefaultLineChart />;
@@ -89,7 +89,7 @@ export default function MyScreen() {
 ### 2. Custom Data (Single Series)
 
 ```typescript
-import { DefaultLineChart } from '@/components/chart/line/DefaultLineChart';
+import { DefaultLineChart } from '@/components/chart/line/default-line.chart';
 
 export default function MyScreen() {
   return (
@@ -105,7 +105,7 @@ export default function MyScreen() {
 ### 3. Linear Line Chart (Straight Segments)
 
 ```typescript
-import { LinearLineChart } from '@/components/chart/line/LinearLineChart';
+import { LinearLineChart } from '@/components/chart/line/linear-line.chart';
 
 export default function MyScreen() {
   return (
@@ -121,7 +121,7 @@ export default function MyScreen() {
 ### 4. Step Line Chart
 
 ```typescript
-import { StepLineChart } from '@/components/chart/line/StepLineChart';
+import { StepLineChart } from '@/components/chart/line/step-line.chart';
 
 export default function MyScreen() {
   return (
@@ -137,7 +137,7 @@ export default function MyScreen() {
 ### 5. Multiple Series with Legend
 
 ```typescript
-import { MultipleLineChart } from '@/components/chart/line/MultipleLineChart';
+import { MultipleLineChart } from '@/components/chart/line/multiple-line.chart';
 
 export default function MyScreen() {
   return (
@@ -166,7 +166,7 @@ export default function MyScreen() {
 ### 6. Line Chart with Dots
 
 ```typescript
-import { DotsLineChart } from '@/components/chart/line/DotsLineChart';
+import { DotsLineChart } from '@/components/chart/line/dots-line.chart';
 
 export default function MyScreen() {
   return (
@@ -182,7 +182,7 @@ export default function MyScreen() {
 ### 7. Custom Dots with Borders
 
 ```typescript
-import { CustomDotsLineChart } from '@/components/chart/line/CustomDotsLineChart';
+import { CustomDotsLineChart } from '@/components/chart/line/custom-dots-line.chart';
 
 export default function MyScreen() {
   return (
@@ -198,7 +198,7 @@ export default function MyScreen() {
 ### 8. Dots with Individual Colors
 
 ```typescript
-import { DotsColorsLineChart } from '@/components/chart/line/DotsColorsLineChart';
+import { DotsColorsLineChart } from '@/components/chart/line/dots-colors-line.chart';
 
 export default function MyScreen() {
   return (
@@ -222,7 +222,7 @@ export default function MyScreen() {
 ### 9. Line Chart with Labels
 
 ```typescript
-import { LabelLineChart } from '@/components/chart/line/LabelLineChart';
+import { LabelLineChart } from '@/components/chart/line/label-line.chart';
 
 export default function MyScreen() {
   return (
@@ -238,7 +238,7 @@ export default function MyScreen() {
 ### 10. Custom Labels (Browser Names)
 
 ```typescript
-import { CustomLabelLineChart } from '@/components/chart/line/CustomLabelLineChart';
+import { CustomLabelLineChart } from '@/components/chart/line/custom-label-line.chart';
 
 export default function MyScreen() {
   return (
@@ -261,7 +261,7 @@ export default function MyScreen() {
 ### 11. Interactive Chart (Desktop & Mobile)
 
 ```typescript
-import { InteractiveLineChart } from '@/components/chart/line/InteractiveLineChart';
+import { InteractiveLineChart } from '@/components/chart/line/interactive-line.chart';
 
 export default function MyScreen() {
   return (
@@ -286,7 +286,7 @@ export default function MyScreen() {
 ### 12. Dynamic Data from API
 
 ```typescript
-import { DefaultLineChart } from '@/components/chart/line/DefaultLineChart';
+import { DefaultLineChart } from '@/components/chart/line/default-line.chart';
 import { useEffect, useState } from 'react';
 
 export default function MyScreen() {
@@ -319,7 +319,7 @@ export default function MyScreen() {
 ### 13. Interactive Chart with Time Range Selector
 
 ```typescript
-import { MultipleLineChart } from '@/components/chart/line/MultipleLineChart';
+import { MultipleLineChart } from '@/components/chart/line/multiple-line.chart';
 import { useState } from 'react';
 import { View, Button } from 'react-native';
 
@@ -366,7 +366,7 @@ export default function MyScreen() {
 ### 14. Using Object Array for Axis Data (Explicit Values)
 
 ```typescript
-import { DefaultLineChart } from '@/components/chart/line/DefaultLineChart';
+import { DefaultLineChart } from '@/components/chart/line/default-line.chart';
 
 export default function MyScreen() {
   return (
@@ -388,9 +388,9 @@ export default function MyScreen() {
 
 ```typescript
 import { ScrollView, Text, View } from 'react-native';
-import { DefaultLineChart } from '@/components/chart/line/DefaultLineChart';
-import { MultipleLineChart } from '@/components/chart/line/MultipleLineChart';
-import { DotsLineChart } from '@/components/chart/line/DotsLineChart';
+import { DefaultLineChart } from '@/components/chart/line/default-line.chart';
+import { MultipleLineChart } from '@/components/chart/line/multiple-line.chart';
+import { DotsLineChart } from '@/components/chart/line/dots-line.chart';
 
 export default function DashboardScreen() {
   return (
@@ -506,7 +506,7 @@ All components are fully typed with TypeScript interfaces. Your IDE will provide
 You can customize the theme by passing a theme prop:
 
 ```typescript
-import { DefaultLineChart } from '@/components/chart/line/DefaultLineChart';
+import { DefaultLineChart } from '@/components/chart/line/default-line.chart';
 
 export default function MyScreen() {
   return (

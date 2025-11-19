@@ -1,12 +1,12 @@
-export { BasicRadarChart } from './BasicRadarChart';
-export { DotsRadarChart } from './DotsRadarChart';
-export { LinesOnlyRadarChart } from './LinesOnlyRadarChart';
-export { CustomLabelRadarChart } from './CustomLabelRadarChart';
-export { GridNoneRadarChart } from './GridNoneRadarChart';
-export { GridCircleRadarChart } from './GridCircleRadarChart';
-export { GridCircleNoLinesRadarChart } from './GridCircleNoLinesRadarChart';
-export { GridCircleFilledRadarChart } from './GridCircleFilledRadarChart';
-export { GridFilledRadarChart } from './GridFilledRadarChart';
-export { MultipleRadarChart } from './MultipleRadarChart';
-export { LegendRadarChart } from './LegendRadarChart';
+export { BasicRadarChart } from './basic-radar.chart';
+export { DotsRadarChart } from './dots-radar.chart';
+export { LinesOnlyRadarChart } from './lines-only-radar.chart';
+export { CustomLabelRadarChart } from './custom-label-radar.chart';
+export { GridNoneRadarChart } from './grid-none-radar.chart';
+export { GridCircleRadarChart } from './grid-circle-radar.chart';
+export { GridCircleNoLinesRadarChart } from './grid-circle-no-lines-radar.chart';
+export { GridCircleFilledRadarChart } from './grid-circle-filled-radar.chart';
+export { GridFilledRadarChart } from './grid-filled-radar.chart';
+export { MultipleRadarChart } from './multiple-radar.chart';
+export { LegendRadarChart } from './legend-radar.chart';
 
