@@ -9,7 +9,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["candlestick", "chart", "basic", "financial", "stock", "ohlc", "visualization", "trading", "zoom"]
     },
     {
@@ -21,7 +27,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["candlestick", "chart", "moving-average", "technical-analysis", "stock", "financial", "ma", "overlay", "visualization", "trading"]
     },
     {
@@ -33,7 +45,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["candlestick", "chart", "volume", "trading", "stock", "financial", "multi-panel", "bar", "visualization", "technical"]
     }
   ]

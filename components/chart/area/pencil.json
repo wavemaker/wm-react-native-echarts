@@ -10,8 +10,11 @@
                 "../../../contexts/chart-theme.context.tsx"
             ],
             "packages": [
-                "@wuba/react-native-echarts",
-                "echarts"
+                "@wuba/react-native-echarts@3.0.1",
+                "@shopify/react-native-skia@2.2.12",
+                "react-native-svg@15.12.1",
+                "echarts@5.5.1",
+                "zrender@5.6.0"
             ],
             "tags": [
                 "area",
@@ -31,8 +34,11 @@
                 "default-area.chart.tsx"
             ],
             "packages": [
-                "@wuba/react-native-echarts",
-                "echarts"
+                "@wuba/react-native-echarts@3.0.1",
+                "@shopify/react-native-skia@2.2.12",
+                "react-native-svg@15.12.1",
+                "echarts@5.5.1",
+                "zrender@5.6.0"
             ],
             "tags": [
                 "area",
@@ -53,8 +59,11 @@
                 "gradient-area.chart.tsx"
             ],
             "packages": [
-                "@wuba/react-native-echarts",
-                "echarts"
+                "@wuba/react-native-echarts@3.0.1",
+                "@shopify/react-native-skia@2.2.12",
+                "react-native-svg@15.12.1",
+                "echarts@5.5.1",
+                "zrender@5.6.0"
             ],
             "tags": [
                 "area",
@@ -75,8 +84,11 @@
                 "icons-area.chart.tsx"
             ],
             "packages": [
-                "@wuba/react-native-echarts",
-                "echarts"
+                "@wuba/react-native-echarts@3.0.1",
+                "@shopify/react-native-skia@2.2.12",
+                "react-native-svg@15.12.1",
+                "echarts@5.5.1",
+                "zrender@5.6.0"
             ],
             "tags": [
                 "area",
@@ -97,8 +109,11 @@
                 "interactive-area.chart.tsx"
             ],
             "packages": [
-                "@wuba/react-native-echarts",
-                "echarts"
+                "@wuba/react-native-echarts@3.0.1",
+                "@shopify/react-native-skia@2.2.12",
+                "react-native-svg@15.12.1",
+                "echarts@5.5.1",
+                "zrender@5.6.0"
             ],
             "tags": [
                 "area",
@@ -119,8 +134,11 @@
                 "linear-area.chart.tsx"
             ],
             "packages": [
-                "@wuba/react-native-echarts",
-                "echarts"
+                "@wuba/react-native-echarts@3.0.1",
+                "@shopify/react-native-skia@2.2.12",
+                "react-native-svg@15.12.1",
+                "echarts@5.5.1",
+                "zrender@5.6.0"
             ],
             "tags": [
                 "area",
@@ -141,8 +159,11 @@
                 "stacked-area.chart.tsx"
             ],
             "packages": [
-                "@wuba/react-native-echarts",
-                "echarts"
+                "@wuba/react-native-echarts@3.0.1",
+                "@shopify/react-native-skia@2.2.12",
+                "react-native-svg@15.12.1",
+                "echarts@5.5.1",
+                "zrender@5.6.0"
             ],
             "tags": [
                 "area",
@@ -163,8 +184,11 @@
                 "stacked-expanded-area.chart.tsx"
             ],
             "packages": [
-                "@wuba/react-native-echarts",
-                "echarts"
+                "@wuba/react-native-echarts@3.0.1",
+                "@shopify/react-native-skia@2.2.12",
+                "react-native-svg@15.12.1",
+                "echarts@5.5.1",
+                "zrender@5.6.0"
             ],
             "tags": [
                 "area",
@@ -186,8 +210,11 @@
                 "step-area.chart.tsx"
             ],
             "packages": [
-                "@wuba/react-native-echarts",
-                "echarts"
+                "@wuba/react-native-echarts@3.0.1",
+                "@shopify/react-native-skia@2.2.12",
+                "react-native-svg@15.12.1",
+                "echarts@5.5.1",
+                "zrender@5.6.0"
             ],
             "tags": [
                 "area",

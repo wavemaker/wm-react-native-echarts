@@ -9,7 +9,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["radar", "chart", "basic", "simple", "polygon", "filled", "visualization", "spider"]
     },
     {
@@ -21,7 +27,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["radar", "chart", "labels", "custom", "values", "annotated", "visualization", "detailed"]
     },
     {
@@ -33,7 +45,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["radar", "chart", "dots", "markers", "symbols", "points", "visualization", "highlighted"]
     },
     {
@@ -45,7 +63,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["radar", "chart", "circular", "grid", "filled", "gradient", "visualization", "concentric"]
     },
     {
@@ -57,7 +81,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["radar", "chart", "circular", "grid", "clean", "minimal", "visualization", "no-lines"]
     },
     {
@@ -69,7 +99,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["radar", "chart", "circular", "grid", "radial", "lines", "visualization", "web"]
     },
     {
@@ -81,7 +117,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["radar", "chart", "polygon", "grid", "filled", "gradient", "visualization", "structured"]
     },
     {
@@ -93,7 +135,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["radar", "chart", "minimal", "clean", "simple", "no-grid", "visualization", "basic"]
     },
     {
@@ -105,7 +153,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["radar", "chart", "lines", "outline", "stroke", "unfilled", "visualization", "wireframe"]
     },
     {
@@ -117,7 +171,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["radar", "chart", "multiple", "multi-series", "comparison", "overlay", "visualization", "datasets"]
     }
   ]

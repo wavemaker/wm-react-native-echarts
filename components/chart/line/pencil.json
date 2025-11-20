@@ -9,7 +9,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["line", "chart", "labels", "custom", "annotated", "visualization", "markers", "text"]
     },
     {
@@ -21,7 +27,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["line", "chart", "simple", "smooth", "single-series", "visualization", "basic", "clean"]
     },
     {
@@ -33,7 +45,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["line", "chart", "dots", "markers", "colors", "custom-colors", "visualization", "colorful", "highlighted"]
     },
     {
@@ -45,7 +63,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["line", "chart", "dots", "markers", "smooth", "single-series", "visualization", "points"]
     },
     {
@@ -57,7 +81,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["line", "chart", "interactive", "multi-series", "legend", "tooltip", "visualization", "detailed", "timeline"]
     },
     {
@@ -69,7 +99,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["line", "chart", "linear", "straight", "single-series", "visualization", "sharp", "angular"]
     },
     {
@@ -81,7 +117,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["line", "chart", "multi-series", "legend", "comparison", "smooth", "visualization", "multiple"]
     },
     {
@@ -93,7 +135,13 @@
         "../../../contexts/chart-container.tsx",
         "../../../contexts/chart-theme.context.tsx"
       ],
-      "packages": ["@wuba/react-native-echarts", "echarts"],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
       "tags": ["line", "chart", "step", "discrete", "single-series", "visualization", "stepped", "threshold"]
     }
   ]
