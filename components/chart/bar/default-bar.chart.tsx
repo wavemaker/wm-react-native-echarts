@@ -23,6 +23,8 @@ interface DefaultBarChartProps {
   xAxisData?: AxisData;
   data?: number[];
   color?: string;
+  barWidth?: string;
+  barGap?: string;
   borderRadius?: number[];
   width?: number;
   height?: number;
@@ -33,6 +35,8 @@ const ChartComponent = ({
   xAxisData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
   data = [186, 305, 237, 73, 209, 214],
   color,
+  barWidth,
+  barGap,
   borderRadius = [4, 4, 4, 4],
   width = 220,
   height = 350,
@@ -100,6 +104,8 @@ const ChartComponent = ({
         {
           data: data,
           type: 'bar',
+          barWidth: barWidth,
+          barGap: barGap,
           itemStyle: {
             color: color || theme.series.colors[1],
             borderRadius: borderRadius,
@@ -110,7 +116,7 @@ const ChartComponent = ({
         },
       ],
     };
-  }, [theme, xAxisData, data, color, borderRadius]);
+  }, [theme, xAxisData, data, color, barWidth, barGap, borderRadius]);
 
   useEffect(() => {
     let chart: any;

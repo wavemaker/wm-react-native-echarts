@@ -29,6 +29,7 @@ interface InteractiveLineChartProps {
   }>;
   width?: number;
   height?: number;
+  lineWidth?: number;
   theme?: Partial<ChartTheme>;
 }
 
@@ -46,6 +47,7 @@ const ChartComponent = ({
   ],
   width = 220,
   height = 450,
+  lineWidth = 1,
 }: InteractiveLineChartProps) => {
   const { theme } = useChartTheme();
   const chartRef = useRef<any>(null);
@@ -105,11 +107,11 @@ const ChartComponent = ({
         },
         lineStyle: {
           color: theme.series.colors[index % theme.series.colors.length],
-          width: 1,
+          width: lineWidth,
         },
       })),
     };
-  }, [theme, xAxisData, series]);
+  }, [theme, xAxisData, series, lineWidth]);
 
   useEffect(() => {
     let chart: any;

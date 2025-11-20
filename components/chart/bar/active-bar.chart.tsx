@@ -32,6 +32,8 @@ interface ActiveBarChartProps {
     };
   }>;
   activeIndex?: number;
+  barWidth?: string;
+  barGap?: string;
   width?: number;
   height?: number;
   theme?: Partial<ChartTheme>;
@@ -41,6 +43,8 @@ const ChartComponent = ({
   xAxisData = ['Chrome', 'Safari', 'Firefox', 'Edge', 'Other'],
   data,
   activeIndex = 2,
+  barWidth,
+  barGap,
   width = 220,
   height = 350,
 }: ActiveBarChartProps) => {
@@ -134,13 +138,15 @@ const ChartComponent = ({
         {
           data: chartData,
           type: 'bar',
+          barWidth: barWidth,
+          barGap: barGap,
           emphasis: {
             disabled: true,
           },
         },
       ],
     };
-  }, [theme, xAxisData, data, activeIndex]);
+  }, [theme, xAxisData, data, activeIndex, barWidth, barGap]);
 
   useEffect(() => {
     let chart: any;

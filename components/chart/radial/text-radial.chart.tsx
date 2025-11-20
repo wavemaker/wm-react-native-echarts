@@ -25,6 +25,8 @@ interface TextRadialChartProps {
   label?: string;
   centerText?: string;
   centerSubtext?: string;
+  ringWidth?: [number, number];
+  ringGap?: string;
   width?: number;
   height?: number;
   theme?: Partial<ChartTheme>;
@@ -36,6 +38,8 @@ const ChartComponent = ({
   label = 'Visitors',
   centerText,
   centerSubtext,
+  ringWidth = [60, 120],
+  ringGap,
   width = 220,
   height = 350,
 }: TextRadialChartProps) => {
@@ -65,7 +69,7 @@ const ChartComponent = ({
         }
       },
       polar: {
-        radius: [60, 120],
+        radius: ringWidth,
       },
       angleAxis: {
         max: 100,
@@ -93,6 +97,7 @@ const ChartComponent = ({
           animation: false,
           stack: 'total',
           barWidth: '50%',
+          barGap: ringGap,
           emphasis: {
             disabled: true,
           },
@@ -108,6 +113,7 @@ const ChartComponent = ({
           },
           stack: 'total',
           barWidth: '50%',
+          barGap: ringGap,
           emphasis: {
             disabled: true,
           },
@@ -132,7 +138,7 @@ const ChartComponent = ({
         ],
       },
     };
-  }, [theme, value, maxValue, label, centerText, centerSubtext]);
+  }, [theme, value, maxValue, label, centerText, centerSubtext, ringWidth, ringGap]);
 
   useEffect(() => {
     let chart: any;

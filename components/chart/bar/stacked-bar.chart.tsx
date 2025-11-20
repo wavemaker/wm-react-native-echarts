@@ -29,6 +29,8 @@ interface StackedBarChartProps {
     borderRadius?: number[];
   }>;
   stack?: string;
+  barWidth?: string;
+  barGap?: string;
   width?: number;
   height?: number;
   theme?: Partial<ChartTheme>;
@@ -49,6 +51,8 @@ const ChartComponent = ({
     },
   ],
   stack = 'total',
+  barWidth,
+  barGap,
   width = 220,
   height = 350,
 }: StackedBarChartProps) => {
@@ -131,6 +135,8 @@ const ChartComponent = ({
         type: 'bar',
         stack: stack,
         data: s.data,
+        barWidth: barWidth,
+        barGap: barGap,
         itemStyle: {
           color: theme.series.colors[index % theme.series.colors.length],
           borderRadius: s.borderRadius || [0, 0, 0, 0],
@@ -140,7 +146,7 @@ const ChartComponent = ({
         },
       })),
     };
-  }, [theme, xAxisData, series, stack]);
+  }, [theme, xAxisData, series, stack, barWidth, barGap]);
 
   useEffect(() => {
     let chart: any;

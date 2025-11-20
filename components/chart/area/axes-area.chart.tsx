@@ -25,6 +25,7 @@ interface AxesAreaChartProps {
   data?: number[];
   width?: number;
   height?: number;
+  lineWidth?: number;
   theme?: Partial<ChartTheme>;
 }
 
@@ -39,7 +40,8 @@ const ChartComponent = ({
   ],
   data = [200, 350, 500, 300, 400, 600],
   width = 220,
-  height = 350
+  height = 350,
+  lineWidth = 2,
 }: AxesAreaChartProps) => {
   const { theme } = useChartTheme();
   const chartRef = useRef<any>(null);
@@ -136,12 +138,12 @@ const ChartComponent = ({
             },
             lineStyle: {
               color: theme.series.colors[0],
-              width: 2,
+              width: lineWidth,
             },
           },
         ],
       };
-  }, [theme, xAxisData, yAxisData, data]);
+  }, [theme, xAxisData, yAxisData, data, lineWidth]);
 
   useEffect(() => {
     let chart: any;

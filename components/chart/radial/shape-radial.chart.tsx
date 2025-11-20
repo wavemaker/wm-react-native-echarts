@@ -25,6 +25,8 @@ interface ShapeRadialChartProps {
   label?: string;
   centerText?: string;
   centerSubtext?: string;
+  ringWidth?: [number, number];
+  ringGap?: string;
   width?: number;
   height?: number;
   theme?: Partial<ChartTheme>;
@@ -36,6 +38,8 @@ const ChartComponent = ({
   label = 'Visitors',
   centerText,
   centerSubtext,
+  ringWidth = [40, 80],
+  ringGap,
   width = 220,
   height = 350,
 }: ShapeRadialChartProps) => {
@@ -65,7 +69,7 @@ const ChartComponent = ({
         }
       },
       polar: {
-        radius: [40, 80],
+        radius: ringWidth,
       },
       angleAxis: {
         max: 100,
@@ -84,6 +88,7 @@ const ChartComponent = ({
           data: [100],
           coordinateSystem: 'polar',
           barWidth: '50%',
+          barGap: ringGap,
           name: 'Background',
           tooltip: {
             show: false,
@@ -101,6 +106,7 @@ const ChartComponent = ({
           type: 'bar',
           data: [percentage],
           barWidth: '70%',
+          barGap: ringGap,
           coordinateSystem: 'polar',
           name: label,
           itemStyle: {
@@ -141,7 +147,7 @@ const ChartComponent = ({
         ],
       },
     };
-  }, [theme, value, maxValue, label, centerText, centerSubtext]);
+  }, [theme, value, maxValue, label, centerText, centerSubtext, ringWidth, ringGap]);
 
   useEffect(() => {
     let chart: any;

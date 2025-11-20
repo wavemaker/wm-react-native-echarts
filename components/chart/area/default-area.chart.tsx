@@ -24,6 +24,7 @@ interface DefaultAreaChartProps {
   data?: number[];
   width?: number;
   height?: number;
+  lineWidth?: number;
   theme?: Partial<ChartTheme>;
 }
 
@@ -32,6 +33,7 @@ const ChartComponent = ({
   data = [150, 230, 180, 120, 200, 250],
   width = 220,
   height = 350,
+  lineWidth = 2,
 }: DefaultAreaChartProps) => {
   const { theme } = useChartTheme();
   const chartRef = useRef<any>(null);
@@ -102,12 +104,12 @@ const ChartComponent = ({
           },
           lineStyle: {
             color: theme.series.colors[0],
-            width: 2,
+            width: lineWidth,
           },
         },
       ],
     };
-  }, [theme, xAxisData, data]);
+  }, [theme, xAxisData, data, lineWidth]);
 
   useEffect(() => {
     let chart: any;

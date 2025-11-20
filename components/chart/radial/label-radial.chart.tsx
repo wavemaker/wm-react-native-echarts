@@ -27,6 +27,8 @@ interface RadialData {
 
 interface LabelRadialChartProps {
   data?: RadialData[];
+  ringWidth?: [number, number];
+  ringGap?: string;
   width?: number;
   height?: number;
   theme?: Partial<ChartTheme>;
@@ -40,6 +42,8 @@ const ChartComponent = ({
     { label: 'Edge', value: 45, color: '#1e40af' },
     { label: 'Other', value: 30, color: '#1e3a8a' },
   ],
+  ringWidth = [30, 140],
+  ringGap = '20%',
   width = 220,
   height = 450,
 }: LabelRadialChartProps) => {
@@ -68,7 +72,7 @@ const ChartComponent = ({
         }
       },
       polar: {
-        radius: [30, 140],
+        radius: ringWidth,
       },
       angleAxis: {
         max: 100,
@@ -98,7 +102,7 @@ const ChartComponent = ({
           },
           animation: false,
           stack: 'total',
-          barCategoryGap: '20%',
+          barCategoryGap: ringGap,
           emphasis: {
             disabled: true,
           },
@@ -109,14 +113,14 @@ const ChartComponent = ({
           coordinateSystem: 'polar',
           name: 'Usage',
           stack: 'total',
-          barCategoryGap: '20%',
+          barCategoryGap: ringGap,
           emphasis: {
             disabled: true,
           },
         },
       ],
     };
-  }, [theme, data]);
+  }, [theme, data, ringWidth, ringGap]);
 
   useEffect(() => {
     let chart: any;

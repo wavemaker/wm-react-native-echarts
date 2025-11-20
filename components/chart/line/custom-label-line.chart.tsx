@@ -24,6 +24,7 @@ interface CustomLabelLineChartProps {
   data?: Array<{ value: number; label?: { formatter: string } }>;
   width?: number;
   height?: number;
+  lineWidth?: number;
   theme?: Partial<ChartTheme>;
 }
 
@@ -39,6 +40,7 @@ const ChartComponent = ({
   ],
   width = 220,
   height = 350,
+  lineWidth = 1,
 }: CustomLabelLineChartProps) => {
   const { theme } = useChartTheme();
   const chartRef = useRef<any>(null);
@@ -96,7 +98,7 @@ const ChartComponent = ({
           },
           lineStyle: {
             color: theme.series.colors[0],
-            width: 1,
+            width: lineWidth,
           },
           label: {
             show: true,
@@ -107,7 +109,7 @@ const ChartComponent = ({
         },
       ],
     };
-  }, [theme, xAxisData, data]);
+  }, [theme, xAxisData, data, lineWidth]);
 
   useEffect(() => {
     let chart: any;

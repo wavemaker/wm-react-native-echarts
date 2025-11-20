@@ -25,6 +25,7 @@ interface DotsColorsLineChartProps {
   lineColor?: string;
   width?: number;
   height?: number;
+  lineWidth?: number;
   theme?: Partial<ChartTheme>;
 }
 
@@ -41,6 +42,7 @@ const ChartComponent = ({
   lineColor,
   width = 220,
   height = 350,
+  lineWidth = 1,
 }: DotsColorsLineChartProps) => {
   const { theme } = useChartTheme();
   const chartRef = useRef<any>(null);
@@ -95,12 +97,12 @@ const ChartComponent = ({
           symbolSize: 6,
           lineStyle: {
             color: lineColor || theme.series.colors[0],
-            width: 1,
+            width: lineWidth,
           },
         },
       ],
     };
-  }, [theme, xAxisData, data, lineColor]);
+  }, [theme, xAxisData, data, lineColor, lineWidth]);
 
   useEffect(() => {
     let chart: any;

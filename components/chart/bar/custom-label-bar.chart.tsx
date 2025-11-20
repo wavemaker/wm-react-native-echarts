@@ -25,6 +25,7 @@ interface CustomLabelBarChartProps {
   primaryColor?: string;
   secondaryColor?: string;
   barWidth?: string;
+  barGap?: string;
   width?: number;
   height?: number;
   theme?: Partial<ChartTheme>;
@@ -36,6 +37,7 @@ const ChartComponent = ({
   primaryColor,
   secondaryColor,
   barWidth = '80%',
+  barGap,
   width = 220,
   height = 350,
 }: CustomLabelBarChartProps) => {
@@ -105,6 +107,7 @@ const ChartComponent = ({
           type: 'bar',
           stack: 'total',
           barWidth: barWidth,
+          barGap: barGap,
           itemStyle: {
             color: primaryColor || theme.series.colors[0],
             borderRadius: [4, 4, 4, 4],
@@ -129,6 +132,7 @@ const ChartComponent = ({
           type: 'bar',
           stack: 'total',
           barWidth: barWidth,
+          barGap: barGap,
           tooltip: {
             show: false,
           },
@@ -151,7 +155,7 @@ const ChartComponent = ({
         },
       ],
     };
-  }, [theme, yAxisData, data, primaryColor, secondaryColor, barWidth]);
+  }, [theme, yAxisData, data, primaryColor, secondaryColor, barWidth, barGap]);
 
   useEffect(() => {
     let chart: any;

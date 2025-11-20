@@ -24,6 +24,7 @@ interface HorizontalBarChartProps {
   data?: number[];
   color?: string;
   barWidth?: string;
+  barGap?: string;
   borderRadius?: number[];
   width?: number;
   height?: number;
@@ -35,6 +36,7 @@ const ChartComponent = ({
   data = [186, 305, 237, 73, 209, 214],
   color,
   barWidth = '80%',
+  barGap,
   borderRadius = [4, 4, 4, 4],
   width = 220,
   height = 350,
@@ -99,6 +101,7 @@ const ChartComponent = ({
           data: data,
           type: 'bar',
           barWidth: barWidth,
+          barGap: barGap,
           itemStyle: {
             color: color || theme.series.colors[1],
             borderRadius: borderRadius,
@@ -109,7 +112,7 @@ const ChartComponent = ({
         },
       ],
     };
-  }, [theme, yAxisData, data, color, barWidth, borderRadius]);
+  }, [theme, yAxisData, data, color, barWidth, barGap, borderRadius]);
 
   useEffect(() => {
     let chart: any;

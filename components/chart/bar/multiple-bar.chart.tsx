@@ -28,6 +28,7 @@ interface MultipleBarChartProps {
     data: number[];
   }>;
   barWidth?: string;
+  barGap?: string;
   borderRadius?: number[];
   width?: number;
   height?: number;
@@ -47,6 +48,7 @@ const ChartComponent = ({
     },
   ],
   barWidth = '40%',
+  barGap,
   borderRadius = [4, 4, 4, 4],
   width = 220,
   height = 350,
@@ -141,6 +143,7 @@ const ChartComponent = ({
         type: 'bar',
         data: s.data,
         barWidth: barWidth,
+        barGap: barGap,
         itemStyle: {
           color: theme.series.colors[index % theme.series.colors.length],
           borderRadius: borderRadius,
@@ -150,7 +153,7 @@ const ChartComponent = ({
         },
       })),
     };
-  }, [theme, xAxisData, series, barWidth, borderRadius]);
+  }, [theme, xAxisData, series, barWidth, barGap, borderRadius]);
 
   useEffect(() => {
     let chart: any;

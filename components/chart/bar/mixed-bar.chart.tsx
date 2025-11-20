@@ -29,6 +29,7 @@ interface MixedBarChartProps {
     };
   }>;
   barWidth?: string;
+  barGap?: string;
   width?: number;
   height?: number;
   theme?: Partial<ChartTheme>;
@@ -44,6 +45,7 @@ const ChartComponent = ({
     { value: 65, itemStyle: { color: '#87ceeb', borderRadius: [4, 4, 4, 4] } },
   ],
   barWidth = '60%',
+  barGap,
   width = 220,
   height = 350,
 }: MixedBarChartProps) => {
@@ -119,13 +121,14 @@ const ChartComponent = ({
           data: data,
           type: 'bar',
           barWidth: barWidth,
+          barGap: barGap,
           emphasis: {
             disabled: true,
           },
         },
       ],
     };
-  }, [theme, yAxisData, data, barWidth]);
+  }, [theme, yAxisData, data, barWidth, barGap]);
 
   useEffect(() => {
     let chart: any;

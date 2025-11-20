@@ -24,6 +24,7 @@ interface StepLineChartProps {
   data?: number[];
   width?: number;
   height?: number;
+  lineWidth?: number;
   theme?: Partial<ChartTheme>;
 }
 
@@ -32,6 +33,7 @@ const ChartComponent = ({
   data = [170, 170, 230, 230, 180, 180],
   width = 220,
   height = 350,
+  lineWidth = 1,
 }: StepLineChartProps) => {
   const { theme } = useChartTheme();
   const chartRef = useRef<any>(null);
@@ -88,12 +90,12 @@ const ChartComponent = ({
           },
           lineStyle: {
             color: theme.series.colors[0],
-            width: 1,
+            width: lineWidth,
           },
         },
       ],
     };
-  }, [theme, xAxisData, data]);
+  }, [theme, xAxisData, data, lineWidth]);
 
   useEffect(() => {
     let chart: any;

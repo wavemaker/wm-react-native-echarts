@@ -24,6 +24,7 @@ interface InteractiveBarChartProps {
   data?: number[];
   color?: string;
   barWidth?: string;
+  barGap?: string;
   width?: number;
   height?: number;
   theme?: Partial<ChartTheme>;
@@ -34,6 +35,7 @@ const ChartComponent = ({
   data = [800, 1200, 950, 1800, 1100, 1500, 1300, 950, 1700, 1250, 1600, 1050, 1400],
   color,
   barWidth = '70%',
+  barGap = '10%',
   width = 220,
   height = 450,
 }: InteractiveBarChartProps) => {
@@ -95,7 +97,7 @@ const ChartComponent = ({
           data: data,
           type: 'bar',
           barWidth: barWidth,
-          barGap: '10%',
+          barGap: barGap,
           itemStyle: {
             color: color || theme.series.colors[0],
           },
@@ -105,7 +107,7 @@ const ChartComponent = ({
         },
       ],
     };
-  }, [theme, xAxisData, data, color, barWidth]);
+  }, [theme, xAxisData, data, color, barWidth, barGap]);
 
   useEffect(() => {
     let chart: any;

@@ -29,6 +29,8 @@ interface StackedRadialChartProps {
   series?: StackedSeriesData[];
   centerText?: string;
   centerSubtext?: string;
+  ringWidth?: [number, number];
+  ringGap?: string;
   width?: number;
   height?: number;
   theme?: Partial<ChartTheme>;
@@ -41,6 +43,8 @@ const ChartComponent = ({
   ],
   centerText = '1,830',
   centerSubtext = 'Visitors',
+  ringWidth = [120, 200],
+  ringGap,
   width = 220,
   height = 350,
 }: StackedRadialChartProps) => {
@@ -68,7 +72,7 @@ const ChartComponent = ({
         }
       },
       polar: {
-        radius: [120, 200],
+        radius: ringWidth,
       },
       angleAxis: {
         max: 100,
@@ -86,6 +90,7 @@ const ChartComponent = ({
         data: [s.value],
         coordinateSystem: 'polar',
         name: s.name,
+        barGap: ringGap,
         itemStyle: {
           color: s.color || theme.series.colors[index % theme.series.colors.length],
           borderRadius: [10, 10],
@@ -124,7 +129,7 @@ const ChartComponent = ({
         ],
       },
     };
-  }, [theme, series, centerText, centerSubtext]);
+  }, [theme, series, centerText, centerSubtext, ringWidth, ringGap]);
 
   useEffect(() => {
     let chart: any;

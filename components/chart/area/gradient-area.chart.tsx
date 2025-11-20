@@ -26,6 +26,7 @@ interface GradientAreaChartProps {
   }>;
   width?: number;
   height?: number;
+  lineWidth?: number;
   theme?: Partial<ChartTheme>;
 }
 
@@ -41,6 +42,7 @@ const ChartComponent = ({
   ],
   width = 220,
   height = 350,
+  lineWidth = 2,
 }: GradientAreaChartProps) => {
   const { theme } = useChartTheme();
   const chartRef = useRef<any>(null);
@@ -111,12 +113,12 @@ const ChartComponent = ({
           },
           lineStyle: {
             color: baseColor,
-            width: 2,
+            width: lineWidth,
           },
         };
       }),
     };
-  }, [theme, xAxisData, series]);
+  }, [theme, xAxisData, series, lineWidth]);
 
   useEffect(() => {
     let chart: any;

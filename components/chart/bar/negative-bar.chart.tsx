@@ -25,6 +25,7 @@ interface NegativeBarChartProps {
   positiveColor?: string;
   negativeColor?: string;
   barWidth?: string;
+  barGap?: string;
   borderRadius?: number[];
   showLabels?: boolean;
   width?: number;
@@ -38,6 +39,7 @@ const ChartComponent = ({
   positiveColor,
   negativeColor,
   barWidth = '60%',
+  barGap,
   borderRadius = [4, 4, 4, 4],
   showLabels = true,
   width = 220,
@@ -114,6 +116,7 @@ const ChartComponent = ({
           data: data,
           type: 'bar',
           barWidth: barWidth,
+          barGap: barGap,
           itemStyle: {
             color: function(params: any) {
               const posColor = positiveColor || theme.series.colors[1];
@@ -139,7 +142,7 @@ const ChartComponent = ({
         },
       ],
     };
-  }, [theme, xAxisData, data, positiveColor, negativeColor, barWidth, borderRadius, showLabels]);
+  }, [theme, xAxisData, data, positiveColor, negativeColor, barWidth, barGap, borderRadius, showLabels]);
 
   useEffect(() => {
     let chart: any;

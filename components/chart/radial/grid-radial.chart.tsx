@@ -27,6 +27,8 @@ interface RadialData {
 
 interface GridRadialChartProps {
   data?: RadialData[];
+  ringWidth?: [number, number];
+  ringGap?: string;
   width?: number;
   height?: number;
   theme?: Partial<ChartTheme>;
@@ -40,6 +42,8 @@ const ChartComponent = ({
     { label: 'D', value: 45, color: '#1e40af' },
     { label: 'E', value: 30, color: '#1e3a8a' },
   ],
+  ringWidth = [30, 140],
+  ringGap = '10%',
   width = 220,
   height = 450,
 }: GridRadialChartProps) => {
@@ -68,7 +72,7 @@ const ChartComponent = ({
         }
       },
       polar: {
-        radius: [30, 140],
+        radius: ringWidth,
       },
       angleAxis: {
         max: 100,
@@ -128,7 +132,7 @@ const ChartComponent = ({
           },
           animation: false,
           stack: 'total',
-          barCategoryGap: '10%',
+          barCategoryGap: ringGap,
           emphasis: {
             disabled: true,
           },
@@ -139,14 +143,14 @@ const ChartComponent = ({
           coordinateSystem: 'polar',
           name: 'Data',
           stack: 'total',
-          barCategoryGap: '10%',
+          barCategoryGap: ringGap,
           emphasis: {
             disabled: true,
           },
         },
       ],
     };
-  }, [theme, data]);
+  }, [theme, data, ringWidth, ringGap]);
 
   useEffect(() => {
     let chart: any;
