@@ -17,17 +17,72 @@ echarts.use([
   BarChart,
 ]);
 
+/**
+ * Type definition for axis data. Can be either a simple string array or an array of objects with label and value.
+ * @example
+ * // String array
+ * ['Jan', 'Feb', 'Mar']
+ * // Object array
+ * [{ label: 'Q1', value: 0 }, { label: 'Q2', value: 3 }]
+ */
 type AxisData = string[] | Array<{ label: string; value: number }>;
 
+/**
+ * Props for the DefaultBarChart component.
+ * A basic vertical bar chart with customizable styling and data.
+ */
 interface DefaultBarChartProps {
+  /**
+   * X-axis labels. Can be a string array or object array with label and value.
+   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+   */
   xAxisData?: AxisData;
+  
+  /**
+   * Array of numeric values for each bar.
+   * @default [186, 305, 237, 73, 209, 214]
+   */
   data?: number[];
+  
+  /**
+   * Color for the bars. If not provided, uses theme color.
+   * @default theme.series.colors[1]
+   */
   color?: string;
+  
+  /**
+   * Width of the bars as a percentage string.
+   * @default undefined
+   */
   barWidth?: string;
+  
+  /**
+   * Gap between bars as a percentage string.
+   * @default undefined
+   */
   barGap?: string;
+  
+  /**
+   * Border radius for each corner of the bars [topLeft, topRight, bottomRight, bottomLeft].
+   * @default [4, 4, 4, 4]
+   */
   borderRadius?: number[];
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

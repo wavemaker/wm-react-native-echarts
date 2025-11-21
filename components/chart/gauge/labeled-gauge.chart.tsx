@@ -12,14 +12,56 @@ echarts.use([
   GaugeChart,
 ]);
 
+/**
+ * Props for the LabeledGaugeChart component.
+ * A gauge chart with customizable title and detail text labels.
+ */
 interface LabeledGaugeChartProps {
+  /**
+   * Current value to display on the gauge.
+   * @default 30
+   */
   value?: number;
+  
+  /**
+   * Minimum value of the gauge scale.
+   * @default 0
+   */
   min?: number;
+  
+  /**
+   * Maximum value of the gauge scale.
+   * @default 100
+   */
   max?: number;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 240
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
+  
+  /**
+   * Title text displayed on the gauge.
+   * @default 'Metric'
+   */
   title?: string;
+  
+  /**
+   * Detail text showing the value.
+   * @default '30%'
+   */
   detailText?: string;
 }
 

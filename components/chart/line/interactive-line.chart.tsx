@@ -19,17 +19,57 @@ echarts.use([
   LineChart,
 ]);
 
+/**
+ * Type definition for axis data. Can be either a simple string array or an array of objects with label and value.
+ * @example
+ * // String array
+ * ['Jan', 'Feb', 'Mar']
+ * // Object array
+ * [{ label: 'Q1', value: 0 }, { label: 'Q2', value: 3 }]
+ */
 type AxisData = string[] | Array<{ label: string; value: number }>;
 
+/**
+ * Props for the InteractiveLineChart component.
+ * A taller line chart designed for displaying more data points with multiple series and interactive tooltips.
+ */
 interface InteractiveLineChartProps {
+  /**
+   * X-axis labels. Can be a string array or object array with label and value.
+   * @default Array of date strings (multiple data points)
+   */
   xAxisData?: AxisData;
+  
+  /**
+   * Array of named data series. Each series has a name and data array.
+   * @default Multiple series with default data
+   */
   series?: Array<{
     name: string;
     data: number[];
   }>;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 450
+   */
   height?: number;
+  
+  /**
+   * Width of the lines in pixels.
+   * @default Varies by series
+   */
   lineWidth?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

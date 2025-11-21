@@ -22,14 +22,56 @@ echarts.use([
   LineChart,
 ]);
 
+/**
+ * Props for the CandlestickMAChart component.
+ * A candlestick chart with moving average (MA) lines overlay.
+ */
 interface CandlestickMAChartProps {
+  /**
+   * Array of date/time labels for the X-axis.
+   * @default ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+   */
   xAxisData?: string[];
+  
+  /**
+   * Array of OHLC price data. Each item is [open, close, low, high].
+   * @default Sample weekly data
+   */
   priceData?: number[][];
+  
+  /**
+   * 5-period moving average data.
+   * @default Calculated from price data
+   */
   ma5Data?: number[];
+  
+  /**
+   * 10-period moving average data.
+   * @default Calculated from price data
+   */
   ma10Data?: number[];
+  
+  /**
+   * 20-period moving average data.
+   * @default Calculated from price data
+   */
   ma20Data?: number[];
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 450
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

@@ -17,17 +17,72 @@ echarts.use([
   BarChart,
 ]);
 
+/**
+ * Type definition for axis data. Can be either a simple string array or an array of objects with label and value.
+ * @example
+ * // String array
+ * ['Jan', 'Feb', 'Mar']
+ * // Object array
+ * [{ label: 'Q1', value: 0 }, { label: 'Q2', value: 3 }]
+ */
 type AxisData = string[] | Array<{ label: string; value: number }>;
 
+/**
+ * Props for the CustomLabelBarChart component.
+ * A horizontal bar chart with category labels inside the bars and values displayed on the right.
+ */
 interface CustomLabelBarChartProps {
+  /**
+   * Y-axis labels. Can be a string array or object array with label and value.
+   * @default ['January', 'February', 'March', 'April', 'May', 'June']
+   */
   yAxisData?: AxisData;
+  
+  /**
+   * Array of numeric values for each bar.
+   * @default [100, 150, 120, 40, 110, 120]
+   */
   data?: number[];
+  
+  /**
+   * Color for the primary (data) bars.
+   * @default theme.series.colors[0]
+   */
   primaryColor?: string;
+  
+  /**
+   * Color for the secondary (helper) series used for positioning labels.
+   * @default theme.series.colors[1]
+   */
   secondaryColor?: string;
+  
+  /**
+   * Width of the bars as a percentage string.
+   * @default '80%'
+   */
   barWidth?: string;
+  
+  /**
+   * Gap between bars as a percentage string.
+   * @default undefined
+   */
   barGap?: string;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

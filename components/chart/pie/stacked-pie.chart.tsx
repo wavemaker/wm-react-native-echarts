@@ -17,24 +17,59 @@ echarts.use([
   PieChart,
 ]);
 
+/**
+ * Data item structure for pie charts.
+ */
 interface PieDataItem {
+  /** Numeric value for the slice */
   value: number;
+  /** Name/label for the slice */
   name: string;
+  /** Optional custom styling for the slice */
   itemStyle?: {
+    /** Custom color for this slice */
     color: string;
   };
 }
 
+/**
+ * Configuration for a series in a stacked pie chart.
+ */
 interface SeriesConfig {
+  /** Name of the series */
   name: string;
+  /** Inner and outer radius for this ring [innerRadius, outerRadius] */
   radius: string[];
+  /** Data items for this ring */
   data: PieDataItem[];
 }
 
+/**
+ * Props for the StackedPieChart component.
+ * Multiple concentric pie/donut charts stacked together (nested rings).
+ */
 interface StackedPieChartProps {
+  /**
+   * Array of series configurations for each concentric ring.
+   * @default Two sample series with different radii
+   */
   series?: SeriesConfig[];
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

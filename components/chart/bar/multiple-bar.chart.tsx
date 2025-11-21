@@ -19,19 +19,69 @@ echarts.use([
   BarChart,
 ]);
 
+/**
+ * Type definition for axis data. Can be either a simple string array or an array of objects with label and value.
+ * @example
+ * // String array
+ * ['Jan', 'Feb', 'Mar']
+ * // Object array
+ * [{ label: 'Q1', value: 0 }, { label: 'Q2', value: 3 }]
+ */
 type AxisData = string[] | Array<{ label: string; value: number }>;
 
+/**
+ * Props for the MultipleBarChart component.
+ * A chart that displays multiple data series as grouped bars side by side.
+ */
 interface MultipleBarChartProps {
+  /**
+   * X-axis labels. Can be a string array or object array with label and value.
+   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+   */
   xAxisData?: AxisData;
+  
+  /**
+   * Array of data series to display. Each series has a name and data array.
+   * @default [{ name: 'Series A', data: [186, 305, 237, 73, 209, 214] }, { name: 'Series B', data: [150, 280, 200, 90, 180, 190] }]
+   */
   series?: Array<{
     name: string;
     data: number[];
   }>;
+  
+  /**
+   * Width of each bar as a percentage string.
+   * @default '40%'
+   */
   barWidth?: string;
+  
+  /**
+   * Gap between bars as a percentage string.
+   * @default undefined
+   */
   barGap?: string;
+  
+  /**
+   * Border radius for each corner of the bars [topLeft, topRight, bottomRight, bottomLeft].
+   * @default [4, 4, 4, 4]
+   */
   borderRadius?: number[];
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

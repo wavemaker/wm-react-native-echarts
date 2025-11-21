@@ -20,15 +20,62 @@ echarts.use([
   MapChart,
 ]);
 
+/**
+ * Props for the InteractiveGeoChart component.
+ * A geographic chart with pan and zoom capabilities and country labels.
+ */
 interface InteractiveGeoChartProps {
+  /**
+   * Array of country data with names and values.
+   * @default Sample data for multiple countries
+   */
   data?: Array<{ name: string; value: number }>;
+  
+  /**
+   * Minimum value for the visual map scale.
+   * @default 0
+   */
   visualMapMin?: number;
+  
+  /**
+   * Maximum value for the visual map scale.
+   * @default 1000
+   */
   visualMapMax?: number;
+  
+  /**
+   * Array of colors for the gradient scale.
+   * @default Theme colors
+   */
   colors?: string[];
+  
+  /**
+   * Whether to show country name labels.
+   * @default false
+   */
   showLabel?: boolean;
+  
+  /**
+   * Enable pan and zoom interactions.
+   * @default true
+   */
   roam?: boolean;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 450
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

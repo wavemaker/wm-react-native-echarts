@@ -19,16 +19,68 @@ echarts.use([
   BarChart,
 ]);
 
+/**
+ * Props for the TextRadialChart component.
+ * A radial progress gauge with prominent center text display.
+ */
 interface TextRadialChartProps {
+  /**
+   * Current value to display.
+   * @default 200
+   */
   value?: number;
+  
+  /**
+   * Maximum value for the scale.
+   * @default 300
+   */
   maxValue?: number;
+  
+  /**
+   * Label text for the value.
+   * @default 'Visitors'
+   */
   label?: string;
+  
+  /**
+   * Main text to display in the center.
+   * @default Formatted value/maxValue
+   */
   centerText?: string;
+  
+  /**
+   * Subtitle text below the main center text.
+   * @default Label
+   */
   centerSubtext?: string;
+  
+  /**
+   * Inner and outer width of the ring [start, end].
+   * @default [20, 80]
+   */
   ringWidth?: [number, number];
+  
+  /**
+   * Gap between rings as percentage string.
+   * @default '3%'
+   */
   ringGap?: string;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

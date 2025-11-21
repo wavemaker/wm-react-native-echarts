@@ -17,16 +17,56 @@ echarts.use([
   LineChart,
 ]);
 
+/**
+ * Type definition for axis data. Can be either a simple string array or an array of objects with label and value.
+ * @example
+ * // String array
+ * ['Jan', 'Feb', 'Mar']
+ * // Object array
+ * [{ label: 'Q1', value: 0 }, { label: 'Q2', value: 3 }]
+ */
 type AxisData = string[] | Array<{ label: string; value: number }>;
 
+/**
+ * Props for the StackedAreaChart component.
+ * An area chart where multiple series are stacked on top of each other.
+ */
 interface StackedAreaChartProps {
+  /**
+   * X-axis labels. Can be a string array or object array with label and value.
+   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+   */
   xAxisData?: AxisData;
+  
+  /**
+   * Array of data series to stack. Each series contains numeric data values.
+   * @default [{ data: [120, 132, 101, 134, 90, 230] }, { data: [80, 82, 91, 104, 70, 140] }]
+   */
   series?: Array<{
     data: number[];
   }>;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Width of the lines in pixels.
+   * @default 1
+   */
   lineWidth?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

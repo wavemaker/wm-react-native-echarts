@@ -22,12 +22,44 @@ echarts.use([
   BarChart,
 ]);
 
+/**
+ * Props for the VolumeCandlestickChart component.
+ * A candlestick chart with volume bars displayed below.
+ */
 interface VolumeCandlestickChartProps {
+  /**
+   * Array of date/time labels for the X-axis.
+   * @default ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+   */
   xAxisData?: string[];
+  
+  /**
+   * Array of OHLC price data. Each item is [open, close, low, high].
+   * @default Sample weekly data
+   */
   priceData?: number[][];
+  
+  /**
+   * Array of volume data corresponding to each price period.
+   * @default Sample volume data
+   */
   volumeData?: number[];
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 450
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

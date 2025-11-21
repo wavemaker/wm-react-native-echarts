@@ -17,21 +17,62 @@ echarts.use([
   PieChart,
 ]);
 
+/**
+ * Data item structure for pie charts with selection state.
+ */
 interface PieDataItem {
+  /** Numeric value for the slice */
   value: number;
+  /** Name/label for the slice */
   name: string;
+  /** Whether this slice is initially selected */
   selected?: boolean;
+  /** Optional custom styling for the slice */
   itemStyle?: {
+    /** Custom color for this slice */
     color: string;
   };
 }
 
+/**
+ * Props for the DonutActiveChart component.
+ * A donut chart with one or more slices initially selected and offset.
+ */
 interface DonutActiveChartProps {
+  /**
+   * Array of data items for the donut slices.
+   * Items with selected=true will be initially offset.
+   * @default Array of sample categories with one selected
+   */
   data?: PieDataItem[];
+  
+  /**
+   * Inner and outer radius [innerRadius, outerRadius].
+   * @default ['40%', '70%']
+   */
   radius?: string[];
+  
+  /**
+   * Distance to offset selected slices in pixels.
+   * @default 10
+   */
   selectedOffset?: number;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

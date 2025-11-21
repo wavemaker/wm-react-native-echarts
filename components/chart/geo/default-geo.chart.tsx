@@ -20,13 +20,50 @@ echarts.use([
   MapChart,
 ]);
 
+/**
+ * Props for the DefaultGeoChart component.
+ * A geographic/map chart displaying data by country with color-coded values.
+ */
 interface DefaultGeoChartProps {
+  /**
+   * Array of country data with names and values.
+   * @default Sample data for 10 countries
+   */
   data?: Array<{ name: string; value: number }>;
+  
+  /**
+   * Minimum value for the visual map scale.
+   * @default 0
+   */
   visualMapMin?: number;
+  
+  /**
+   * Maximum value for the visual map scale.
+   * @default 1000
+   */
   visualMapMax?: number;
+  
+  /**
+   * Array of colors for the gradient scale.
+   * @default Theme colors
+   */
   colors?: string[];
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

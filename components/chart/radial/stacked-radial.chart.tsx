@@ -19,20 +19,68 @@ echarts.use([
   BarChart,
 ]);
 
+/**
+ * Data structure for stacked series in radial chart.
+ */
 interface StackedSeriesData {
+  /** Name of the series */
   name: string;
+  /** Numeric value */
   value: number;
+  /** Optional custom color */
   color?: string;
 }
 
+/**
+ * Props for the StackedRadialChart component.
+ * A radial chart with multiple stacked series with optional center text.
+ */
 interface StackedRadialChartProps {
+  /**
+   * Array of series data to stack.
+   * @default Sample series data
+   */
   series?: StackedSeriesData[];
+  
+  /**
+   * Main text to display in the center.
+   * @default undefined
+   */
   centerText?: string;
+  
+  /**
+   * Subtitle text below the main center text.
+   * @default undefined
+   */
   centerSubtext?: string;
+  
+  /**
+   * Inner and outer width of the ring [start, end].
+   * @default [20, 80]
+   */
   ringWidth?: [number, number];
+  
+  /**
+   * Gap between rings as percentage string.
+   * @default '3%'
+   */
   ringGap?: string;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

@@ -20,13 +20,50 @@ echarts.use([
   MapChart,
 ]);
 
+/**
+ * Props for the GDPGeoChart component.
+ * A geographic chart displaying GDP data by country.
+ */
 interface GDPGeoChartProps {
+  /**
+   * Array of country GDP data with names and values (in billions).
+   * @default Sample GDP data for major economies
+   */
   data?: Array<{ name: string; value: number }>;
+  
+  /**
+   * Minimum value for the visual map scale.
+   * @default 0
+   */
   visualMapMin?: number;
+  
+  /**
+   * Maximum value for the visual map scale.
+   * @default 25000
+   */
   visualMapMax?: number;
+  
+  /**
+   * Custom tooltip formatter string.
+   * @default '{b}: ${c} billion'
+   */
   tooltipFormatter?: string;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 450
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

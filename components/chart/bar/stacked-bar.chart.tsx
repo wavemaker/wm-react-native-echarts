@@ -19,20 +19,70 @@ echarts.use([
   BarChart,
 ]);
 
+/**
+ * Type definition for axis data. Can be either a simple string array or an array of objects with label and value.
+ * @example
+ * // String array
+ * ['Jan', 'Feb', 'Mar']
+ * // Object array
+ * [{ label: 'Q1', value: 0 }, { label: 'Q2', value: 3 }]
+ */
 type AxisData = string[] | Array<{ label: string; value: number }>;
 
+/**
+ * Props for the StackedBarChart component.
+ * A chart where multiple data series are stacked on top of each other.
+ */
 interface StackedBarChartProps {
+  /**
+   * X-axis labels. Can be a string array or object array with label and value.
+   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+   */
   xAxisData?: AxisData;
+  
+  /**
+   * Array of data series to stack. Each series can have custom border radius.
+   * @default [{ name: 'Desktop', data: [100, 150, 120, 40, 110, 120], borderRadius: [0, 0, 4, 4] }, { name: 'Mobile', data: [86, 155, 117, 33, 99, 94], borderRadius: [4, 4, 0, 0] }]
+   */
   series?: Array<{
     name: string;
     data: number[];
     borderRadius?: number[];
   }>;
+  
+  /**
+   * Stack group identifier. Series with the same stack value will be stacked together.
+   * @default 'total'
+   */
   stack?: string;
+  
+  /**
+   * Width of the stacked bars as a percentage string.
+   * @default undefined
+   */
   barWidth?: string;
+  
+  /**
+   * Gap between bar groups as a percentage string.
+   * @default undefined
+   */
   barGap?: string;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

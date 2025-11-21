@@ -20,13 +20,50 @@ echarts.use([
   MapChart,
 ]);
 
+/**
+ * Props for the PopulationGeoChart component.
+ * A geographic chart displaying population data by country.
+ */
 interface PopulationGeoChartProps {
+  /**
+   * Array of country population data with names and values (in millions).
+   * @default Sample population data for major countries
+   */
   data?: Array<{ name: string; value: number }>;
+  
+  /**
+   * Minimum value for the visual map scale.
+   * @default 0
+   */
   visualMapMin?: number;
+  
+  /**
+   * Maximum value for the visual map scale.
+   * @default 1500
+   */
   visualMapMax?: number;
+  
+  /**
+   * Custom tooltip formatter string.
+   * @default '{b}: {c} million'
+   */
   tooltipFormatter?: string;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 450
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

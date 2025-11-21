@@ -17,12 +17,44 @@ echarts.use([
   PolarComponent,
 ]);
 
+/**
+ * Props for the RadialGaugeChart component.
+ * A composite gauge with both radial progress bar and traditional gauge display.
+ */
 interface RadialGaugeChartProps {
+  /**
+   * Current value to display on the gauge.
+   * @default 23
+   */
   value?: number;
+  
+  /**
+   * Minimum value of the gauge scale.
+   * @default 0
+   */
   min?: number;
+  
+  /**
+   * Maximum value of the gauge scale.
+   * @default 100
+   */
   max?: number;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 240
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

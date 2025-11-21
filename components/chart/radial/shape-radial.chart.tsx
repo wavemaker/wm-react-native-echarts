@@ -19,16 +19,68 @@ echarts.use([
   BarChart,
 ]);
 
+/**
+ * Props for the ShapeRadialChart component.
+ * A radial progress chart with customizable shape and center text.
+ */
 interface ShapeRadialChartProps {
+  /**
+   * Current value to display.
+   * @default 1260
+   */
   value?: number;
+  
+  /**
+   * Maximum value for the scale.
+   * @default 1500
+   */
   maxValue?: number;
+  
+  /**
+   * Label text for the value.
+   * @default 'Visitors'
+   */
   label?: string;
+  
+  /**
+   * Main text to display in the center.
+   * @default undefined
+   */
   centerText?: string;
+  
+  /**
+   * Subtitle text below the main center text.
+   * @default undefined
+   */
   centerSubtext?: string;
+  
+  /**
+   * Inner and outer width of the ring [start, end].
+   * @default [20, 80]
+   */
   ringWidth?: [number, number];
+  
+  /**
+   * Gap between rings as percentage string.
+   * @default '3%'
+   */
   ringGap?: string;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

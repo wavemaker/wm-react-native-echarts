@@ -19,21 +19,58 @@ echarts.use([
   RadarChart,
 ]);
 
+/**
+ * Definition for a radar chart indicator (axis).
+ */
 interface RadarIndicator {
+  /** Name/label of the indicator */
   name: string;
+  /** Maximum value for this indicator */
   max: number;
 }
 
+/**
+ * Data structure for a radar series.
+ */
 interface RadarSeriesData {
+  /** Array of values for each indicator */
   value: number[];
+  /** Name for the series (displayed in legend) */
   name: string;
 }
 
+/**
+ * Props for the LegendRadarChart component.
+ * A radar chart with multiple series and a legend.
+ */
 interface LegendRadarChartProps {
+  /**
+   * Array of indicators defining the radar axes.
+   * @default 6 monthly indicators with max 400
+   */
   indicators?: RadarIndicator[];
+  
+  /**
+   * Array of named data series to display.
+   * @default 2 sample series
+   */
   series?: RadarSeriesData[];
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

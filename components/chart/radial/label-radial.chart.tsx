@@ -19,18 +19,56 @@ echarts.use([
   BarChart,
 ]);
 
+/**
+ * Data structure for radial chart items.
+ */
 interface RadialData {
+  /** Label for the item */
   label: string;
+  /** Numeric value */
   value: number;
+  /** Optional custom color */
   color?: string;
 }
 
+/**
+ * Props for the LabelRadialChart component.
+ * A radial bar chart displaying data in a circular pattern with labels.
+ */
 interface LabelRadialChartProps {
+  /**
+   * Array of data items to display.
+   * @default Sample browser data
+   */
   data?: RadialData[];
+  
+  /**
+   * Inner and outer width of the ring [start, end].
+   * @default [20, 80]
+   */
   ringWidth?: [number, number];
+  
+  /**
+   * Gap between rings as percentage string.
+   * @default '3%'
+   */
   ringGap?: string;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

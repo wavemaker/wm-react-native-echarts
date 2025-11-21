@@ -19,18 +19,56 @@ echarts.use([
   BarChart,
 ]);
 
+/**
+ * Data structure for radial chart items.
+ */
 interface RadialData {
+  /** Label for the item */
   label: string;
+  /** Numeric value */
   value: number;
+  /** Optional custom color */
   color?: string;
 }
 
+/**
+ * Props for the GridRadialChart component.
+ * A radial chart with visible grid lines and multiple data series.
+ */
 interface GridRadialChartProps {
+  /**
+   * Array of data items to display.
+   * @default Sample data
+   */
   data?: RadialData[];
+  
+  /**
+   * Inner and outer width of the ring [start, end].
+   * @default [20, 80]
+   */
   ringWidth?: [number, number];
+  
+  /**
+   * Gap between rings as percentage string.
+   * @default '3%'
+   */
   ringGap?: string;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

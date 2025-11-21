@@ -17,19 +17,53 @@ echarts.use([
   PieChart,
 ]);
 
+/**
+ * Data item structure for pie charts.
+ */
 interface PieDataItem {
+  /** Numeric value for the slice */
   value: number;
+  /** Name/label for the slice */
   name: string;
+  /** Optional custom styling for the slice */
   itemStyle?: {
+    /** Custom color for this slice */
     color: string;
   };
 }
 
+/**
+ * Props for the DonutChart component.
+ * A donut/ring chart with a hollow center.
+ */
 interface DonutChartProps {
+  /**
+   * Array of data items for the donut slices.
+   * @default Array of sample categories
+   */
   data?: PieDataItem[];
+  
+  /**
+   * Inner and outer radius as percentage strings [innerRadius, outerRadius].
+   * @default ['40%', '70%']
+   */
   radius?: string[];
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

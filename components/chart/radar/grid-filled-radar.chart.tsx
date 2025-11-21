@@ -17,17 +17,54 @@ echarts.use([
   RadarChart,
 ]);
 
+/**
+ * Definition for a radar chart indicator (axis).
+ */
 interface RadarIndicator {
+  /** Name/label of the indicator */
   name: string;
+  /** Maximum value for this indicator */
   max: number;
 }
 
+/**
+ * Props for the GridFilledRadarChart component.
+ * A radar chart with polygonal grid and filled area.
+ */
 interface GridFilledRadarChartProps {
+  /**
+   * Array of indicators defining the radar axes.
+   * @default 6 monthly indicators with max 400
+   */
   indicators?: RadarIndicator[];
+  
+  /**
+   * Array of values corresponding to each indicator.
+   * @default Sample data values
+   */
   data?: number[];
+  
+  /**
+   * Color for the filled area.
+   * @default Theme color with opacity
+   */
   areaColor?: string;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

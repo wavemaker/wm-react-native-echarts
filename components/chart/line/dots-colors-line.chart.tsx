@@ -17,15 +17,60 @@ echarts.use([
   LineChart,
 ]);
 
+/**
+ * Type definition for axis data. Can be either a simple string array or an array of objects with label and value.
+ * @example
+ * // String array
+ * ['Jan', 'Feb', 'Mar']
+ * // Object array
+ * [{ label: 'Q1', value: 0 }, { label: 'Q2', value: 3 }]
+ */
 type AxisData = string[] | Array<{ label: string; value: number }>;
 
+/**
+ * Props for the DotsColorsLineChart component.
+ * A line chart with colored dots at each data point, where each dot can have its own color.
+ */
 interface DotsColorsLineChartProps {
+  /**
+   * X-axis labels. Can be a string array or object array with label and value.
+   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+   */
   xAxisData?: AxisData;
+  
+  /**
+   * Array of data points with optional individual colors for each dot.
+   * @default Array of objects with values and colors
+   */
   data?: Array<{ value: number; itemStyle?: { color: string } }>;
+  
+  /**
+   * Color for the connecting line.
+   * @default theme color
+   */
   lineColor?: string;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Width of the line in pixels.
+   * @default Varies
+   */
   lineWidth?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

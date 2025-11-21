@@ -12,12 +12,44 @@ echarts.use([
   GaugeChart,
 ]);
 
+/**
+ * Props for the DefaultGaugeChart component.
+ * A basic gauge chart displaying a single value within a range.
+ */
 interface DefaultGaugeChartProps {
+  /**
+   * Current value to display on the gauge.
+   * @default 75
+   */
   value?: number;
+  
+  /**
+   * Minimum value of the gauge scale.
+   * @default 0
+   */
   min?: number;
+  
+  /**
+   * Maximum value of the gauge scale.
+   * @default 100
+   */
   max?: number;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 240
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

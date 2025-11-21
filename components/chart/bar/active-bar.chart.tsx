@@ -17,10 +17,32 @@ echarts.use([
   BarChart,
 ]);
 
+/**
+ * Type definition for axis data. Can be either a simple string array or an array of objects with label and value.
+ * @example
+ * // String array
+ * ['Jan', 'Feb', 'Mar']
+ * // Object array
+ * [{ label: 'Q1', value: 0 }, { label: 'Q2', value: 3 }]
+ */
 type AxisData = string[] | Array<{ label: string; value: number }>;
 
+/**
+ * Props for the ActiveBarChart component.
+ * A bar chart with one highlighted (active) bar that stands out from the others.
+ */
 interface ActiveBarChartProps {
+  /**
+   * X-axis labels. Can be a string array or object array with label and value.
+   * @default ['Chrome', 'Safari', 'Firefox', 'Edge', 'Other']
+   */
   xAxisData?: AxisData;
+  
+  /**
+   * Array of data points with individual styling for each bar.
+   * If not provided, generates random data with active bar highlighted.
+   * @default undefined (generates automatically)
+   */
   data?: Array<{
     value: number;
     itemStyle: {
@@ -31,11 +53,40 @@ interface ActiveBarChartProps {
       borderType?: 'solid' | 'dashed';
     };
   }>;
+  
+  /**
+   * Index of the bar to highlight (zero-based).
+   * @default 2
+   */
   activeIndex?: number;
+  
+  /**
+   * Width of the bars as a percentage string.
+   * @default undefined
+   */
   barWidth?: string;
+  
+  /**
+   * Gap between bars as a percentage string.
+   * @default undefined
+   */
   barGap?: string;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

@@ -17,17 +17,57 @@ echarts.use([
   LineChart,
 ]);
 
+/**
+ * Type definition for axis data. Can be either a simple string array or an array of objects with label and value.
+ * @example
+ * // String array
+ * ['Jan', 'Feb', 'Mar']
+ * // Object array
+ * [{ label: 'Q1', value: 0 }, { label: 'Q2', value: 3 }]
+ */
 type AxisData = string[] | Array<{ label: string; value: number }>;
 
+/**
+ * Props for the LegendAreaChart component.
+ * An area chart with multiple named series and automatic legend display.
+ */
 interface LegendAreaChartProps {
+  /**
+   * X-axis labels. Can be a string array or object array with label and value.
+   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
+   */
   xAxisData?: AxisData;
+  
+  /**
+   * Array of named data series. Each series has a name and data array.
+   * @default [{ name: 'Mobile', data: [140, 180, 200, 150, 160, 210] }, { name: 'Desktop', data: [80, 120, 140, 90, 100, 150] }]
+   */
   series?: Array<{
     name: string;
     data: number[];
   }>;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Width of the lines in pixels.
+   * @default 2
+   */
   lineWidth?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

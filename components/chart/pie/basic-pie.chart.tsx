@@ -17,21 +17,65 @@ echarts.use([
   PieChart,
 ]);
 
+/**
+ * Data item structure for pie charts.
+ */
 interface PieDataItem {
+  /** Numeric value for the slice */
   value: number;
+  /** Name/label for the slice */
   name: string;
+  /** Optional custom styling for the slice */
   itemStyle?: {
+    /** Custom color for this slice */
     color: string;
   };
 }
 
+/**
+ * Props for the BasicPieChart component.
+ * A simple pie chart with customizable slices.
+ */
 interface BasicPieChartProps {
+  /**
+   * Array of data items for the pie slices.
+   * @default Array of 5 sample categories
+   */
   data?: PieDataItem[];
+  
+  /**
+   * Radius of the pie chart as a percentage string.
+   * @default '60%'
+   */
   radius?: string;
+  
+  /**
+   * Whether to show labels on the slices.
+   * @default false
+   */
   showLabel?: boolean;
+  
+  /**
+   * Whether to show lines connecting labels to slices.
+   * @default false
+   */
   showLabelLine?: boolean;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

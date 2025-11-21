@@ -5,12 +5,44 @@ import { useEffect, useRef, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import Svg, { Circle, Defs, G, LinearGradient, Path, Stop, Text as SvgText } from 'react-native-svg';
 
+/**
+ * Props for the AnimatedGaugeChart component.
+ * A gauge chart with smooth animations built using SVG.
+ */
 interface AnimatedGaugeChartProps {
+  /**
+   * Current value to display on the gauge.
+   * @default 77
+   */
   value?: number;
+  
+  /**
+   * Minimum value of the gauge scale.
+   * @default 0
+   */
   min?: number;
+  
+  /**
+   * Maximum value of the gauge scale.
+   * @default 100
+   */
   max?: number;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 240
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

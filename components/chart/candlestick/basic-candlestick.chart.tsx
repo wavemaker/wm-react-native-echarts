@@ -19,11 +19,38 @@ echarts.use([
   CandlestickChart,
 ]);
 
+/**
+ * Props for the BasicCandlestickChart component.
+ * A financial chart displaying OHLC (Open, High, Low, Close) data as candlesticks.
+ */
 interface BasicCandlestickChartProps {
+  /**
+   * Array of date/time labels for the X-axis.
+   * @default ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+   */
   xAxisData?: string[];
+  
+  /**
+   * Array of OHLC data. Each item is [open, close, low, high].
+   * @default Sample weekly data
+   */
   data?: number[][];
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 450
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

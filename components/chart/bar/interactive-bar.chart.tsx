@@ -17,16 +17,66 @@ echarts.use([
   BarChart,
 ]);
 
+/**
+ * Type definition for axis data. Can be either a simple string array or an array of objects with label and value.
+ * @example
+ * // String array
+ * ['Jan', 'Feb', 'Mar']
+ * // Object array
+ * [{ label: 'Q1', value: 0 }, { label: 'Q2', value: 3 }]
+ */
 type AxisData = string[] | Array<{ label: string; value: number }>;
 
+/**
+ * Props for the InteractiveBarChart component.
+ * A taller bar chart designed for displaying more data points with interactive tooltips.
+ */
 interface InteractiveBarChartProps {
+  /**
+   * X-axis labels. Can be a string array or object array with label and value.
+   * @default ['Apr 1', 'Apr 8', 'Apr 15', 'Apr 22', 'Apr 29', 'May 6', 'May 13', 'May 20', 'May 27', 'Jun 3', 'Jun 10', 'Jun 17', 'Jun 24']
+   */
   xAxisData?: AxisData;
+  
+  /**
+   * Array of numeric values for each bar.
+   * @default [800, 1200, 950, 1800, 1100, 1500, 1300, 950, 1700, 1250, 1600, 1050, 1400]
+   */
   data?: number[];
+  
+  /**
+   * Color for the bars. If not provided, uses theme color.
+   * @default theme.series.colors[0]
+   */
   color?: string;
+  
+  /**
+   * Width of the bars as a percentage string.
+   * @default '70%'
+   */
   barWidth?: string;
+  
+  /**
+   * Gap between bars as a percentage string.
+   * @default '10%'
+   */
   barGap?: string;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 450
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 

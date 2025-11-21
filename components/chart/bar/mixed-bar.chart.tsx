@@ -17,10 +17,32 @@ echarts.use([
   BarChart,
 ]);
 
+/**
+ * Type definition for axis data. Can be either a simple string array or an array of objects with label and value.
+ * @example
+ * // String array
+ * ['Jan', 'Feb', 'Mar']
+ * // Object array
+ * [{ label: 'Q1', value: 0 }, { label: 'Q2', value: 3 }]
+ */
 type AxisData = string[] | Array<{ label: string; value: number }>;
 
+/**
+ * Props for the MixedBarChart component.
+ * A horizontal bar chart where each bar can have its own color and styling.
+ */
 interface MixedBarChartProps {
+  /**
+   * Y-axis labels. Can be a string array or object array with label and value.
+   * @default ['Other', 'Edge', 'Safari', 'Firefox', 'Chrome']
+   */
   yAxisData?: AxisData;
+  
+  /**
+   * Array of data points with individual styling for each bar.
+   * Each item must have a value and itemStyle with color and borderRadius.
+   * @default Array of 5 items with blue gradient colors
+   */
   data?: Array<{
     value: number;
     itemStyle: {
@@ -28,10 +50,34 @@ interface MixedBarChartProps {
       borderRadius: number[];
     };
   }>;
+  
+  /**
+   * Width of the bars as a percentage string.
+   * @default '60%'
+   */
   barWidth?: string;
+  
+  /**
+   * Gap between bars as a percentage string.
+   * @default undefined
+   */
   barGap?: string;
+  
+  /**
+   * Width of the chart in pixels.
+   * @default 220
+   */
   width?: number;
+  
+  /**
+   * Height of the chart in pixels.
+   * @default 350
+   */
   height?: number;
+  
+  /**
+   * Partial theme override for customizing chart appearance.
+   */
   theme?: Partial<ChartTheme>;
 }
 
