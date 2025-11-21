@@ -45,11 +45,40 @@ export default function RadialChartScreen() {
         </Text>
       </View>
 
-      <LabelRadialChart />
-      <GridRadialChart />
-      <TextRadialChart />
-      <ShapeRadialChart />
-      <StackedRadialChart />
+      <LabelRadialChart 
+        data={[
+          { label: 'Chrome', value: 85 },
+          { label: 'Safari', value: 70 },
+          { label: 'Firefox', value: 60 },
+          { label: 'Edge', value: 45 },
+          { label: 'Other', value: 30 },
+        ]}
+      />
+      <GridRadialChart 
+        data={[
+          { label: 'A', value: 85, color: '#60a5fa' },
+          { label: 'B', value: 70, color: '#3b82f6' },
+          { label: 'C', value: 60, color: '#2563eb' },
+          { label: 'D', value: 45, color: '#1e40af' },
+          { label: 'E', value: 30, color: '#1e3a8a' },
+        ]}
+      />
+      <TextRadialChart 
+        value={200}
+        maxValue={300}
+        label="Visitors"
+      />
+      <ShapeRadialChart 
+        value={1260}
+        maxValue={1500}
+        label="Visitors"
+      />
+      <StackedRadialChart 
+        series={[
+          { name: 'Inner', value: 30, color: '#93c5fd' },
+          { name: 'Outer', value: 20, color: '#3b82f6' },
+        ]}
+      />
     </ScrollView>
   );
 }

@@ -34,15 +34,13 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface GradientAreaChartProps {
   /**
    * X-axis labels. Can be a string array or object array with label and value.
-   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
    */
-  xAxisData?: AxisData;
+  xAxisData: AxisData;
   
   /**
    * Array of data series. Each series contains numeric data values.
-   * @default [{ data: [140, 180, 200, 150, 160, 210] }, { data: [80, 120, 140, 90, 100, 150] }]
    */
-  series?: Array<{
+  series: Array<{
     data: number[];
   }>;
   
@@ -71,15 +69,8 @@ interface GradientAreaChartProps {
 }
 
 const ChartComponent = ({
-  xAxisData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-  series = [
-    {
-      data: [140, 180, 200, 150, 160, 210],
-    },
-    {
-      data: [80, 120, 140, 90, 100, 150],
-    },
-  ],
+  xAxisData,
+  series,
   width = 220,
   height = 350,
   lineWidth = 2,

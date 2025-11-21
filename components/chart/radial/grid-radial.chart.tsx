@@ -38,9 +38,8 @@ interface RadialData {
 interface GridRadialChartProps {
   /**
    * Array of data items to display.
-   * @default Sample data
    */
-  data?: RadialData[];
+  data: RadialData[];
   
   /**
    * Inner and outer width of the ring [start, end].
@@ -73,13 +72,7 @@ interface GridRadialChartProps {
 }
 
 const ChartComponent = ({
-  data = [
-    { label: 'A', value: 85, color: '#60a5fa' },
-    { label: 'B', value: 70, color: '#3b82f6' },
-    { label: 'C', value: 60, color: '#2563eb' },
-    { label: 'D', value: 45, color: '#1e40af' },
-    { label: 'E', value: 30, color: '#1e3a8a' },
-  ],
+  data,
   ringWidth = [30, 140],
   ringGap = '10%',
   width = 220,

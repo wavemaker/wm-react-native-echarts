@@ -69,27 +69,77 @@ export default function PieChartScreen() {
       </View>
 
       <View style={styles.chartContainer}>
-        <BasicPieChart height={400} />
+        <BasicPieChart 
+          height={400}
+          data={[
+            { value: 275, name: 'Desktop' },
+            { value: 200, name: 'Mobile' },
+            { value: 187, name: 'Tablet' },
+            { value: 90, name: 'Other' },
+          ]}
+        />
       </View>
 
       <View style={styles.chartContainer}>
-        <LabelPieChart height={400} />
+        <LabelPieChart 
+          height={400}
+          data={[
+            { value: 275, name: 'Desktop' },
+            { value: 200, name: 'Mobile' },
+            { value: 187, name: 'Tablet' },
+            { value: 173, name: 'Other' },
+            { value: 90, name: 'Unknown' },
+          ]}
+        />
       </View>
 
       <View style={styles.chartContainer}>
-        <LegendPieChart height={400} />
+        <LegendPieChart 
+          height={400}
+          data={[
+            { value: 275, name: 'Chrome' },
+            { value: 200, name: 'Safari' },
+            { value: 187, name: 'Firefox' },
+            { value: 173, name: 'Edge' },
+            { value: 90, name: 'Other' },
+          ]}
+        />
       </View>
 
       <View style={styles.chartContainer}>
-        <DonutChart height={400} />
+        <DonutChart 
+          height={400}
+          data={[
+            { value: 275, name: 'Desktop' },
+            { value: 200, name: 'Mobile' },
+            { value: 187, name: 'Tablet' },
+            { value: 90, name: 'Other' },
+          ]}
+        />
       </View>
 
       <View style={styles.chartContainer}>
-        <DonutActiveChart height={400} />
+        <DonutActiveChart 
+          height={400}
+          data={[
+            { value: 275, name: 'Desktop', selected: true },
+            { value: 200, name: 'Mobile' },
+            { value: 187, name: 'Tablet' },
+            { value: 90, name: 'Other' },
+          ]}
+        />
       </View>
 
       <View style={styles.chartContainer}>
-        <DonutTextChart height={400} />
+        <DonutTextChart 
+          height={400}
+          data={[
+            { value: 275, name: 'Desktop' },
+            { value: 200, name: 'Mobile' },
+            { value: 187, name: 'Tablet' },
+            { value: 90, name: 'Other' },
+          ]}
+        />
       </View>
 
       <View style={styles.chartContainer}>

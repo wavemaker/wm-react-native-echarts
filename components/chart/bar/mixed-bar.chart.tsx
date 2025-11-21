@@ -34,15 +34,13 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface MixedBarChartProps {
   /**
    * Y-axis labels. Can be a string array or object array with label and value.
-   * @default ['Other', 'Edge', 'Safari', 'Firefox', 'Chrome']
    */
-  yAxisData?: AxisData;
+  yAxisData: AxisData;
   
   /**
    * Array of numeric values for each bar.
-   * @default [8, 12, 35, 40, 65]
    */
-  data?: number[];
+  data: number[];
   
   /**
    * Width of the bars as a percentage string.
@@ -76,8 +74,8 @@ interface MixedBarChartProps {
 }
 
 const ChartComponent = ({
-  yAxisData = ['Other', 'Edge', 'Safari', 'Firefox', 'Chrome'],
-  data = [8, 12, 35, 40, 65],
+  yAxisData,
+  data,
   barWidth = '60%',
   barGap,
   width = 220,

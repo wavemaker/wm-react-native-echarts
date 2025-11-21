@@ -26,15 +26,13 @@ echarts.use([
 interface ShapeRadialChartProps {
   /**
    * Current value to display.
-   * @default 1260
    */
-  value?: number;
+  value: number;
   
   /**
    * Maximum value for the scale.
-   * @default 1500
    */
-  maxValue?: number;
+  maxValue: number;
   
   /**
    * Label text for the value.
@@ -85,8 +83,8 @@ interface ShapeRadialChartProps {
 }
 
 const ChartComponent = ({
-  value = 1260,
-  maxValue = 1500,
+  value,
+  maxValue,
   label = 'Visitors',
   centerText,
   centerSubtext,

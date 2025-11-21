@@ -36,15 +36,13 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface MultipleBarChartProps {
   /**
    * X-axis labels. Can be a string array or object array with label and value.
-   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
    */
-  xAxisData?: AxisData;
+  xAxisData: AxisData;
   
   /**
    * Array of data series to display. Each series has a name and data array.
-   * @default [{ name: 'Series A', data: [186, 305, 237, 73, 209, 214] }, { name: 'Series B', data: [150, 280, 200, 90, 180, 190] }]
    */
-  series?: Array<{
+  series: Array<{
     name: string;
     data: number[];
   }>;
@@ -86,17 +84,8 @@ interface MultipleBarChartProps {
 }
 
 const ChartComponent = ({
-  xAxisData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-  series = [
-    {
-      name: 'Series A',
-      data: [186, 305, 237, 73, 209, 214],
-    },
-    {
-      name: 'Series B',
-      data: [150, 280, 200, 90, 180, 190],
-    },
-  ],
+  xAxisData,
+  series,
   barWidth = '40%',
   barGap,
   borderRadius = [4, 4, 4, 4],

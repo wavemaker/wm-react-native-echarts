@@ -34,15 +34,13 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface CustomLabelLineChartProps {
   /**
    * X-axis labels. Can be a string array or object array with label and value.
-   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
    */
-  xAxisData?: AxisData;
+  xAxisData: AxisData;
   
   /**
    * Array of data points with custom labels for each point.
-   * @default Array of objects with values and label formatters
    */
-  data?: Array<{ value: number; label?: { formatter: string } }>;
+  data: Array<{ value: number; label?: { formatter: string } }>;
   
   /**
    * Width of the chart in pixels.
@@ -69,15 +67,8 @@ interface CustomLabelLineChartProps {
 }
 
 const ChartComponent = ({
-  xAxisData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-  data = [
-    { value: 186, label: { formatter: 'Chrome' } },
-    { value: 305, label: { formatter: 'Safari' } },
-    { value: 237, label: { formatter: 'Firefox' } },
-    { value: 73, label: { formatter: 'Edge' } },
-    { value: 209, label: { formatter: 'Other' } },
-    { value: 214 },
-  ],
+  xAxisData,
+  data,
   width = 220,
   height = 350,
   lineWidth = 1,

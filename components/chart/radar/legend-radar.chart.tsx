@@ -46,15 +46,13 @@ interface RadarSeriesData {
 interface LegendRadarChartProps {
   /**
    * Array of indicators defining the radar axes.
-   * @default 6 monthly indicators with max 400
    */
-  indicators?: RadarIndicator[];
+  indicators: RadarIndicator[];
   
   /**
    * Array of named data series to display.
-   * @default 2 sample series
    */
-  series?: RadarSeriesData[];
+  series: RadarSeriesData[];
   
   /**
    * Width of the chart in pixels.
@@ -75,24 +73,8 @@ interface LegendRadarChartProps {
 }
 
 const ChartComponent = ({
-  indicators = [
-    { name: 'January', max: 400 },
-    { name: 'February', max: 400 },
-    { name: 'March', max: 400 },
-    { name: 'April', max: 400 },
-    { name: 'May', max: 400 },
-    { name: 'June', max: 400 },
-  ],
-  series = [
-    {
-      value: [240, 305, 237, 280, 209, 364],
-      name: 'Desktop',
-    },
-    {
-      value: [150, 230, 200, 150, 180, 170],
-      name: 'Mobile',
-    },
-  ],
+  indicators,
+  series,
   width = 220,
   height = 300,
 }: LegendRadarChartProps) => {

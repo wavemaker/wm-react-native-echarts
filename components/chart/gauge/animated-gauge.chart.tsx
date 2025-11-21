@@ -12,9 +12,8 @@ import Svg, { Circle, Defs, G, LinearGradient, Path, Stop, Text as SvgText } fro
 interface AnimatedGaugeChartProps {
   /**
    * Current value to display on the gauge.
-   * @default 77
    */
-  value?: number;
+  value: number;
   
   /**
    * Minimum value of the gauge scale.
@@ -48,14 +47,14 @@ interface AnimatedGaugeChartProps {
 
 // SVG Gauge Component
 const SVGGaugeChart = ({ 
-  value = 77, 
+  value, 
   max = 100,
   showInnerArc = false,
   width,
   height,
   animationDuration = 1000,
 }: { 
-  value?: number; 
+  value: number; 
   max?: number;
   showInnerArc?: boolean;
   width?: number;

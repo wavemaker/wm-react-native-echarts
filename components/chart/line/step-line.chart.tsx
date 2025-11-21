@@ -34,15 +34,13 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface StepLineChartProps {
   /**
    * X-axis labels. Can be a string array or object array with label and value.
-   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
    */
-  xAxisData?: AxisData;
+  xAxisData: AxisData;
   
   /**
    * Array of numeric values for the chart data.
-   * @default [170, 170, 230, 230, 180, 180]
    */
-  data?: number[];
+  data: number[];
   
   /**
    * Width of the chart in pixels.
@@ -69,8 +67,8 @@ interface StepLineChartProps {
 }
 
 const ChartComponent = ({
-  xAxisData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-  data = [170, 170, 230, 230, 180, 180],
+  xAxisData,
+  data,
   width = 220,
   height = 350,
   lineWidth = 1,

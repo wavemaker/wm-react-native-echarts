@@ -34,15 +34,13 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface DotsColorsLineChartProps {
   /**
    * X-axis labels. Can be a string array or object array with label and value.
-   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
    */
-  xAxisData?: AxisData;
+  xAxisData: AxisData;
   
   /**
    * Array of data points with optional individual colors for each dot.
-   * @default Array of objects with values and colors
    */
-  data?: Array<{ value: number; itemStyle?: { color: string } }>;
+  data: Array<{ value: number; itemStyle?: { color: string } }>;
   
   /**
    * Color for the connecting line.
@@ -75,15 +73,8 @@ interface DotsColorsLineChartProps {
 }
 
 const ChartComponent = ({
-  xAxisData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-  data = [
-    { value: 186, itemStyle: { color: '#1e40af' } },
-    { value: 305, itemStyle: { color: '#3b82f6' } },
-    { value: 237, itemStyle: { color: '#60a5fa' } },
-    { value: 73, itemStyle: { color: '#93c5fd' } },
-    { value: 209, itemStyle: { color: '#1e40af' } },
-    { value: 214, itemStyle: { color: '#3b82f6' } },
-  ],
+  xAxisData,
+  data,
   lineColor,
   width = 220,
   height = 350,

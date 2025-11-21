@@ -29,21 +29,18 @@ echarts.use([
 interface VolumeCandlestickChartProps {
   /**
    * Array of date/time labels for the X-axis.
-   * @default ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
    */
-  xAxisData?: string[];
+  xAxisData: string[];
   
   /**
    * Array of OHLC price data. Each item is [open, close, low, high].
-   * @default Sample weekly data
    */
-  priceData?: number[][];
+  priceData: number[][];
   
   /**
    * Array of volume data corresponding to each price period.
-   * @default Sample volume data
    */
-  volumeData?: number[];
+  volumeData: number[];
   
   /**
    * Width of the chart in pixels.
@@ -64,17 +61,9 @@ interface VolumeCandlestickChartProps {
 }
 
 const ChartComponent = ({
-  xAxisData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-  priceData = [
-    [20, 34, 10, 38],
-    [40, 35, 30, 50],
-    [31, 38, 33, 44],
-    [38, 15, 5, 42],
-    [25, 32, 28, 35],
-    [30, 25, 20, 40],
-    [35, 45, 30, 50],
-  ],
-  volumeData = [20, 40, 31, 38, 25, 30, 35],
+  xAxisData,
+  priceData,
+  volumeData,
   width = 220,
   height = 450,
 }: VolumeCandlestickChartProps) => {

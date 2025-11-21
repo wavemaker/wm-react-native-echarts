@@ -26,15 +26,13 @@ echarts.use([
 interface BasicCandlestickChartProps {
   /**
    * Array of date/time labels for the X-axis.
-   * @default ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
    */
-  xAxisData?: string[];
+  xAxisData: string[];
   
   /**
    * Array of OHLC data. Each item is [open, close, low, high].
-   * @default Sample weekly data
    */
-  data?: number[][];
+  data: number[][];
   
   /**
    * Width of the chart in pixels.
@@ -55,16 +53,8 @@ interface BasicCandlestickChartProps {
 }
 
 const ChartComponent = ({
-  xAxisData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-  data = [
-    [20, 34, 10, 38],
-    [40, 35, 30, 50],
-    [31, 38, 33, 44],
-    [38, 15, 5, 42],
-    [25, 32, 28, 35],
-    [30, 25, 20, 40],
-    [35, 45, 30, 50],
-  ],
+  xAxisData,
+  data,
   width = 220,
   height = 400,
 }: BasicCandlestickChartProps) => {

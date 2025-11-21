@@ -36,9 +36,8 @@ interface RadialData {
 interface LabelRadialChartProps {
   /**
    * Array of data items to display.
-   * @default Sample browser data
    */
-  data?: RadialData[];
+  data: RadialData[];
   
   /**
    * Inner and outer width of the ring [start, end].
@@ -72,13 +71,7 @@ interface LabelRadialChartProps {
 }
 
 const ChartComponent = ({
-  data = [
-    { label: 'Chrome', value: 85 },
-    { label: 'Safari', value: 70 },
-    { label: 'Firefox', value: 60 },
-    { label: 'Edge', value: 45 },
-    { label: 'Other', value: 30 },
-  ],
+  data,
   ringWidth = [30, 140],
   ringGap = '20%',
   width = 220,

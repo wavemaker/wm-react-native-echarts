@@ -34,15 +34,13 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface InteractiveAreaChartProps {
   /**
    * X-axis labels. Can be a string array or object array with label and value.
-   * @default ['Apr 6', 'Apr 11', ...] (16 data points)
    */
-  xAxisData?: AxisData;
+  xAxisData: AxisData;
   
   /**
    * Array of named data series. Each series has a name and data array.
-   * @default [{ name: 'Mobile', data: [...] }, { name: 'Desktop', data: [...] }]
    */
-  series?: Array<{
+  series: Array<{
     name: string;
     data: number[];
   }>;
@@ -72,17 +70,8 @@ interface InteractiveAreaChartProps {
 }
 
 const ChartComponent = ({
-  xAxisData = ['Apr 6', 'Apr 11', 'Apr 16', 'Apr 22', 'Apr 28', 'May 4', 'May 9', 'May 15', 'May 21', 'May 27', 'Jun 1', 'Jun 6', 'Jun 11', 'Jun 17', 'Jun 23', 'Jun 30'],
-  series = [
-    {
-      name: 'Mobile',
-      data: [5000, 7200, 15500, 18700, 22100, 19500, 25400, 23900, 27600, 26000, 23600, 25100, 23900, 23500, 23700, 23900],
-    },
-    {
-      name: 'Desktop',
-      data: [4000, 6400, 13500, 17500, 21200, 24600, 22900, 26300, 25000, 21600, 23900, 22700, 21900, 22100, 22300, 23800],
-    },
-  ],
+  xAxisData,
+  series,
   width = 220,
   height = 450,
   lineWidth = 2,

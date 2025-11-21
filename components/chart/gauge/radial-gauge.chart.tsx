@@ -24,9 +24,8 @@ echarts.use([
 interface RadialGaugeChartProps {
   /**
    * Current value to display on the gauge.
-   * @default 23
    */
-  value?: number;
+  value: number;
   
   /**
    * Minimum value of the gauge scale.
@@ -59,7 +58,7 @@ interface RadialGaugeChartProps {
 }
 
 const ChartComponent = ({
-  value = 23,
+  value,
   min = 0,
   max = 100,
   width = 220,

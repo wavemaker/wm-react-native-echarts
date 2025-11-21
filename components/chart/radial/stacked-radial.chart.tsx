@@ -38,9 +38,8 @@ interface StackedSeriesData {
 interface StackedRadialChartProps {
   /**
    * Array of series data to stack.
-   * @default Sample series data
    */
-  series?: StackedSeriesData[];
+  series: StackedSeriesData[];
   
   /**
    * Main text to display in the center.
@@ -85,10 +84,7 @@ interface StackedRadialChartProps {
 }
 
 const ChartComponent = ({
-  series = [
-    { name: 'Inner', value: 30, color: '#93c5fd' },
-    { name: 'Outer', value: 20, color: '#3b82f6' },
-  ],
+  series,
   centerText = '1,830',
   centerSubtext = 'Visitors',
   ringWidth = [120, 200],

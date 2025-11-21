@@ -34,15 +34,13 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface DotsLineChartProps {
   /**
    * X-axis labels. Can be a string array or object array with label and value.
-   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
    */
-  xAxisData?: AxisData;
+  xAxisData: AxisData;
   
   /**
    * Array of numeric values for the chart data.
-   * @default [174, 291, 249, 87, 197, 226]
    */
-  data?: number[];
+  data: number[];
   
   /**
    * Width of the chart in pixels.
@@ -69,8 +67,8 @@ interface DotsLineChartProps {
 }
 
 const ChartComponent = ({
-  xAxisData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-  data = [174, 291, 249, 87, 197, 226],
+  xAxisData,
+  data,
   width = 220,
   height = 350,
   lineWidth = 1,

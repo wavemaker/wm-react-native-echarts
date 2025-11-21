@@ -27,9 +27,8 @@ echarts.use([
 interface PopulationGeoChartProps {
   /**
    * Array of country population data with names and values (in millions).
-   * @default Sample population data for major countries
    */
-  data?: Array<{ name: string; value: number }>;
+  data: Array<{ name: string; value: number }>;
   
   /**
    * Minimum value for the visual map scale.
@@ -68,28 +67,7 @@ interface PopulationGeoChartProps {
 }
 
 const ChartComponent = ({
-  data = [
-    { name: 'China', value: 1439 },
-    { name: 'India', value: 1380 },
-    { name: 'United States', value: 331 },
-    { name: 'Indonesia', value: 273 },
-    { name: 'Pakistan', value: 220 },
-    { name: 'Brazil', value: 212 },
-    { name: 'Nigeria', value: 206 },
-    { name: 'Bangladesh', value: 164 },
-    { name: 'Russia', value: 145 },
-    { name: 'Mexico', value: 128 },
-    { name: 'Japan', value: 125 },
-    { name: 'Philippines', value: 109 },
-    { name: 'Ethiopia', value: 115 },
-    { name: 'Vietnam', value: 97 },
-    { name: 'Egypt', value: 102 },
-    { name: 'Turkey', value: 84 },
-    { name: 'Iran', value: 83 },
-    { name: 'Germany', value: 83 },
-    { name: 'Thailand', value: 69 },
-    { name: 'United Kingdom', value: 67 },
-  ],
+  data,
   visualMapMin = 0,
   visualMapMax = 1500,
   tooltipFormatter = '{b}<br/>Population: {c}M',

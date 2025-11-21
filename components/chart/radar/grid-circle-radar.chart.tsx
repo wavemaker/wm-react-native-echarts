@@ -34,15 +34,13 @@ interface RadarIndicator {
 interface GridCircleRadarChartProps {
   /**
    * Array of indicators defining the radar axes.
-   * @default 6 monthly indicators with max 400
    */
-  indicators?: RadarIndicator[];
+  indicators: RadarIndicator[];
   
   /**
    * Array of values corresponding to each indicator.
-   * @default Sample data values
    */
-  data?: number[];
+  data: number[];
   
   /**
    * Width of the chart in pixels.
@@ -63,15 +61,8 @@ interface GridCircleRadarChartProps {
 }
 
 const ChartComponent = ({
-  indicators = [
-    { name: 'January', max: 400 },
-    { name: 'February', max: 400 },
-    { name: 'March', max: 400 },
-    { name: 'April', max: 400 },
-    { name: 'May', max: 400 },
-    { name: 'June', max: 400 },
-  ],
-  data = [240, 305, 237, 280, 209, 364],
+  indicators,
+  data,
   width = 220,
   height = 300,
 }: GridCircleRadarChartProps) => {

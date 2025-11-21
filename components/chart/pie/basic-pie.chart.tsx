@@ -39,9 +39,8 @@ interface PieDataItem {
 interface BasicPieChartProps {
   /**
    * Array of data items for the pie slices.
-   * @default Array of 5 sample categories
    */
-  data?: PieDataItem[];
+  data: PieDataItem[];
   
   /**
    * Radius of the pie chart as a percentage string.
@@ -80,12 +79,7 @@ interface BasicPieChartProps {
 }
 
 const ChartComponent = ({
-  data = [
-    { value: 275, name: 'Desktop' },
-    { value: 200, name: 'Mobile' },
-    { value: 187, name: 'Tablet' },
-    { value: 90, name: 'Other' },
-  ],
+  data,
   radius = '50%',
   showLabel = false,
   showLabelLine = false,

@@ -34,15 +34,13 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface CustomLabelBarChartProps {
   /**
    * Y-axis labels. Can be a string array or object array with label and value.
-   * @default ['January', 'February', 'March', 'April', 'May', 'June']
    */
-  yAxisData?: AxisData;
+  yAxisData: AxisData;
   
   /**
    * Array of numeric values for each bar.
-   * @default [100, 150, 120, 40, 110, 120]
    */
-  data?: number[];
+  data: number[];
   
   /**
    * Color for the primary (data) bars.
@@ -87,8 +85,8 @@ interface CustomLabelBarChartProps {
 }
 
 const ChartComponent = ({
-  yAxisData = ['January', 'February', 'March', 'April', 'May', 'June'],
-  data = [100, 150, 120, 40, 110, 120],
+  yAxisData,
+  data,
   primaryColor,
   secondaryColor,
   barWidth = '80%',

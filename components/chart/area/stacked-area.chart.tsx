@@ -34,15 +34,13 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface StackedAreaChartProps {
   /**
    * X-axis labels. Can be a string array or object array with label and value.
-   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
    */
-  xAxisData?: AxisData;
+  xAxisData: AxisData;
   
   /**
    * Array of data series to stack. Each series contains numeric data values.
-   * @default [{ data: [120, 132, 101, 134, 90, 230] }, { data: [80, 82, 91, 104, 70, 140] }]
    */
-  series?: Array<{
+  series: Array<{
     data: number[];
   }>;
   
@@ -71,15 +69,8 @@ interface StackedAreaChartProps {
 }
 
 const ChartComponent = ({
-  xAxisData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-  series = [
-    {
-      data: [120, 132, 101, 134, 90, 230],
-    },
-    {
-      data: [80, 82, 91, 104, 70, 140],
-    },
-  ],
+  xAxisData,
+  series,
   width = 220,
   height = 350,
   lineWidth = 1,

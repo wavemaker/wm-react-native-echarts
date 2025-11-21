@@ -29,33 +29,28 @@ echarts.use([
 interface CandlestickMAChartProps {
   /**
    * Array of date/time labels for the X-axis.
-   * @default ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
    */
-  xAxisData?: string[];
+  xAxisData: string[];
   
   /**
    * Array of OHLC price data. Each item is [open, close, low, high].
-   * @default Sample weekly data
    */
-  priceData?: number[][];
+  priceData: number[][];
   
   /**
    * 5-period moving average data.
-   * @default Calculated from price data
    */
-  ma5Data?: number[];
+  ma5Data: number[];
   
   /**
    * 10-period moving average data.
-   * @default Calculated from price data
    */
-  ma10Data?: number[];
+  ma10Data: number[];
   
   /**
    * 20-period moving average data.
-   * @default Calculated from price data
    */
-  ma20Data?: number[];
+  ma20Data: number[];
   
   /**
    * Width of the chart in pixels.
@@ -76,19 +71,11 @@ interface CandlestickMAChartProps {
 }
 
 const ChartComponent = ({
-  xAxisData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-  priceData = [
-    [20, 34, 10, 38],
-    [40, 35, 30, 50],
-    [31, 38, 33, 44],
-    [38, 15, 5, 42],
-    [25, 32, 28, 35],
-    [30, 25, 20, 40],
-    [35, 45, 30, 50],
-  ],
-  ma5Data = [25, 35, 32, 28, 30, 32, 38],
-  ma10Data = [28, 32, 30, 26, 28, 30, 35],
-  ma20Data = [30, 30, 28, 25, 27, 29, 32],
+  xAxisData,
+  priceData,
+  ma5Data,
+  ma10Data,
+  ma20Data,
   width = 220,
   height = 400,
 }: CandlestickMAChartProps) => {

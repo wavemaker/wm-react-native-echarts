@@ -36,13 +36,11 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface InteractiveLineChartProps {
   /**
    * X-axis labels. Can be a string array or object array with label and value.
-   * @default Array of date strings (multiple data points)
    */
   xAxisData?: AxisData;
   
   /**
    * Array of named data series. Each series has a name and data array.
-   * @default Multiple series with default data
    */
   series?: Array<{
     name: string;

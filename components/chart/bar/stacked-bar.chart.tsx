@@ -36,15 +36,13 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface StackedBarChartProps {
   /**
    * X-axis labels. Can be a string array or object array with label and value.
-   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
    */
-  xAxisData?: AxisData;
+  xAxisData: AxisData;
   
   /**
    * Array of data series to stack. Each series can have custom border radius.
-   * @default [{ name: 'Desktop', data: [100, 150, 120, 40, 110, 120], borderRadius: [0, 0, 4, 4] }, { name: 'Mobile', data: [86, 155, 117, 33, 99, 94], borderRadius: [4, 4, 0, 0] }]
    */
-  series?: Array<{
+  series: Array<{
     name: string;
     data: number[];
     borderRadius?: number[];
@@ -87,19 +85,8 @@ interface StackedBarChartProps {
 }
 
 const ChartComponent = ({
-  xAxisData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-  series = [
-    {
-      name: 'Desktop',
-      data: [100, 150, 120, 40, 110, 120],
-      borderRadius: [0, 0, 4, 4],
-    },
-    {
-      name: 'Mobile',
-      data: [86, 155, 117, 33, 99, 94],
-      borderRadius: [4, 4, 0, 0],
-    },
-  ],
+  xAxisData,
+  series,
   stack = 'total',
   barWidth,
   barGap,

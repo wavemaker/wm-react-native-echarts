@@ -27,9 +27,8 @@ echarts.use([
 interface InteractiveGeoChartProps {
   /**
    * Array of country data with names and values.
-   * @default Sample data for multiple countries
    */
-  data?: Array<{ name: string; value: number }>;
+  data: Array<{ name: string; value: number }>;
   
   /**
    * Minimum value for the visual map scale.
@@ -80,23 +79,7 @@ interface InteractiveGeoChartProps {
 }
 
 const ChartComponent = ({
-  data = [
-    { name: 'United States', value: 800 },
-    { name: 'China', value: 950 },
-    { name: 'Japan', value: 450 },
-    { name: 'Germany', value: 420 },
-    { name: 'India', value: 650 },
-    { name: 'United Kingdom', value: 380 },
-    { name: 'France', value: 360 },
-    { name: 'Italy', value: 290 },
-    { name: 'Brazil', value: 340 },
-    { name: 'Canada', value: 320 },
-    { name: 'Russia', value: 490 },
-    { name: 'South Korea', value: 410 },
-    { name: 'Australia', value: 350 },
-    { name: 'Spain', value: 310 },
-    { name: 'Mexico', value: 280 },
-  ],
+  data,
   visualMapMin = 0,
   visualMapMax = 1000,
   colors = ['#73c0de', '#5470c6', '#91cc75', '#fac858', '#ee6666'],

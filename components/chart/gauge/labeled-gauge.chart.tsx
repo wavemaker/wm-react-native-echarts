@@ -19,9 +19,8 @@ echarts.use([
 interface LabeledGaugeChartProps {
   /**
    * Current value to display on the gauge.
-   * @default 30
    */
-  value?: number;
+  value: number;
   
   /**
    * Minimum value of the gauge scale.
@@ -66,7 +65,7 @@ interface LabeledGaugeChartProps {
 }
 
 const ChartComponent = ({
-  value = 30,
+  value,
   min = 0,
   max = 100,
   width = 220,

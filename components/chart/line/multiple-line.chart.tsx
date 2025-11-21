@@ -36,15 +36,13 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface MultipleLineChartProps {
   /**
    * X-axis labels. Can be a string array or object array with label and value.
-   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
    */
-  xAxisData?: AxisData;
+  xAxisData: AxisData;
   
   /**
    * Array of named data series. Each series has a name and data array.
-   * @default Multiple series with default data
    */
-  series?: Array<{
+  series: Array<{
     name: string;
     data: number[];
   }>;
@@ -74,17 +72,8 @@ interface MultipleLineChartProps {
 }
 
 const ChartComponent = ({
-  xAxisData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-  series = [
-    {
-      name: 'Series A',
-      data: [198, 287, 251, 89, 223, 202],
-    },
-    {
-      name: 'Series B',
-      data: [135, 185, 165, 95, 85, 125],
-    },
-  ],
+  xAxisData,
+  series,
   width = 220,
   height = 350,
   lineWidth = 1,

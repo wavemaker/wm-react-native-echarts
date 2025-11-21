@@ -27,9 +27,8 @@ echarts.use([
 interface GDPGeoChartProps {
   /**
    * Array of country GDP data with names and values (in billions).
-   * @default Sample GDP data for major economies
    */
-  data?: Array<{ name: string; value: number }>;
+  data: Array<{ name: string; value: number }>;
   
   /**
    * Minimum value for the visual map scale.
@@ -68,28 +67,7 @@ interface GDPGeoChartProps {
 }
 
 const ChartComponent = ({
-  data = [
-    { name: 'United States', value: 21427 },
-    { name: 'China', value: 14342 },
-    { name: 'Japan', value: 5081 },
-    { name: 'Germany', value: 3845 },
-    { name: 'India', value: 3176 },
-    { name: 'United Kingdom', value: 2831 },
-    { name: 'France', value: 2603 },
-    { name: 'Italy', value: 2000 },
-    { name: 'Brazil', value: 1608 },
-    { name: 'Canada', value: 1736 },
-    { name: 'Russia', value: 1483 },
-    { name: 'South Korea', value: 1810 },
-    { name: 'Australia', value: 1542 },
-    { name: 'Spain', value: 1394 },
-    { name: 'Mexico', value: 1293 },
-    { name: 'Indonesia', value: 1119 },
-    { name: 'Netherlands', value: 912 },
-    { name: 'Saudi Arabia', value: 793 },
-    { name: 'Turkey', value: 761 },
-    { name: 'Switzerland', value: 812 },
-  ],
+  data,
   visualMapMin = 0,
   visualMapMax = 20000,
   tooltipFormatter = '{b}<br/>GDP: ${c}B',

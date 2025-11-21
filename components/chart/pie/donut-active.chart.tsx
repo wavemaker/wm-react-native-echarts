@@ -42,9 +42,8 @@ interface DonutActiveChartProps {
   /**
    * Array of data items for the donut slices.
    * Items with selected=true will be initially offset.
-   * @default Array of sample categories with one selected
    */
-  data?: PieDataItem[];
+  data: PieDataItem[];
   
   /**
    * Inner and outer radius [innerRadius, outerRadius].
@@ -77,12 +76,7 @@ interface DonutActiveChartProps {
 }
 
 const ChartComponent = ({
-  data = [
-    { value: 275, name: 'Desktop', selected: true },
-    { value: 200, name: 'Mobile' },
-    { value: 187, name: 'Tablet' },
-    { value: 90, name: 'Other' },
-  ],
+  data,
   radius = ['40%', '70%'],
   selectedOffset = 10,
   width = 220,

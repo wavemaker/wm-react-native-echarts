@@ -34,21 +34,18 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface AxesAreaChartProps {
   /**
    * X-axis labels. Can be a string array or object array with label and value.
-   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
    */
-  xAxisData?: AxisData;
+  xAxisData: AxisData;
   
   /**
    * Y-axis labels. Can be a string array or object array with label and value.
-   * @default [{ label: '0', value: 0 }, { label: '200', value: 200 }, ...]
    */
-  yAxisData?: AxisData;
+  yAxisData: AxisData;
   
   /**
    * Array of numeric values for the chart data.
-   * @default [200, 350, 500, 300, 400, 600]
    */
-  data?: number[];
+  data: number[];
   
   /**
    * Width of the chart in pixels.
@@ -75,15 +72,9 @@ interface AxesAreaChartProps {
 }
 
 const ChartComponent = ({
-  xAxisData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-  yAxisData = [
-    { label: '0', value: 0 },
-    { label: '200', value: 200 },
-    { label: '400', value: 400 },
-    { label: '600', value: 600 },
-    { label: '800', value: 800 },
-  ],
-  data = [200, 350, 500, 300, 400, 600],
+  xAxisData,
+  yAxisData,
+  data,
   width = 220,
   height = 350,
   lineWidth = 2,

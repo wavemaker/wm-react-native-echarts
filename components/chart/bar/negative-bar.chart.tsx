@@ -34,15 +34,13 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface NegativeBarChartProps {
   /**
    * X-axis labels. Can be a string array or object array with label and value.
-   * @default ['January', 'February', 'March', 'April', 'May', 'June']
    */
-  xAxisData?: AxisData;
+  xAxisData: AxisData;
   
   /**
    * Array of numeric values, can include negative numbers.
-   * @default [120, 150, -180, 110, -80, 160]
    */
-  data?: number[];
+  data: number[];
   
   /**
    * Color for positive values. If not provided, uses theme color.
@@ -99,8 +97,8 @@ interface NegativeBarChartProps {
 }
 
 const ChartComponent = ({
-  xAxisData = ['January', 'February', 'March', 'April', 'May', 'June'],
-  data = [120, 150, -180, 110, -80, 160],
+  xAxisData,
+  data,
   positiveColor,
   negativeColor,
   barWidth = '60%',

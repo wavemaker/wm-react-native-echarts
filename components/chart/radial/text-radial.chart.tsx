@@ -26,15 +26,13 @@ echarts.use([
 interface TextRadialChartProps {
   /**
    * Current value to display.
-   * @default 200
    */
-  value?: number;
+  value: number;
   
   /**
    * Maximum value for the scale.
-   * @default 300
    */
-  maxValue?: number;
+  maxValue: number;
   
   /**
    * Label text for the value.
@@ -85,8 +83,8 @@ interface TextRadialChartProps {
 }
 
 const ChartComponent = ({
-  value = 200,
-  maxValue = 300,
+  value,
+  maxValue,
   label = 'Visitors',
   centerText,
   centerSubtext,

@@ -34,16 +34,13 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface ActiveBarChartProps {
   /**
    * X-axis labels. Can be a string array or object array with label and value.
-   * @default ['Chrome', 'Safari', 'Firefox', 'Edge', 'Other']
    */
-  xAxisData?: AxisData;
+  xAxisData: AxisData;
   
   /**
    * Array of numeric values for each bar.
-   * If not provided, generates random data with active bar highlighted.
-   * @default undefined (generates automatically)
    */
-  data?: number[];
+  data: number[];
   
   /**
    * Index of the bar to highlight (zero-based).
@@ -83,7 +80,7 @@ interface ActiveBarChartProps {
 }
 
 const ChartComponent = ({
-  xAxisData = ['Chrome', 'Safari', 'Firefox', 'Edge', 'Other'],
+  xAxisData,
   data,
   activeIndex = 2,
   barWidth,

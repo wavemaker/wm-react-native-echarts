@@ -51,17 +51,145 @@ export default function RadarChartScreen() {
         </Text>
       </View>
 
-      <BasicRadarChart />
-      <DotsRadarChart />
-      <LinesOnlyRadarChart />
-      <CustomLabelRadarChart />
-      <GridNoneRadarChart />
-      <GridCircleRadarChart />
-      <GridCircleNoLinesRadarChart />
-      <GridCircleFilledRadarChart />
-      <GridFilledRadarChart />
-      <MultipleRadarChart />
-      <LegendRadarChart />
+      <BasicRadarChart 
+        indicators={[
+          { name: 'January', max: 400 },
+          { name: 'February', max: 400 },
+          { name: 'March', max: 400 },
+          { name: 'April', max: 400 },
+          { name: 'May', max: 400 },
+          { name: 'June', max: 400 },
+        ]}
+        data={[240, 305, 237, 280, 209, 364]}
+      />
+      <DotsRadarChart 
+        indicators={[
+          { name: 'January', max: 400 },
+          { name: 'February', max: 400 },
+          { name: 'March', max: 400 },
+          { name: 'April', max: 400 },
+          { name: 'May', max: 400 },
+          { name: 'June', max: 400 },
+        ]}
+        data={[240, 305, 237, 280, 209, 364]}
+      />
+      <LinesOnlyRadarChart 
+        indicators={[
+          { name: 'January', max: 400 },
+          { name: 'February', max: 400 },
+          { name: 'March', max: 400 },
+          { name: 'April', max: 400 },
+          { name: 'May', max: 400 },
+          { name: 'June', max: 400 },
+        ]}
+        data={[240, 305, 237, 280, 209, 364]}
+      />
+      <CustomLabelRadarChart 
+        indicators={[
+          { name: 'January', max: 400 },
+          { name: 'February', max: 400 },
+          { name: 'March', max: 400 },
+          { name: 'April', max: 400 },
+          { name: 'May', max: 400 },
+          { name: 'June', max: 400 },
+        ]}
+        data={[240, 305, 237, 280, 209, 364]}
+      />
+      <GridNoneRadarChart 
+        indicators={[
+          { name: 'January', max: 400 },
+          { name: 'February', max: 400 },
+          { name: 'March', max: 400 },
+          { name: 'April', max: 400 },
+          { name: 'May', max: 400 },
+          { name: 'June', max: 400 },
+        ]}
+        data={[240, 305, 237, 280, 209, 364]}
+      />
+      <GridCircleRadarChart 
+        indicators={[
+          { name: 'January', max: 400 },
+          { name: 'February', max: 400 },
+          { name: 'March', max: 400 },
+          { name: 'April', max: 400 },
+          { name: 'May', max: 400 },
+          { name: 'June', max: 400 },
+        ]}
+        data={[240, 305, 237, 280, 209, 364]}
+      />
+      <GridCircleNoLinesRadarChart 
+        indicators={[
+          { name: 'January', max: 400 },
+          { name: 'February', max: 400 },
+          { name: 'March', max: 400 },
+          { name: 'April', max: 400 },
+          { name: 'May', max: 400 },
+          { name: 'June', max: 400 },
+        ]}
+        data={[240, 305, 237, 280, 209, 364]}
+      />
+      <GridCircleFilledRadarChart 
+        indicators={[
+          { name: 'January', max: 400 },
+          { name: 'February', max: 400 },
+          { name: 'March', max: 400 },
+          { name: 'April', max: 400 },
+          { name: 'May', max: 400 },
+          { name: 'June', max: 400 },
+        ]}
+        data={[240, 305, 237, 280, 209, 364]}
+      />
+      <GridFilledRadarChart 
+        indicators={[
+          { name: 'January', max: 400 },
+          { name: 'February', max: 400 },
+          { name: 'March', max: 400 },
+          { name: 'April', max: 400 },
+          { name: 'May', max: 400 },
+          { name: 'June', max: 400 },
+        ]}
+        data={[240, 305, 237, 280, 209, 364]}
+      />
+      <MultipleRadarChart 
+        indicators={[
+          { name: 'January', max: 400 },
+          { name: 'February', max: 400 },
+          { name: 'March', max: 400 },
+          { name: 'April', max: 400 },
+          { name: 'May', max: 400 },
+          { name: 'June', max: 400 },
+        ]}
+        series={[
+          {
+            name: 'Desktop',
+            value: [240, 305, 237, 280, 209, 364],
+          },
+          {
+            name: 'Mobile',
+            value: [186, 245, 189, 195, 178, 274],
+          },
+        ]}
+      />
+      <LegendRadarChart 
+        indicators={[
+          { name: 'January', max: 400 },
+          { name: 'February', max: 400 },
+          { name: 'March', max: 400 },
+          { name: 'April', max: 400 },
+          { name: 'May', max: 400 },
+          { name: 'June', max: 400 },
+        ]}
+        series={[
+          {
+            name: 'Desktop',
+            value: [240, 305, 237, 280, 209, 364],
+          },
+          {
+            name: 'Mobile',
+            value: [186, 245, 189, 195, 178, 274],
+          },
+        ]}
+      />
     </ScrollView>
   );
 }

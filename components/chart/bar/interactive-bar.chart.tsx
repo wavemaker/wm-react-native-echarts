@@ -34,13 +34,11 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface InteractiveBarChartProps {
   /**
    * X-axis labels. Can be a string array or object array with label and value.
-   * @default ['Apr 1', 'Apr 8', 'Apr 15', 'Apr 22', 'Apr 29', 'May 6', 'May 13', 'May 20', 'May 27', 'Jun 3', 'Jun 10', 'Jun 17', 'Jun 24']
    */
   xAxisData?: AxisData;
   
   /**
    * Array of numeric values for each bar.
-   * @default [800, 1200, 950, 1800, 1100, 1500, 1300, 950, 1700, 1250, 1600, 1050, 1400]
    */
   data?: number[];
   

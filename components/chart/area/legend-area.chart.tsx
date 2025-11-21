@@ -34,15 +34,13 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface LegendAreaChartProps {
   /**
    * X-axis labels. Can be a string array or object array with label and value.
-   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
    */
-  xAxisData?: AxisData;
+  xAxisData: AxisData;
   
   /**
    * Array of named data series. Each series has a name and data array.
-   * @default [{ name: 'Mobile', data: [140, 180, 200, 150, 160, 210] }, { name: 'Desktop', data: [80, 120, 140, 90, 100, 150] }]
    */
-  series?: Array<{
+  series: Array<{
     name: string;
     data: number[];
   }>;
@@ -72,17 +70,8 @@ interface LegendAreaChartProps {
 }
 
 const ChartComponent = ({
-  xAxisData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-  series = [
-    {
-      name: 'Mobile',
-      data: [140, 180, 200, 150, 160, 210],
-    },
-    {
-      name: 'Desktop',
-      data: [80, 120, 140, 90, 100, 150],
-    },
-  ],
+  xAxisData,
+  series,
   width = 220,
   height = 350,
   lineWidth = 2,

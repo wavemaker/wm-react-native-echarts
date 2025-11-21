@@ -34,15 +34,13 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface StackedExpandedAreaChartProps {
   /**
    * X-axis labels. Can be a string array or object array with label and value.
-   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
    */
-  xAxisData?: AxisData;
+  xAxisData: AxisData;
   
   /**
    * Array of data series to stack. Values are normalized to show percentages.
-   * @default [{ data: [60, 70, 55, 65, 60, 70] }, { data: [40, 30, 45, 35, 40, 30] }]
    */
-  series?: Array<{
+  series: Array<{
     data: number[];
   }>;
   
@@ -71,15 +69,8 @@ interface StackedExpandedAreaChartProps {
 }
 
 const ChartComponent = ({
-  xAxisData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-  series = [
-    {
-      data: [60, 70, 55, 65, 60, 70],
-    },
-    {
-      data: [40, 30, 45, 35, 40, 30],
-    },
-  ],
+  xAxisData,
+  series,
   width = 220,
   height = 350,
   lineWidth = 1,

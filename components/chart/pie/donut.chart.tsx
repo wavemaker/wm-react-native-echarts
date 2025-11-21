@@ -39,9 +39,8 @@ interface PieDataItem {
 interface DonutChartProps {
   /**
    * Array of data items for the donut slices.
-   * @default Array of sample categories
    */
-  data?: PieDataItem[];
+  data: PieDataItem[];
   
   /**
    * Inner and outer radius as percentage strings [innerRadius, outerRadius].
@@ -68,12 +67,7 @@ interface DonutChartProps {
 }
 
 const ChartComponent = ({
-  data = [
-    { value: 275, name: 'Desktop' },
-    { value: 200, name: 'Mobile' },
-    { value: 187, name: 'Tablet' },
-    { value: 90, name: 'Other' },
-  ],
+  data,
   radius = ['40%', '70%'],
   width = 220,
   height = 400,

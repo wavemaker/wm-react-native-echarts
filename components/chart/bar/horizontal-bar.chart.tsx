@@ -34,15 +34,13 @@ type AxisData = string[] | Array<{ label: string; value: number }>;
 interface HorizontalBarChartProps {
   /**
    * Y-axis labels. Can be a string array or object array with label and value.
-   * @default ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
    */
-  yAxisData?: AxisData;
+  yAxisData: AxisData;
   
   /**
    * Array of numeric values for each bar.
-   * @default [186, 305, 237, 73, 209, 214]
    */
-  data?: number[];
+  data: number[];
   
   /**
    * Color for the bars. If not provided, uses theme color.
@@ -87,8 +85,8 @@ interface HorizontalBarChartProps {
 }
 
 const ChartComponent = ({
-  yAxisData = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-  data = [186, 305, 237, 73, 209, 214],
+  yAxisData,
+  data,
   color,
   barWidth = '80%',
   barGap,
