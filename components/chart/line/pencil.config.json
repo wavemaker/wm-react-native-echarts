@@ -6,8 +6,8 @@
       "description": "Line chart with custom text labels displayed next to data points",
       "files": [
         "custom-label-line.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -24,8 +24,8 @@
       "description": "Simple smooth line chart with clean curves and no data point markers",
       "files": [
         "default-line.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -42,8 +42,8 @@
       "description": "Line chart with individually colored data point markers for emphasis",
       "files": [
         "dots-colors-line.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -60,8 +60,8 @@
       "description": "Smooth line chart with circular markers at each data point",
       "files": [
         "dots-line.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -78,8 +78,8 @@
       "description": "Multi-series interactive line chart with legend and extensive timeline data",
       "files": [
         "interactive-line.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -96,8 +96,8 @@
       "description": "Line chart with straight segments connecting data points without smoothing",
       "files": [
         "linear-line.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -114,8 +114,8 @@
       "description": "Multi-series line chart with legend for comparing multiple data sets",
       "files": [
         "multiple-line.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -132,8 +132,8 @@
       "description": "Step line chart with stepped transitions for discrete value changes",
       "files": [
         "step-line.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",

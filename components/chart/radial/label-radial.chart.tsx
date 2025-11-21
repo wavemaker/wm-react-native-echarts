@@ -1,5 +1,5 @@
-import { withResponsiveContainer } from '@/contexts/chart-container';
-import { ChartTheme, useChartTheme, withChartTheme } from '@/contexts/chart-theme.context';
+import { withResponsiveContainer } from '../chart-container';
+import { ChartTheme, useChartTheme, withChartTheme } from '../chart-theme.context';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { BarChart } from 'echarts/charts';
 import {
@@ -27,8 +27,6 @@ interface RadialData {
   label: string;
   /** Numeric value */
   value: number;
-  /** Optional custom color */
-  color?: string;
 }
 
 /**
@@ -68,17 +66,18 @@ interface LabelRadialChartProps {
   
   /**
    * Partial theme override for customizing chart appearance.
+   * Use theme.itemStyles to customize ring colors.
    */
   theme?: Partial<ChartTheme>;
 }
 
 const ChartComponent = ({
   data = [
-    { label: 'Chrome', value: 85, color: '#60a5fa' },
-    { label: 'Safari', value: 70, color: '#3b82f6' },
-    { label: 'Firefox', value: 60, color: '#2563eb' },
-    { label: 'Edge', value: 45, color: '#1e40af' },
-    { label: 'Other', value: 30, color: '#1e3a8a' },
+    { label: 'Chrome', value: 85 },
+    { label: 'Safari', value: 70 },
+    { label: 'Firefox', value: 60 },
+    { label: 'Edge', value: 45 },
+    { label: 'Other', value: 30 },
   ],
   ringWidth = [30, 140],
   ringGap = '20%',
@@ -90,7 +89,12 @@ const ChartComponent = ({
 
   const option = useMemo(() => {
     const categories = data.map(d => d.label);
-    const values = data.map(d => ({ value: d.value, itemStyle: { color: d.color || theme.series.colors[0] } }));
+    const values = data.map((d, index) => ({ 
+      value: d.value, 
+      itemStyle: { 
+        color: theme.itemStyles[index % theme.itemStyles.length].color 
+      } 
+    }));
 
     return {
       tooltip: {

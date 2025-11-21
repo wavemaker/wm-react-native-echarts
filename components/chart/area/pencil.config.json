@@ -6,8 +6,8 @@
             "description": "Area chart with multiple series and visible axes for data comparison",
             "files": [
                 "axes-area.chart.tsx",
-                "../../../contexts/chart-container.tsx",
-                "../../../contexts/chart-theme.context.tsx"
+                "../chart-container.tsx",
+                "../chart-theme.context.tsx"
             ],
             "packages": [
                 "@wuba/react-native-echarts@3.0.1",
@@ -31,7 +31,9 @@
             "path": "default-area.chart.png",
             "description": "Simple single-series area chart with smooth curves and gradient fill",
             "files": [
-                "default-area.chart.tsx"
+                "default-area.chart.tsx",
+                "../chart-container.tsx",
+                "../chart-theme.context.tsx"
             ],
             "packages": [
                 "@wuba/react-native-echarts@3.0.1",
@@ -56,7 +58,9 @@
             "path": "gradient-area.chart.png",
             "description": "Smooth area chart with gradient fill and multiple overlapping series",
             "files": [
-                "gradient-area.chart.tsx"
+                "gradient-area.chart.tsx",
+                "../chart-container.tsx",
+                "../chart-theme.context.tsx"
             ],
             "packages": [
                 "@wuba/react-native-echarts@3.0.1",
@@ -81,7 +85,9 @@
             "path": "icons-area.chart.png",
             "description": "Area chart with data point markers and tooltip support for tracking values",
             "files": [
-                "icons-area.chart.tsx"
+                "icons-area.chart.tsx",
+                "../chart-container.tsx",
+                "../chart-theme.context.tsx"
             ],
             "packages": [
                 "@wuba/react-native-echarts@3.0.1",
@@ -106,7 +112,9 @@
             "path": "interactive-area.chart.png",
             "description": "Multi-series interactive area chart with detailed tooltip and extensive data points",
             "files": [
-                "interactive-area.chart.tsx"
+                "interactive-area.chart.tsx",
+                "../chart-container.tsx",
+                "../chart-theme.context.tsx"
             ],
             "packages": [
                 "@wuba/react-native-echarts@3.0.1",
@@ -131,7 +139,9 @@
             "path": "linear-area.chart.png",
             "description": "Area chart with straight lines connecting data points without curve smoothing",
             "files": [
-                "linear-area.chart.tsx"
+                "linear-area.chart.tsx",
+                "../chart-container.tsx",
+                "../chart-theme.context.tsx"
             ],
             "packages": [
                 "@wuba/react-native-echarts@3.0.1",
@@ -156,7 +166,9 @@
             "path": "stacked-area.chart.png",
             "description": "Stacked area chart showing cumulative values of multiple series over time",
             "files": [
-                "stacked-area.chart.tsx"
+                "stacked-area.chart.tsx",
+                "../chart-container.tsx",
+                "../chart-theme.context.tsx"
             ],
             "packages": [
                 "@wuba/react-native-echarts@3.0.1",
@@ -181,7 +193,9 @@
             "path": "stacked-expanded-area.chart.png",
             "description": "100% stacked area chart displaying proportional distribution across series",
             "files": [
-                "stacked-expanded-area.chart.tsx"
+                "stacked-expanded-area.chart.tsx",
+                "../chart-container.tsx",
+                "../chart-theme.context.tsx"
             ],
             "packages": [
                 "@wuba/react-native-echarts@3.0.1",
@@ -207,7 +221,9 @@
             "path": "step-area.chart.png",
             "description": "Step area chart with step-line transitions for discrete value changes",
             "files": [
-                "step-area.chart.tsx"
+                "step-area.chart.tsx",
+                "../chart-container.tsx",
+                "../chart-theme.context.tsx"
             ],
             "packages": [
                 "@wuba/react-native-echarts@3.0.1",

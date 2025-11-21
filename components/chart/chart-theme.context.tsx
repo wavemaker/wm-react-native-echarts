@@ -27,6 +27,14 @@ type SeriesStyle = {
   colors: string[];
 };
 
+type ItemStyle = {
+  color: string;
+  borderRadius?: number[];
+  borderColor?: string;
+  borderWidth?: number;
+  borderType?: 'solid' | 'dashed' | 'dotted';
+};
+
 export type ChartTheme = {
   axis: {
     x: AxisStyle;
@@ -40,6 +48,7 @@ export type ChartTheme = {
   };
   tooltip: TooltipStyle;
   series: SeriesStyle;
+  itemStyles: ItemStyle[];
 };
 
 const DEFAULT_THEME: ChartTheme = {
@@ -92,6 +101,28 @@ const DEFAULT_THEME: ChartTheme = {
   series: {
     colors: ['#3b82f6', '#8ec5ff']
   },
+  itemStyles: [
+    {
+      color: '#3b82f6',
+      borderRadius: [4, 4, 4, 4],
+    },
+    {
+      color: '#8ec5ff',
+      borderRadius: [4, 4, 4, 4],
+    },
+    {
+      color: '#60a5fa',
+      borderRadius: [4, 4, 4, 4],
+    },
+    {
+      color: '#93c5fd',
+      borderRadius: [4, 4, 4, 4],
+    },
+    {
+      color: '#bfdbfe',
+      borderRadius: [4, 4, 4, 4],
+    },
+  ],
 };
 
 interface ChartThemeContextType {

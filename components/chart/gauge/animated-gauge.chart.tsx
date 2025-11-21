@@ -1,5 +1,5 @@
-import { withResponsiveContainer } from '@/contexts/chart-container';
-import { ChartTheme, useChartTheme, withChartTheme } from '@/contexts/chart-theme.context';
+import { withResponsiveContainer } from '../chart-container';
+import { ChartTheme, useChartTheme, withChartTheme } from '../chart-theme.context';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useEffect, useRef, useState } from 'react';
 import { useWindowDimensions } from 'react-native';

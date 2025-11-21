@@ -1,5 +1,5 @@
-import { withResponsiveContainer } from '@/contexts/chart-container';
-import { ChartTheme, useChartTheme, withChartTheme } from '@/contexts/chart-theme.context';
+import { withResponsiveContainer } from '../chart-container';
+import { ChartTheme, useChartTheme, withChartTheme } from '../chart-theme.context';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { BarChart } from 'echarts/charts';
 import {
@@ -39,17 +39,10 @@ interface MixedBarChartProps {
   yAxisData?: AxisData;
   
   /**
-   * Array of data points with individual styling for each bar.
-   * Each item must have a value and itemStyle with color and borderRadius.
-   * @default Array of 5 items with blue gradient colors
+   * Array of numeric values for each bar.
+   * @default [8, 12, 35, 40, 65]
    */
-  data?: Array<{
-    value: number;
-    itemStyle: {
-      color: string;
-      borderRadius: number[];
-    };
-  }>;
+  data?: number[];
   
   /**
    * Width of the bars as a percentage string.
@@ -77,19 +70,14 @@ interface MixedBarChartProps {
   
   /**
    * Partial theme override for customizing chart appearance.
+   * Use theme.itemStyles to customize bar colors and styling.
    */
   theme?: Partial<ChartTheme>;
 }
 
 const ChartComponent = ({
   yAxisData = ['Other', 'Edge', 'Safari', 'Firefox', 'Chrome'],
-  data = [
-    { value: 8, itemStyle: { color: '#000080', borderRadius: [4, 4, 4, 4] } },
-    { value: 12, itemStyle: { color: '#0000cd', borderRadius: [4, 4, 4, 4] } },
-    { value: 35, itemStyle: { color: '#4169e1', borderRadius: [4, 4, 4, 4] } },
-    { value: 40, itemStyle: { color: '#1e90ff', borderRadius: [4, 4, 4, 4] } },
-    { value: 65, itemStyle: { color: '#87ceeb', borderRadius: [4, 4, 4, 4] } },
-  ],
+  data = [8, 12, 35, 40, 65],
   barWidth = '60%',
   barGap,
   width = 220,
@@ -114,6 +102,21 @@ const ChartComponent = ({
 
     const yAxisLabels = getAxisLabels(yAxisData);
     const yAxisIsObjectFormat = isObjectFormat(yAxisData);
+
+    // Map data values to chart data with itemStyles from theme
+    const chartData = data.map((value, index) => {
+      const itemStyle = theme.itemStyles[index % theme.itemStyles.length];
+      return {
+        value,
+        itemStyle: {
+          color: itemStyle.color,
+          borderRadius: itemStyle.borderRadius || [4, 4, 4, 4],
+          borderColor: itemStyle.borderColor,
+          borderWidth: itemStyle.borderWidth,
+          borderType: itemStyle.borderType,
+        },
+      };
+    });
 
     return {
       tooltip: {
@@ -164,7 +167,7 @@ const ChartComponent = ({
       },
       series: [
         {
-          data: data,
+          data: chartData,
           type: 'bar',
           barWidth: barWidth,
           barGap: barGap,

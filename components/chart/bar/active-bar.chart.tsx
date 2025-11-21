@@ -1,5 +1,5 @@
-import { withResponsiveContainer } from '@/contexts/chart-container';
-import { ChartTheme, useChartTheme, withChartTheme } from '@/contexts/chart-theme.context';
+import { withResponsiveContainer } from '../chart-container';
+import { ChartTheme, useChartTheme, withChartTheme } from '../chart-theme.context';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { BarChart } from 'echarts/charts';
 import {
@@ -39,20 +39,11 @@ interface ActiveBarChartProps {
   xAxisData?: AxisData;
   
   /**
-   * Array of data points with individual styling for each bar.
+   * Array of numeric values for each bar.
    * If not provided, generates random data with active bar highlighted.
    * @default undefined (generates automatically)
    */
-  data?: Array<{
-    value: number;
-    itemStyle: {
-      color: string;
-      borderRadius: number[];
-      borderColor?: string;
-      borderWidth?: number;
-      borderType?: 'solid' | 'dashed';
-    };
-  }>;
+  data?: number[];
   
   /**
    * Index of the bar to highlight (zero-based).
@@ -86,6 +77,7 @@ interface ActiveBarChartProps {
   
   /**
    * Partial theme override for customizing chart appearance.
+   * Use theme.itemStyles to customize bar colors and styling.
    */
   theme?: Partial<ChartTheme>;
 }
@@ -120,16 +112,22 @@ const ChartComponent = ({
     const xAxisIsObjectFormat = isObjectFormat(xAxisData);
 
     // Generate data with one active bar
-    const chartData = data || xAxisLabels.map((_, index) => {
-      const value = Math.floor(Math.random() * 50) + (index === activeIndex ? 85 : 15);
+    const values = data || xAxisLabels.map((_, index) => 
+      Math.floor(Math.random() * 50) + (index === activeIndex ? 85 : 15)
+    );
+
+    const chartData = values.map((value, index) => {
+      const isActive = index === activeIndex;
+      const itemStyle = theme.itemStyles[isActive ? 0 : 1 % theme.itemStyles.length];
+      
       return {
         value,
         itemStyle: {
-          color: index === activeIndex ? theme.series.colors[0] : theme.series.colors[1],
-          borderColor: index === activeIndex ? theme.series.colors[0].replace('3b82f6', '1d4ed8') : undefined,
-          borderWidth: index === activeIndex ? 2 : 0,
-          borderType: index === activeIndex ? 'dashed' as 'dashed' : 'solid' as 'solid',
-          borderRadius: [4, 4, 4, 4],
+          color: itemStyle.color,
+          borderColor: isActive ? (itemStyle.borderColor || itemStyle.color.replace('3b82f6', '1d4ed8')) : undefined,
+          borderWidth: isActive ? 2 : 0,
+          borderType: isActive ? 'dashed' as const : 'solid' as const,
+          borderRadius: itemStyle.borderRadius || [4, 4, 4, 4],
         },
       };
     });

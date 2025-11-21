@@ -6,8 +6,8 @@
       "description": "Radial gauge chart with circular progress ring and animated pointer displaying values",
       "files": [
         "radial-gauge.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -24,8 +24,8 @@
       "description": "Animated gauge chart with smooth value transitions and gradient tick marks using SVG",
       "files": [
         "animated-gauge.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -42,8 +42,8 @@
       "description": "Gauge chart with custom title and detail text labels for metric display",
       "files": [
         "labeled-gauge.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",

@@ -1,5 +1,5 @@
-import { withResponsiveContainer } from '@/contexts/chart-container';
-import { ChartTheme, useChartTheme, withChartTheme } from '@/contexts/chart-theme.context';
+import { withResponsiveContainer } from '../chart-container';
+import { ChartTheme, useChartTheme, withChartTheme } from '../chart-theme.context';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { BarChart, CandlestickChart } from 'echarts/charts';
 import {

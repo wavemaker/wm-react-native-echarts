@@ -6,8 +6,8 @@
       "description": "Circular radial bar chart with multiple categories arranged in polar coordinates",
       "files": [
         "label-radial.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -24,8 +24,8 @@
       "description": "Radial bar chart with visible grid lines and axis structure in polar layout",
       "files": [
         "grid-radial.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -42,8 +42,8 @@
       "description": "Single ring radial progress chart with centered text displaying value and label",
       "files": [
         "text-radial.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -60,8 +60,8 @@
       "description": "Thick radial ring progress indicator with centered value display and subtitle",
       "files": [
         "shape-radial.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -78,8 +78,8 @@
       "description": "Stacked radial bar chart with multiple series combined in circular ring with center text",
       "files": [
         "stacked-radial.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",

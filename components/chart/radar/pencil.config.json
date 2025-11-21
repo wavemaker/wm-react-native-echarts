@@ -6,8 +6,8 @@
       "description": "Simple radar chart with filled polygon area and smooth visualization",
       "files": [
         "basic-radar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -24,8 +24,8 @@
       "description": "Radar chart with custom value labels displayed at each data point",
       "files": [
         "custom-label-radar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -42,8 +42,8 @@
       "description": "Radar chart with circular markers highlighting each data point",
       "files": [
         "dots-radar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -60,8 +60,8 @@
       "description": "Circular radar chart with gradient-filled concentric grid areas",
       "files": [
         "grid-circle-filled-radar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -78,8 +78,8 @@
       "description": "Circular radar chart with filled grid and no axis lines for clean appearance",
       "files": [
         "grid-circle-no-lines-radar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -96,8 +96,8 @@
       "description": "Circular radar chart with visible grid lines and radial structure",
       "files": [
         "grid-circle-radar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -114,8 +114,8 @@
       "description": "Polygon radar chart with gradient-filled grid areas and visible structure",
       "files": [
         "grid-filled-radar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -132,8 +132,8 @@
       "description": "Minimal radar chart with no grid lines or axes for clean data display",
       "files": [
         "grid-none-radar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -150,8 +150,8 @@
       "description": "Radar chart showing only outline lines without filled area",
       "files": [
         "lines-only-radar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -168,8 +168,8 @@
       "description": "Multi-series radar chart with overlapping datasets for comparison",
       "files": [
         "multiple-radar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",

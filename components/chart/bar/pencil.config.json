@@ -6,8 +6,8 @@
       "description": "Bar chart with one highlighted active bar for emphasis and comparison",
       "files": [
         "active-bar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -24,8 +24,8 @@
       "description": "Horizontal bar chart with custom labels inside bars and values displayed outside",
       "files": [
         "custom-label-bar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -42,8 +42,8 @@
       "description": "Simple vertical bar chart with rounded corners and clean styling",
       "files": [
         "default-bar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -60,8 +60,8 @@
       "description": "Horizontal bar chart with category labels on the y-axis",
       "files": [
         "horizontal-bar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -78,8 +78,8 @@
       "description": "Interactive bar chart with extensive timeline data and tooltip functionality",
       "files": [
         "interactive-bar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -96,8 +96,8 @@
       "description": "Vertical bar chart with value labels displayed above each bar",
       "files": [
         "label-bar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -114,8 +114,8 @@
       "description": "Horizontal bar chart with individually colored bars in gradient shades",
       "files": [
         "mixed-bar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -132,8 +132,8 @@
       "description": "Grouped bar chart with multiple series and legend for side-by-side comparison",
       "files": [
         "multiple-bar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -150,8 +150,8 @@
       "description": "Bar chart displaying both positive and negative values with color differentiation",
       "files": [
         "negative-bar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
@@ -168,8 +168,8 @@
       "description": "Stacked bar chart showing cumulative values with multiple series and legend",
       "files": [
         "stacked-bar.chart.tsx",
-        "../../../contexts/chart-container.tsx",
-        "../../../contexts/chart-theme.context.tsx"
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
       ],
       "packages": [
         "@wuba/react-native-echarts@3.0.1",
