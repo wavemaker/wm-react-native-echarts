@@ -1,15 +1,21 @@
 import React, { useState, useCallback } from 'react';
-import { View, LayoutChangeEvent, StyleSheet } from 'react-native';
+import { View, LayoutChangeEvent, StyleSheet, Text } from 'react-native';
 
 interface ChartChildProps {
   width?: number;
   height?: number;
+  data: any;
   [key: string]: any;
 }
 
 interface ChartContainerProps {
   width?: number | string;
   height?: number | string;
+  data?: any;
+  noDataText?: string;
+  noDataIcon?: React.ReactNode;
+  noDataTextStyle?: any;
+  noDataContainerStyle?: any;
   render: (width: number, height: number) => React.ReactElement<ChartChildProps>;
   style?: any;
 }
@@ -17,6 +23,11 @@ interface ChartContainerProps {
 const ChartContainer: React.FC<ChartContainerProps> = ({
   width = '100%',
   height = 350,
+  data,
+  noDataText = 'No data to render chart.',
+  noDataIcon,
+  noDataTextStyle = {},
+  noDataContainerStyle = {},
   render,
   style,
 }) => {
@@ -54,6 +65,14 @@ const ChartContainer: React.FC<ChartContainerProps> = ({
     height: typeof height === 'number' ? height : height,
   };
 
+  if (!data) {
+    return (
+      <View style={[styles.noDataContainer, noDataContainerStyle, style]}>
+        <Text style={[styles.noDataText, noDataTextStyle]}>{noDataText}</Text>
+      </View>
+    );
+  }
+
   return (
     <View
       style={[styles.container, containerStyle, style]}
@@ -69,6 +88,16 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  noDataContainer: {
+    minHeight: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noDataText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#222',
   },
 });
 
@@ -86,7 +115,9 @@ export const withResponsiveContainer = <T extends React.ComponentType<any>>(Comp
         width={props.width} 
         height={props.height}
         style={props.style}
-        render={render} />
+        data={props.data}
+        render={render}
+        noDataText={props.noDataText} />
     );
   };
 };
