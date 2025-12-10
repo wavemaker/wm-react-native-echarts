@@ -19,7 +19,7 @@
       "tags": ["pie", "chart", "simple", "basic", "circular", "visualization", "proportions", "distribution"]
     },
     {
-      "group": "chart/pie",
+      "group": "chart/pie/donut",
       "path": "donut-active.chart.png",
       "description": "Donut chart with one segment highlighted and selectable for emphasis",
       "files": [
@@ -37,7 +37,7 @@
       "tags": ["pie", "donut", "chart", "active", "highlighted", "selection", "visualization", "interactive"]
     },
     {
-      "group": "chart/pie",
+      "group": "chart/pie/donut",
       "path": "donut-text.chart.png",
       "description": "Donut chart with centered text displaying total value and label",
       "files": [
