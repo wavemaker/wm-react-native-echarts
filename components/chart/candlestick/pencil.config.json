@@ -1,7 +1,7 @@
 {
   "images": [
     {
-      "collectionName": "charts",
+      "collectionName": "chart/candlestick",
       "path": "basic-candlestick.chart.png",
       "description": "Basic candlestick chart with zoom controls for financial data visualization",
       "files": [
@@ -19,7 +19,7 @@
       "tags": ["candlestick", "chart", "basic", "financial", "stock", "ohlc", "visualization", "trading", "zoom"]
     },
     {
-      "collectionName": "charts",
+      "collectionName": "chart/candlestick",
       "path": "candlestick-ma.chart.png",
       "description": "Candlestick chart with moving average lines (MA5, MA10, MA20) and legend for technical analysis",
       "files": [
@@ -37,7 +37,7 @@
       "tags": ["candlestick", "chart", "moving-average", "technical-analysis", "stock", "financial", "ma", "overlay", "visualization", "trading"]
     },
     {
-      "collectionName": "charts",
+      "collectionName": "chart/candlestick",
       "path": "volume-candlestick.chart.png",
       "description": "Candlestick chart with volume bars displayed in separate panel below for trading analysis",
       "files": [
