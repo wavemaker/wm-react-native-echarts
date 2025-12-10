@@ -1,7 +1,7 @@
 {
   "images": [
     {
-      "collectionName": "chart/pie",
+      "group": "chart/pie",
       "path": "basic-pie.chart.png",
       "description": "Simple pie chart showing data distribution without labels or legend",
       "files": [
@@ -19,7 +19,7 @@
       "tags": ["pie", "chart", "simple", "basic", "circular", "visualization", "proportions", "distribution"]
     },
     {
-      "collectionName": "chart/pie",
+      "group": "chart/pie",
       "path": "donut-active.chart.png",
       "description": "Donut chart with one segment highlighted and selectable for emphasis",
       "files": [
@@ -37,7 +37,7 @@
       "tags": ["pie", "donut", "chart", "active", "highlighted", "selection", "visualization", "interactive"]
     },
     {
-      "collectionName": "chart/pie",
+      "group": "chart/pie",
       "path": "donut-text.chart.png",
       "description": "Donut chart with centered text displaying total value and label",
       "files": [
@@ -55,7 +55,7 @@
       "tags": ["pie", "donut", "chart", "text", "center-label", "visualization", "summary", "total"]
     },
     {
-      "collectionName": "chart/pie",
+      "group": "chart/pie",
       "path": "label-pie.chart.png",
       "description": "Pie chart with value labels and leader lines for each segment",
       "files": [
@@ -73,7 +73,7 @@
       "tags": ["pie", "chart", "labels", "values", "annotated", "visualization", "detailed", "leader-lines"]
     },
     {
-      "collectionName": "chart/pie",
+      "group": "chart/pie",
       "path": "legend-pie.chart.png",
       "description": "Pie chart with legend showing category names and colors",
       "files": [
@@ -91,7 +91,7 @@
       "tags": ["pie", "chart", "legend", "categories", "visualization", "labeled", "categorized"]
     },
     {
-      "collectionName": "chart/pie",
+      "group": "chart/pie",
       "path": "stacked-pie.chart.png",
       "description": "Multi-layer nested pie chart with concentric rings for comparing data sets",
       "files": [

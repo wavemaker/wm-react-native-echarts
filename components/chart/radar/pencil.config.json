@@ -1,7 +1,7 @@
 {
   "images": [
     {
-      "collectionName": "chart/radar",
+      "group": "chart/radar",
       "path": "basic-radar.chart.png",
       "description": "Simple radar chart with filled polygon area and smooth visualization",
       "files": [
@@ -19,7 +19,7 @@
       "tags": ["radar", "chart", "basic", "simple", "polygon", "filled", "visualization", "spider"]
     },
     {
-      "collectionName": "chart/radar",
+      "group": "chart/radar",
       "path": "custom-label-radar.chart.png",
       "description": "Radar chart with custom value labels displayed at each data point",
       "files": [
@@ -37,7 +37,7 @@
       "tags": ["radar", "chart", "labels", "custom", "values", "annotated", "visualization", "detailed"]
     },
     {
-      "collectionName": "chart/radar",
+      "group": "chart/radar",
       "path": "dots-radar.chart.png",
       "description": "Radar chart with circular markers highlighting each data point",
       "files": [
@@ -55,7 +55,7 @@
       "tags": ["radar", "chart", "dots", "markers", "symbols", "points", "visualization", "highlighted"]
     },
     {
-      "collectionName": "chart/radar",
+      "group": "chart/radar",
       "path": "grid-circle-filled-radar.chart.png",
       "description": "Circular radar chart with gradient-filled concentric grid areas",
       "files": [
@@ -73,7 +73,7 @@
       "tags": ["radar", "chart", "circular", "grid", "filled", "gradient", "visualization", "concentric"]
     },
     {
-      "collectionName": "chart/radar",
+      "group": "chart/radar",
       "path": "grid-circle-no-lines-radar.chart.png",
       "description": "Circular radar chart with filled grid and no axis lines for clean appearance",
       "files": [
@@ -91,7 +91,7 @@
       "tags": ["radar", "chart", "circular", "grid", "clean", "minimal", "visualization", "no-lines"]
     },
     {
-      "collectionName": "chart/radar",
+      "group": "chart/radar",
       "path": "grid-circle-radar.chart.png",
       "description": "Circular radar chart with visible grid lines and radial structure",
       "files": [
@@ -109,7 +109,7 @@
       "tags": ["radar", "chart", "circular", "grid", "radial", "lines", "visualization", "web"]
     },
     {
-      "collectionName": "chart/radar",
+      "group": "chart/radar",
       "path": "grid-filled-radar.chart.png",
       "description": "Polygon radar chart with gradient-filled grid areas and visible structure",
       "files": [
@@ -127,7 +127,7 @@
       "tags": ["radar", "chart", "polygon", "grid", "filled", "gradient", "visualization", "structured"]
     },
     {
-      "collectionName": "chart/radar",
+      "group": "chart/radar",
       "path": "grid-none-radar.chart.png",
       "description": "Minimal radar chart with no grid lines or axes for clean data display",
       "files": [
@@ -145,7 +145,7 @@
       "tags": ["radar", "chart", "minimal", "clean", "simple", "no-grid", "visualization", "basic"]
     },
     {
-      "collectionName": "chart/radar",
+      "group": "chart/radar",
       "path": "lines-only-radar.chart.png",
       "description": "Radar chart showing only outline lines without filled area",
       "files": [
@@ -163,7 +163,7 @@
       "tags": ["radar", "chart", "lines", "outline", "stroke", "unfilled", "visualization", "wireframe"]
     },
     {
-      "collectionName": "chart/radar",
+      "group": "chart/radar",
       "path": "multiple-radar.chart.png",
       "description": "Multi-series radar chart with overlapping datasets for comparison",
       "files": [

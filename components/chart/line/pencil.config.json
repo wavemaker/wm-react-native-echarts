@@ -1,7 +1,7 @@
 {
   "images": [
     {
-      "collectionName": "chart/line",
+      "group": "chart/line",
       "path": "custom-label-line.chart.png",
       "description": "Line chart with custom text labels displayed next to data points",
       "files": [
@@ -19,7 +19,7 @@
       "tags": ["line", "chart", "labels", "custom", "annotated", "visualization", "markers", "text"]
     },
     {
-      "collectionName": "chart/line",
+      "group": "chart/line",
       "path": "default-line.chart.png",
       "description": "Simple smooth line chart with clean curves and no data point markers",
       "files": [
@@ -37,7 +37,7 @@
       "tags": ["line", "chart", "simple", "smooth", "single-series", "visualization", "basic", "clean"]
     },
     {
-      "collectionName": "chart/line",
+      "group": "chart/line",
       "path": "dots-colors-line.chart.png",
       "description": "Line chart with individually colored data point markers for emphasis",
       "files": [
@@ -55,7 +55,7 @@
       "tags": ["line", "chart", "dots", "markers", "colors", "custom-colors", "visualization", "colorful", "highlighted"]
     },
     {
-      "collectionName": "chart/line",
+      "group": "chart/line",
       "path": "dots-line.chart.png",
       "description": "Smooth line chart with circular markers at each data point",
       "files": [
@@ -73,7 +73,7 @@
       "tags": ["line", "chart", "dots", "markers", "smooth", "single-series", "visualization", "points"]
     },
     {
-      "collectionName": "chart/line",
+      "group": "chart/line",
       "path": "interactive-line.chart.png",
       "description": "Multi-series interactive line chart with legend and extensive timeline data",
       "files": [
@@ -91,7 +91,7 @@
       "tags": ["line", "chart", "interactive", "multi-series", "legend", "tooltip", "visualization", "detailed", "timeline"]
     },
     {
-      "collectionName": "chart/line",
+      "group": "chart/line",
       "path": "linear-line.chart.png",
       "description": "Line chart with straight segments connecting data points without smoothing",
       "files": [
@@ -109,7 +109,7 @@
       "tags": ["line", "chart", "linear", "straight", "single-series", "visualization", "sharp", "angular"]
     },
     {
-      "collectionName": "chart/line",
+      "group": "chart/line",
       "path": "multiple-line.chart.png",
       "description": "Multi-series line chart with legend for comparing multiple data sets",
       "files": [
@@ -127,7 +127,7 @@
       "tags": ["line", "chart", "multi-series", "legend", "comparison", "smooth", "visualization", "multiple"]
     },
     {
-      "collectionName": "chart/line",
+      "group": "chart/line",
       "path": "step-line.chart.png",
       "description": "Step line chart with stepped transitions for discrete value changes",
       "files": [

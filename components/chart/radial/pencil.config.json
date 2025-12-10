@@ -1,7 +1,7 @@
 {
   "images": [
     {
-      "collectionName": "chart/radial",
+      "group": "chart/radial",
       "path": "label-radial.chart.png",
       "description": "Circular radial bar chart with multiple categories arranged in polar coordinates",
       "files": [
@@ -19,7 +19,7 @@
       "tags": ["radial", "chart", "polar", "circular", "multi-category", "bars", "visualization", "progress"]
     },
     {
-      "collectionName": "chart/radial",
+      "group": "chart/radial",
       "path": "grid-radial.chart.png",
       "description": "Radial bar chart with visible grid lines and axis structure in polar layout",
       "files": [
@@ -37,7 +37,7 @@
       "tags": ["radial", "chart", "polar", "grid", "axes", "circular", "structured", "visualization"]
     },
     {
-      "collectionName": "chart/radial",
+      "group": "chart/radial",
       "path": "text-radial.chart.png",
       "description": "Single ring radial progress chart with centered text displaying value and label",
       "files": [
@@ -55,7 +55,7 @@
       "tags": ["radial", "chart", "progress", "ring", "circular", "text", "metric", "single", "visualization"]
     },
     {
-      "collectionName": "chart/radial",
+      "group": "chart/radial",
       "path": "shape-radial.chart.png",
       "description": "Thick radial ring progress indicator with centered value display and subtitle",
       "files": [
@@ -73,7 +73,7 @@
       "tags": ["radial", "chart", "progress", "ring", "circular", "thick", "metric", "labeled", "visualization"]
     },
     {
-      "collectionName": "chart/radial",
+      "group": "chart/radial",
       "path": "stacked-radial.chart.png",
       "description": "Stacked radial bar chart with multiple series combined in circular ring with center text",
       "files": [

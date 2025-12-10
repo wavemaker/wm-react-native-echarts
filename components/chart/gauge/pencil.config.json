@@ -1,7 +1,7 @@
 {
   "images": [
     {
-        "collectionName": "chart/gauge",
+        "group": "chart/gauge",
       "path": "radial-gauge.chart.png",
       "description": "Radial gauge chart with circular progress ring and animated pointer displaying values",
       "files": [
@@ -19,7 +19,7 @@
       "tags": ["gauge", "chart", "radial", "circular", "progress", "ring", "visualization", "metric", "indicator"]
     },
     {
-      "collectionName": "chart/gauge",
+      "group": "chart/gauge",
       "path": "animated-gauge.chart.png",
       "description": "Animated gauge chart with smooth value transitions and gradient tick marks using SVG",
       "files": [
@@ -37,7 +37,7 @@
       "tags": ["gauge", "chart", "animated", "svg", "gradient", "smooth", "visualization", "transition", "custom"]
     },
     {
-      "collectionName": "chart/gauge",
+      "group": "chart/gauge",
       "path": "labeled-gauge.chart.png",
       "description": "Gauge chart with custom title and detail text labels for metric display",
       "files": [
