@@ -1,7 +1,7 @@
 {
     "images": [
         {
-            "group": "chart/area",
+            "group": "chart/line/area",
             "path": "axes-area.chart.png",
             "description": "Area chart with multiple series and visible axes for data comparison",
             "files": [
@@ -27,7 +27,7 @@
             ]
         },
         {
-            "group": "chart/area",
+            "group": "chart/line/area",
             "path": "default-area.chart.png",
             "description": "Simple single-series area chart with smooth curves and gradient fill",
             "files": [
@@ -54,7 +54,7 @@
             ]
         },
         {
-            "group": "chart/area",
+            "group": "chart/line/area",
             "path": "gradient-area.chart.png",
             "description": "Smooth area chart with gradient fill and multiple overlapping series",
             "files": [
@@ -81,7 +81,7 @@
             ]
         },
         {
-            "group": "chart/area",
+            "group": "chart/line/area",
             "path": "icons-area.chart.png",
             "description": "Area chart with data point markers and tooltip support for tracking values",
             "files": [
@@ -108,7 +108,7 @@
             ]
         },
         {
-            "group": "chart/area",
+            "group": "chart/line/area",
             "path": "interactive-area.chart.png",
             "description": "Multi-series interactive area chart with detailed tooltip and extensive data points",
             "files": [
@@ -135,7 +135,7 @@
             ]
         },
         {
-            "group": "chart/area",
+            "group": "chart/line/area",
             "path": "linear-area.chart.png",
             "description": "Area chart with straight lines connecting data points without curve smoothing",
             "files": [
@@ -189,7 +189,7 @@
             ]
         },
         {
-            "group": "chart/area",
+            "group": "chart/line/area",
             "path": "stacked-expanded-area.chart.png",
             "description": "100% stacked area chart displaying proportional distribution across series",
             "files": [
@@ -217,7 +217,7 @@
             ]
         },
         {
-            "group": "chart/area",
+            "group": "chart/line/area",
             "path": "step-area.chart.png",
             "description": "Step area chart with step-line transitions for discrete value changes",
             "files": [
