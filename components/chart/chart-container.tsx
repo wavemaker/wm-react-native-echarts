@@ -65,20 +65,18 @@ const ChartContainer: React.FC<ChartContainerProps> = ({
     height: typeof height === 'number' ? height : height,
   };
 
-  if (!data) {
-    return (
-      <View style={[styles.noDataContainer, noDataContainerStyle, style]}>
-        <Text style={[styles.noDataText, noDataTextStyle]}>{noDataText}</Text>
-      </View>
-    );
-  }
-
   return (
     <View
       style={[styles.container, containerStyle, style]}
       onLayout={handleLayout}
     >
-      {dimensions && render(dimensions.width, dimensions.height)}
+      {data? (
+          dimensions ? render(dimensions.width, dimensions.height) : null
+        ): (
+        <View style={[styles.noDataContainer, noDataContainerStyle, style]}>
+          <Text style={[styles.noDataText, noDataTextStyle]}>{noDataText}</Text>
+        </View>
+      )}
     </View>
   );
 };
