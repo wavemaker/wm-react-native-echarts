@@ -50,10 +50,10 @@ interface SeriesConfig {
  */
 interface StackedPieChartProps {
   /**
-   * Array of series configurations for each concentric ring.
+   * Array of configurations for each concentric ring.
    * @default Two sample series with different radii
    */
-  series?: SeriesConfig[];
+  data?: SeriesConfig[];
   
   /**
    * Width of the chart in pixels.
@@ -74,7 +74,7 @@ interface StackedPieChartProps {
 }
 
 const ChartComponent = ({
-  series = [
+  data = [
     {
       name: 'Q1-Q2',
       radius: ['0%', '35%'],
@@ -103,7 +103,7 @@ const ChartComponent = ({
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
-    const chartSeries = series.map((s) => ({
+    const chartSeries = data.map((s) => ({
       name: s.name,
       type: 'pie',
       radius: s.radius,
@@ -127,7 +127,7 @@ const ChartComponent = ({
       },
       series: chartSeries,
     };
-  }, [theme, series]);
+  }, [theme, data]);
 
   useEffect(() => {
     let chart: any;

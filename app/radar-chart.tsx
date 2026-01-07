@@ -159,7 +159,7 @@ export default function RadarChartScreen() {
           { name: 'May', max: 400 },
           { name: 'June', max: 400 },
         ]}
-        series={[
+        data={[
           {
             name: 'Desktop',
             value: [240, 305, 237, 280, 209, 364],
@@ -179,7 +179,7 @@ export default function RadarChartScreen() {
           { name: 'May', max: 400 },
           { name: 'June', max: 400 },
         ]}
-        series={[
+        data={[
           {
             name: 'Desktop',
             value: [240, 305, 237, 280, 209, 364],

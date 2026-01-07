@@ -40,7 +40,7 @@ interface InteractiveAreaChartProps {
   /**
    * Array of named data series. Each series has a name and data array.
    */
-  series: Array<{
+  data: Array<{
     name: string;
     data: number[];
   }>;
@@ -71,7 +71,7 @@ interface InteractiveAreaChartProps {
 
 const ChartComponent = ({
   xAxisData,
-  series,
+  data,
   width = 220,
   height = 450,
   lineWidth = 2,
@@ -120,8 +120,8 @@ const ChartComponent = ({
           show: false,
         },
       },
-      series: series.map((s, index) => ({
-        name: s.name,
+      series: data.map((item, index) => ({
+        name: item.name,
         type: 'line',
         smooth: true,
         symbol: 'none',
@@ -139,7 +139,7 @@ const ChartComponent = ({
             ],
           },
         },
-        data: s.data,
+        data: item.data,
         itemStyle: {
           color: theme.series.colors[index % theme.series.colors.length],
         },
@@ -149,7 +149,7 @@ const ChartComponent = ({
         },
       })),
     };
-  }, [theme, xAxisData, series, lineWidth]);
+  }, [theme, xAxisData, data, lineWidth]);
 
   useEffect(() => {
     let chart: any;

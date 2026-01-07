@@ -52,7 +52,7 @@ interface LegendRadarChartProps {
   /**
    * Array of named data series to display.
    */
-  series: RadarSeriesData[];
+  data: RadarSeriesData[];
   
   /**
    * Width of the chart in pixels.
@@ -74,7 +74,7 @@ interface LegendRadarChartProps {
 
 const ChartComponent = ({
   indicators,
-  series,
+  data,
   width = 220,
   height = 300,
 }: LegendRadarChartProps) => {
@@ -85,7 +85,7 @@ const ChartComponent = ({
     return {
       tooltip: {},
       legend: {
-        data: series.map((s, index) => ({
+        data: data.map((s, index) => ({
           name: s.name,
           itemStyle: {
             color: theme.series.colors[index % theme.series.colors.length],
@@ -122,7 +122,7 @@ const ChartComponent = ({
       series: [
         {
           type: 'radar',
-          data: series.map((s, index) => ({
+          data: data.map((s, index) => ({
             value: s.value,
             name: s.name,
             areaStyle: { opacity: index === 0 ? 0.3 : 0.8 },
@@ -132,7 +132,7 @@ const ChartComponent = ({
         },
       ],
     };
-  }, [theme, indicators, series]);
+  }, [theme, indicators, data]);
 
   useEffect(() => {
     let chart: any;

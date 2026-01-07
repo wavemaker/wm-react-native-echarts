@@ -372,5 +372,5 @@ const ChartComponent = ({
   );
 };
 
-export const AnimatedGaugeChart = withResponsiveContainer(withChartTheme(ChartComponent));
+export const AnimatedGaugeChart = withResponsiveContainer(withChartTheme(ChartComponent), 'value');
 

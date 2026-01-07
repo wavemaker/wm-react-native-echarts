@@ -42,7 +42,7 @@ interface InteractiveLineChartProps {
   /**
    * Array of named data series. Each series has a name and data array.
    */
-  series?: Array<{
+  data?: Array<{
     name: string;
     data: number[];
   }>;
@@ -73,7 +73,7 @@ interface InteractiveLineChartProps {
 
 const ChartComponent = ({
   xAxisData = ['Apr 2', 'Apr 7', 'Apr 12', 'Apr 17', 'Apr 22', 'Apr 28', 'May 4', 'May 9', 'May 15', 'May 21', 'May 27', 'Jun 2', 'Jun 7', 'Jun 12', 'Jun 18', 'Jun 24', 'Jun 30'],
-  series = [
+  data = [
     {
       name: 'Desktop',
       data: [7000, 8900, 15200, 18900, 22300, 19800, 25600, 24100, 27800, 26200, 23800, 25300, 24100, 23700, 23900, 24100, 23828],
@@ -112,7 +112,7 @@ const ChartComponent = ({
         trigger: 'axis',
       },
       legend: {
-        data: series.map(s => s.name),
+        data: data.map(s => s.name),
       },
       xAxis: {
         type: xAxisIsObjectFormat ? 'value' : 'category',
@@ -134,7 +134,7 @@ const ChartComponent = ({
           show: false,
         },
       },
-      series: series.map((s, index) => ({
+      series: data.map((s, index) => ({
         name: s.name,
         type: 'line',
         smooth: true,
@@ -149,7 +149,7 @@ const ChartComponent = ({
         },
       })),
     };
-  }, [theme, xAxisData, series, lineWidth]);
+  }, [theme, xAxisData, data, lineWidth]);
 
   useEffect(() => {
     let chart: any;

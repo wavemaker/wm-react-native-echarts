@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const withResponsiveContainer = <T extends React.ComponentType<any>>(Component: T) => {
+export const withResponsiveContainer = <T extends React.ComponentType<any>>(Component: T, dataName?: string) => {
   return (props: React.ComponentProps<T> & { width?: number | string; height?: number | string }) => {
     const render = useCallback((width: number, height: number) => {
       return React.createElement(Component, {
@@ -113,7 +113,7 @@ export const withResponsiveContainer = <T extends React.ComponentType<any>>(Comp
         width={props.width} 
         height={props.height}
         style={props.style}
-        data={props.data}
+        data={dataName ? props[dataName] : props.data}
         render={render}
         noDataText={props.noDataText} />
     );

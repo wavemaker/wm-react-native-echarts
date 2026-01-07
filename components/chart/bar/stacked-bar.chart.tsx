@@ -42,7 +42,7 @@ interface StackedBarChartProps {
   /**
    * Array of data series to stack. Each series can have custom border radius.
    */
-  series: Array<{
+  data: Array<{
     name: string;
     data: number[];
     borderRadius?: number[];
@@ -86,7 +86,7 @@ interface StackedBarChartProps {
 
 const ChartComponent = ({
   xAxisData,
-  series,
+  data,
   stack = 'total',
   barWidth,
   barGap,
@@ -121,7 +121,7 @@ const ChartComponent = ({
         },
       },
       legend: {
-        data: series.map(s => s.name),
+        data: data.map(s => s.name),
         bottom: '5%',
         textStyle: {
           fontSize: 10,
@@ -167,7 +167,7 @@ const ChartComponent = ({
           show: false,
         },
       },
-      series: series.map((s, index) => ({
+      series: data.map((s, index) => ({
         name: s.name,
         type: 'bar',
         stack: stack,
@@ -183,7 +183,7 @@ const ChartComponent = ({
         },
       })),
     };
-  }, [theme, xAxisData, series, stack, barWidth, barGap]);
+  }, [theme, xAxisData, data, stack, barWidth, barGap]);
 
   useEffect(() => {
     let chart: any;

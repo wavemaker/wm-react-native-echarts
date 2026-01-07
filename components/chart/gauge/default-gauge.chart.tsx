@@ -164,5 +164,5 @@ const ChartComponent = ({
   return <SkiaChart ref={chartRef} />;
 };
 
-export const DefaultGaugeChart = withResponsiveContainer(withChartTheme(ChartComponent));
+export const DefaultGaugeChart = withResponsiveContainer(withChartTheme(ChartComponent), 'value');
 

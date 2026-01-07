@@ -143,7 +143,28 @@ export default function PieChartScreen() {
       </View>
 
       <View style={styles.chartContainer}>
-        <StackedPieChart height={400} />
+        <StackedPieChart height={400} data={[
+          {
+            name: 'Q1-Q2',
+            radius: ['0%', '35%'],
+            data: [
+              { value: 275, name: 'Desktop' },
+              { value: 200, name: 'Mobile' },
+              { value: 187, name: 'Tablet' },
+              { value: 90, name: 'Other' },
+            ],
+          },
+          {
+            name: 'Q3-Q4',
+            radius: ['45%', '60%'],
+            data: [
+              { value: 320, name: 'Desktop' },
+              { value: 250, name: 'Mobile' },
+              { value: 200, name: 'Tablet' },
+              { value: 130, name: 'Other' },
+            ],
+          },
+        ]}/>
       </View>
     </ScrollView>
   );

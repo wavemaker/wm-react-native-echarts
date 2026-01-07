@@ -40,7 +40,7 @@ interface StackedAreaChartProps {
   /**
    * Array of data series to stack. Each series contains numeric data values.
    */
-  series: Array<{
+  data: Array<{
     data: number[];
   }>;
   
@@ -70,7 +70,7 @@ interface StackedAreaChartProps {
 
 const ChartComponent = ({
   xAxisData,
-  series,
+  data,
   width = 220,
   height = 350,
   lineWidth = 1,
@@ -119,7 +119,7 @@ const ChartComponent = ({
           show: false,
         },
       },
-      series: series.map((s, index) => ({
+      series: data.map((s, index) => ({
         data: s.data,
         type: 'line',
         smooth: true,
@@ -148,7 +148,7 @@ const ChartComponent = ({
         },
       })),
     };
-  }, [theme, xAxisData, series, lineWidth]);
+  }, [theme, xAxisData, data, lineWidth]);
 
   useEffect(() => {
     let chart: any;

@@ -53,7 +53,7 @@ export default function AreaChartScreen() {
       {/* Main Interactive Chart */}
       <InteractiveAreaChart 
         xAxisData={['Apr 6', 'Apr 11', 'Apr 16', 'Apr 22', 'Apr 28', 'May 4', 'May 9', 'May 15', 'May 21', 'May 27', 'Jun 1', 'Jun 6', 'Jun 11', 'Jun 17', 'Jun 23', 'Jun 30']}
-        series={[
+        data={[
           {
             name: 'Mobile',
             data: [5000, 7200, 15500, 18700, 22100, 19500, 25400, 23900, 27600, 26000, 23600, 25100, 23900, 23500, 23700, 23900],
@@ -80,7 +80,7 @@ export default function AreaChartScreen() {
       />
       <LegendAreaChart 
         xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
-        series={[
+        data={[
           {
             name: 'Mobile',
             data: [140, 180, 200, 150, 160, 210],
@@ -93,7 +93,7 @@ export default function AreaChartScreen() {
       />
       <StackedAreaChart 
         xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
-        series={[
+        data={[
           {
             data: [120, 132, 101, 134, 90, 230],
           },
@@ -104,7 +104,7 @@ export default function AreaChartScreen() {
       />
       <StackedExpandedAreaChart 
         xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
-        series={[
+        data={[
           {
             data: [60, 70, 55, 65, 60, 70],
           },
@@ -115,7 +115,7 @@ export default function AreaChartScreen() {
       />
       <IconsAreaChart 
         xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
-        series={[
+        data={[
           {
             name: 'Mobile',
             data: [140, 180, 200, 150, 160, 210],
@@ -128,7 +128,7 @@ export default function AreaChartScreen() {
       />
       <GradientAreaChart 
         xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
-        series={[
+        data={[
           {
             data: [140, 180, 200, 150, 160, 210],
           },

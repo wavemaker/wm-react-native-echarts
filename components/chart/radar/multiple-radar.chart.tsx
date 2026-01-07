@@ -50,7 +50,7 @@ interface MultipleRadarChartProps {
   /**
    * Array of data series to display.
    */
-  series: RadarSeriesData[];
+  data: RadarSeriesData[];
   
   /**
    * Width of the chart in pixels.
@@ -72,7 +72,7 @@ interface MultipleRadarChartProps {
 
 const ChartComponent = ({
   indicators,
-  series,
+  data,
   width = 220,
   height = 300,
 }: MultipleRadarChartProps) => {
@@ -109,7 +109,7 @@ const ChartComponent = ({
       series: [
         {
           type: 'radar',
-          data: series.map((s, index) => ({
+          data: data.map((s, index) => ({
             value: s.value,
             name: s.name,
             areaStyle: { opacity: index === 0 ? 0.3 : 0.8 },
@@ -119,7 +119,7 @@ const ChartComponent = ({
         },
       ],
     };
-  }, [theme, indicators, series]);
+  }, [theme, indicators, data]);
 
   useEffect(() => {
     let chart: any;

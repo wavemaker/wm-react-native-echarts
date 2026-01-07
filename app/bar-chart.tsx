@@ -69,14 +69,14 @@ export default function BarChartScreen() {
       />
       <MultipleBarChart 
         xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
-        series={[
+        data={[
           { name: 'Series A', data: [186, 305, 237, 73, 209, 214] },
           { name: 'Series B', data: [150, 280, 200, 90, 180, 190] }
         ]}
       />
       <StackedBarChart 
         xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
-        series={[
+        data={[
           {
             name: 'Desktop',
             data: [100, 150, 120, 40, 110, 120],

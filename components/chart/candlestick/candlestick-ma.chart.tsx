@@ -229,5 +229,5 @@ const ChartComponent = ({
   return <SkiaChart ref={chartRef} />;
 };
 
-export const CandlestickMAChart = withResponsiveContainer(withChartTheme(ChartComponent));
+export const CandlestickMAChart = withResponsiveContainer(withChartTheme(ChartComponent), 'priceData');
 

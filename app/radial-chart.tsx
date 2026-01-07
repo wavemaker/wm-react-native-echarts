@@ -74,7 +74,7 @@ export default function RadialChartScreen() {
         label="Visitors"
       />
       <StackedRadialChart 
-        series={[
+        data={[
           { name: 'Inner', value: 30, color: '#93c5fd' },
           { name: 'Outer', value: 20, color: '#3b82f6' },
         ]}

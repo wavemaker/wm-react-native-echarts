@@ -40,7 +40,7 @@ interface LegendAreaChartProps {
   /**
    * Array of named data series. Each series has a name and data array.
    */
-  series: Array<{
+  data: Array<{
     name: string;
     data: number[];
   }>;
@@ -71,7 +71,7 @@ interface LegendAreaChartProps {
 
 const ChartComponent = ({
   xAxisData,
-  series,
+  data,
   width = 220,
   height = 350,
   lineWidth = 2,
@@ -120,7 +120,7 @@ const ChartComponent = ({
           show: false,
         },
       },
-      series: series.map((s, index) => ({
+      series: data.map((s, index) => ({
         name: s.name,
         data: s.data,
         type: 'line',
@@ -149,7 +149,7 @@ const ChartComponent = ({
         },
       })),
     };
-  }, [theme, xAxisData, series, lineWidth]);
+  }, [theme, xAxisData, data, lineWidth]);
 
   useEffect(() => {
     let chart: any;

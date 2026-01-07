@@ -42,7 +42,7 @@ interface MultipleBarChartProps {
   /**
    * Array of data series to display. Each series has a name and data array.
    */
-  series: Array<{
+  data: Array<{
     name: string;
     data: number[];
   }>;
@@ -85,7 +85,7 @@ interface MultipleBarChartProps {
 
 const ChartComponent = ({
   xAxisData,
-  series,
+  data,
   barWidth = '40%',
   barGap,
   borderRadius = [4, 4, 4, 4],
@@ -120,7 +120,7 @@ const ChartComponent = ({
         },
       },
       legend: {
-        data: series.map(s => s.name),
+        data: data.map(s => s.name),
         bottom: '5%',
         textStyle: {
           fontSize: 10,
@@ -177,7 +177,7 @@ const ChartComponent = ({
           },
         },
       },
-      series: series.map((s, index) => ({
+      series: data.map((s, index) => ({
         name: s.name,
         type: 'bar',
         data: s.data,
@@ -192,7 +192,7 @@ const ChartComponent = ({
         },
       })),
     };
-  }, [theme, xAxisData, series, barWidth, barGap, borderRadius]);
+  }, [theme, xAxisData, data, barWidth, barGap, borderRadius]);
 
   useEffect(() => {
     let chart: any;

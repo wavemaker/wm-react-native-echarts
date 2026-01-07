@@ -227,5 +227,5 @@ const ChartComponent = ({
   return <SkiaChart ref={chartRef} />;
 };
 
-export const ShapeRadialChart = withResponsiveContainer(withChartTheme(ChartComponent));
+export const ShapeRadialChart = withResponsiveContainer(withChartTheme(ChartComponent), 'value');
 

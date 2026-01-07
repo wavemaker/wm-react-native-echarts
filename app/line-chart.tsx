@@ -52,7 +52,7 @@ export default function LineChartScreen() {
 
       <InteractiveLineChart 
         xAxisData={['Apr 2', 'Apr 7', 'Apr 12', 'Apr 17', 'Apr 22', 'Apr 28', 'May 4', 'May 9', 'May 15', 'May 21', 'May 27', 'Jun 2', 'Jun 7', 'Jun 12', 'Jun 18', 'Jun 24', 'Jun 30']}
-        series={[
+        data={[
           {
             name: 'Desktop',
             data: [7000, 8900, 15200, 18900, 22300, 19800, 25600, 24100, 27800, 26200, 23800, 25300, 24100, 23700, 23900, 24100, 23828],
@@ -77,7 +77,7 @@ export default function LineChartScreen() {
       />
       <MultipleLineChart 
         xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
-        series={[
+        data={[
           { name: 'Series A', data: [198, 287, 251, 89, 223, 202] },
           { name: 'Series B', data: [135, 185, 165, 95, 85, 125] }
         ]}

@@ -40,7 +40,7 @@ interface GradientAreaChartProps {
   /**
    * Array of data series. Each series contains numeric data values.
    */
-  series: Array<{
+  data: Array<{
     data: number[];
   }>;
   
@@ -70,7 +70,7 @@ interface GradientAreaChartProps {
 
 const ChartComponent = ({
   xAxisData,
-  series,
+  data,
   width = 220,
   height = 350,
   lineWidth = 2,
@@ -119,7 +119,7 @@ const ChartComponent = ({
           show: false,
         },
       },
-      series: series.map((s, index) => {
+      series: data.map((s, index) => {
         const baseColor = theme.series.colors[index % theme.series.colors.length];
         return {
           data: s.data,
@@ -149,7 +149,7 @@ const ChartComponent = ({
         };
       }),
     };
-  }, [theme, xAxisData, series, lineWidth]);
+  }, [theme, xAxisData, data, lineWidth]);
 
   useEffect(() => {
     let chart: any;

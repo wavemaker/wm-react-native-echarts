@@ -37,9 +37,9 @@ interface StackedSeriesData {
  */
 interface StackedRadialChartProps {
   /**
-   * Array of series data to stack.
+   * Array of data to stack.
    */
-  series: StackedSeriesData[];
+  data: StackedSeriesData[];
   
   /**
    * Main text to display in the center.
@@ -84,7 +84,7 @@ interface StackedRadialChartProps {
 }
 
 const ChartComponent = ({
-  series,
+  data,
   centerText = '1,830',
   centerSubtext = 'Visitors',
   ringWidth = [120, 200],
@@ -96,7 +96,7 @@ const ChartComponent = ({
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
-    const categories = series.map(s => s.name);
+    const categories = data.map(s => s.name);
 
     return {
       tooltip: {
@@ -129,7 +129,7 @@ const ChartComponent = ({
         data: categories,
         show: false,
       },
-      series: series.map((s, index) => ({
+      series: data.map((s, index) => ({
         type: 'bar',
         data: [s.value],
         coordinateSystem: 'polar',
@@ -173,7 +173,7 @@ const ChartComponent = ({
         ],
       },
     };
-  }, [theme, series, centerText, centerSubtext, ringWidth, ringGap]);
+  }, [theme, data, centerText, centerSubtext, ringWidth, ringGap]);
 
   useEffect(() => {
     let chart: any;

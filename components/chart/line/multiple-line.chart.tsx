@@ -42,7 +42,7 @@ interface MultipleLineChartProps {
   /**
    * Array of named data series. Each series has a name and data array.
    */
-  series: Array<{
+  data: Array<{
     name: string;
     data: number[];
   }>;
@@ -73,7 +73,7 @@ interface MultipleLineChartProps {
 
 const ChartComponent = ({
   xAxisData,
-  series,
+  data,
   width = 220,
   height = 350,
   lineWidth = 1,
@@ -103,7 +103,7 @@ const ChartComponent = ({
         trigger: 'axis',
       },
       legend: {
-        data: series.map(s => s.name),
+        data: data.map(s => s.name),
       },
       xAxis: {
         type: xAxisIsObjectFormat ? 'value' : 'category',
@@ -125,7 +125,7 @@ const ChartComponent = ({
           show: false,
         },
       },
-      series: series.map((s, index) => ({
+      series: data.map((s, index) => ({
         name: s.name,
         type: 'line',
         smooth: true,
@@ -140,7 +140,7 @@ const ChartComponent = ({
         },
       })),
     };
-  }, [theme, xAxisData, series, lineWidth]);
+  }, [theme, xAxisData, data, lineWidth]);
 
   useEffect(() => {
     let chart: any;
