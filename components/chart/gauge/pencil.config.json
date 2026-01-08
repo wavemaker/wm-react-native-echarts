@@ -53,6 +53,24 @@
         "zrender@5.6.0"
       ],
       "tags": ["gauge", "chart", "labeled", "title", "text", "custom", "visualization", "annotated", "metric"]
+    },
+    {
+      "group": "chart/gauge",
+      "path": "semi-circular-gauge.chart.png",
+      "description": "Semi-circular gauge chart with color-coded segments, customizable tick marks, and modern design",
+      "files": [
+        "semi-circular-gauge.chart.tsx",
+        "../chart-container.tsx",
+        "../chart-theme.context.tsx"
+      ],
+      "packages": [
+        "@wuba/react-native-echarts@3.0.1",
+        "@shopify/react-native-skia@2.2.12",
+        "react-native-svg@15.12.1",
+        "echarts@5.5.1",
+        "zrender@5.6.0"
+      ],
+      "tags": ["gauge", "chart", "semi-circular", "semicircle", "color-coded", "segments", "visualization", "metric", "indicator", "progress"]
     }
   ]
 }
