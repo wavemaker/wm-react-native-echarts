@@ -57,15 +57,15 @@ interface StackedExpandedAreaChartProps {
   height?: number;
   
   /**
-   * Width of the lines in pixels.
-   * @default 1
-   */
-  lineWidth?: number;
-  
-  /**
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -73,9 +73,9 @@ const ChartComponent = ({
   data,
   width = 220,
   height = 350,
-  lineWidth = 1,
+  ...props
 }: StackedExpandedAreaChartProps) => {
-  const { theme } = useChartTheme();
+  const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
@@ -115,11 +115,24 @@ const ChartComponent = ({
               }
             : undefined,
         },
+        axisLine: {
+          lineStyle: {
+            color: theme.axis.x.lineColor,
+            width: theme.axis.x.lineWidth,
+          },
+        },
       },
       yAxis: {
         type: 'value',
         axisLabel: {
           show: false,
+        },
+        splitLine: {
+          show: true,
+          lineStyle: {
+            color: theme.axis.y.splitLineColor,
+            width: theme.axis.y.splitLineWidth,
+          },
         },
       },
       series: data.map((s, index) => ({
@@ -137,21 +150,21 @@ const ChartComponent = ({
             x2: 0,
             y2: 1,
             colorStops: [
-              { offset: 0, color: theme.series.colors[index % theme.series.colors.length] + '66' },
-              { offset: 1, color: theme.series.colors[index % theme.series.colors.length] + '66' },
+              { offset: 0, color: theme.itemStyles[index % theme.itemStyles.length].color + '66' },
+              { offset: 1, color: theme.itemStyles[index % theme.itemStyles.length].color + '66' },
             ],
           },
         },
         itemStyle: {
-          color: theme.series.colors[index % theme.series.colors.length],
+          color: theme.itemStyles[index % theme.itemStyles.length].color,
         },
         lineStyle: {
-          color: theme.series.colors[index % theme.series.colors.length],
-          width: lineWidth,
+          color: theme.itemStyles[index % theme.itemStyles.length].color,
+          width: theme.itemStyles[index]?.lineWidth ?? theme.itemStyles[0].lineWidth ?? 2,
         },
       })),
     };
-  }, [theme, xAxisData, data, lineWidth]);
+  }, [theme, xAxisData, data]);
 
   useEffect(() => {
     let chart: any;

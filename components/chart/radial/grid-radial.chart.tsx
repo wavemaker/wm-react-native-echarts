@@ -69,6 +69,12 @@ interface GridRadialChartProps {
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -77,13 +83,14 @@ const ChartComponent = ({
   ringGap = '10%',
   width = 220,
   height = 450,
+  ...props
 }: GridRadialChartProps) => {
-  const { theme } = useChartTheme();
+  const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
     const categories = data.map(d => d.label);
-    const values = data.map(d => ({ value: d.value, itemStyle: { color: d.color || theme.series.colors[0] } }));
+    const values = data.map(d => ({ value: d.value, itemStyle: { color: d.color || theme.itemStyles[0].color } }));
 
     return {
       tooltip: {
@@ -93,7 +100,7 @@ const ChartComponent = ({
         formatter: `{b|{b}}: {c}%`,
         rich: {
           b: {
-            color: theme.series.colors[0],
+            color: theme.itemStyles[0].color,
             fontWeight: 'bold',
           },
           c: {

@@ -76,6 +76,12 @@ interface InteractiveGeoChartProps {
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart item styles.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  itemColors?: string[];
 }
 
 const ChartComponent = ({
@@ -87,8 +93,9 @@ const ChartComponent = ({
   roam = true,
   width = 220,
   height = 450,
+  ...props
 }: InteractiveGeoChartProps) => {
-  const { theme } = useChartTheme();
+  const { theme } = useChartTheme(props.theme, props.itemColors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
@@ -122,7 +129,7 @@ const ChartComponent = ({
               color: theme.axis.x.labelColor,
             },
             itemStyle: {
-              areaColor: theme.series.colors[0],
+              areaColor: theme.itemStyles[0].color,
             },
           },
           select: {
@@ -131,7 +138,7 @@ const ChartComponent = ({
               color: theme.axis.x.labelColor,
             },
             itemStyle: {
-              areaColor: theme.series.colors[1],
+              areaColor: theme.itemStyles[1].color,
             },
           },
           itemStyle: {

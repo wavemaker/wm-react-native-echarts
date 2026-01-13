@@ -50,6 +50,12 @@ interface DefaultGaugeChartProps {
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -58,20 +64,21 @@ const ChartComponent = ({
   max = 100,
   width = 220,
   height = 240,
+  ...props
 }: DefaultGaugeChartProps) => {
   const { colorScheme } = useTheme();
-  const { theme: chartTheme } = useChartTheme();
+  const { theme: chartTheme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
     const backgroundColor = chartTheme.axis.r.tickColor;
-    const color1 = chartTheme.series.colors[0];
-    const color2 = chartTheme.series.colors.length > 1 ? chartTheme.series.colors[1] : color1;
-    const pointerColor = chartTheme.series.colors[0];
+    const color1 = chartTheme.itemStyles[0].color;
+    const color2 = chartTheme.itemStyles.length > 1 ? chartTheme.itemStyles[1].color : color1;
+    const pointerColor = chartTheme.itemStyles[0].color;
     const tickLineColor = chartTheme.grid.r.lineColor;
     const splitLineColor = chartTheme.grid.r.lineColor;
     const labelColor = chartTheme.axis.r.labelColor;
-    const detailColor = chartTheme.series.colors[0];
+    const detailColor = chartTheme.itemStyles[0].color;
     
     return {
       series: [

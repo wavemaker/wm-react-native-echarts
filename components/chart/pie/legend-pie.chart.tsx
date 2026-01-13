@@ -85,6 +85,12 @@ interface LegendPieChartProps {
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -101,8 +107,9 @@ const ChartComponent = ({
   legendLeft = 'center',
   width = 220,
   height = 400,
+  ...props
 }: LegendPieChartProps) => {
-  const { theme } = useChartTheme();
+  const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
@@ -110,7 +117,7 @@ const ChartComponent = ({
     const themedData = data.map((item, index) => ({
       ...item,
       itemStyle: item.itemStyle || {
-        color: theme.series.colors[index % theme.series.colors.length],
+        color: theme.itemStyles[index % theme.itemStyles.length].color,
       },
     }));
 

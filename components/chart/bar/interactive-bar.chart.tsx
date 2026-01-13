@@ -44,7 +44,7 @@ interface InteractiveBarChartProps {
   
   /**
    * Color for the bars. If not provided, uses theme color.
-   * @default theme.series.colors[0]
+   * @default theme.itemStyles[0].color
    */
   color?: string;
   
@@ -76,6 +76,12 @@ interface InteractiveBarChartProps {
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -86,8 +92,9 @@ const ChartComponent = ({
   barGap = '10%',
   width = 220,
   height = 450,
+  ...props
 }: InteractiveBarChartProps) => {
-  const { theme } = useChartTheme();
+  const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
@@ -147,7 +154,7 @@ const ChartComponent = ({
           barWidth: barWidth,
           barGap: barGap,
           itemStyle: {
-            color: color || theme.series.colors[0],
+            color: color || theme.itemStyles[0].color,
           },
           emphasis: {
             disabled: true,

@@ -58,6 +58,12 @@ interface LinesOnlyRadarChartProps {
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -65,8 +71,9 @@ const ChartComponent = ({
   data,
   width = 220,
   height = 300,
+  ...props
 }: LinesOnlyRadarChartProps) => {
-  const { theme } = useChartTheme();
+  const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
@@ -103,7 +110,7 @@ const ChartComponent = ({
             {
               value: data,
               lineStyle: { width: 1 },
-              itemStyle: { color: theme.series.colors[0], width: 0 },
+              itemStyle: { color: theme.itemStyles[0].color, width: 0 },
             },
           ],
         },

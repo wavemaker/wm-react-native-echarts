@@ -64,6 +64,12 @@ interface PopulationGeoChartProps {
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart item styles.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  itemColors?: string[];
 }
 
 const ChartComponent = ({
@@ -73,8 +79,9 @@ const ChartComponent = ({
   tooltipFormatter = '{b}<br/>Population: {c}M',
   width = 220,
   height = 400,
+  ...props
 }: PopulationGeoChartProps) => {
-  const { theme } = useChartTheme();
+  const { theme } = useChartTheme(props.theme, props.itemColors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {

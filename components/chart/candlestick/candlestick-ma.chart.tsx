@@ -68,6 +68,12 @@ interface CandlestickMAChartProps {
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -78,8 +84,9 @@ const ChartComponent = ({
   ma20Data,
   width = 220,
   height = 400,
+  ...props
 }: CandlestickMAChartProps) => {
-  const { theme } = useChartTheme();
+  const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
@@ -171,7 +178,7 @@ const ChartComponent = ({
           smooth: true,
           lineStyle: {
             opacity: 0.7,
-            color: theme.series.colors[0],
+            color: theme.itemStyles[0].color,
             width: 2,
           },
         },

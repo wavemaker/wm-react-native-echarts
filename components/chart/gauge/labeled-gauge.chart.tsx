@@ -50,6 +50,12 @@ interface LabeledGaugeChartProps {
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
   
   /**
    * Title text displayed on the gauge.
@@ -72,14 +78,15 @@ const ChartComponent = ({
   height = 240,
   title = 'Metric',
   detailText = '30%',
+  ...props
 }: LabeledGaugeChartProps) => {
   const { colorScheme } = useTheme();
-  const { theme: chartTheme } = useChartTheme();
+  const { theme: chartTheme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
     const backgroundColor = chartTheme.axis.r.tickColor;
-    const mainColor = chartTheme.series.colors[0];
+    const mainColor = chartTheme.itemStyles[0].color;
     const pointerColor = chartTheme.axis.r.lineColor;
     const titleColor = chartTheme.axis.r.labelColor;
     const detailColor = chartTheme.axis.r.labelColor;

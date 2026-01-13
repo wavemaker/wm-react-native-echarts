@@ -68,6 +68,12 @@ interface LabelRadialChartProps {
    * Use theme.itemStyles to customize ring colors.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -76,8 +82,9 @@ const ChartComponent = ({
   ringGap = '20%',
   width = 220,
   height = 450,
+  ...props
 }: LabelRadialChartProps) => {
-  const { theme } = useChartTheme();
+  const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
@@ -97,7 +104,7 @@ const ChartComponent = ({
         formatter: `{b|{b}}: {c}%`,
         rich: {
           b: {
-            color: theme.series.colors[0],
+            color: theme.itemStyles[0].color,
             fontWeight: 'bold',
           },
           c: {

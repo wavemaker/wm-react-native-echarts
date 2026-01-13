@@ -89,6 +89,12 @@ interface SemiCircularGaugeChartProps {
    * If not provided, uses theme tick color.
    */
   tickColor?: string;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -102,9 +108,10 @@ const ChartComponent = ({
   axisBgColor = 'transparent',
   axisWidth = 30,
   tickColor: tickColorProp,
+  ...props
 }: SemiCircularGaugeChartProps) => {
   const { colorScheme } = useTheme();
-  const { theme: chartTheme } = useChartTheme();
+  const { theme: chartTheme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const axisRef = useRef<any>(null);
@@ -159,8 +166,8 @@ const ChartComponent = ({
     } else {
       // Fall back to theme colors
       colors = [
-        chartTheme.series.colors[0],
-        chartTheme.series.colors[1]
+        chartTheme.itemStyles[0].color,
+        chartTheme.itemStyles.length > 1 ? chartTheme.itemStyles[1].color : chartTheme.itemStyles[0].color
       ];
     }
     

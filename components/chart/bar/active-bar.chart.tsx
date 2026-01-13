@@ -77,6 +77,12 @@ interface ActiveBarChartProps {
    * Use theme.itemStyles to customize bar colors and styling.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -87,8 +93,9 @@ const ChartComponent = ({
   barGap,
   width = 220,
   height = 350,
+  ...props
 }: ActiveBarChartProps) => {
-  const { theme } = useChartTheme();
+  const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {

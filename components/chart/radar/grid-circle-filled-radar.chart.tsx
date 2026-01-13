@@ -64,6 +64,12 @@ interface GridCircleFilledRadarChartProps {
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -72,8 +78,9 @@ const ChartComponent = ({
   areaColor = 'rgb(29, 10, 239)',
   width = 220,
   height = 300,
+  ...props
 }: GridCircleFilledRadarChartProps) => {
-  const { theme } = useChartTheme();
+  const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
@@ -114,7 +121,7 @@ const ChartComponent = ({
             {
               value: data,
               areaStyle: { opacity: 0.3, color: areaColor },
-              itemStyle: { color: theme.series.colors[0], opacity: 0 },
+              itemStyle: { color: theme.itemStyles[0].color, opacity: 0 },
               lineStyle: { width: 0 },
             },
           ],

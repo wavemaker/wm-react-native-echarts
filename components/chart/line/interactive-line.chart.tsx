@@ -69,6 +69,12 @@ interface InteractiveLineChartProps {
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -86,8 +92,9 @@ const ChartComponent = ({
   width = 220,
   height = 450,
   lineWidth = 1,
+  ...props
 }: InteractiveLineChartProps) => {
-  const { theme } = useChartTheme();
+  const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
@@ -141,10 +148,10 @@ const ChartComponent = ({
         symbol: 'none',
         data: s.data,
         itemStyle: {
-          color: theme.series.colors[index % theme.series.colors.length],
+          color: theme.itemStyles[index % theme.itemStyles.length].color,
         },
         lineStyle: {
-          color: theme.series.colors[index % theme.series.colors.length],
+          color: theme.itemStyles[index % theme.itemStyles.length].color,
           width: lineWidth,
         },
       })),

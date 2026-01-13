@@ -58,6 +58,12 @@ interface VolumeCandlestickChartProps {
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -66,8 +72,9 @@ const ChartComponent = ({
   volumeData,
   width = 220,
   height = 450,
+  ...props
 }: VolumeCandlestickChartProps) => {
-  const { theme } = useChartTheme();
+  const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
@@ -201,7 +208,7 @@ const ChartComponent = ({
           yAxisIndex: 1,
           data: volumeData,
           itemStyle: {
-            color: theme.series.colors[0],
+            color: theme.itemStyles[0].color,
             opacity: 0.7,
           },
         },

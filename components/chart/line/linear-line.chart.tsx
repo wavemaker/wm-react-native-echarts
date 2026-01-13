@@ -64,6 +64,12 @@ interface LinearLineChartProps {
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -72,8 +78,9 @@ const ChartComponent = ({
   width = 220,
   height = 350,
   lineWidth = 1,
+  ...props
 }: LinearLineChartProps) => {
-  const { theme } = useChartTheme();
+  const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
@@ -124,10 +131,10 @@ const ChartComponent = ({
           smooth: false,
           symbol: 'none',
           itemStyle: {
-            color: theme.series.colors[0],
+            color: theme.itemStyles[0].color,
           },
           lineStyle: {
-            color: theme.series.colors[0],
+            color: theme.itemStyles[0].color,
             width: lineWidth,
           },
         },

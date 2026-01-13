@@ -81,6 +81,12 @@ interface StackedRadialChartProps {
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -91,8 +97,9 @@ const ChartComponent = ({
   ringGap,
   width = 220,
   height = 350,
+  ...props
 }: StackedRadialChartProps) => {
-  const { theme } = useChartTheme();
+  const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
@@ -106,7 +113,7 @@ const ChartComponent = ({
         formatter: `{b|{b}}: {c}%`,
         rich: {
           b: {
-            color: theme.series.colors[0],
+            color: theme.itemStyles[0].color,
             fontWeight: 'bold',
           },
           c: {
@@ -136,7 +143,7 @@ const ChartComponent = ({
         name: s.name,
         barGap: ringGap,
         itemStyle: {
-          color: s.color || theme.series.colors[index % theme.series.colors.length],
+          color: s.color || theme.itemStyles[index % theme.itemStyles.length].color,
           borderRadius: [10, 10],
         },
         emphasis: {

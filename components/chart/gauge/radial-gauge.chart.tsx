@@ -55,6 +55,12 @@ interface RadialGaugeChartProps {
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -63,9 +69,10 @@ const ChartComponent = ({
   max = 100,
   width = 220,
   height = 240,
+  ...props
 }: RadialGaugeChartProps) => {
   const { colorScheme } = useTheme();
-  const { theme: chartTheme } = useChartTheme();
+  const { theme: chartTheme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
   const radialChartRef = useRef<any>(null);
 
@@ -77,7 +84,7 @@ const ChartComponent = ({
     const outerRadius = minDim * 0.48;  // ~115px at 240px - outer edge of radial ring
     
     const backgroundColor = chartTheme.axis.r.tickColor;
-    const progressColor = chartTheme.series.colors[0];
+    const progressColor = chartTheme.itemStyles[0].color;
     
     return {
       polar: {

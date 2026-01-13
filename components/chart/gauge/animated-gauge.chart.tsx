@@ -43,6 +43,12 @@ interface AnimatedGaugeChartProps {
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 // SVG Gauge Component
@@ -53,6 +59,7 @@ const SVGGaugeChart = ({
   width,
   height,
   animationDuration = 1000,
+  colors,
 }: { 
   value: number; 
   max?: number;
@@ -60,12 +67,13 @@ const SVGGaugeChart = ({
   width?: number;
   height?: number;
   animationDuration?: number;
+  colors?: string[];
 }) => {
   const { colorScheme } = useTheme();
-  const { theme: chartTheme } = useChartTheme();
+  const { theme: chartTheme } = useChartTheme(undefined, colors);
   
   // Use theme colors
-  const gradientColors = chartTheme.series.colors;
+  const gradientColors = chartTheme.itemStyles.map(item => item.color);
   const inactiveTickColor = chartTheme.axis.r.tickColor;
   const labelColor = chartTheme.axis.r.labelColor;
   const innerTickColor = chartTheme.axis.r.lineColor;
@@ -361,6 +369,7 @@ const ChartComponent = ({
   max = 90,
   width,
   height,
+  ...props
 }: AnimatedGaugeChartProps) => {
   return (
     <SVGGaugeChart 
@@ -368,6 +377,7 @@ const ChartComponent = ({
       max={max}
       width={width}
       height={height}
+      colors={props.colors}
     />
   );
 };

@@ -44,13 +44,13 @@ interface CustomLabelBarChartProps {
   
   /**
    * Color for the primary (data) bars.
-   * @default theme.series.colors[0]
+   * @default theme.itemStyles[0].color
    */
   primaryColor?: string;
   
   /**
    * Color for the secondary (helper) series used for positioning labels.
-   * @default theme.series.colors[1]
+   * @default theme.itemStyles[1].color
    */
   secondaryColor?: string;
   
@@ -82,6 +82,12 @@ interface CustomLabelBarChartProps {
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -93,8 +99,9 @@ const ChartComponent = ({
   barGap,
   width = 220,
   height = 350,
+  ...props
 }: CustomLabelBarChartProps) => {
-  const { theme } = useChartTheme();
+  const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
@@ -162,7 +169,7 @@ const ChartComponent = ({
           barWidth: barWidth,
           barGap: barGap,
           itemStyle: {
-            color: primaryColor || theme.series.colors[0],
+            color: primaryColor || theme.itemStyles[0].color,
             borderRadius: [4, 4, 4, 4],
           },
           label: {
@@ -190,7 +197,7 @@ const ChartComponent = ({
             show: false,
           },
           itemStyle: {
-            color: secondaryColor || theme.series.colors[1],
+            color: secondaryColor || theme.itemStyles[1].color,
             borderRadius: [4, 4, 4, 4],
           },
           label: {

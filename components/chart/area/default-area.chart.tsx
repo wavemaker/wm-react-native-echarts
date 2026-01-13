@@ -55,15 +55,15 @@ interface DefaultAreaChartProps {
   height?: number;
   
   /**
-   * Width of the line in pixels.
-   * @default 2
-   */
-  lineWidth?: number;
-  
-  /**
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -71,9 +71,9 @@ const ChartComponent = ({
   data,
   width = 220,
   height = 350,
-  lineWidth = 2,
+  ...props
 }: DefaultAreaChartProps) => {
-  const { theme } = useChartTheme();
+  const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
@@ -110,11 +110,24 @@ const ChartComponent = ({
               }
             : undefined,
         },
+        axisLine: {
+          lineStyle: {
+            color: theme.axis.x.lineColor,
+            width: theme.axis.x.lineWidth,
+          },
+        },
       },
       yAxis: {
         type: 'value',
         axisLabel: {
           show: false,
+        },
+        splitLine: {
+          show: true,
+          lineStyle: {
+            color: theme.axis.y.splitLineColor,
+            width: theme.axis.y.splitLineWidth,
+          },
         },
       },
       series: [
@@ -132,22 +145,22 @@ const ChartComponent = ({
               x2: 0,
               y2: 1,
               colorStops: [
-                { offset: 0, color: theme.series.colors[0] + '66' },
-                { offset: 1, color: theme.series.colors[0] + '66' },
+                { offset: 0, color: theme.itemStyles[0].color + '66' },
+                { offset: 1, color: theme.itemStyles[0].color + '66' },
               ],
             },
           },
           itemStyle: {
-            color: theme.series.colors[0],
+            color: theme.itemStyles[0].color,
           },
           lineStyle: {
-            color: theme.series.colors[0],
-            width: lineWidth,
+            color: theme.itemStyles[0].color,
+            width: theme.itemStyles[0].lineWidth ?? 2,
           },
         },
       ],
     };
-  }, [theme, xAxisData, data, lineWidth]);
+  }, [theme, xAxisData, data]);
 
   useEffect(() => {
     let chart: any;

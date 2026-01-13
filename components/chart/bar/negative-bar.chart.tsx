@@ -44,13 +44,13 @@ interface NegativeBarChartProps {
   
   /**
    * Color for positive values. If not provided, uses theme color.
-   * @default theme.series.colors[1]
+   * @default theme.itemStyles[1].color
    */
   positiveColor?: string;
   
   /**
    * Color for negative values. If not provided, uses theme color.
-   * @default theme.series.colors[0]
+   * @default theme.itemStyles[0].color
    */
   negativeColor?: string;
   
@@ -94,6 +94,12 @@ interface NegativeBarChartProps {
    * Partial theme override for customizing chart appearance.
    */
   theme?: Partial<ChartTheme>;
+
+  /**
+   * Colors for the chart.
+   * @default theme.itemStyles.map(item => item.color)
+   */
+  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -107,8 +113,9 @@ const ChartComponent = ({
   showLabels = true,
   width = 220,
   height = 350,
+  ...props
 }: NegativeBarChartProps) => {
-  const { theme } = useChartTheme();
+  const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
@@ -151,7 +158,8 @@ const ChartComponent = ({
         axisLine: {
           show: true,
           lineStyle: {
-            color: '#aaa',
+            color: theme.axis.x.lineColor,
+            width: theme.axis.x.lineWidth,
           },
         },
       },
@@ -182,8 +190,8 @@ const ChartComponent = ({
           barGap: barGap,
           itemStyle: {
             color: function(params: any) {
-              const posColor = positiveColor || theme.series.colors[1];
-              const negColor = negativeColor || theme.series.colors[0];
+              const posColor = positiveColor || theme.itemStyles[1].color;
+              const negColor = negativeColor || theme.itemStyles[0].color;
               return params.value >= 0 ? posColor : negColor;
             },
             borderRadius: borderRadius,
