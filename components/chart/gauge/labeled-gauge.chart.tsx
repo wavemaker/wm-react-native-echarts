@@ -86,10 +86,10 @@ const ChartComponent = ({
 
   const option = useMemo(() => {
     const backgroundColor = chartTheme.axis.r.tickColor;
-    const mainColor = chartTheme.itemStyles[0].color;
+    const mainColor = chartTheme.series[0].color;
     const pointerColor = chartTheme.axis.r.lineColor;
-    const titleColor = chartTheme.axis.r.labelColor;
-    const detailColor = chartTheme.axis.r.labelColor;
+    const titleColor = chartTheme.axis.r.tickLabelColor;
+    const detailColor = chartTheme.axis.r.tickLabelColor;
     
     return {
       series: [

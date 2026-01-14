@@ -116,7 +116,7 @@ const ChartComponent = ({
         boundaryGap: false,
         data: xAxisIsObjectFormat ? undefined : xAxisLabels,
         axisLabel: {
-          color: theme.axis.x.labelColor,
+          color: theme.axis.x.tickLabelColor,
           formatter: xAxisIsObjectFormat 
             ? (value: number) => {
                 const item = (xAxisData as Array<{ label: string; value: number }>).find(x => x.value === value);
@@ -139,7 +139,7 @@ const ChartComponent = ({
           symbol: 'circle',
           symbolSize: 6,
           lineStyle: {
-            color: lineColor || theme.itemStyles[0].color,
+            color: lineColor || theme.series[0].color,
             width: lineWidth,
           },
         },

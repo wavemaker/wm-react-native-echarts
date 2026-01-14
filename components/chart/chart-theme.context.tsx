@@ -5,12 +5,21 @@ import React, { createContext, useCallback, useContext, useEffect, useMemo, useS
  * Defines the visual appearance of axis lines, labels, ticks, and split lines.
  */
 type AxisStyle = {
+  /** Color of the main axis line */
   lineColor: string;
+  /** Width of the main axis line in pixels */
   lineWidth: number;
+  /** Color of the axis label text */
   labelColor: string;
+  /** Color of the tick marks */
   tickColor: string;
+  /** Width of the tick marks in pixels */
   tickWidth: number;
+  /** Color of the tick mark labels */
+  tickLabelColor: string;
+  /** Color of the split lines (grid lines parallel to axis) */
   splitLineColor: string;
+  /** Width of the split lines in pixels */
   splitLineWidth: number;
 };
 
@@ -19,7 +28,9 @@ type AxisStyle = {
  * Defines the visual appearance of grid lines that help with data reading.
  */
 type GridLineStyle = {
+  /** Color of the grid lines */
   lineColor: string;
+  /** Width of the grid lines in pixels */
   lineWidth: number;
 };
 
@@ -28,12 +39,19 @@ type GridLineStyle = {
  * Defines the visual appearance of tooltips that appear when hovering over chart elements.
  */
 type TooltipStyle = {
+  /** Background color of the tooltip */
   backgroundColor: string;
+  /** Color of the label text in the tooltip */
   labelColor: string;
+  /** Color of the value text in the tooltip */
   valueColor: string;
+  /** Color of the tooltip border */
   borderColor: string;
+  /** Width of the tooltip border in pixels */
   borderWidth: number;
+  /** Border radius of the tooltip corners in pixels */
   borderRadius: number;
+  /** Internal padding of the tooltip in pixels */
   padding: number;
 };
 
@@ -41,33 +59,49 @@ type TooltipStyle = {
  * Style configuration for chart items (bars, lines, pie slices, etc.).
  * Defines the visual appearance of individual data elements in the chart.
  */
-type ItemStyle = {
+type Series = {
+  /** Primary color for the data series */
   color: string;
+  /** Width of lines for line/area charts in pixels */
   lineWidth?: number;
+  /** Border radius for each corner [top-left, top-right, bottom-right, bottom-left] */
   borderRadius?: number[];
+  /** Color of the border around chart items */
   borderColor?: string;
+  /** Width of the border around chart items in pixels */
   borderWidth?: number;
+  /** Style of the border: 'solid', 'dashed', or 'dotted' */
   borderType?: 'solid' | 'dashed' | 'dotted';
 };
 
 /**
  * Complete chart theme configuration.
  * Contains styling for all chart components: axes (x, y, radial), grid lines, tooltips, and item styles.
- * The itemStyles array provides a color palette that cycles through for multiple data series.
+ * The series array provides a color palette that cycles through for multiple data series.
  */
 export type ChartTheme = {
+  /** Configuration for chart axes (x, y, and radial) */
   axis: {
+    /** X-axis styling configuration */
     x: AxisStyle;
+    /** Y-axis styling configuration */
     y: AxisStyle;
-    r: AxisStyle; // Radial axis (for radar/polar charts)
+    /** Radial axis styling configuration (for radar/polar charts) */
+    r: AxisStyle;
   };
+  /** Configuration for grid lines */
   grid: {
+    /** X-axis grid line styling */
     x: GridLineStyle;
+    /** Y-axis grid line styling */
     y: GridLineStyle;
-    r: GridLineStyle; // Radial grid (for radar/polar charts)
+    /** Radial grid line styling (for radar/polar charts) */
+    r: GridLineStyle;
   };
+  /** Configuration for tooltip appearance */
   tooltip: TooltipStyle;
-  itemStyles: ItemStyle[];
+  /** Array of series styles that cycle through for multiple data series */
+  series: Series[];
 };
 
 
@@ -130,6 +164,7 @@ export const LIGHT_THEME: ChartTheme = {
       lineColor: '#AAAAAA',
       lineWidth: 1,
       labelColor: '#666666',
+      tickLabelColor: '#666666',
       tickColor: '#DDDDDD',
       tickWidth: 1,
       splitLineColor: '#DDDDDD',
@@ -139,6 +174,7 @@ export const LIGHT_THEME: ChartTheme = {
       lineColor: '#AAAAAA',
       lineWidth: 1,
       labelColor: '#666666',
+      tickLabelColor: '#666666',
       tickColor: '#DDDDDD',
       tickWidth: 1,
       splitLineColor: '#DDDDDD',
@@ -148,6 +184,7 @@ export const LIGHT_THEME: ChartTheme = {
       lineColor: '#DDDDDD',
       lineWidth: 1,
       labelColor: '#666666',
+      tickLabelColor: '#666666',
       tickColor: '#DDDDDD',
       tickWidth: 1,
       splitLineColor: '#DDDDDD',
@@ -177,7 +214,7 @@ export const LIGHT_THEME: ChartTheme = {
     borderRadius: 5,
     padding: 2,
   },
-  itemStyles: [
+  series: [
     {
       color: '#3b82f6',
       borderRadius: [4, 4, 4, 4],
@@ -211,16 +248,22 @@ export const DARK_THEME: ChartTheme = extendChartTheme(LIGHT_THEME, {
     x: {
       lineColor: '#FFFFFF',
       labelColor: '#FFFFFF',
+      tickLabelColor: '#FFFFFF',
+      tickColor: '#FFFFFF',
       splitLineColor: '#DDDDDD',
     } as any,
     y: {
       lineColor: '#FFFFFF',
       labelColor: '#FFFFFF',
+      tickLabelColor: '#FFFFFF',
+      tickColor: '#FFFFFF',
       splitLineColor: '#DDDDDD',
     } as any,
     r: {
       lineColor: '#FFFFFF',
       labelColor: '#FFFFFF',
+      tickLabelColor: '#FFFFFF',
+      tickColor: '#FFFFFF',
       splitLineColor: '#DDDDDD',
     } as any,
   },
@@ -250,6 +293,7 @@ export const DARK_THEME: ChartTheme = extendChartTheme(LIGHT_THEME, {
  * Contains the current theme that can be accessed by chart components.
  */
 interface ChartThemeContextType {
+  /** The current chart theme configuration */
   theme: ChartTheme;
 }
 
@@ -289,7 +333,7 @@ export const useChartTheme = (theme?: Partial<ChartTheme>, colors?: string[]) =>
     if (colors) {
       setMergedThemeContext({
         theme: mergeThemes(mergedThemeContext.theme, 
-          { itemStyles: mergedThemeContext.theme.itemStyles
+          { series: mergedThemeContext.theme.series
             .map((item, index) => ({ 
               ...item, 
               color: colors[index] || item.color })) 
@@ -304,7 +348,9 @@ export const useChartTheme = (theme?: Partial<ChartTheme>, colors?: string[]) =>
  * Props for the ChartThemeProvider component.
  */
 interface ThemeProviderProps {
+  /** Partial theme configuration to merge with parent theme or defaults */
   theme: Partial<ChartTheme>;
+  /** Child components that will have access to the theme */
   children: React.ReactNode;
 }
 

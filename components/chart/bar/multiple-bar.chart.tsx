@@ -131,7 +131,7 @@ const ChartComponent = ({
         bottom: '5%',
         textStyle: {
           fontSize: 10,
-          color: theme.axis.x.labelColor,
+          color: theme.axis.x.tickLabelColor,
         },
       },
       grid: {
@@ -150,7 +150,7 @@ const ChartComponent = ({
         axisLabel: {
           show: true,
           fontSize: 10,
-          color: theme.axis.x.labelColor,
+          color: theme.axis.x.tickLabelColor,
           formatter: xAxisIsObjectFormat 
             ? (value: number) => {
                 const item = (xAxisData as Array<{ label: string; value: number }>).find(x => x.value === value);
@@ -191,7 +191,7 @@ const ChartComponent = ({
         barWidth: barWidth,
         barGap: barGap,
         itemStyle: {
-          color: theme.itemStyles[index % theme.itemStyles.length].color,
+          color: theme.series[index % theme.series.length].color,
           borderRadius: borderRadius,
         },
         emphasis: {

@@ -91,7 +91,7 @@ const ChartComponent = ({
           },
         },
         axisName: {
-          color: theme.axis.r.labelColor,
+          color: theme.axis.r.tickLabelColor,
         },
         tick: {
           label: theme.axis.r.tickColor,
@@ -109,7 +109,7 @@ const ChartComponent = ({
             {
               value: data,
               areaStyle: { opacity: 0.5 },
-              itemStyle: { color: theme.itemStyles[0].color },
+              itemStyle: { color: theme.series[0].color },
             },
           ],
         },

@@ -90,7 +90,7 @@ const ChartComponent = ({
 
   const option = useMemo(() => {
     const categories = data.map(d => d.label);
-    const values = data.map(d => ({ value: d.value, itemStyle: { color: d.color || theme.itemStyles[0].color } }));
+    const values = data.map(d => ({ value: d.value, itemStyle: { color: d.color || theme.series[0].color } }));
 
     return {
       tooltip: {
@@ -100,11 +100,11 @@ const ChartComponent = ({
         formatter: `{b|{b}}: {c}%`,
         rich: {
           b: {
-            color: theme.itemStyles[0].color,
+            color: theme.series[0].color,
             fontWeight: 'bold',
           },
           c: {
-            color: theme.axis.r.labelColor,
+            color: theme.axis.r.tickLabelColor,
             fontWeight: 'normal',
           }
         }

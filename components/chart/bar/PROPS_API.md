@@ -496,9 +496,9 @@ const customTheme: Partial<ChartTheme> = {
     colors: ['#10b981', '#3b82f6', '#8b5cf6', '#f59e0b']
   },
   axis: {
-    x: { labelColor: '#6b7280' },
+    x: { tickLabelColor: '#6b7280' },
     y: { 
-      labelColor: '#6b7280',
+      tickLabelColor: '#6b7280',
       tickColor: '#e5e7eb',
       lineColor: '#d1d5db'
     }

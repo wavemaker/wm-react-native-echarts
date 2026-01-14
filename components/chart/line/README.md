@@ -450,7 +450,7 @@ All components use the `useChartTheme` hook from `@/contexts/ChartThemeContext` 
 ### Theme-Aware Properties
 
 - **Series Colors**: `theme.series.colors[]` - Dynamic color palette for chart data
-- **Axis Labels**: `theme.axis.x.labelColor`, `theme.axis.y.labelColor` - Axis text colors
+- **Axis Labels**: `theme.axis.x.tickLabelColor`, `theme.axis.y.tickLabelColor` - Axis text colors
 - **Axis Lines**: `theme.axis.y.lineColor`, `theme.axis.y.lineWidth` - Axis line styling
 - **Grid Lines**: `theme.axis.y.tickColor`, `theme.axis.y.tickWidth` - Grid line styling
 

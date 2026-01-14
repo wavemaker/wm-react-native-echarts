@@ -124,7 +124,7 @@ const ChartComponent = ({
           min: 'dataMin',
           max: 'dataMax',
           axisLabel: {
-            color: theme.axis.x.labelColor,
+            color: theme.axis.x.tickLabelColor,
           },
         },
         {
@@ -154,7 +154,7 @@ const ChartComponent = ({
             show: true,
           },
           axisLabel: {
-            color: theme.axis.y.labelColor,
+            color: theme.axis.y.tickLabelColor,
           },
           splitLine: {
             lineStyle: {
@@ -208,7 +208,7 @@ const ChartComponent = ({
           yAxisIndex: 1,
           data: volumeData,
           itemStyle: {
-            color: theme.itemStyles[0].color,
+            color: theme.series[0].color,
             opacity: 0.7,
           },
         },

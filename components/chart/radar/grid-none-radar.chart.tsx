@@ -86,7 +86,7 @@ const ChartComponent = ({
         axisLine: { show: false },
         splitLine: { show: false },
         axisName: {
-          color: theme.axis.r.labelColor,
+          color: theme.axis.r.tickLabelColor,
         },
         tick: {
           label: theme.axis.r.tickColor,
@@ -99,7 +99,7 @@ const ChartComponent = ({
             {
               value: data,
               areaStyle: { opacity: 0.5 },
-              itemStyle: { color: theme.itemStyles[0].color, width: 1 },
+              itemStyle: { color: theme.series[0].color, width: 1 },
             },
           ],
         },

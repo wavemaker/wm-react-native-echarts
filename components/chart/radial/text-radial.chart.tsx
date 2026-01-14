@@ -116,11 +116,11 @@ const ChartComponent = ({
         formatter: `{b|{b}}: {c}%`,
         rich: {
           b: {
-            color: theme.itemStyles[0].color,
+            color: theme.series[0].color,
             fontWeight: 'bold',
           },
           c: {
-            color: theme.axis.r.labelColor,
+            color: theme.axis.r.tickLabelColor,
             fontWeight: 'normal',
           }
         }
@@ -165,7 +165,7 @@ const ChartComponent = ({
           coordinateSystem: 'polar',
           name: label,
           itemStyle: {
-            color: theme.itemStyles[0].color,
+            color: theme.series[0].color,
             borderRadius: [50, 50],
           },
           stack: 'total',
@@ -187,7 +187,7 @@ const ChartComponent = ({
               text: `${displayText}\n${displaySubtext}`,
               fontSize: 32,
               fontWeight: 'bold',
-              fill: theme.axis.r.labelColor,
+              fill: theme.axis.r.tickLabelColor,
               textAlign: 'center',
               textVerticalAlign: 'middle',
             },

@@ -115,7 +115,7 @@ const ChartComponent = ({
           color: colors,
         },
         textStyle: {
-          color: theme.axis.x.labelColor,
+          color: theme.axis.x.tickLabelColor,
         },
       },
       series: [
@@ -126,19 +126,19 @@ const ChartComponent = ({
           emphasis: {
             label: {
               show: true,
-              color: theme.axis.x.labelColor,
+              color: theme.axis.x.tickLabelColor,
             },
             itemStyle: {
-              areaColor: theme.itemStyles[0].color,
+              areaColor: theme.series[0].color,
             },
           },
           select: {
             label: {
               show: true,
-              color: theme.axis.x.labelColor,
+              color: theme.axis.x.tickLabelColor,
             },
             itemStyle: {
-              areaColor: theme.itemStyles[1].color,
+              areaColor: theme.series[1].color,
             },
           },
           itemStyle: {
@@ -147,7 +147,7 @@ const ChartComponent = ({
           },
           label: {
             show: showLabel,
-            color: theme.axis.x.labelColor,
+            color: theme.axis.x.tickLabelColor,
           },
           data: data,
         },

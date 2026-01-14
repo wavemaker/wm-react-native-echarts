@@ -169,7 +169,7 @@ const ChartComponent = ({
           barWidth: barWidth,
           barGap: barGap,
           itemStyle: {
-            color: primaryColor || theme.itemStyles[0].color,
+            color: primaryColor || theme.series[0].color,
             borderRadius: [4, 4, 4, 4],
           },
           label: {
@@ -197,7 +197,7 @@ const ChartComponent = ({
             show: false,
           },
           itemStyle: {
-            color: secondaryColor || theme.itemStyles[1].color,
+            color: secondaryColor || theme.series[1].color,
             borderRadius: [4, 4, 4, 4],
           },
           label: {
@@ -207,7 +207,7 @@ const ChartComponent = ({
               return data[params.dataIndex];
             },
             fontSize: 10,
-            color: theme.axis.x.labelColor,
+            color: theme.axis.x.tickLabelColor,
           },
           emphasis: {
             disabled: true,

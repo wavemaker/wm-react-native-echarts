@@ -72,13 +72,13 @@ const ChartComponent = ({
 
   const option = useMemo(() => {
     const backgroundColor = chartTheme.axis.r.tickColor;
-    const color1 = chartTheme.itemStyles[0].color;
-    const color2 = chartTheme.itemStyles.length > 1 ? chartTheme.itemStyles[1].color : color1;
-    const pointerColor = chartTheme.itemStyles[0].color;
+    const color1 = chartTheme.series[0].color;
+    const color2 = chartTheme.series.length > 1 ? chartTheme.series[1].color : color1;
+    const pointerColor = chartTheme.series[0].color;
     const tickLineColor = chartTheme.grid.r.lineColor;
     const splitLineColor = chartTheme.grid.r.lineColor;
-    const labelColor = chartTheme.axis.r.labelColor;
-    const detailColor = chartTheme.itemStyles[0].color;
+    const labelColor = chartTheme.axis.r.tickLabelColor;
+    const detailColor = chartTheme.series[0].color;
     
     return {
       series: [

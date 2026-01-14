@@ -104,7 +104,7 @@ const ChartComponent = ({
         boundaryGap: false,
         data: xAxisIsObjectFormat ? undefined : xAxisLabels,
         axisLabel: {
-          color: theme.axis.x.labelColor,
+          color: theme.axis.x.tickLabelColor,
           formatter: xAxisIsObjectFormat 
             ? (value: number) => {
                 const item = (xAxisData as Array<{ label: string; value: number }>).find(x => x.value === value);
@@ -133,7 +133,7 @@ const ChartComponent = ({
         },
       },
       series: data.map((s, index) => {
-        const baseColor = theme.itemStyles[index % theme.itemStyles.length].color;
+        const baseColor = theme.series[index % theme.series.length].color;
         return {
           data: s.data,
           type: 'line',
@@ -157,7 +157,7 @@ const ChartComponent = ({
           },
           lineStyle: {
             color: baseColor,
-            width: theme.itemStyles[index]?.lineWidth ?? theme.itemStyles[0].lineWidth ?? 2,
+            width: theme.series[index]?.lineWidth ?? theme.series[0].lineWidth ?? 2,
           },
         };
       }),

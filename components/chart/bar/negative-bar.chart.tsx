@@ -190,8 +190,8 @@ const ChartComponent = ({
           barGap: barGap,
           itemStyle: {
             color: function(params: any) {
-              const posColor = positiveColor || theme.itemStyles[1].color;
-              const negColor = negativeColor || theme.itemStyles[0].color;
+              const posColor = positiveColor || theme.series[1].color;
+              const negColor = negativeColor || theme.series[0].color;
               return params.value >= 0 ? posColor : negColor;
             },
             borderRadius: borderRadius,
@@ -203,7 +203,7 @@ const ChartComponent = ({
               return xAxisLabels[params.dataIndex];
             },
             fontSize: 10,
-            color: theme.axis.x.labelColor,
+            color: theme.axis.x.tickLabelColor,
           } : {
             show: false,
           },

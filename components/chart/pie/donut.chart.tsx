@@ -87,7 +87,7 @@ const ChartComponent = ({
     const themedData = data.map((item, index) => ({
       ...item,
       itemStyle: item.itemStyle || {
-        color: theme.itemStyles[index % theme.itemStyles.length].color,
+        color: theme.series[index % theme.series.length].color,
       },
     }));
 

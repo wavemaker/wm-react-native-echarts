@@ -401,8 +401,8 @@ export default function CustomThemedChart() {
   // Custom theme override
   const customTheme = {
     axis: {
-      x: { labelColor: '#8b5cf6' },
-      y: { labelColor: '#8b5cf6' },
+      x: { tickLabelColor: '#8b5cf6' },
+      y: { tickLabelColor: '#8b5cf6' },
     },
     grid: {
       y: { lineColor: '#e9d5ff' },

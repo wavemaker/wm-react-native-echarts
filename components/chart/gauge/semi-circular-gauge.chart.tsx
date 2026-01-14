@@ -156,7 +156,7 @@ const ChartComponent = ({
     const pointerColor = chartTheme.axis.r.lineColor || '#1e3a8a'; // Use axis line color for needle
     const whiteColor = '#ffffff';
     const tickColor = tickColorProp || chartTheme.axis.r.tickColor || chartTheme.grid.r.lineColor || '#666666'; // Use prop or theme tick color
-    const labelColor = chartTheme.axis.r.labelColor || '#666666'; // Use theme label color
+    const labelColor = chartTheme.axis.r.tickLabelColor || '#666666'; // Use theme label color
     const backgroundColor = chartTheme.axis.r.tickColor || '#DDDDDD'; // Background color from theme
     
     // Determine colors to use
@@ -166,8 +166,8 @@ const ChartComponent = ({
     } else {
       // Fall back to theme colors
       colors = [
-        chartTheme.itemStyles[0].color,
-        chartTheme.itemStyles.length > 1 ? chartTheme.itemStyles[1].color : chartTheme.itemStyles[0].color
+        chartTheme.series[0].color,
+        chartTheme.series.length > 1 ? chartTheme.series[1].color : chartTheme.series[0].color
       ];
     }
     

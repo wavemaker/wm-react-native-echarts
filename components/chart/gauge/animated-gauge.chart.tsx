@@ -73,9 +73,9 @@ const SVGGaugeChart = ({
   const { theme: chartTheme } = useChartTheme(undefined, colors);
   
   // Use theme colors
-  const gradientColors = chartTheme.itemStyles.map(item => item.color);
+  const gradientColors = chartTheme.series.map(item => item.color);
   const inactiveTickColor = chartTheme.axis.r.tickColor;
-  const labelColor = chartTheme.axis.r.labelColor;
+  const labelColor = chartTheme.axis.r.tickLabelColor;
   const innerTickColor = chartTheme.axis.r.lineColor;
   const arcColor = chartTheme.grid.r.lineColor;
   const dimensions = useWindowDimensions();
@@ -343,7 +343,7 @@ const SVGGaugeChart = ({
         textAnchor="middle"
         fontSize="56"
         fontWeight="bold"
-        fill={chartTheme.axis.r.labelColor}
+        fill={chartTheme.axis.r.tickLabelColor}
       >
         {Math.round(animatedValue)}
       </SvgText>

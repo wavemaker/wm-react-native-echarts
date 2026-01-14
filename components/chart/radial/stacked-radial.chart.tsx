@@ -113,11 +113,11 @@ const ChartComponent = ({
         formatter: `{b|{b}}: {c}%`,
         rich: {
           b: {
-            color: theme.itemStyles[0].color,
+            color: theme.series[0].color,
             fontWeight: 'bold',
           },
           c: {
-            color: theme.axis.r.labelColor,
+            color: theme.axis.r.tickLabelColor,
             fontWeight: 'normal',
           }
         }
@@ -143,7 +143,7 @@ const ChartComponent = ({
         name: s.name,
         barGap: ringGap,
         itemStyle: {
-          color: s.color || theme.itemStyles[index % theme.itemStyles.length].color,
+          color: s.color || theme.series[index % theme.series.length].color,
           borderRadius: [10, 10],
         },
         emphasis: {
@@ -161,7 +161,7 @@ const ChartComponent = ({
               text: centerText,
               fontSize: 32,
               fontWeight: 'bold',
-              fill: theme.axis.r.labelColor,
+              fill: theme.axis.r.tickLabelColor,
             },
           },
           {

@@ -110,7 +110,7 @@ const ChartComponent = ({
 
     // Map data values to chart data with itemStyles from theme
     const chartData = data.map((value, index) => {
-      const itemStyle = theme.itemStyles[index % theme.itemStyles.length];
+      const itemStyle = theme.series[index % theme.series.length];
       return {
         value,
         itemStyle: {
@@ -155,7 +155,7 @@ const ChartComponent = ({
         axisLabel: {
           show: true,
           fontSize: 10,
-          color: theme.axis.y.labelColor,
+          color: theme.axis.y.tickLabelColor,
           formatter: yAxisIsObjectFormat 
             ? (value: number) => {
                 const item = (yAxisData as Array<{ label: string; value: number }>).find(x => x.value === value);

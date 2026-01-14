@@ -565,7 +565,7 @@ export default function MyScreen() {
           colors: ['#10b981', '#3b82f6', '#f59e0b', '#ec4899'],
         },
         axis: {
-          x: { labelColor: '#666666' },
+          x: { tickLabelColor: '#666666' },
           y: {
             tickColor: 'rgba(0, 0, 0, 0.1)',
             lineColor: 'rgba(0, 0, 0, 0.2)',

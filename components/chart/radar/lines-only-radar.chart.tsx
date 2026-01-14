@@ -92,7 +92,7 @@ const ChartComponent = ({
           },
         },
         axisName: {
-          color: theme.axis.r.labelColor,
+          color: theme.axis.r.tickLabelColor,
         },
         tick: {
           label: theme.axis.r.tickColor,
@@ -110,7 +110,7 @@ const ChartComponent = ({
             {
               value: data,
               lineStyle: { width: 1 },
-              itemStyle: { color: theme.itemStyles[0].color, width: 0 },
+              itemStyle: { color: theme.series[0].color, width: 0 },
             },
           ],
         },

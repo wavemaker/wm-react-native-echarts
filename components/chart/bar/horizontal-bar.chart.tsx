@@ -144,7 +144,7 @@ const ChartComponent = ({
         },
         axisLabel: {
           fontSize: 10,
-          color: theme.axis.y.labelColor,
+          color: theme.axis.y.tickLabelColor,
           formatter: yAxisIsObjectFormat 
             ? (value: number) => {
                 const item = (yAxisData as Array<{ label: string; value: number }>).find(x => x.value === value);
@@ -163,7 +163,7 @@ const ChartComponent = ({
           barWidth: barWidth,
           barGap: barGap,
           itemStyle: {
-            color: color || theme.itemStyles[1].color,
+            color: color || theme.series[1].color,
             borderRadius: borderRadius,
           },
           emphasis: {

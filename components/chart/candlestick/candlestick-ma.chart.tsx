@@ -127,7 +127,7 @@ const ChartComponent = ({
         min: 'dataMin',
         max: 'dataMax',
         axisLabel: {
-          color: theme.axis.x.labelColor,
+          color: theme.axis.x.tickLabelColor,
         },
       },
       yAxis: {
@@ -136,7 +136,7 @@ const ChartComponent = ({
           show: true,
         },
         axisLabel: {
-          color: theme.axis.y.labelColor,
+          color: theme.axis.y.tickLabelColor,
         },
         splitLine: {
           lineStyle: {
@@ -178,7 +178,7 @@ const ChartComponent = ({
           smooth: true,
           lineStyle: {
             opacity: 0.7,
-            color: theme.itemStyles[0].color,
+            color: theme.series[0].color,
             width: 2,
           },
         },

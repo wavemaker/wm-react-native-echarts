@@ -92,7 +92,7 @@ const ChartComponent = ({
     const values = data.map((d, index) => ({ 
       value: d.value, 
       itemStyle: { 
-        color: theme.itemStyles[index % theme.itemStyles.length].color 
+        color: theme.series[index % theme.series.length].color 
       } 
     }));
 
@@ -104,11 +104,11 @@ const ChartComponent = ({
         formatter: `{b|{b}}: {c}%`,
         rich: {
           b: {
-            color: theme.itemStyles[0].color,
+            color: theme.series[0].color,
             fontWeight: 'bold',
           },
           c: {
-            color: theme.axis.r.labelColor,
+            color: theme.axis.r.tickLabelColor,
             fontWeight: 'normal',
           }
         }

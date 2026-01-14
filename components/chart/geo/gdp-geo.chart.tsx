@@ -101,7 +101,7 @@ const ChartComponent = ({
           color: ['#a8e6cf', '#4ecdc4', '#45b7d1', '#667eea', '#ff6b6b'],
         },
         textStyle: {
-          color: theme.axis.x.labelColor,
+          color: theme.axis.x.tickLabelColor,
         },
       },
       series: [
@@ -113,7 +113,7 @@ const ChartComponent = ({
           emphasis: {
             label: {
               show: true,
-              color: theme.axis.x.labelColor,
+              color: theme.axis.x.tickLabelColor,
             },
             itemStyle: {
               areaColor: '#ff6b6b',

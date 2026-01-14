@@ -122,7 +122,7 @@ const ChartComponent = ({
 
     const chartData = values.map((value, index) => {
       const isActive = index === activeIndex;
-      const itemStyle = theme.itemStyles[isActive ? 0 : 1 % theme.itemStyles.length];
+      const itemStyle = theme.series[isActive ? 0 : 1 % theme.series.length];
       
       return {
         value,
@@ -153,7 +153,7 @@ const ChartComponent = ({
         axisLabel: {
           show: true,
           fontSize: 10,
-          color: theme.axis.x.labelColor,
+          color: theme.axis.x.tickLabelColor,
           formatter: xAxisIsObjectFormat 
             ? (value: number) => {
                 const item = (xAxisData as Array<{ label: string; value: number }>).find(x => x.value === value);

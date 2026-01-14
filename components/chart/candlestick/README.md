@@ -205,7 +205,7 @@ All components use the `useChartTheme` hook from `@/contexts/ChartThemeContext` 
 ### Theme-Aware Properties
 
 - **Series Colors**: `theme.series.colors[]` - Dynamic color palette (used for volume bars and MA lines)
-- **Axis Labels**: `theme.axis.x.labelColor`, `theme.axis.y.labelColor` - Axis text colors
+- **Axis Labels**: `theme.axis.x.tickLabelColor`, `theme.axis.y.tickLabelColor` - Axis text colors
 - **Axis Lines**: `theme.axis.x.lineColor`, `theme.axis.x.lineWidth` - Axis line styling
 - **Grid Lines**: `theme.grid.y.lineColor`, `theme.grid.y.lineWidth` - Grid line styling
 - **Tooltip**: `theme.tooltip.*` - Tooltip styling (background, border, text colors)

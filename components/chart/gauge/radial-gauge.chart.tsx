@@ -84,7 +84,7 @@ const ChartComponent = ({
     const outerRadius = minDim * 0.48;  // ~115px at 240px - outer edge of radial ring
     
     const backgroundColor = chartTheme.axis.r.tickColor;
-    const progressColor = chartTheme.itemStyles[0].color;
+    const progressColor = chartTheme.series[0].color;
     
     return {
       polar: {
@@ -151,11 +151,11 @@ const ChartComponent = ({
     const pointerColor = chartTheme.axis.r.lineColor;
     const tickColor = chartTheme.axis.r.tickColor;
     const splitLineColor = chartTheme.axis.r.tickColor;
-    const labelColor = chartTheme.axis.r.labelColor;
+    const labelColor = chartTheme.axis.r.tickLabelColor;
     const anchorColor = chartTheme.axis.r.lineColor;
     const anchorBorderColor = chartTheme.axis.r.tickColor;
-    const valueColor = chartTheme.axis.r.labelColor;
-    const unitColor = chartTheme.axis.r.labelColor;
+    const valueColor = chartTheme.axis.r.tickLabelColor;
+    const unitColor = chartTheme.axis.r.tickLabelColor;
     
     return {
       series: [
