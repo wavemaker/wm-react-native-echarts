@@ -22,35 +22,10 @@ export default function RadarChartScreen() {
       flex: 1,
       backgroundColor: colorScheme === 'dark' ? '#1a1a1a' : '#f5f5f5',
     },
-    header: {
-      padding: 20,
-      alignItems: 'center',
-      backgroundColor: colorScheme === 'dark' ? '#2a2a2a' : '#fff',
-      marginBottom: 10,
-    },
-    headerTitle: {
-      fontSize: 28,
-      fontWeight: 'bold',
-      marginBottom: 5,
-      color: colorScheme === 'dark' ? '#ffffff' : '#333333',
-    },
-    headerSubtitle: {
-      fontSize: 16,
-      opacity: 0.7,
-      textAlign: 'center',
-      color: colorScheme === 'dark' ? '#cccccc' : '#666666',
-    },
   });
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Radar Charts Gallery</Text>
-        <Text style={styles.headerSubtitle}>
-          Showing total visitors for the last 6 months
-        </Text>
-      </View>
-
       <BasicRadarChart 
         indicators={[
           { name: 'January', max: 400 },

@@ -16,35 +16,10 @@ export default function GaugeChartScreen() {
       backgroundColor: colorScheme === 'dark' ? '#1a1a1a' : '#f5f5f5',
       paddingTop: 8,
     },
-    header: {
-      padding: 20,
-      alignItems: 'center',
-      backgroundColor: colorScheme === 'dark' ? '#2a2a2a' : '#fff',
-      marginBottom: 10,
-    },
-    headerTitle: {
-      fontSize: 28,
-      fontWeight: 'bold',
-      marginBottom: 5,
-      color: colorScheme === 'dark' ? '#ffffff' : '#333333',
-    },
-    headerSubtitle: {
-      fontSize: 16,
-      opacity: 0.7,
-      textAlign: 'center',
-      color: colorScheme === 'dark' ? '#cccccc' : '#666666',
-    },
   });
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Gauge Charts Gallery</Text>
-        <Text style={styles.headerSubtitle}>
-          Performance metrics and progress indicators
-        </Text>
-      </View>
-
       <SemiCircularGaugeChart value={85} />
       <SemiCircularGaugeChart 
         value={85} 

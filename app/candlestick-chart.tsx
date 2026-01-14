@@ -30,24 +30,6 @@ export default function CandlestickChartScreen() {
       flex: 1,
       backgroundColor: colorScheme === 'dark' ? '#1a1a1a' : '#f5f5f5',
     },
-    header: {
-      padding: 20,
-      alignItems: 'center',
-      backgroundColor: colorScheme === 'dark' ? '#2a2a2a' : '#fff',
-      marginBottom: 10,
-    },
-    headerTitle: {
-      fontSize: 28,
-      fontWeight: 'bold',
-      marginBottom: 5,
-      color: colorScheme === 'dark' ? '#ffffff' : '#333333',
-    },
-    headerSubtitle: {
-      fontSize: 16,
-      opacity: 0.7,
-      textAlign: 'center',
-      color: colorScheme === 'dark' ? '#cccccc' : '#666666',
-    },
     chartContainer: {
       backgroundColor: colorScheme === 'dark' ? '#2a2a2a' : '#fff',
       marginHorizontal: 10,
@@ -74,15 +56,6 @@ export default function CandlestickChartScreen() {
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>
-          Candlestick Charts Gallery
-        </Text>
-        <Text style={styles.headerSubtitle}>
-          Financial data and stock price visualization
-        </Text>
-      </View>
-
       <View style={styles.chartContainer}>
         <Text style={styles.chartTitle}>Basic Candlestick Chart</Text>
         <BasicCandlestickChart

@@ -21,35 +21,10 @@ export default function LineChartScreen() {
       flex: 1,
       backgroundColor: colorScheme === 'dark' ? '#1a1a1a' : '#f5f5f5',
     },
-    header: {
-      padding: 20,
-      alignItems: 'center',
-      backgroundColor: colorScheme === 'dark' ? '#2a2a2a' : '#fff',
-      marginBottom: 10,
-    },
-    headerTitle: {
-      fontSize: 28,
-      fontWeight: 'bold',
-      marginBottom: 5,
-      color: colorScheme === 'dark' ? '#ffffff' : '#333333',
-    },
-    headerSubtitle: {
-      fontSize: 16,
-      opacity: 0.7,
-      textAlign: 'center',
-      color: colorScheme === 'dark' ? '#cccccc' : '#666666',
-    },
   });
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Line Charts Gallery</Text>
-        <Text style={styles.headerSubtitle}>
-          Various line chart types based on documentation examples
-        </Text>
-      </View>
-
       <InteractiveLineChart 
         xAxisData={['Apr 2', 'Apr 7', 'Apr 12', 'Apr 17', 'Apr 22', 'Apr 28', 'May 4', 'May 9', 'May 15', 'May 21', 'May 27', 'Jun 2', 'Jun 7', 'Jun 12', 'Jun 18', 'Jun 24', 'Jun 30']}
         data={[
