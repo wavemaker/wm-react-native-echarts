@@ -131,9 +131,10 @@ const ChartComponent = ({
         data: data.map(s => s.name),
         bottom: '5%',
         textStyle: {
-          fontSize: 10,
-          color: theme.axis.x.tickLabelColor,
+          color: theme.legend.textColor,
+          fontSize: theme.legend.fontSize,
         },
+        backgroundColor: theme.legend.backgroundColor,
       },
       grid: {
         left: '3%',

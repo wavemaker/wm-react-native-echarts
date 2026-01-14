@@ -93,6 +93,11 @@ const ChartComponent = ({
       },
       legend: {
         data: ['Price', 'Volume'],
+        textStyle: {
+          color: theme.legend.textColor,
+          fontSize: theme.legend.fontSize,
+        },
+        backgroundColor: theme.legend.backgroundColor,
       },
       grid: [
         {

@@ -129,6 +129,11 @@ const ChartComponent = ({
         orient: legendOrient,
         bottom: legendBottom,
         left: legendLeft,
+        textStyle: {
+          color: theme.legend.textColor,
+          fontSize: theme.legend.fontSize,
+        },
+        backgroundColor: theme.legend.backgroundColor,
       },
       series: [
         {

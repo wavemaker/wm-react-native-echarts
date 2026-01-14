@@ -105,6 +105,11 @@ const ChartComponent = ({
       },
       legend: {
         data: ['Price', 'MA5', 'MA10', 'MA20'],
+        textStyle: {
+          color: theme.legend.textColor,
+          fontSize: theme.legend.fontSize,
+        },
+        backgroundColor: theme.legend.backgroundColor,
       },
       grid: {
         left: '10%',

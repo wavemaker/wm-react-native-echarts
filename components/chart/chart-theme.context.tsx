@@ -75,6 +75,19 @@ type Series = {
 };
 
 /**
+ * Style configuration for chart legends.
+ * Defines the visual appearance of legends that identify data series in charts.
+ */
+type LegendStyle = {
+  /** Color of the legend text */
+  textColor: string;
+  /** Font size of the legend text in pixels */
+  fontSize: number;
+  /** Color of the legend background */
+  backgroundColor: string;
+};
+
+/**
  * Complete chart theme configuration.
  * Contains styling for all chart components: axes (x, y, radial), grid lines, tooltips, and item styles.
  * The series array provides a color palette that cycles through for multiple data series.
@@ -98,6 +111,7 @@ export type ChartTheme = {
     /** Radial grid line styling (for radar/polar charts) */
     r: GridLineStyle;
   };
+  legend: LegendStyle;
   /** Configuration for tooltip appearance */
   tooltip: TooltipStyle;
   /** Array of series styles that cycle through for multiple data series */
@@ -241,6 +255,11 @@ export const LIGHT_THEME: ChartTheme = {
       lineWidth: 2,
     },
   ],
+  legend: {
+    textColor: '#666666',
+    fontSize: 12,
+    backgroundColor: '#00000000',
+  },
 };
 
 export const DARK_THEME: ChartTheme = extendChartTheme(LIGHT_THEME, {
@@ -278,6 +297,10 @@ export const DARK_THEME: ChartTheme = extendChartTheme(LIGHT_THEME, {
       lineColor: '#FFFFFF',
     } as any,
   },
+  legend: {
+    textColor: '#FFFFFF',
+    backgroundColor: '#00000000',
+  } as any,
   tooltip: {
     backgroundColor: '#151718',
     labelColor: '#FFFFFF',

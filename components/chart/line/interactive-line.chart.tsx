@@ -120,6 +120,11 @@ const ChartComponent = ({
       },
       legend: {
         data: data.map(s => s.name),
+        textStyle: {
+          color: theme.legend.textColor,
+          fontSize: theme.legend.fontSize,
+        },
+        backgroundColor: theme.legend.backgroundColor,
       },
       xAxis: {
         type: xAxisIsObjectFormat ? 'value' : 'category',

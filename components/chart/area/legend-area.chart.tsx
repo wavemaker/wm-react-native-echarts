@@ -4,6 +4,7 @@ import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { LineChart } from 'echarts/charts';
 import {
   GridComponent,
+  LegendComponent,
   TooltipComponent
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
@@ -13,6 +14,7 @@ import { useEffect, useMemo, useRef } from 'react';
 echarts.use([
   TooltipComponent,
   GridComponent,
+  LegendComponent,
   SkiaRenderer,
   LineChart,
 ]);
@@ -99,6 +101,14 @@ const ChartComponent = ({
     return {
       tooltip: {
         trigger: 'axis',
+      },
+      legend: {
+        data: data.map(s => s.name),
+        textStyle: {
+          color: theme.legend.textColor,
+          fontSize: theme.legend.fontSize,
+        },
+        backgroundColor: theme.legend.backgroundColor,
       },
       xAxis: {
         type: xAxisIsObjectFormat ? 'value' : 'category',

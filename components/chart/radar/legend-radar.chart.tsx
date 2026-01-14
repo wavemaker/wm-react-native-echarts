@@ -101,6 +101,11 @@ const ChartComponent = ({
           },
         })),
         bottom: 5,
+        textStyle: {
+          color: theme.legend.textColor,
+          fontSize: theme.legend.fontSize,
+        },
+        backgroundColor: theme.legend.backgroundColor,
       },
       radar: {
         indicator: indicators,
