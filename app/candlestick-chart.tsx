@@ -3,9 +3,12 @@ import {
   CandlestickMAChart,
   VolumeCandlestickChart
 } from '@/components/chart/candlestick';
+import { useTheme } from '@/contexts/ThemeContext';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default function CandlestickChartScreen() {
+  const { colorScheme } = useTheme();
+
   // Sample data for the charts
   const xAxisData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const priceData = [
@@ -21,6 +24,53 @@ export default function CandlestickChartScreen() {
   const ma5Data = [25, 35, 32, 28, 30, 32, 38];
   const ma10Data = [28, 32, 30, 26, 28, 30, 35];
   const ma20Data = [30, 30, 28, 25, 27, 29, 32];
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colorScheme === 'dark' ? '#1a1a1a' : '#f5f5f5',
+    },
+    header: {
+      padding: 20,
+      alignItems: 'center',
+      backgroundColor: colorScheme === 'dark' ? '#2a2a2a' : '#fff',
+      marginBottom: 10,
+    },
+    headerTitle: {
+      fontSize: 28,
+      fontWeight: 'bold',
+      marginBottom: 5,
+      color: colorScheme === 'dark' ? '#ffffff' : '#333333',
+    },
+    headerSubtitle: {
+      fontSize: 16,
+      opacity: 0.7,
+      textAlign: 'center',
+      color: colorScheme === 'dark' ? '#cccccc' : '#666666',
+    },
+    chartContainer: {
+      backgroundColor: colorScheme === 'dark' ? '#2a2a2a' : '#fff',
+      marginHorizontal: 10,
+      marginBottom: 15,
+      borderRadius: 10,
+      padding: 15,
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: colorScheme === 'dark' ? 0.3 : 0.1,
+      shadowRadius: 3.84,
+      elevation: 5,
+    },
+    chartTitle: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      marginBottom: 10,
+      textAlign: 'center',
+      color: colorScheme === 'dark' ? '#ffffff' : '#333333',
+    },
+  });
 
   return (
     <ScrollView style={styles.container}>
@@ -63,47 +113,3 @@ export default function CandlestickChartScreen() {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  header: {
-    padding: 20,
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    marginBottom: 10,
-  },
-  headerTitle: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  headerSubtitle: {
-    fontSize: 16,
-    opacity: 0.7,
-    textAlign: 'center',
-  },
-  chartContainer: {
-    backgroundColor: '#fff',
-    marginHorizontal: 10,
-    marginBottom: 15,
-    borderRadius: 10,
-    padding: 15,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  chartTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
-  },
-});
