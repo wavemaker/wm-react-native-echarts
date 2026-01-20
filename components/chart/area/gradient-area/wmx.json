@@ -1,0 +1,80 @@
+{
+  "name": "gradient-area",
+  "displayName": "Gradient Area",
+  "description": "Smooth area chart with gradient fill and multiple overlapping series",
+  "group": "chart/line/area",
+  "files": [
+    "../../chart-container.tsx",
+    "../../chart-theme.context.tsx"
+  ],
+  "packages": [
+    "@wuba/react-native-echarts@3.0.1",
+    "@shopify/react-native-skia@2.2.12",
+    "react-native-svg@15.12.1",
+    "echarts@5.5.1",
+    "zrender@5.6.0"
+  ],
+  "tags": [
+    "area",
+    "chart",
+    "gradient",
+    "smooth",
+    "multi-series",
+    "visualization",
+    "modern",
+    "overlay"
+  ],
+  "props": {
+    "xAxisData": {
+      "name": "xAxisData",
+      "displayName": "X Axis Data",
+      "description": "X-axis labels. Can be a string array or object array with label and value. Example: ['Jan', 'Feb', 'Mar'] or [{label: 'Jan', value: 0}, {label: 'Feb', value: 1}]",
+      "type": "object",
+      "isList": true,
+      "isRequired": true
+    },
+    "data": {
+      "name": "data",
+      "displayName": "Data",
+      "description": "Array of data series. Each series contains numeric data values. Example: [{data: [100, 200, 150]}, {data: [80, 120, 100]}]",
+      "type": "object",
+      "isList": true,
+      "isRequired": true
+    },
+    "width": {
+      "name": "width",
+      "displayName": "Width",
+      "description": "Width of the chart in pixels. Example: 220",
+      "type": "number",
+      "isList": false,
+      "defaultValue": 220,
+      "isRequired": false
+    },
+    "height": {
+      "name": "height",
+      "displayName": "Height",
+      "description": "Height of the chart in pixels. Example: 350",
+      "type": "number",
+      "isList": false,
+      "defaultValue": 350,
+      "isRequired": false
+    },
+    "theme": {
+      "name": "theme",
+      "displayName": "Theme",
+      "description": "Partial theme override for customizing chart appearance. Example: {series: [{color: '#3b82f6'}]}",
+      "type": "object",
+      "isList": false,
+      "isRequired": false
+    },
+    "colors": {
+      "name": "colors",
+      "displayName": "Colors",
+      "description": "Colors for the chart. Example: ['#3b82f6', '#10b981', '#f59e0b']",
+      "type": "string",
+      "isList": true,
+      "isRequired": false
+    }
+  },
+  "webSupport": true
+}

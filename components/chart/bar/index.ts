@@ -1,14 +1,14 @@
 // Bar Chart Components
 // Export all bar chart components for easy importing
 
-export { InteractiveBarChart } from './interactive-bar.chart';
-export { DefaultBarChart } from './default-bar.chart';
-export { HorizontalBarChart } from './horizontal-bar.chart';
-export { MultipleBarChart } from './multiple-bar.chart';
-export { StackedBarChart } from './stacked-bar.chart';
-export { LabelBarChart } from './label-bar.chart';
-export { CustomLabelBarChart } from './custom-label-bar.chart';
-export { MixedBarChart } from './mixed-bar.chart';
-export { ActiveBarChart } from './active-bar.chart';
-export { NegativeBarChart } from './negative-bar.chart';
+export { InteractiveBarChart } from './interactive-bar/index';
+export { DefaultBarChart } from './default-bar/index';
+export { HorizontalBarChart } from './horizontal-bar/index';
+export { MultipleBarChart } from './multiple-bar/index';
+export { StackedBarChart } from './stacked-bar/index';
+export { LabelBarChart } from './label-bar/index';
+export { CustomLabelBarChart } from './custom-label-bar/index';
+export { MixedBarChart } from './mixed-bar/index';
+export { ActiveBarChart } from './active-bar/index';
+export { NegativeBarChart } from './negative-bar/index';
 

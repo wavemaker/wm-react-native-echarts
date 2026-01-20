@@ -1,6 +1,6 @@
-export { DefaultGaugeChart } from './default-gauge.chart';
-export { RadialGaugeChart } from './radial-gauge.chart';
-export { AnimatedGaugeChart } from './animated-gauge.chart';
-export { LabeledGaugeChart } from './labeled-gauge.chart';
-export { SemiCircularGaugeChart } from './semi-circular-gauge.chart';
+export { DefaultGaugeChart } from './default-gauge/index';
+export { RadialGaugeChart } from './radial-gauge/index';
+export { AnimatedGaugeChart } from './animated-gauge/index';
+export { LabeledGaugeChart } from './labeled-gauge/index';
+export { SemiCircularGaugeChart } from './semi-circular-gauge/index';
 

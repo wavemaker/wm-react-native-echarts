@@ -1,0 +1,72 @@
+{
+  "name": "label-radial",
+  "displayName": "Label Radial",
+  "description": "Circular radial bar chart with multiple categories arranged in polar coordinates",
+  "group": "chart/radial",
+  "files": [
+    "../../chart-container.tsx",
+    "../../chart-theme.context.tsx"
+  ],
+  "packages": [
+    "@wuba/react-native-echarts@3.0.1",
+    "@shopify/react-native-skia@2.2.12",
+    "react-native-svg@15.12.1",
+    "echarts@5.5.1",
+    "zrender@5.6.0"
+  ],
+  "tags": [
+    "radial",
+    "chart",
+    "polar",
+    "circular",
+    "multi-category",
+    "bars",
+    "visualization",
+    "progress"
+  ],
+  "props": {
+    "data": {
+      "name": "data",
+      "displayName": "Data",
+      "description": "Array of data items to display. Example: [{label: 'Category 1', value: 100}, {label: 'Category 2', value: 200}]",
+      "type": "object",
+      "isList": true,
+      "isRequired": true
+    },
+    "width": {
+      "name": "width",
+      "displayName": "Width",
+      "description": "Width of the chart in pixels. Example: 220",
+      "type": "number",
+      "isList": false,
+      "defaultValue": 220,
+      "isRequired": false
+    },
+    "height": {
+      "name": "height",
+      "displayName": "Height",
+      "description": "Height of the chart in pixels. Example: 350",
+      "type": "number",
+      "isList": false,
+      "defaultValue": 350,
+      "isRequired": false
+    },
+    "theme": {
+      "name": "theme",
+      "displayName": "Theme",
+      "description": "Partial theme override for customizing chart appearance. Example: {series: [{color: '#3b82f6'}]}",
+      "type": "object",
+      "isList": false,
+      "isRequired": false
+    },
+    "colors": {
+      "name": "colors",
+      "displayName": "Colors",
+      "description": "Colors for the chart. Example: ['#3b82f6', '#10b981', '#f59e0b']",
+      "type": "string",
+      "isList": true,
+      "isRequired": false
+    }
+  },
+  "webSupport": true
+}

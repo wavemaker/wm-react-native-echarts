@@ -1,0 +1,93 @@
+{
+  "name": "donut-active",
+  "displayName": "Donut Active",
+  "description": "Donut chart with one segment highlighted and selectable for emphasis",
+  "group": "chart/pie",
+  "files": [
+    "../../chart-container.tsx",
+    "../../chart-theme.context.tsx"
+  ],
+  "packages": [
+    "@wuba/react-native-echarts@3.0.1",
+    "@shopify/react-native-skia@2.2.12",
+    "react-native-svg@15.12.1",
+    "echarts@5.5.1",
+    "zrender@5.6.0"
+  ],
+  "tags": [
+    "pie",
+    "donut",
+    "chart",
+    "active",
+    "highlighted",
+    "selection",
+    "visualization",
+    "interactive"
+  ],
+  "props": {
+    "data": {
+      "name": "data",
+      "displayName": "Data",
+      "description": "Array of data items for the donut slices. Items with selected=true will be initially offset. Example: [{value: 100, name: 'Category 1'}, {value: 200, name: 'Category 2'}]",
+      "type": "object",
+      "isList": true,
+      "isRequired": true
+    },
+    "radius": {
+      "name": "radius",
+      "displayName": "Radius",
+      "description": "Inner and outer radius [innerRadius, outerRadius]. Example: ['40%', '70%']",
+      "type": "string",
+      "isList": true,
+      "defaultValue": [
+        "40%",
+        "70%"
+      ],
+      "isRequired": false
+    },
+    "selectedOffset": {
+      "name": "selectedOffset",
+      "displayName": "Selected Offset",
+      "description": "Distance to offset selected slices in pixels. Example: 10",
+      "type": "number",
+      "isList": false,
+      "defaultValue": 10,
+      "isRequired": false
+    },
+    "width": {
+      "name": "width",
+      "displayName": "Width",
+      "description": "Width of the chart in pixels. Example: 220",
+      "type": "number",
+      "isList": false,
+      "defaultValue": 220,
+      "isRequired": false
+    },
+    "height": {
+      "name": "height",
+      "displayName": "Height",
+      "description": "Height of the chart in pixels. Example: 350",
+      "type": "number",
+      "isList": false,
+      "defaultValue": 350,
+      "isRequired": false
+    },
+    "theme": {
+      "name": "theme",
+      "displayName": "Theme",
+      "description": "Partial theme override for customizing chart appearance. Example: {series: [{color: '#3b82f6'}]}",
+      "type": "object",
+      "isList": false,
+      "isRequired": false
+    },
+    "colors": {
+      "name": "colors",
+      "displayName": "Colors",
+      "description": "Colors for the chart. Example: ['#3b82f6', '#10b981', '#f59e0b']",
+      "type": "string",
+      "isList": true,
+      "isRequired": false
+    }
+  },
+  "webSupport": true
+}

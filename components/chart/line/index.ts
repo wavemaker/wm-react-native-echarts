@@ -1,11 +1,11 @@
-export { InteractiveLineChart } from './interactive-line.chart';
-export { DefaultLineChart } from './default-line.chart';
-export { LinearLineChart } from './linear-line.chart';
-export { StepLineChart } from './step-line.chart';
-export { MultipleLineChart } from './multiple-line.chart';
-export { DotsLineChart } from './dots-line.chart';
-export { CustomDotsLineChart } from './custom-dots-line.chart';
-export { DotsColorsLineChart } from './dots-colors-line.chart';
-export { LabelLineChart } from './label-line.chart';
-export { CustomLabelLineChart } from './custom-label-line.chart';
+export { InteractiveLineChart } from './interactive-line/index';
+export { DefaultLineChart } from './default-line/index';
+export { LinearLineChart } from './linear-line/index';
+export { StepLineChart } from './step-line/index';
+export { MultipleLineChart } from './multiple-line/index';
+export { DotsLineChart } from './dots-line/index';
+export { CustomDotsLineChart } from './custom-dots-line/index';
+export { DotsColorsLineChart } from './dots-colors-line/index';
+export { LabelLineChart } from './label-line/index';
+export { CustomLabelLineChart } from './custom-label-line/index';
 
