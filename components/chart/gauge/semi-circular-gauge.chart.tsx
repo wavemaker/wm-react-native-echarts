@@ -4,7 +4,7 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { GaugeChart } from 'echarts/charts';
 import * as echarts from 'echarts/core';
-import { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 // Register necessary components for this chart

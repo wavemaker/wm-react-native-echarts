@@ -1,0 +1,59 @@
+import type { Meta, StoryObj, Decorator } from '@storybook/react';
+import { MixedBarChart } from './mixed-bar.chart';
+import { View, StyleSheet } from 'react-native';
+import React from 'react';
+
+const meta = {
+  title: 'Charts/Bar/MixedBarChart',
+  component: MixedBarChart,
+  parameters: {
+    layout: 'centered',
+  },
+  tags: ['autodocs'],
+  argTypes: {
+    yAxisData: {
+      control: 'object',
+      description: 'Y-axis labels',
+    },
+    data: {
+      control: 'object',
+      description: 'Array of numeric values for each bar',
+    },
+    width: {
+      control: 'number',
+      description: 'Width of the chart in pixels',
+    },
+    height: {
+      control: 'number',
+      description: 'Height of the chart in pixels',
+    },
+  },
+  decorators: [
+    ((Story) => (
+      <View style={styles.container}>
+        <Story />
+      </View>
+    )) as Decorator,
+  ],
+} satisfies Meta<typeof MixedBarChart>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+    backgroundColor: '#f5f5f5',
+    borderRadius: 8,
+  },
+});
+
+export const Default: Story = {
+  args: {
+    yAxisData: ['Other', 'Edge', 'Safari', 'Firefox', 'Chrome'],
+    data: [8, 12, 35, 40, 65],
+    width: 400,
+    height: 350,
+  },
+};
+

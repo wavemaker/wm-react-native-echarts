@@ -1,7 +1,7 @@
 import { withResponsiveContainer } from '../chart-container';
 import { ChartTheme, useChartTheme, withChartTheme } from '../chart-theme.context';
 import { useTheme } from '@/contexts/ThemeContext';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import Svg, { Circle, Defs, G, LinearGradient, Path, Stop, Text as SvgText } from 'react-native-svg';
 

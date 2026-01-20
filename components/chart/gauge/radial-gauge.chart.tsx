@@ -6,7 +6,7 @@ import { BarChart } from 'echarts/charts';
 import { GaugeChart } from 'echarts/charts';
 import { PolarComponent } from 'echarts/components';
 import * as echarts from 'echarts/core';
-import { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 // Register necessary components for this chart

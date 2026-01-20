@@ -1,3 +1,4 @@
+import React, { useEffect, useMemo, useRef } from 'react';
 import { withResponsiveContainer } from '../chart-container';
 import { ChartTheme, useChartTheme, withChartTheme } from '../chart-theme.context';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
@@ -7,7 +8,7 @@ import {
   TooltipComponent
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
-import { useEffect, useMemo, useRef } from 'react';
+
 
 // Register necessary components for this chart
 echarts.use([
