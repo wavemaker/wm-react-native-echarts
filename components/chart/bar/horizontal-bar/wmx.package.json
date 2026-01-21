@@ -1,0 +1,132 @@
+{
+  "name": "horizontal-bar",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/bar/horizontal-bar"
+  },
+  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-bar-horizontal-bar--docs",
+  "displayName": "Horizontal Bar",
+  "description": "Horizontal bar chart with category labels on the y-axis",
+  "iconUrl": "wmx.icon.svg",
+  "preview": [
+    "wmx.preview.1.png"
+  ],
+  "component": "horizontal-bar.chart.tsx",
+  "requires": [
+    "../../chart-container.tsx",
+    "../../chart-theme.context.tsx"
+  ],
+  "dependencies": {
+    "@wuba/react-native-echarts": "3.0.1",
+    "@shopify/react-native-skia": "2.2.12",
+    "react-native-svg": "15.12.1",
+    "echarts": "5.5.1",
+    "zrender": "5.6.0"
+  },
+  "keywords": [
+    "bar",
+    "chart",
+    "horizontal",
+    "single-series",
+    "visualization",
+    "sideways",
+    "ranking",
+    "chart/bar"
+  ],
+  "wmx": {
+    "props": {
+      "yAxisData": {
+        "name": "yAxisData",
+        "displayName": "Y Axis Data",
+        "description": "Y-axis labels. Can be a string array or object array with label and value. Example: ['0', '50', '100'] or [{label: 'Low', value: 0}, {label: 'High', value: 100}]",
+        "type": "object",
+        "isList": true,
+        "isRequired": true
+      },
+      "data": {
+        "name": "data",
+        "displayName": "Data",
+        "description": "Array of numeric values for each bar. Example: [100, 200, 150, 300]",
+        "type": "number",
+        "isList": true,
+        "isRequired": true
+      },
+      "color": {
+        "name": "color",
+        "displayName": "Color",
+        "description": "Color for the bars. If not provided, uses theme color. Example: '#3b82f6'",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "barWidth": {
+        "name": "barWidth",
+        "displayName": "Bar Width",
+        "description": "Width of the bars as a percentage string. Example: '40%'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "80%",
+        "isRequired": false
+      },
+      "barGap": {
+        "name": "barGap",
+        "displayName": "Bar Gap",
+        "description": "Gap between bars as a percentage string. Example: '10%'",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "borderRadius": {
+        "name": "borderRadius",
+        "displayName": "Border Radius",
+        "description": "Border radius for each corner of the bars [topLeft, topRight, bottomRight, bottomLeft]. Example: [4, 4, 4, 4]",
+        "type": "number",
+        "isList": true,
+        "defaultValue": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "isRequired": false
+      },
+      "width": {
+        "name": "width",
+        "displayName": "Width",
+        "description": "Width of the chart in pixels. Example: 220",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 220,
+        "isRequired": false
+      },
+      "height": {
+        "name": "height",
+        "displayName": "Height",
+        "description": "Height of the chart in pixels. Example: 350",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 350,
+        "isRequired": false
+      },
+      "theme": {
+        "name": "theme",
+        "displayName": "Theme",
+        "description": "Partial theme override for customizing chart appearance. Example: {series: [{color: '#3b82f6'}]}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "colors": {
+        "name": "colors",
+        "displayName": "Colors",
+        "description": "Colors for the chart. Example: ['#3b82f6', '#10b981', '#f59e0b']",
+        "type": "string",
+        "isList": true,
+        "isRequired": false
+      }
+    },
+    "webSupport": true
+  }
+}

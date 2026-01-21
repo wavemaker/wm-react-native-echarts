@@ -1,0 +1,133 @@
+{
+  "name": "donut-text",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/pie/donut-text"
+  },
+  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-pie-donut-text--docs",
+  "displayName": "Donut Text",
+  "description": "Donut chart with centered text displaying total value and label",
+  "iconUrl": "wmx.icon.svg",
+  "preview": [
+    "wmx.preview.1.png"
+  ],
+  "component": "donut-text.chart.tsx",
+  "requires": [
+    "../../chart-container.tsx",
+    "../../chart-theme.context.tsx"
+  ],
+  "dependencies": {
+    "@wuba/react-native-echarts": "3.0.1",
+    "@shopify/react-native-skia": "2.2.12",
+    "react-native-svg": "15.12.1",
+    "echarts": "5.5.1",
+    "zrender": "5.6.0"
+  },
+  "keywords": [
+    "pie",
+    "donut",
+    "chart",
+    "text",
+    "center-label",
+    "visualization",
+    "summary",
+    "total",
+    "chart/pie"
+  ],
+  "wmx": {
+    "props": {
+      "data": {
+        "name": "data",
+        "displayName": "Data",
+        "description": "Array of data items for the donut slices. Example: [{value: 100, name: 'Category 1'}, {value: 200, name: 'Category 2'}]",
+        "type": "object",
+        "isList": true,
+        "isRequired": false
+      },
+      "radius": {
+        "name": "radius",
+        "displayName": "Radius",
+        "description": "Inner and outer radius [innerRadius, outerRadius]. Example: ['40%', '70%']",
+        "type": "string",
+        "isList": true,
+        "defaultValue": [
+          "40%",
+          "70%"
+        ],
+        "isRequired": false
+      },
+      "centerText": {
+        "name": "centerText",
+        "displayName": "Center Text",
+        "description": "Main text to display in the center. Example: 'Total'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "Total",
+        "isRequired": false
+      },
+      "centerSubtext": {
+        "name": "centerSubtext",
+        "displayName": "Center Subtext",
+        "description": "Subtitle text below the main center text. Example: '1000'",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "centerTextFontSize": {
+        "name": "centerTextFontSize",
+        "displayName": "Center Text Font Size",
+        "description": "Font size for the center main text. Example: 24",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 24,
+        "isRequired": false
+      },
+      "centerSubtextFontSize": {
+        "name": "centerSubtextFontSize",
+        "displayName": "Center Subtext Font Size",
+        "description": "Font size for the center subtitle. Example: 16",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 16,
+        "isRequired": false
+      },
+      "width": {
+        "name": "width",
+        "displayName": "Width",
+        "description": "Width of the chart in pixels. Example: 220",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 220,
+        "isRequired": false
+      },
+      "height": {
+        "name": "height",
+        "displayName": "Height",
+        "description": "Height of the chart in pixels. Example: 350",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 350,
+        "isRequired": false
+      },
+      "theme": {
+        "name": "theme",
+        "displayName": "Theme",
+        "description": "Partial theme override for customizing chart appearance. Example: {series: [{color: '#3b82f6'}]}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "colors": {
+        "name": "colors",
+        "displayName": "Colors",
+        "description": "Colors for the chart. Example: ['#3b82f6', '#10b981', '#f59e0b']",
+        "type": "string",
+        "isList": true,
+        "isRequired": false
+      }
+    },
+    "webSupport": true
+  }
+}

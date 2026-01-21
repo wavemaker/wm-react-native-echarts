@@ -1,0 +1,141 @@
+{
+  "name": "text-radial",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/radial/text-radial"
+  },
+  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-radial-text-radial--docs",
+  "displayName": "Text Radial",
+  "description": "Single ring radial progress chart with centered text displaying value and label",
+  "iconUrl": "wmx.icon.svg",
+  "preview": [
+    "wmx.preview.1.png"
+  ],
+  "component": "text-radial.chart.tsx",
+  "requires": [
+    "../../chart-container.tsx",
+    "../../chart-theme.context.tsx"
+  ],
+  "dependencies": {
+    "@wuba/react-native-echarts": "3.0.1",
+    "@shopify/react-native-skia": "2.2.12",
+    "react-native-svg": "15.12.1",
+    "echarts": "5.5.1",
+    "zrender": "5.6.0"
+  },
+  "keywords": [
+    "radial",
+    "chart",
+    "progress",
+    "ring",
+    "circular",
+    "text",
+    "metric",
+    "single",
+    "visualization",
+    "chart/radial"
+  ],
+  "wmx": {
+    "props": {
+      "value": {
+        "name": "value",
+        "displayName": "Value",
+        "description": "Current value to display. Example: 75",
+        "type": "number",
+        "isList": false,
+        "isRequired": true
+      },
+      "maxValue": {
+        "name": "maxValue",
+        "displayName": "Max Value",
+        "description": "Maximum value for the scale. Example: 100",
+        "type": "number",
+        "isList": false,
+        "isRequired": true
+      },
+      "label": {
+        "name": "label",
+        "displayName": "Label",
+        "description": "Label text for the value. Example: 'Total'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "Visitors",
+        "isRequired": false
+      },
+      "centerText": {
+        "name": "centerText",
+        "displayName": "Center Text",
+        "description": "Main text to display in the center. Example: 'Total'",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "centerSubtext": {
+        "name": "centerSubtext",
+        "displayName": "Center Subtext",
+        "description": "Subtitle text below the main center text. Example: '1000'",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "ringWidth": {
+        "name": "ringWidth",
+        "displayName": "Ring Width",
+        "description": "Inner and outer width of the ring [start, end]. Example: [20, 80]",
+        "type": "number",
+        "isList": true,
+        "defaultValue": [
+          20,
+          80
+        ],
+        "isRequired": false
+      },
+      "ringGap": {
+        "name": "ringGap",
+        "displayName": "Ring Gap",
+        "description": "Gap between rings as percentage string. Example: '3%'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "3%",
+        "isRequired": false
+      },
+      "width": {
+        "name": "width",
+        "displayName": "Width",
+        "description": "Width of the chart in pixels. Example: 220",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 220,
+        "isRequired": false
+      },
+      "height": {
+        "name": "height",
+        "displayName": "Height",
+        "description": "Height of the chart in pixels. Example: 350",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 240,
+        "isRequired": false
+      },
+      "theme": {
+        "name": "theme",
+        "displayName": "Theme",
+        "description": "Partial theme override for customizing chart appearance. Example: {series: [{color: '#3b82f6'}]}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "colors": {
+        "name": "colors",
+        "displayName": "Colors",
+        "description": "Colors for the chart. Example: ['#3b82f6', '#10b981', '#f59e0b']",
+        "type": "string",
+        "isList": true,
+        "isRequired": false
+      }
+    },
+    "webSupport": true
+  }
+}

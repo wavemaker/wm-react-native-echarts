@@ -1,4 +1,4 @@
-export * from './basic-candlestick/index';
-export * from './volume-candlestick/index';
-export * from './candlestick-ma/index';
+export * from './basic-candlestick/basic-candlestick.chart';
+export * from './volume-candlestick/volume-candlestick.chart';
+export * from './candlestick-ma/candlestick-ma.chart';
 

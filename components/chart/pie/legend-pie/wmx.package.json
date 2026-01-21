@@ -1,0 +1,121 @@
+{
+  "name": "legend-pie",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/pie/legend-pie"
+  },
+  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-pie-legend-pie--docs",
+  "displayName": "Legend Pie",
+  "description": "Pie chart with legend showing category names and colors",
+  "iconUrl": "wmx.icon.svg",
+  "preview": [
+    "wmx.preview.1.png"
+  ],
+  "component": "legend-pie.chart.tsx",
+  "requires": [
+    "../../chart-container.tsx",
+    "../../chart-theme.context.tsx"
+  ],
+  "dependencies": {
+    "@wuba/react-native-echarts": "3.0.1",
+    "@shopify/react-native-skia": "2.2.12",
+    "react-native-svg": "15.12.1",
+    "echarts": "5.5.1",
+    "zrender": "5.6.0"
+  },
+  "keywords": [
+    "pie",
+    "chart",
+    "legend",
+    "categories",
+    "visualization",
+    "labeled",
+    "categorized",
+    "chart/pie"
+  ],
+  "wmx": {
+    "props": {
+      "data": {
+        "name": "data",
+        "displayName": "Data",
+        "description": "Array of data items for the pie slices. Example: [{value: 100, name: 'Category 1'}, {value: 200, name: 'Category 2'}]",
+        "type": "object",
+        "isList": true,
+        "isRequired": false
+      },
+      "radius": {
+        "name": "radius",
+        "displayName": "Radius",
+        "description": "Radius of the pie chart as a percentage string. Example: '60%'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "60%",
+        "isRequired": false
+      },
+      "legendOrient": {
+        "name": "legendOrient",
+        "displayName": "Legend Orient",
+        "description": "Orientation of the legend. Example: 'horizontal'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "horizontal",
+        "isRequired": false
+      },
+      "legendBottom": {
+        "name": "legendBottom",
+        "displayName": "Legend Bottom",
+        "description": "Position of legend from bottom as percentage. Example: '10%'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "5%",
+        "isRequired": false
+      },
+      "legendLeft": {
+        "name": "legendLeft",
+        "displayName": "Legend Left",
+        "description": "Position of legend from left as percentage or alignment. Example: 'center'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "center",
+        "isRequired": false
+      },
+      "width": {
+        "name": "width",
+        "displayName": "Width",
+        "description": "Width of the chart in pixels. Example: 220",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 220,
+        "isRequired": false
+      },
+      "height": {
+        "name": "height",
+        "displayName": "Height",
+        "description": "Height of the chart in pixels. Example: 350",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 350,
+        "isRequired": false
+      },
+      "theme": {
+        "name": "theme",
+        "displayName": "Theme",
+        "description": "Partial theme override for customizing chart appearance. Example: {series: [{color: '#3b82f6'}]}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "colors": {
+        "name": "colors",
+        "displayName": "Colors",
+        "description": "Colors for the chart. Example: ['#3b82f6', '#10b981', '#f59e0b']",
+        "type": "string",
+        "isList": true,
+        "isRequired": false
+      }
+    },
+    "webSupport": true
+  }
+}

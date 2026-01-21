@@ -1,0 +1,113 @@
+{
+  "name": "label-pie",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/pie/label-pie"
+  },
+  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-pie-label-pie--docs",
+  "displayName": "Label Pie",
+  "description": "Pie chart with value labels and leader lines for each segment",
+  "iconUrl": "wmx.icon.svg",
+  "preview": [
+    "wmx.preview.1.png"
+  ],
+  "component": "label-pie.chart.tsx",
+  "requires": [
+    "../../chart-container.tsx",
+    "../../chart-theme.context.tsx"
+  ],
+  "dependencies": {
+    "@wuba/react-native-echarts": "3.0.1",
+    "@shopify/react-native-skia": "2.2.12",
+    "react-native-svg": "15.12.1",
+    "echarts": "5.5.1",
+    "zrender": "5.6.0"
+  },
+  "keywords": [
+    "pie",
+    "chart",
+    "labels",
+    "values",
+    "annotated",
+    "visualization",
+    "detailed",
+    "leader-lines",
+    "chart/pie"
+  ],
+  "wmx": {
+    "props": {
+      "data": {
+        "name": "data",
+        "displayName": "Data",
+        "description": "Array of data items for the pie slices. Example: [{value: 100, name: 'Category 1'}, {value: 200, name: 'Category 2'}]",
+        "type": "object",
+        "isList": true,
+        "isRequired": false
+      },
+      "radius": {
+        "name": "radius",
+        "displayName": "Radius",
+        "description": "Radius of the pie chart as a percentage string. Example: '60%'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "60%",
+        "isRequired": false
+      },
+      "labelFormatter": {
+        "name": "labelFormatter",
+        "displayName": "Label Formatter",
+        "description": "Format string for the labels (e.g., '{b}: {c}' for name: value). Example: '{b}: {c}'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "{b}",
+        "isRequired": false
+      },
+      "labelFontSize": {
+        "name": "labelFontSize",
+        "displayName": "Label Font Size",
+        "description": "Font size for the labels in pixels. Example: 12",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 12,
+        "isRequired": false
+      },
+      "width": {
+        "name": "width",
+        "displayName": "Width",
+        "description": "Width of the chart in pixels. Example: 220",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 220,
+        "isRequired": false
+      },
+      "height": {
+        "name": "height",
+        "displayName": "Height",
+        "description": "Height of the chart in pixels. Example: 350",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 350,
+        "isRequired": false
+      },
+      "theme": {
+        "name": "theme",
+        "displayName": "Theme",
+        "description": "Partial theme override for customizing chart appearance. Example: {series: [{color: '#3b82f6'}]}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "colors": {
+        "name": "colors",
+        "displayName": "Colors",
+        "description": "Colors for the chart. Example: ['#3b82f6', '#10b981', '#f59e0b']",
+        "type": "string",
+        "isList": true,
+        "isRequired": false
+      }
+    },
+    "webSupport": true
+  }
+}

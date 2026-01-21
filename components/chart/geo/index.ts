@@ -1,5 +1,5 @@
-export { DefaultGeoChart } from './default-geo/index';
-export { GDPGeoChart } from './gdp-geo/index';
-export { InteractiveGeoChart } from './interactive-geo/index';
-export { PopulationGeoChart } from './population-geo/index';
+export { DefaultGeoChart } from './default-geo/default-geo.chart';
+export { GDPGeoChart } from './gdp-geo/gdp-geo.chart';
+export { InteractiveGeoChart } from './interactive-geo/interactive-geo.chart';
+export { PopulationGeoChart } from './population-geo/population-geo.chart';
 
