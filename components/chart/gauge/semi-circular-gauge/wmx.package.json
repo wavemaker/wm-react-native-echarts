@@ -39,6 +39,7 @@
     "chart/gauge"
   ],
   "wmx": {
+    "group": "chart/gauge",
     "props": {
       "value": {
         "name": "value",

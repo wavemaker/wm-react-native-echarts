@@ -37,6 +37,7 @@
     "chart/radial"
   ],
   "wmx": {
+    "group": "chart/radial",
     "props": {
       "data": {
         "name": "data",

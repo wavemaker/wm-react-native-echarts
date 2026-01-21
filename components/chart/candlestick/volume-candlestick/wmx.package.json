@@ -39,6 +39,7 @@
     "chart/candlestick"
   ],
   "wmx": {
+    "group": "chart/candlestick",
     "props": {
       "xAxisData": {
         "name": "xAxisData",

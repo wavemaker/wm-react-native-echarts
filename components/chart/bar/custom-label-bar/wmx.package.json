@@ -37,6 +37,7 @@
     "chart/bar"
   ],
   "wmx": {
+    "group": "chart/bar",
     "props": {
       "yAxisData": {
         "name": "yAxisData",

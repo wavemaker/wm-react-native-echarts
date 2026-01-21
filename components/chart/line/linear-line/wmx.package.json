@@ -37,6 +37,7 @@
     "chart/line"
   ],
   "wmx": {
+    "group": "chart/line",
     "props": {
       "xAxisData": {
         "name": "xAxisData",

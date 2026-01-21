@@ -37,6 +37,7 @@
     "chart/radar"
   ],
   "wmx": {
+    "group": "chart/radar",
     "props": {
       "indicators": {
         "name": "indicators",

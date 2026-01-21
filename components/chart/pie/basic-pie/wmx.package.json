@@ -37,6 +37,7 @@
     "chart/pie"
   ],
   "wmx": {
+    "group": "chart/pie",
     "props": {
       "data": {
         "name": "data",
