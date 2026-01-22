@@ -1,0 +1,290 @@
+{
+  "name": "bar-chart",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/bar"
+  },
+  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-bar-barchart--docs",
+  "displayName": "Bar Chart",
+  "description": "Unified bar chart component supporting all variations: default, interactive, multiple, stacked, horizontal, label, custom-label, negative, active, and mixed configurations",
+  "iconUrl": "wmx.icon.svg",
+  "preview": [
+    "default-bar.png",
+    "interactive-bar.png",
+    "multiple-bar.png",
+    "stacked-bar.png",
+    "horizontal-bar.png",
+    "label-bar.png",
+    "custom-label-bar.png",
+    "negative-bar.png",
+    "active-bar.png",
+    "mixed-bar.png"
+  ],
+  "component": "bar-chart.tsx",
+  "requires": [
+    "../bar-chart.tsx",
+    "../../chart-container.tsx",
+    "../../chart-theme.context.tsx"
+  ],
+  "dependencies": {
+    "@wuba/react-native-echarts": "3.0.1",
+    "@shopify/react-native-skia": "2.2.12",
+    "react-native-svg": "15.12.1",
+    "echarts": "5.5.1",
+    "zrender": "5.6.0"
+  },
+  "keywords": [
+    "bar",
+    "chart",
+    "unified",
+    "master",
+    "multi-series",
+    "stacked",
+    "interactive",
+    "horizontal",
+    "vertical",
+    "labels",
+    "negative",
+    "active",
+    "mixed",
+    "visualization",
+    "data-analysis",
+    "chart/bar"
+  ],
+  "wmx": {
+    "group": "chart/bar",
+    "props": {
+      "xAxisData": {
+        "name": "xAxisData",
+        "displayName": "X Axis Data",
+        "description": "X-axis labels for vertical bar charts. Can be a string array or object array with label and value. Example: ['Jan', 'Feb', 'Mar'] or [{label: 'Jan', value: 0}, {label: 'Feb', value: 1}]",
+        "type": "object",
+        "isList": true,
+        "isRequired": false
+      },
+      "yAxisData": {
+        "name": "yAxisData",
+        "displayName": "Y Axis Data",
+        "description": "Y-axis labels for horizontal bar charts. Can be a string array or object array with label and value. Example: ['Jan', 'Feb', 'Mar'] or [{label: 'Jan', value: 0}, {label: 'Feb', value: 1}]",
+        "type": "object",
+        "isList": true,
+        "isRequired": false
+      },
+      "data": {
+        "name": "data",
+        "displayName": "Data",
+        "description": "Chart data. Can be: single series (number[]), multiple series (Array<{data: number[]}>), or named series (Array<{name: string, data: number[]}>). Example: [100, 200, 150] or [{data: [100, 200]}, {data: [150, 250]}] or [{name: 'Series A', data: [100, 200]}]",
+        "type": "object",
+        "isList": true,
+        "isRequired": true
+      },
+      "width": {
+        "name": "width",
+        "displayName": "Width",
+        "description": "Width of the chart in pixels. Example: 220",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 220,
+        "isRequired": false
+      },
+      "height": {
+        "name": "height",
+        "displayName": "Height",
+        "description": "Height of the chart in pixels. Example: 350",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 350,
+        "isRequired": false
+      },
+      "theme": {
+        "name": "theme",
+        "displayName": "Theme",
+        "description": "Partial theme override for customizing chart appearance. Example: {series: [{color: '#3b82f6'}]}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "colors": {
+        "name": "colors",
+        "displayName": "Colors",
+        "description": "Colors for the chart series. Overrides theme colors. Example: ['#3b82f6', '#10b981', '#f59e0b']",
+        "type": "string",
+        "isList": true,
+        "isRequired": false
+      },
+      "orientation": {
+        "name": "orientation",
+        "displayName": "Orientation",
+        "description": "Orientation of the bars. Options: 'vertical' or 'horizontal'. Default: 'vertical'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "vertical",
+        "isRequired": false
+      },
+      "stack": {
+        "name": "stack",
+        "displayName": "Stack",
+        "description": "Stack ID for stacking multiple series. When set, series are stacked on top of each other. Example: 'total'",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "stackNormalize": {
+        "name": "stackNormalize",
+        "displayName": "Stack Normalize",
+        "description": "Whether to normalize stacked values to show percentages (0-100%). Default: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "barWidth": {
+        "name": "barWidth",
+        "displayName": "Bar Width",
+        "description": "Width of the bars as a percentage string. Example: '60%'",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "barGap": {
+        "name": "barGap",
+        "displayName": "Bar Gap",
+        "description": "Gap between bars as a percentage string. Example: '10%'",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "borderRadius": {
+        "name": "borderRadius",
+        "displayName": "Border Radius",
+        "description": "Border radius for each corner of the bars [topLeft, topRight, bottomRight, bottomLeft]. Default: [4, 4, 4, 4]",
+        "type": "object",
+        "isList": true,
+        "defaultValue": [4, 4, 4, 4],
+        "isRequired": false
+      },
+      "showLabels": {
+        "name": "showLabels",
+        "displayName": "Show Labels",
+        "description": "Whether to show value labels on bars. Default: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "labelPosition": {
+        "name": "labelPosition",
+        "displayName": "Label Position",
+        "description": "Position of the value labels on the bars. Options: 'top', 'inside', 'insideTop', 'insideLeft', 'insideRight', 'outside', 'right'. Default: 'top'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "top",
+        "isRequired": false
+      },
+      "labelFormatter": {
+        "name": "labelFormatter",
+        "displayName": "Label Formatter",
+        "description": "Custom label formatter function. Example: (params) => params.value + '%'",
+        "type": "function",
+        "isList": false,
+        "isRequired": false
+      },
+      "showXAxisLabels": {
+        "name": "showXAxisLabels",
+        "displayName": "Show X Axis Labels",
+        "description": "Whether to show X-axis labels. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "showYAxisLabels": {
+        "name": "showYAxisLabels",
+        "displayName": "Show Y Axis Labels",
+        "description": "Whether to show Y-axis labels. Default: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "grid": {
+        "name": "grid",
+        "displayName": "Grid",
+        "description": "Grid positioning configuration. Example: {left: '10%', right: '5%', bottom: '10%', top: '10%'}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "showLegend": {
+        "name": "showLegend",
+        "displayName": "Show Legend",
+        "description": "Whether to display a legend for named series. Default: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "legendConfig": {
+        "name": "legendConfig",
+        "displayName": "Legend Config",
+        "description": "Legend configuration options. Example: {position: 'top'}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "tooltipConfig": {
+        "name": "tooltipConfig",
+        "displayName": "Tooltip Config",
+        "description": "Tooltip configuration. Example: {trigger: 'axis', axisPointer: {type: 'shadow'}}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "positiveColor": {
+        "name": "positiveColor",
+        "displayName": "Positive Color",
+        "description": "Color for positive values in negative bar charts. Example: '#3b82f6'",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "negativeColor": {
+        "name": "negativeColor",
+        "displayName": "Negative Color",
+        "description": "Color for negative values in negative bar charts. Example: '#ef4444'",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "activeIndex": {
+        "name": "activeIndex",
+        "displayName": "Active Index",
+        "description": "Index of the bar to highlight in active bar charts (zero-based). Example: 2",
+        "type": "number",
+        "isList": false,
+        "isRequired": false
+      },
+      "mixedColors": {
+        "name": "mixedColors",
+        "displayName": "Mixed Colors",
+        "description": "Whether to use different colors for each bar (mixed bar chart). Default: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "showSplitLine": {
+        "name": "showSplitLine",
+        "displayName": "Show Split Line",
+        "description": "Whether to show split lines on the value axis. Default: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      }
+    },
+    "webSupport": true
+  }
+}

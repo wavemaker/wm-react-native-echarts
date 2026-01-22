@@ -1,0 +1,239 @@
+{
+  "name": "area-chart",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/area"
+  },
+  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-area-areachart--docs",
+  "displayName": "Area Chart",
+  "description": "Unified area chart component supporting all variations: default, gradient, stacked, interactive, linear, step, axes, icons, and legend configurations",
+  "iconUrl": "wmx.icon.svg",
+  "preview": [
+    "axes-area.png",
+    "default-area.png",
+    "gradient-area.png",
+    "stacked-expanded-area.png",
+    "stacked-area.png",
+    "interactive-area.png",
+    "linear-area.png",
+    "step-area.png",
+    "icons-area.png"
+  ],
+  "component": "area-chart.tsx",
+  "requires": [
+    "../area-chart.tsx",
+    "../../chart-container.tsx",
+    "../../chart-theme.context.tsx"
+  ],
+  "dependencies": {
+    "@wuba/react-native-echarts": "3.0.1",
+    "@shopify/react-native-skia": "2.2.12",
+    "react-native-svg": "15.12.1",
+    "echarts": "5.5.1",
+    "zrender": "5.6.0"
+  },
+  "keywords": [
+    "area",
+    "chart",
+    "unified",
+    "master",
+    "multi-series",
+    "stacked",
+    "interactive",
+    "gradient",
+    "smooth",
+    "linear",
+    "step",
+    "axes",
+    "legend",
+    "icons",
+    "visualization",
+    "data-analysis",
+    "chart/line/area"
+  ],
+  "wmx": {
+    "group": "chart/line/area",
+    "props": {
+      "xAxisData": {
+        "name": "xAxisData",
+        "displayName": "X Axis Data",
+        "description": "X-axis labels. Can be a string array or object array with label and value. Example: ['Jan', 'Feb', 'Mar'] or [{label: 'Jan', value: 0}, {label: 'Feb', value: 1}]",
+        "type": "object",
+        "isList": true,
+        "isRequired": true
+      },
+      "data": {
+        "name": "data",
+        "displayName": "Data",
+        "description": "Chart data. Can be: single series (number[]), multiple series (Array<{data: number[]}>), or named series (Array<{name: string, data: number[]}>). Example: [100, 200, 150] or [{data: [100, 200]}, {data: [150, 250]}] or [{name: 'Series A', data: [100, 200]}]",
+        "type": "object",
+        "isList": true,
+        "isRequired": true
+      },
+      "yAxisData": {
+        "name": "yAxisData",
+        "displayName": "Y Axis Data",
+        "description": "Y-axis labels. Can be a string array or object array with label and value. When provided, enables custom Y-axis labels. Example: ['0', '50', '100'] or [{label: 'Low', value: 0}, {label: 'High', value: 100}]",
+        "type": "object",
+        "isList": true,
+        "isRequired": false
+      },
+      "width": {
+        "name": "width",
+        "displayName": "Width",
+        "description": "Width of the chart in pixels. Example: 220",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 220,
+        "isRequired": false
+      },
+      "height": {
+        "name": "height",
+        "displayName": "Height",
+        "description": "Height of the chart in pixels. Example: 350",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 350,
+        "isRequired": false
+      },
+      "theme": {
+        "name": "theme",
+        "displayName": "Theme",
+        "description": "Partial theme override for customizing chart appearance. Example: {series: [{color: '#3b82f6'}]}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "colors": {
+        "name": "colors",
+        "displayName": "Colors",
+        "description": "Colors for the chart series. Overrides theme colors. Example: ['#3b82f6', '#10b981', '#f59e0b']",
+        "type": "string",
+        "isList": true,
+        "isRequired": false
+      },
+      "smooth": {
+        "name": "smooth",
+        "displayName": "Smooth",
+        "description": "Whether to use smooth curve interpolation. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "step": {
+        "name": "step",
+        "displayName": "Step",
+        "description": "Step interpolation mode. When set, creates step lines instead of smooth curves. Options: 'start', 'middle', 'end', or false. Takes precedence over smooth.",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "boundaryGap": {
+        "name": "boundaryGap",
+        "displayName": "Boundary Gap",
+        "description": "Whether to leave gaps at the start and end of the axis. When undefined, uses ECharts default behavior.",
+        "type": "boolean",
+        "isList": false,
+        "isRequired": false
+      },
+      "stack": {
+        "name": "stack",
+        "displayName": "Stack",
+        "description": "Stack ID for stacking multiple series. When set, series are stacked on top of each other. Example: 'total'",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "stackNormalize": {
+        "name": "stackNormalize",
+        "displayName": "Stack Normalize",
+        "description": "Whether to normalize stacked values to show percentages (0-100%). Default: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "symbol": {
+        "name": "symbol",
+        "displayName": "Symbol",
+        "description": "Symbol type for data points. Options: 'none', 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'. Default: 'none'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "none",
+        "isRequired": false
+      },
+      "symbolSize": {
+        "name": "symbolSize",
+        "displayName": "Symbol Size",
+        "description": "Size of the symbol. Example: 6",
+        "type": "number",
+        "isList": false,
+        "isRequired": false
+      },
+      "areaOpacity": {
+        "name": "areaOpacity",
+        "displayName": "Area Opacity",
+        "description": "Opacity of the filled area (0-1). Default: 0.6",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 0.6,
+        "isRequired": false
+      },
+      "showXAxisLabels": {
+        "name": "showXAxisLabels",
+        "displayName": "Show X Axis Labels",
+        "description": "Whether to show X-axis labels. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "showYAxisLabels": {
+        "name": "showYAxisLabels",
+        "displayName": "Show Y Axis Labels",
+        "description": "Whether to show Y-axis labels. Default: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "grid": {
+        "name": "grid",
+        "displayName": "Grid",
+        "description": "Grid positioning configuration. Example: {left: '10%', right: '5%', bottom: '10%', top: '10%'}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "showLegend": {
+        "name": "showLegend",
+        "displayName": "Show Legend",
+        "description": "Whether to display a legend for named series. Default: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "legendConfig": {
+        "name": "legendConfig",
+        "displayName": "Legend Config",
+        "description": "Legend configuration options. Example: {position: 'top'}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "tooltipAxisPointer": {
+        "name": "tooltipAxisPointer",
+        "displayName": "Tooltip Axis Pointer",
+        "description": "Tooltip axis pointer configuration. Example: {type: 'line'}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      }
+    },
+    "webSupport": true
+  }
+}

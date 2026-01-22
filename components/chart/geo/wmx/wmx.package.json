@@ -1,0 +1,143 @@
+{
+  "name": "geo-chart",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/geo"
+  },
+  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-geo-geochart--docs",
+  "displayName": "Geo Chart",
+  "description": "Unified geographic/map chart component supporting all variations: default, GDP, population, interactive, and labeled configurations",
+  "iconUrl": "wmx.icon.svg",
+  "preview": [
+    "default-geo.png"
+  ],
+  "component": "geo-chart.tsx",
+  "requires": [
+    "../geo-chart.tsx",
+    "../../chart-container.tsx",
+    "../../chart-theme.context.tsx"
+  ],
+  "dependencies": {
+    "@wuba/react-native-echarts": "3.0.1",
+    "@shopify/react-native-skia": "2.2.12",
+    "react-native-svg": "15.12.1",
+    "echarts": "5.5.1",
+    "zrender": "5.6.0"
+  },
+  "keywords": [
+    "geo",
+    "map",
+    "geographic",
+    "chart",
+    "unified",
+    "world",
+    "country",
+    "interactive",
+    "GDP",
+    "population",
+    "visualization",
+    "data-analysis",
+    "chart/geo"
+  ],
+  "wmx": {
+    "group": "chart/geo",
+    "props": {
+      "data": {
+        "name": "data",
+        "displayName": "Data",
+        "description": "Array of country data with names and values. Example: [{name: 'United States', value: 500}, {name: 'China', value: 450}]",
+        "type": "object",
+        "isList": true,
+        "isRequired": true
+      },
+      "visualMapMin": {
+        "name": "visualMapMin",
+        "displayName": "Visual Map Min",
+        "description": "Minimum value for the visual map scale. Example: 0",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 0,
+        "isRequired": false
+      },
+      "visualMapMax": {
+        "name": "visualMapMax",
+        "displayName": "Visual Map Max",
+        "description": "Maximum value for the visual map scale. Example: 1000",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 1000,
+        "isRequired": false
+      },
+      "colors": {
+        "name": "colors",
+        "displayName": "Colors",
+        "description": "Array of colors for the gradient scale. Example: ['#91cc75', '#5470c6', '#ee6666']",
+        "type": "object",
+        "isList": true,
+        "isRequired": false
+      },
+      "tooltipFormatter": {
+        "name": "tooltipFormatter",
+        "displayName": "Tooltip Formatter",
+        "description": "Custom tooltip formatter string. Use ECharts formatter syntax: '{b}' for name, '{c}' for value. Example: '{b}<br/>GDP: ${c}B'",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "showLabel": {
+        "name": "showLabel",
+        "displayName": "Show Label",
+        "description": "Whether to show country name labels on the map. Example: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "roam": {
+        "name": "roam",
+        "displayName": "Roam",
+        "description": "Enable pan and zoom interactions. Can be true (pan and zoom), false (disabled), 'scale' (zoom only), or 'move' (pan only). Example: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "visualMapText": {
+        "name": "visualMapText",
+        "displayName": "Visual Map Text",
+        "description": "Visual map text labels. Array of two strings: [high label, low label]. Example: ['High', 'Low']",
+        "type": "object",
+        "isList": true,
+        "isRequired": false
+      },
+      "seriesName": {
+        "name": "seriesName",
+        "displayName": "Series Name",
+        "description": "Series name for the map data. Example: 'GDP'",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "width": {
+        "name": "width",
+        "displayName": "Width",
+        "description": "Width of the chart in pixels. Example: 220",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 220,
+        "isRequired": false
+      },
+      "height": {
+        "name": "height",
+        "displayName": "Height",
+        "description": "Height of the chart in pixels. Example: 350",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 350,
+        "isRequired": false
+      }
+    }
+  }
+}

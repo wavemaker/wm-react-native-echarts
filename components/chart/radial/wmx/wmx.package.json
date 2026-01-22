@@ -1,0 +1,215 @@
+{
+  "name": "radial-chart",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/radial"
+  },
+  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-radial-radialchart--docs",
+  "displayName": "Radial Chart",
+  "description": "Unified radial chart component supporting all variations: grid, label, text, shape, and stacked configurations",
+  "iconUrl": "wmx.icon.svg",
+  "preview": [
+    "label-radial.png",
+    "text-radial.png",
+    "shape-radial.png",
+    "stacked-radial.png"
+  ],
+  "requires": [
+    "../radial-chart.tsx",
+    "../../chart-container.tsx",
+    "../../chart-theme.context.tsx"
+  ],
+  "dependencies": {
+    "@wuba/react-native-echarts": "3.0.1",
+    "@shopify/react-native-skia": "2.2.12",
+    "react-native-svg": "15.12.1",
+    "echarts": "5.5.1",
+    "zrender": "5.6.0"
+  },
+  "keywords": [
+    "radial",
+    "chart",
+    "unified",
+    "master",
+    "circular",
+    "polar",
+    "stacked",
+    "grid",
+    "labels",
+    "visualization",
+    "data-analysis",
+    "chart/radial"
+  ],
+  "wmx": {
+    "group": "chart/radial",
+    "props": {
+      "data": {
+        "name": "data",
+        "displayName": "Data",
+        "description": "Array of data items for the radial chart. Each item should have 'label' (string) and 'value' (number). Example: [{label: 'Mon', value: 60}, {label: 'Tue', value: 80}]",
+        "type": "object",
+        "isList": true,
+        "isRequired": false
+      },
+      "stackedData": {
+        "name": "stackedData",
+        "displayName": "Stacked Data",
+        "description": "Array of stacked series data. When provided, takes precedence over data. Example: [{name: 'Desktop', value: 40}, {name: 'Mobile', value: 30}]",
+        "type": "object",
+        "isList": true,
+        "isRequired": false
+      },
+      "ringWidth": {
+        "name": "ringWidth",
+        "displayName": "Ring Width",
+        "description": "Inner and outer width of the ring [start, end]. Default: [30, 140]",
+        "type": "object",
+        "isList": true,
+        "defaultValue": [30, 140],
+        "isRequired": false
+      },
+      "ringGap": {
+        "name": "ringGap",
+        "displayName": "Ring Gap",
+        "description": "Gap between rings as percentage string. Default: '10%'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "10%",
+        "isRequired": false
+      },
+      "showGrid": {
+        "name": "showGrid",
+        "displayName": "Show Grid",
+        "description": "Whether to show grid lines. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "showAngleAxis": {
+        "name": "showAngleAxis",
+        "displayName": "Show Angle Axis",
+        "description": "Whether to show angle axis (circular axis). Default: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "showRadiusAxisLabels": {
+        "name": "showRadiusAxisLabels",
+        "displayName": "Show Radius Axis Labels",
+        "description": "Whether to show radius axis labels. Default: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "centerText": {
+        "name": "centerText",
+        "displayName": "Center Text",
+        "description": "Main text to display in the center. Example: '85%'",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "centerSubtext": {
+        "name": "centerSubtext",
+        "displayName": "Center Subtext",
+        "description": "Subtitle text below the main center text. Example: 'Average'",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "centerTextFontSize": {
+        "name": "centerTextFontSize",
+        "displayName": "Center Text Font Size",
+        "description": "Font size for the center main text. Default: 24",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 24,
+        "isRequired": false
+      },
+      "centerSubtextFontSize": {
+        "name": "centerSubtextFontSize",
+        "displayName": "Center Subtext Font Size",
+        "description": "Font size for the center subtitle. Default: 14",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 14,
+        "isRequired": false
+      },
+      "angleAxisMax": {
+        "name": "angleAxisMax",
+        "displayName": "Angle Axis Max",
+        "description": "Maximum value for the angle axis. Default: 100",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 100,
+        "isRequired": false
+      },
+      "startAngle": {
+        "name": "startAngle",
+        "displayName": "Start Angle",
+        "description": "Start angle in degrees (0-360). Default: 0",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 0,
+        "isRequired": false
+      },
+      "clockwise": {
+        "name": "clockwise",
+        "displayName": "Clockwise",
+        "description": "Whether to render clockwise. Default: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "width": {
+        "name": "width",
+        "displayName": "Width",
+        "description": "Width of the chart in pixels. Example: 220",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 220,
+        "isRequired": false
+      },
+      "height": {
+        "name": "height",
+        "displayName": "Height",
+        "description": "Height of the chart in pixels. Example: 450",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 450,
+        "isRequired": false
+      },
+      "theme": {
+        "name": "theme",
+        "displayName": "Theme",
+        "description": "Partial theme override for customizing chart appearance. Example: {series: [{color: '#3b82f6'}]}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "colors": {
+        "name": "colors",
+        "displayName": "Colors",
+        "description": "Colors for the chart series. Overrides theme colors. Example: ['#3b82f6', '#10b981', '#f59e0b']",
+        "type": "string",
+        "isList": true,
+        "isRequired": false
+      },
+      "tooltipConfig": {
+        "name": "tooltipConfig",
+        "displayName": "Tooltip Config",
+        "description": "Tooltip configuration. Example: {}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      }
+    },
+    "webSupport": true
+  }
+}

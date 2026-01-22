@@ -1,0 +1,221 @@
+{
+  "name": "radar-chart",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/radar"
+  },
+  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-radar-radarchart--docs",
+  "displayName": "Radar Chart",
+  "description": "Unified radar chart component supporting all variations: basic, multiple, grid-circle, grid-filled, dots, lines-only, and custom-label configurations",
+  "iconUrl": "wmx.icon.svg",
+  "preview": [
+    "basic-radar.png",
+    "multiple-radar.png",
+    "grid-circle-radar.png",
+    "grid-filled-radar.png",
+    "grid-circle-filled-radar.png",
+    "grid-circle-no-lines-radar.png",
+    "grid-none-radar.png",
+    "custom-label-radar.png",
+    "lines-only-radar.png",
+    "dots-radar.png"
+  ],
+  "requires": [
+    "../radar-chart.tsx",
+    "../../chart-container.tsx",
+    "../../chart-theme.context.tsx"
+  ],
+  "dependencies": {
+    "@wuba/react-native-echarts": "3.0.1",
+    "@shopify/react-native-skia": "2.2.12",
+    "react-native-svg": "15.12.1",
+    "echarts": "5.5.1",
+    "zrender": "5.6.0"
+  },
+  "keywords": [
+    "radar",
+    "chart",
+    "unified",
+    "master",
+    "spider",
+    "multi-series",
+    "grid",
+    "dots",
+    "visualization",
+    "data-analysis",
+    "chart/radar"
+  ],
+  "wmx": {
+    "group": "chart/radar",
+    "props": {
+      "indicators": {
+        "name": "indicators",
+        "displayName": "Indicators",
+        "description": "Array of indicators defining the radar axes. Each indicator should have 'name' (string) and 'max' (number). Example: [{name: 'Sales', max: 6500}, {name: 'Marketing', max: 25000}]",
+        "type": "object",
+        "isList": true,
+        "isRequired": true
+      },
+      "data": {
+        "name": "data",
+        "displayName": "Data",
+        "description": "Data for the chart. Can be single series (number[]) or multiple series (Array<{value: number[], name?: string}>). Example: [4200, 3000, 20000] or [{name: 'Series A', value: [4200, 3000, 20000]}]",
+        "type": "object",
+        "isList": true,
+        "isRequired": true
+      },
+      "width": {
+        "name": "width",
+        "displayName": "Width",
+        "description": "Width of the chart in pixels. Example: 220",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 220,
+        "isRequired": false
+      },
+      "height": {
+        "name": "height",
+        "displayName": "Height",
+        "description": "Height of the chart in pixels. Example: 300",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 300,
+        "isRequired": false
+      },
+      "shape": {
+        "name": "shape",
+        "displayName": "Shape",
+        "description": "Shape of the radar grid. Options: 'polygon' or 'circle'. Default: 'polygon'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "polygon",
+        "isRequired": false
+      },
+      "showSplitArea": {
+        "name": "showSplitArea",
+        "displayName": "Show Split Area",
+        "description": "Whether to show split area (filled background). Default: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "showSplitLine": {
+        "name": "showSplitLine",
+        "displayName": "Show Split Line",
+        "description": "Whether to show split lines (grid lines). Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "showArea": {
+        "name": "showArea",
+        "displayName": "Show Area",
+        "description": "Whether to show area fill for data series. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "areaOpacity": {
+        "name": "areaOpacity",
+        "displayName": "Area Opacity",
+        "description": "Opacity of the area fill (0-1). Default: 0.5",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 0.5,
+        "isRequired": false
+      },
+      "showSymbol": {
+        "name": "showSymbol",
+        "displayName": "Show Symbol",
+        "description": "Whether to show symbols (dots) on data points. Default: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "symbol": {
+        "name": "symbol",
+        "displayName": "Symbol",
+        "description": "Symbol type for data points. Options: 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'. Default: 'circle'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "circle",
+        "isRequired": false
+      },
+      "symbolSize": {
+        "name": "symbolSize",
+        "displayName": "Symbol Size",
+        "description": "Size of the symbol. Default: 4",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 4,
+        "isRequired": false
+      },
+      "showLine": {
+        "name": "showLine",
+        "displayName": "Show Line",
+        "description": "Whether to show lines connecting data points. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "lineWidth": {
+        "name": "lineWidth",
+        "displayName": "Line Width",
+        "description": "Width of the line. Default: 2",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 2,
+        "isRequired": false
+      },
+      "showLegend": {
+        "name": "showLegend",
+        "displayName": "Show Legend",
+        "description": "Whether to show a legend for multiple series. Default: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "legendConfig": {
+        "name": "legendConfig",
+        "displayName": "Legend Config",
+        "description": "Legend configuration options. Example: {position: 'top'}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "theme": {
+        "name": "theme",
+        "displayName": "Theme",
+        "description": "Partial theme override for customizing chart appearance. Example: {series: [{color: '#3b82f6'}]}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "colors": {
+        "name": "colors",
+        "displayName": "Colors",
+        "description": "Colors for the chart series. Overrides theme colors. Example: ['#3b82f6', '#10b981', '#f59e0b']",
+        "type": "string",
+        "isList": true,
+        "isRequired": false
+      },
+      "tooltipConfig": {
+        "name": "tooltipConfig",
+        "displayName": "Tooltip Config",
+        "description": "Tooltip configuration. Example: {}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      }
+    },
+    "webSupport": true
+  }
+}
