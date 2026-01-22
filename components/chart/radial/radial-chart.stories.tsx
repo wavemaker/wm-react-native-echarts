@@ -52,38 +52,15 @@ const styles = StyleSheet.create({
   },
 });
 
-// Grid Radial Chart - matches grid-radial.chart
-export const Grid: Story = {
-  args: {
-    data: [
-      { label: 'Mon', value: 60 },
-      { label: 'Tue', value: 80 },
-      { label: 'Wed', value: 90 },
-      { label: 'Thu', value: 70 },
-      { label: 'Fri', value: 85 },
-      { label: 'Sat', value: 75 },
-      { label: 'Sun', value: 65 },
-    ],
-    width: 400,
-    height: 450,
-    ringWidth: [30, 140],
-    ringGap: '10%',
-    showGrid: true,
-    showAngleAxis: true,
-  },
-};
 
 // Label Radial Chart - matches label-radial.chart
-export const Label: Story = {
+export const Default: Story = {
   args: {
     data: [
-      { label: 'Mon', value: 60 },
-      { label: 'Tue', value: 80 },
-      { label: 'Wed', value: 90 },
-      { label: 'Thu', value: 70 },
-      { label: 'Fri', value: 85 },
-      { label: 'Sat', value: 75 },
-      { label: 'Sun', value: 65 },
+      { label: 'Q1', value: 60 },
+      { label: 'Q2', value: 80 },
+      { label: 'Q3', value: 90 },
+      { label: 'Q4', value: 70 },
     ],
     width: 400,
     height: 450,
@@ -94,45 +71,40 @@ export const Label: Story = {
   },
 };
 
-// Text Radial Chart - matches text-radial.chart
-export const Text: Story = {
+
+// Grid Radial Chart - matches grid-radial.chart
+export const Grid: Story = {
   args: {
     data: [
-      { label: 'Mon', value: 60 },
-      { label: 'Tue', value: 80 },
-      { label: 'Wed', value: 90 },
-      { label: 'Thu', value: 70 },
-      { label: 'Fri', value: 85 },
-      { label: 'Sat', value: 75 },
-      { label: 'Sun', value: 65 },
+      { label: 'Q1', value: 60 },
+      { label: 'Q2', value: 80 },
+      { label: 'Q3', value: 90 },
+      { label: 'Q4', value: 70 },
     ],
     width: 400,
     height: 450,
     ringWidth: [30, 140],
     ringGap: '10%',
-    centerText: '85%',
-    centerSubtext: 'Average',
-    centerTextFontSize: 24,
-    centerSubtextFontSize: 14,
-    showGrid: false,
+    showGrid: true,
+    showAngleAxis: false,
   },
 };
 
-// Stacked Radial Chart - matches stacked-radial.chart
-export const Stacked: Story = {
+
+// Grid Radial Chart - matches grid-radial.chart
+export const WithAxis: Story = {
   args: {
-    stackedData: [
-      { name: 'Desktop', value: 40 },
-      { name: 'Mobile', value: 30 },
-      { name: 'Tablet', value: 20 },
-      { name: 'Other', value: 10 },
+    data: [
+      { label: 'Q1', value: 60 },
+      { label: 'Q2', value: 80 },
+      { label: 'Q3', value: 90 },
+      { label: 'Q4', value: 70 },
     ],
     width: 400,
     height: 450,
-    ringWidth: [120, 200],
-    centerText: '1,830',
-    centerSubtext: 'Visitors',
-    centerTextFontSize: 24,
-    centerSubtextFontSize: 14,
+    ringWidth: [30, 140],
+    ringGap: '10%',
+    showGrid: false,
+    showAngleAxis: true,
   },
 };
