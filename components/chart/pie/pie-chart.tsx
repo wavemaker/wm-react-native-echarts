@@ -397,4 +397,4 @@ const ChartComponent = ({
   return <SkiaChart ref={chartRef} />;
 };
 
-export const PieChart = withResponsiveContainer(withChartTheme(ChartComponent));
+export const PieChart = withResponsiveContainer(withChartTheme(ChartComponent), 'data', 'stackedData');
