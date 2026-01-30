@@ -31,9 +31,10 @@ const meta = {
       control: 'number',
       description: 'Height of the chart in pixels',
     },
-    smooth: {
-      control: 'boolean',
-      description: 'Whether to use smooth curve interpolation',
+    type: {
+      control: 'select',
+      options: ['default', 'smooth', 'step'],
+      description: 'Curve type',
     },
     step: {
       control: 'select',
@@ -49,17 +50,13 @@ const meta = {
       control: 'number',
       description: 'Size of the symbol',
     },
-    lineWidth: {
-      control: 'number',
-      description: 'Width of the line in pixels',
-    },
     showLegend: {
       control: 'boolean',
       description: 'Whether to display a legend',
     },
-    showYAxisLabels: {
+    showYAxis: {
       control: 'boolean',
-      description: 'Whether to show Y-axis labels',
+      description: 'Whether to show Y-axis',
     },
   },
   decorators: [
@@ -88,7 +85,7 @@ export const Default: Story = {
     data: [186, 305, 237, 73, 209, 214],
     width: 400,
     height: 350,
-    smooth: true,
+    type: 'smooth',
     boundaryGap: false,
   },
 };
@@ -103,7 +100,7 @@ export const Interactive: Story = {
     ],
     width: 400,
     height: 450,
-    smooth: true,
+    type: 'smooth',
     boundaryGap: false,
     showLegend: true,
   },
@@ -119,7 +116,7 @@ export const Multiple: Story = {
     ],
     width: 400,
     height: 350,
-    smooth: true,
+    type: 'smooth',
     boundaryGap: false,
     showLegend: true,
   },
@@ -132,7 +129,7 @@ export const Linear: Story = {
     data: [186, 305, 237, 73, 209, 214],
     width: 400,
     height: 350,
-    smooth: false,
+    type: 'default',
     boundaryGap: false,
   },
 };
@@ -144,6 +141,7 @@ export const Step: Story = {
     data: [186, 305, 237, 73, 209, 214],
     width: 400,
     height: 350,
+    type: 'step',
     step: 'middle',
     boundaryGap: false,
   },
@@ -156,53 +154,38 @@ export const Dots: Story = {
     data: [186, 305, 237, 73, 209, 214],
     width: 400,
     height: 350,
-    smooth: true,
+    type: 'smooth',
     symbol: 'circle',
     symbolSize: 6,
     boundaryGap: false,
   },
 };
 
-// Dots Colors Line Chart - matches dots-colors-line.chart
+// Dots Colors Line Chart - matches dots-colors-line.chart (AreaChart does not support per-point itemStyle; use colors prop)
 export const DotsColors: Story = {
   args: {
     xAxisData: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-    data: [
-      { value: 186, itemStyle: { color: '#3b82f6' } },
-      { value: 305, itemStyle: { color: '#10b981' } },
-      { value: 237, itemStyle: { color: '#f59e0b' } },
-      { value: 73, itemStyle: { color: '#ef4444' } },
-      { value: 209, itemStyle: { color: '#8b5cf6' } },
-      { value: 214, itemStyle: { color: '#ec4899' } },
-    ],
+    data: [186, 305, 237, 73, 209, 214],
     width: 400,
     height: 350,
-    smooth: false,
+    type: 'default',
     symbol: 'circle',
     symbolSize: 6,
     boundaryGap: false,
+    colors: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'],
   },
 };
 
-// Custom Label Line Chart - matches custom-label-line.chart
+// Custom Dots Line Chart (AreaChart/LineChart do not support data point labels)
 export const CustomLabel: Story = {
   args: {
     xAxisData: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-    data: [
-      { value: 186, label: { formatter: '186' } },
-      { value: 305, label: { formatter: '305' } },
-      { value: 237, label: { formatter: '237' } },
-      { value: 73, label: { formatter: '73' } },
-      { value: 209, label: { formatter: '209' } },
-      { value: 214, label: { formatter: '214' } },
-    ],
+    data: [186, 305, 237, 73, 209, 214],
     width: 400,
     height: 350,
-    smooth: false,
+    type: 'default',
     symbol: 'circle',
     symbolSize: 6,
-    showLabels: true,
-    labelPosition: 'right',
     boundaryGap: false,
   },
 };

@@ -1,0 +1,54 @@
+import type { StoryObj } from '@storybook/react';
+import meta from '../meta';
+
+export default { ...meta, title: 'Charts/Line/Dimensions' };
+type Story = StoryObj<typeof meta>;
+
+const data = [40, 82, 91, 74, 120, 95];
+const xAxisLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+
+/** Default size: width 220, height 350. */
+export const Default: Story = {
+  args: {
+    xAxisData: xAxisLabels,
+    data,
+  },
+};
+
+/** Custom width and height. */
+export const withWidthAndHeight: Story = {
+  args: {
+    xAxisData: xAxisLabels,
+    data,
+    width: 320,
+    height: 300,
+  },
+};
+
+/** Custom grid padding (percent). */
+export const GridPercentPadding: Story = {
+  args: {
+    xAxisData: xAxisLabels,
+    data,
+    grid: {
+      left: '15%',
+      right: '10%',
+      top: '10%',
+      bottom: '15%',
+    },
+  },
+};
+
+/** Custom grid padding (pixels). */
+export const GridPixelPadding: Story = {
+  args: {
+    xAxisData: xAxisLabels,
+    data,
+    grid: {
+      left: 40,
+      right: 24,
+      top: 24,
+      bottom: 36,
+    },
+  },
+};

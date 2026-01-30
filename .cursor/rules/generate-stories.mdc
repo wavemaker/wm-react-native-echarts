@@ -1,0 +1,65 @@
+---
+description: How to generate Storybook stories for chart components
+globs: stories/**/*.tsx
+alwaysApply: false
+---
+
+# Generating Stories
+
+Use this when adding or editing stories for chart components.
+
+## Structure
+
+- **One folder per chart** under `stories/` (e.g. `stories/area/`).
+- **`meta.tsx`** in that folder: shared meta, component, argTypes, decorators.
+- **Base story**: `area.stories.tsx` with title `Charts/Area`.
+- **Topic stories**: subfolders like `colors/`, `type/`, with `area.<topic>.stories.tsx` and title `Charts/Area/<Topic>`. Categorize props and create approprite groups. Refer area-chart stories.
+
+## meta.tsx
+
+- Import: `Meta`, `Decorator` from `@storybook/react`; the chart from `@components/chart/<chart>/<chart>-chart`; `StyleSheet`, `View`, `Text` from `react-native`.
+- Export default object: `title: 'Charts/<Chart>/Type'` (or a base segment), `component`, `parameters: { layout: 'centered' }`, `tags: ['autodocs']`, full `argTypes` for the component’s props, and `decorators` that wrap `<Story />` in a styled container and optionally show `context.parameters?.source`.
+- End with `satisfies Meta<typeof Component>`.
+
+## Base story (e.g. area.stories.tsx)
+
+```tsx
+import type { StoryObj } from '@storybook/react';
+import meta from './meta';
+
+export default { ...meta, title: 'Charts/Area' };
+type Story = StoryObj<typeof meta>;
+
+/** Default area chart. */
+export const Default: Story = {
+  args: { data: [186, 305, 237, 73, 209, 214] },
+};
+```
+
+- Always define `Story = StoryObj<typeof meta>` and use it for every story.
+- Give each story a short JSDoc and an `args` object.
+
+## Topic story (e.g. colors/area.colors.stories.tsx)
+
+```tsx
+import type { StoryObj } from '@storybook/react';
+import meta from '../meta';
+
+export default { ...meta, title: 'Charts/Area/Colors' };
+type Story = StoryObj<typeof meta>;
+
+const data = [40, 82, 91, 74, 120, 95];
+const xAxisLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+
+/** Default theme colors (single series). */
+export const Default: Story = { args: { xAxisData: xAxisLabels, data } };
+
+/** Custom series color. */
+export const CustomColor: Story = {
+  args: { xAxisData: xAxisLabels, data, colors: ['#F2A65A', '#6F8F72'] },
+};
+```
+
+- Reuse `meta` from `../meta` and only override `title`.
+- Put shared data (e.g. `data`, `xAxisLabels`) in consts at the top.
+- Export named stories with JSDoc and `args`; use PascalCase or camelCase for story names consistently with existing files.
