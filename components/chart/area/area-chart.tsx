@@ -75,7 +75,7 @@ export interface AreaChartProps {
    * // Object array with custom positioning
    * [{ label: 'Q1', value: 0 }, { label: 'Q2', value: 3 }, { label: 'Q3', value: 6 }]
    */
-  xAxisData: AxisData;
+  xAxisData?: AxisData;
   
   /**
    * Chart data. Can be:
@@ -161,28 +161,27 @@ export interface AreaChartProps {
   colors?: string[];
   
   /**
-   * Whether to use smooth curve interpolation.
-   * When true, the area chart uses smooth Bezier curves.
-   * When false, uses straight lines between points.
-   * Ignored if step is set.
-   * 
-   * @default true
+   * Curve type for the area line.
+   * - 'default': Straight lines between points (linear)
+   * - 'smooth': Smooth Bezier curve interpolation
+   * - 'step': Step lines (horizontal then vertical). When 'step', use step prop for mode ('start' | 'middle' | 'end').
+   *
+   * @default 'default'
    * @example
-   * smooth={true}  // Smooth curves
-   * smooth={false} // Straight lines
+   * type="smooth"  // Smooth curves
+   * type="step"   // Step chart (step mode defaults to 'start')
    */
-  smooth?: boolean;
-  
+  type?: 'default' | 'smooth' | 'step';
+
   /**
    * Step interpolation mode. When set, creates step lines instead of smooth curves.
-   * Takes precedence over smooth property.
+   * When type="step", defaults to 'start' if not specified.
    * - 'start': Step starts at the data point
    * - 'middle': Step is centered on the data point
    * - 'end': Step ends at the data point
-   * - false: Disables step mode (uses smooth or linear based on smooth prop)
-   * 
+   *
    * @example
-   * step="middle" // Creates a step chart with steps centered on data points
+   * type="step" step="middle"
    */
   step?: 'start' | 'middle' | 'end' | false;
   
@@ -190,10 +189,9 @@ export interface AreaChartProps {
    * Whether to leave gaps at the start and end of the axis.
    * When true, there's padding between the first/last data points and the axis edges.
    * When false, the chart extends to the axis edges.
-   * When undefined, uses ECharts default behavior (typically false for category axes).
-   * 
+   * @default false
    * @example
-   * boundaryGap={false} // Chart extends to edges
+   * boundaryGap={false} // Chart extends to edges (default)
    * boundaryGap={true}  // Padding at edges
    */
   boundaryGap?: boolean;
@@ -275,13 +273,13 @@ export interface AreaChartProps {
   areaFill?: 'gradient' | 'transparent' | 'solid';
   
   /**
-   * Whether to show the X-axis line.
-   * Controls the visibility of the X-axis line itself (not just labels).
+   * Whether to show the X-axis line and labels.
+   * When true and xAxisData is not provided, data indices (0, 1, 2, ...) are shown.
    * 
-   * @default false
+   * @default true
    * @example
-   * showXAxis={true} // Show X-axis line
-   * showXAxis={false} // Hide X-axis line
+   * showXAxis={true} // Show X-axis (uses xAxisData or indices)
+   * showXAxis={false} // Hide X-axis
    */
   showXAxis?: boolean;
   
@@ -289,7 +287,7 @@ export interface AreaChartProps {
    * Whether to show X-axis tick marks.
    * Controls the visibility of tick marks along the X-axis.
    * 
-   * @default false
+   * @default true
    * @example
    * showXAxisTicks={true} // Show tick marks
    * showXAxisTicks={false} // Hide tick marks
@@ -297,24 +295,13 @@ export interface AreaChartProps {
   showXAxisTicks?: boolean;
   
   /**
-   * Whether to show X-axis labels.
-   * Controls the visibility of labels along the X-axis.
+   * Whether to show the Y-axis line and labels.
+   * When true and yAxisData is not provided, scale is computed from the dataset.
    * 
-   * @default false
+   * @default true
    * @example
-   * showXAxisLabels={true} // Show labels
-   * showXAxisLabels={false} // Hide labels
-   */
-  showXAxisLabels?: boolean;
-  
-  /**
-   * Whether to show the Y-axis line.
-   * Controls the visibility of the Y-axis line itself (not just labels or grid lines).
-   * 
-   * @default false
-   * @example
-   * showYAxis={true} // Show Y-axis line
-   * showYAxis={false} // Hide Y-axis line
+   * showYAxis={true} // Show Y-axis (uses yAxisData or auto-scale from data)
+   * showYAxis={false} // Hide Y-axis
    */
   showYAxis?: boolean;
   
@@ -322,7 +309,7 @@ export interface AreaChartProps {
    * Whether to show Y-axis tick marks.
    * Controls the visibility of tick marks along the Y-axis.
    * 
-   * @default false
+   * @default true
    * @example
    * showYAxisTicks={true} // Show tick marks
    * showYAxisTicks={false} // Hide tick marks
@@ -330,21 +317,10 @@ export interface AreaChartProps {
   showYAxisTicks?: boolean;
   
   /**
-   * Whether to show Y-axis labels.
-   * Controls the visibility of labels along the Y-axis.
-   * Note: Y-axis labels are automatically shown when yAxisData is provided.
-   * 
-   * @default false
-   * @example
-   * showYAxisLabels={true} // Show labels
-   */
-  showYAxisLabels?: boolean;
-  
-  /**
    * Whether to show vertical grid lines (X-axis split lines).
    * When false, vertical lines across the chart are hidden.
    * 
-   * @default false
+   * @default true
    * @example
    * showXAxisSplitLines={true} // Show vertical grid lines
    * showXAxisSplitLines={false} // Hide vertical grid lines
@@ -355,7 +331,7 @@ export interface AreaChartProps {
    * Whether to show horizontal grid lines (Y-axis split lines).
    * When false, horizontal lines across the chart are hidden.
    * 
-   * @default false
+   * @default true
    * @example
    * showYAxisSplitLines={true} // Show horizontal grid lines
    * showYAxisSplitLines={false} // Hide horizontal grid lines
@@ -391,52 +367,22 @@ export interface AreaChartProps {
   /**
    * Whether to display a legend for named series.
    * The legend only appears when series have names and this is set to true.
-   * Use legendConfig to customize the legend appearance and position.
-   * 
+   *
    * @default false
    * @example
    * showLegend={true} // Show legend for named series
    */
   showLegend?: boolean;
-  
+
   /**
-   * Legend configuration options.
-   * Allows customization of legend position, style, and behavior.
-   * Only applies when showLegend is true and series have names.
-   * 
+   * Whether to show the highlighter (emphasis circle) at the cursor position when interacting with the chart.
+   *
+   * @default true
    * @example
-   * legendConfig={{
-   *   position: 'top', // 'top' | 'bottom' | 'left' | 'right'
-   *   itemGap: 20,     // Space between legend items
-   *   textStyle: { fontSize: 12 }
-   * }}
+   * showHighlighter={true}  // Show circle at hovered point (default)
+   * showHighlighter={false} // Hide highlighter
    */
-  legendConfig?: {
-    position?: 'top' | 'bottom' | 'left' | 'right';
-    [key: string]: any;
-  };
-  
-  /**
-   * Tooltip axis pointer configuration.
-   * Controls the appearance and behavior of the tooltip's axis pointer.
-   * The axis pointer appears when hovering over the chart.
-   * 
-   * @example
-   * tooltipAxisPointer={{
-   *   type: 'line',   // 'line' | 'shadow' | 'none' | 'cross'
-   *   lineStyle: { color: '#333', width: 1 }
-   * }}
-   * 
-   * @example
-   * tooltipAxisPointer={{
-   *   type: 'shadow', // Shadow highlight
-   *   shadowStyle: { color: 'rgba(0,0,0,0.1)' }
-   * }}
-   */
-  tooltipAxisPointer?: {
-    type?: 'line' | 'shadow' | 'none' | 'cross';
-    [key: string]: any;
-  };
+  showHighlighter?: boolean;
 }
 
 const ChartComponent = ({
@@ -445,31 +391,32 @@ const ChartComponent = ({
   yAxisData,
   width = 220,
   height = 350,
-  smooth = true,
+  type = 'default',
   step,
-  boundaryGap,
+  boundaryGap = false,
   stack,
   stackNormalize = false,
   symbol = 'none',
   symbolSize,
   areaOpacity = 0.6,
   areaFill = 'gradient',
-  showXAxis = false,
-  showXAxisTicks = false,
-  showXAxisLabels = false,
-  showYAxis = false,
-  showYAxisTicks = false,
-  showYAxisLabels = false,
-  showXAxisSplitLines = false,
-  showYAxisSplitLines = false,
+  showXAxis = true,
+  showXAxisTicks = true,
+  showYAxis = true,
+  showYAxisTicks = true,
+  showXAxisSplitLines = true,
+  showYAxisSplitLines = true,
   grid,
   showLegend = false,
-  legendConfig,
-  tooltipAxisPointer,
+  showHighlighter = true,
   ...props
 }: AreaChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
+
+  // Derive smooth/step from type
+  const effectiveSmooth = type === 'smooth';
+  const effectiveStep = type === 'step' ? (step ?? 'start') : (step ?? false);
 
   // Normalize data format to always work with array of series
   const normalizedSeries = useMemo(() => {
@@ -493,6 +440,30 @@ const ChartComponent = ({
     return normalizedSeries.some(s => 'name' in s && s.name);
   }, [normalizedSeries]);
 
+  // When stackNormalize is true, convert each series to percentages (0–100) per x-index so stacked area sums to 100%
+  const displaySeries = useMemo(() => {
+    if (!stackNormalize || normalizedSeries.length <= 1) {
+      return normalizedSeries;
+    }
+    const len = normalizedSeries[0]?.data?.length ?? 0;
+    if (len === 0) return normalizedSeries;
+    return normalizedSeries.map(s => {
+      const rawData = 'data' in s ? s.data : [];
+      const sumsAt = new Array(len).fill(0);
+      normalizedSeries.forEach((other, _i) => {
+        const d = 'data' in other ? other.data : [];
+        d.forEach((v, i) => { if (i < len) sumsAt[i] += v; });
+      });
+      const normalizedData = rawData.map((v, i) => {
+        const sum = sumsAt[i] || 1;
+        return sum > 0 ? (v / sum) * 100 : 0;
+      });
+      return 'name' in s && s.name
+        ? { name: s.name, data: normalizedData }
+        : { data: normalizedData };
+    });
+  }, [normalizedSeries, stackNormalize]);
+
   const option = useMemo(() => {
     // Helper to extract labels
     const getAxisLabels = (axisData: AxisData): string[] => {
@@ -513,23 +484,37 @@ const ChartComponent = ({
       return typeof axisData[0] === 'object';
     };
 
-    const xAxisLabels = getAxisLabels(xAxisData);
-    const xAxisIsObjectFormat = isObjectFormat(xAxisData);
+    const hasXAxisData = Array.isArray(xAxisData) && xAxisData.length > 0;
+    const xAxisLabels = hasXAxisData
+      ? getAxisLabels(xAxisData)
+      : Array.from(
+          { length: normalizedSeries[0]?.data?.length ?? 0 },
+          (_, i) => String(i)
+        );
+    const xAxisIsObjectFormat = hasXAxisData && isObjectFormat(xAxisData);
 
     // Build tooltip config
-    const tooltipConfig: any = {
+    // axisPointer with snap: true so the pointer snaps to data points and triggers
+    // series emphasis (circle) at the hovered position. See https://echarts.apache.org/en/option.html#tooltip.axisPointer
+    const tooltipConfig: any = showHighlighter ?  {
       trigger: 'axis',
-    };
-    if (tooltipAxisPointer) {
-      tooltipConfig.axisPointer = tooltipAxisPointer;
-    }
+      axisPointer: {
+        type: 'line',
+        snap: true,
+        lineStyle: {
+          type: 'solid',
+          width: 1,
+          color: theme.series[0].color ?? '#999',
+        },
+      },
+    } : null;
 
     // Build xAxis config
     const xAxisConfig: any = {
       type: xAxisIsObjectFormat ? 'value' : 'category',
       data: xAxisIsObjectFormat ? undefined : xAxisLabels,
       axisLabel: {
-        show: showXAxisLabels,
+        show: showXAxis,
         color: theme.axis.x.tickLabelColor,
         formatter: xAxisIsObjectFormat 
           ? (value: number) => {
@@ -563,14 +548,12 @@ const ChartComponent = ({
       },
     };
     
-    // Only set boundaryGap if explicitly provided
-    if (boundaryGap !== undefined) {
-      xAxisConfig.boundaryGap = boundaryGap;
-    }
+    xAxisConfig.boundaryGap = boundaryGap;
 
     // Build yAxis config
     let yAxisLabels: string[] | undefined;
     let yAxisIsObjectFormat = false;
+    const hasYAxisData = !!(yAxisData && Array.isArray(yAxisData) && yAxisData.length > 0);
     if (yAxisData) {
       yAxisLabels = getAxisLabels(yAxisData);
       yAxisIsObjectFormat = isObjectFormat(yAxisData);
@@ -581,15 +564,21 @@ const ChartComponent = ({
         ? (yAxisIsObjectFormat ? 'value' : 'category')
         : 'value',
       data: yAxisData && !yAxisIsObjectFormat ? yAxisLabels : undefined,
+      ...(stackNormalize && displaySeries.length > 1 && {
+        min: 0,
+        max: 100,
+      }),
       axisLabel: {
-        show: showYAxisLabels || !!yAxisData,
+        show: showYAxis,
         color: theme.axis.y.tickLabelColor,
-        formatter: yAxisData && yAxisIsObjectFormat
-          ? (value: number) => {
-              const item = (yAxisData as Array<{ label: string; value: number }>).find(y => y.value === value);
-              return item ? item.label : value.toString();
-            }
-          : undefined,
+        formatter: stackNormalize && displaySeries.length > 1
+          ? (value: number) => `${value}%`
+          : yAxisData && yAxisIsObjectFormat
+            ? (value: number) => {
+                const item = (yAxisData as Array<{ label: string; value: number }>).find(y => y.value === value);
+                return item ? item.label : value.toString();
+              }
+            : undefined,
       },
       axisLine: showYAxis ? {
         show: true,
@@ -626,11 +615,10 @@ const ChartComponent = ({
         fontSize: theme.legend.fontSize,
       },
       backgroundColor: theme.legend.backgroundColor,
-      ...legendConfig,
     } : undefined;
 
-    // Build series config
-    const seriesConfig = normalizedSeries.map((s, index) => {
+    // Build series config (use displaySeries so stackNormalize uses percentage data)
+    const seriesConfig = displaySeries.map((s, index) => {
       const seriesColor = theme.series[index % theme.series.length].color;
       const seriesLineWidth = theme.series[index]?.lineWidth ?? theme.series[0].lineWidth ?? 2;
       
@@ -662,7 +650,8 @@ const ChartComponent = ({
       const series: any = {
         data: 'data' in s ? s.data : [],
         type: 'line',
-        symbol: symbol,
+        symbol: symbol === 'none' ? 'circle' : symbol,
+        symbolSize: symbol === 'none' ? 8 : symbolSize,
         areaStyle: areaStyleConfig,
         itemStyle: {
           color: seriesColor,
@@ -671,6 +660,20 @@ const ChartComponent = ({
           color: seriesColor,
           width: seriesLineWidth,
         },
+        // Point highlight at cursor: solid circle on the curve when axis pointer highlights this point
+        emphasis: showHighlighter
+          ? {
+              focus: 'self',
+              scale: true,
+              symbol: 'circle',
+              symbolSize: 8,
+              itemStyle: {
+                color: seriesColor,
+                borderColor: '#FFFFFF',
+                borderWidth: 2,
+              },
+            }
+          : { focus: 'none', scale: false, symbolSize: 0 },
       };
 
       // Add name if present
@@ -679,22 +682,17 @@ const ChartComponent = ({
       }
 
       // Handle interpolation
-      if (step !== undefined && step !== false) {
-        series.step = step;
+      if (effectiveStep !== false) {
+        series.step = effectiveStep;
       } else {
-        series.smooth = smooth;
+        series.smooth = effectiveSmooth;
       }
 
-      // Handle symbol size
-      if (symbolSize !== undefined) {
-        series.symbolSize = symbolSize;
-      }
-
-      // Handle stacking
+      // Handle stacking (when stackNormalize, data is already % so use same stack id so they stack to 100%)
       if (stack !== undefined && stack !== false) {
-        series.stack = stackNormalize ? 'normalized' : (typeof stack === 'string' ? stack : 'total');
-      } else if (stackNormalize) {
-        series.stack = 'normalized';
+        series.stack = typeof stack === 'string' ? stack : 'total';
+      } else if (stackNormalize && displaySeries.length > 1) {
+        series.stack = 'total';
       }
 
       return series;
@@ -723,8 +721,10 @@ const ChartComponent = ({
     xAxisData,
     yAxisData,
     normalizedSeries,
-    smooth,
-    step,
+    displaySeries,
+    type,
+    effectiveSmooth,
+    effectiveStep,
     boundaryGap,
     stack,
     stackNormalize,
@@ -733,18 +733,15 @@ const ChartComponent = ({
     areaOpacity,
     areaFill,
     showXAxis,
-    showXAxisTicks,
-    showXAxisLabels,
     showYAxis,
+    showXAxisTicks,
     showYAxisTicks,
-    showYAxisLabels,
     showXAxisSplitLines,
     showYAxisSplitLines,
     grid,
     showLegend,
     hasNamedSeries,
-    legendConfig,
-    tooltipAxisPointer,
+    showHighlighter,
   ]);
 
   useEffect(() => {
@@ -772,7 +769,10 @@ const ChartComponent = ({
     };
   }, [option, width, height]);
 
-  return <SkiaChart ref={chartRef} />;
+  return <SkiaChart ref={chartRef} useRNGH />;
 };
 
-export const AreaChart = withResponsiveContainer(withChartTheme(ChartComponent));
+const AreaChartComponent = withResponsiveContainer(withChartTheme(ChartComponent));
+export const AreaChart = Object.assign(AreaChartComponent, {
+  displayName: 'AreaChart',
+});

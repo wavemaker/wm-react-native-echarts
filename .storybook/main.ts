@@ -1,26 +1,28 @@
+// This file has been automatically migrated to valid ESM format by Storybook.
+import { fileURLToPath } from "node:url";
 import type { StorybookConfig } from '@storybook/react-vite';
 import { mergeConfig } from 'vite';
-import path from 'path';
+import path, { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const config: StorybookConfig = {
-  stories: ['../components/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-  addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-    '@storybook/addon-links',
-  ],
+  stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  addons: ['@storybook/addon-links', '@storybook/addon-docs'],
+
   framework: {
     name: '@storybook/react-vite',
     options: {},
   },
-  docs: {
-    autodocs: 'tag',
-  },
+
   async viteFinal(config) {
     return mergeConfig(config, {
       resolve: {
         alias: {
           '@': path.resolve(__dirname, '../'),
+          '@components': path.resolve(__dirname, '../components'),
+          '@stories': path.resolve(__dirname, '../stories'),
           'react-native': 'react-native-web',
           'react-native/Libraries/Image/AssetRegistry': 'react-native-web/dist/modules/AssetRegistry',
         },
@@ -71,7 +73,7 @@ const config: StorybookConfig = {
         },
       ],
     });
-  },
+  }
 };
 
 export default config;
