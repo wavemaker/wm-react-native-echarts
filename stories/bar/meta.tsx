@@ -1,6 +1,6 @@
 import type { Meta, Decorator } from '@storybook/react';
 import React from 'react';
-import { ScatterChart } from '@components/chart/scatter/scatter-chart';
+import { BarChart } from '@components/chart/bar/bar-chart';
 import { StyleSheet, View, Text } from 'react-native';
 import { commonChartArgTypes } from '../common-chart-argTypes';
 
@@ -33,26 +33,34 @@ const styles = StyleSheet.create({
 });
 
 export default {
-  title: 'Charts/Scatter/Symbol',
-  component: ScatterChart,
+  title: 'Charts/Bar/Stack',
+  component: BarChart,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
   argTypes: {
-    ...commonChartArgTypes,
-    data: {
-      control: 'object',
-      description: 'Scatter data: array of [x, y] pairs, or multiple series with { name, data: number[][] }.',
+    ...(() => {
+      const { symbol: _sym, symbolSize: _sz, ...rest } = commonChartArgTypes;
+      return rest;
+    })(),
+    stack: {
+      control: 'text',
+      description: 'Stack ID for stacking multiple series. When set, bars stack on top of each other.',
     },
-    symbol: {
-      control: 'select',
-      options: ['none', 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'],
-      description: 'Symbol type for data points. Default: circle',
-    },
-    showRegressionLine: {
+    stackNormalize: {
       control: 'boolean',
-      description: 'When true, draws a linear regression line per scatter series. Default: false',
+      description: 'Whether to normalize stacked values to show percentages (0-100%). Default: false',
+    },
+    cornerRadius: {
+      control: 'object',
+      description:
+        'Bar corner radius: a number (all corners) or array of 4 values [topLeft, topRight, bottomRight, bottomLeft]. Default: [4, 4, 0, 0]',
+    },
+    horizontal: {
+      control: 'boolean',
+      description:
+        'When true, bars are horizontal (categories on Y-axis). Corner radius applies to the right edge. Default: false',
     },
   },
   decorators: [
@@ -68,4 +76,4 @@ export default {
       </View>
     )) as Decorator,
   ],
-} satisfies Meta<typeof ScatterChart>;
+} satisfies Meta<typeof BarChart>;

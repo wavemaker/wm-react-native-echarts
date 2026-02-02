@@ -59,35 +59,6 @@ export default {
       control: 'boolean',
       description: 'Whether to normalize stacked values to show percentages (0-100%). Default: false',
     },
-    showXAxis: {
-      control: 'boolean',
-      description: 'Whether to show the X-axis line and labels. Default: true',
-    },
-    showXAxisTicks: {
-      control: 'boolean',
-      description: 'Whether to show X-axis tick marks. Default: true',
-    },
-    showYAxis: {
-      control: 'boolean',
-      description: 'Whether to show the Y-axis line and labels. Default: true',
-    },
-    showYAxisTicks: {
-      control: 'boolean',
-      description: 'Whether to show Y-axis tick marks. Default: true',
-    },
-    showXAxisSplitLines: {
-      control: 'boolean',
-      description: 'Whether to show vertical grid lines (X-axis split lines). Default: true',
-    },
-    showYAxisSplitLines: {
-      control: 'boolean',
-      description: 'Whether to show horizontal grid lines (Y-axis split lines). Default: true',
-    },
-    showHighlighter: {
-      control: 'boolean',
-      description:
-        'Whether to show the highlighter (emphasis circle) at the cursor position when interacting with the chart. Default: true',
-    },
   },
   decorators: [
     ((Story, context) => (

@@ -5,12 +5,12 @@ import { BarChart as EChartsBarChart } from 'echarts/charts';
 import {
   GridComponent,
   LegendComponent,
-  TooltipComponent
+  TooltipComponent,
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
+import { getAxis } from '../axis';
 
-// Register necessary components for this chart
 echarts.use([
   TooltipComponent,
   GridComponent,
@@ -20,506 +20,367 @@ echarts.use([
 ]);
 
 /**
- * Type definition for axis data. Can be either a simple string array or an array of objects with label and value.
- * @example
- * // String array
- * ['Jan', 'Feb', 'Mar']
- * // Object array
- * [{ label: 'Q1', value: 0 }, { label: 'Q2', value: 3 }]
+ * Bar chart data. Same shape as area chart:
+ * - Single series: number[] (categories 0, 1, 2, ...)
+ * - Single series with labels: [string | number, number][]
+ * - Multiple series: Array<{ name?: string; data: number[] }> or Array<{ name?: string; data: [string | number, number][] }>
  */
-type AxisData = string[] | Array<{ label: string; value: number }>;
+type SeriesData =
+  | number[]
+  | [string | number, number][]
+  | Array<{ name?: string; data: number[] }>
+  | Array<{ name?: string; data: [string | number, number][] }>;
 
-/**
- * Type definition for series data. Can be:
- * - Single series: number[]
- * - Multiple series without names: Array<{ data: number[] }>
- * - Multiple series with names: Array<{ name: string; data: number[] }>
- * - Series with custom styling: Array<{ name?: string; data: number[] | Array<{ value: number; itemStyle?: any }>; borderRadius?: number[] }>
- */
-type SeriesData = 
-  | number[] 
-  | Array<{ data: number[] }> 
-  | Array<{ name: string; data: number[] }>
-  | Array<{ name?: string; data: number[] | Array<{ value: number; itemStyle?: any }>; borderRadius?: number[] }>;
-
-/**
- * Props for the BarChart component.
- * A unified bar chart component that supports all bar chart variations.
- */
 export interface BarChartProps {
   /**
-   * X-axis labels. Can be a string array or object array with label and value.
-   * Required for vertical bar charts.
-   */
-  xAxisData?: AxisData;
-  
-  /**
-   * Y-axis labels. Can be a string array or object array with label and value.
-   * Required for horizontal bar charts.
-   */
-  yAxisData?: AxisData;
-  
-  /**
    * Chart data. Can be:
-   * - Single series: number[]
-   * - Multiple series without names: Array<{ data: number[] }>
+   * - Single series: number[] — categories 0, 1, 2, ...
+   * - Single series with labels: [string | number, number][]
    * - Multiple series with names: Array<{ name: string; data: number[] }>
-   * - Series with custom styling: Array<{ name?: string; data: number[] | Array<{ value: number; itemStyle?: any }>; borderRadius?: number[] }>
    */
   data: SeriesData;
-  
-  /**
-   * Width of the chart in pixels.
-   * @default 220
-   */
   width?: number;
-  
-  /**
-   * Height of the chart in pixels.
-   * @default 350
-   */
   height?: number;
-  
-  /**
-   * Partial theme override for customizing chart appearance.
-   */
   theme?: Partial<ChartTheme>;
-
-  /**
-   * Colors for the chart series. Overrides theme colors.
-   */
   colors?: string[];
-  
   /**
-   * Orientation of the bars.
-   * @default 'vertical'
+   * Whether to leave gaps at the start and end of the axis.
+   * @default true (bars typically have gap)
    */
-  orientation?: 'vertical' | 'horizontal';
-  
+  boundaryGap?: boolean;
   /**
-   * Stack ID for stacking multiple series. When set, series are stacked on top of each other.
+   * Bar corner radius: a number (all corners) or array of 4 values [topLeft, topRight, bottomRight, bottomLeft].
+   * @default [4, 4, 0, 0] (vertical: top edge only; horizontal: use right edge [0, 4, 4, 0])
+   */
+  cornerRadius?: number | [number, number, number, number];
+  /**
+   * When true, bars are horizontal (categories on Y-axis, values on X-axis). Corner radius applies to the right edge.
+   * @default false
+   */
+  horizontal?: boolean;
+  /**
+   * Stack ID for stacking multiple series. Same stack ID stacks together.
+   * @example stack="total"
    */
   stack?: string | false;
-  
   /**
-   * Whether to normalize stacked values to show percentages (0-100%).
+   * When true with stack, show stacked bars as percentages (0–100%).
    * @default false
    */
   stackNormalize?: boolean;
-  
-  /**
-   * Width of the bars as a percentage string (e.g., '60%').
-   */
-  barWidth?: string;
-  
-  /**
-   * Gap between bars as a percentage string (e.g., '10%').
-   */
-  barGap?: string;
-  
-  /**
-   * Border radius for each corner of the bars [topLeft, topRight, bottomRight, bottomLeft].
-   * @default [4, 4, 4, 4]
-   */
-  borderRadius?: number[];
-  
-  /**
-   * Whether to show value labels on bars.
-   * @default false
-   */
-  showLabels?: boolean;
-  
-  /**
-   * Position of the value labels on the bars.
-   * @default 'top'
-   */
-  labelPosition?: 'top' | 'inside' | 'insideTop' | 'insideLeft' | 'insideRight' | 'outside' | 'right';
-  
-  /**
-   * Custom label formatter function.
-   */
-  labelFormatter?: (params: any) => string;
-  
-  /**
-   * Whether to show X-axis labels.
-   * @default true
-   */
-  showXAxisLabels?: boolean;
-  
-  /**
-   * Whether to show Y-axis labels.
-   * @default false
-   */
-  showYAxisLabels?: boolean;
-  
-  /**
-   * Grid positioning configuration.
-   */
+  showXAxis?: boolean;
+  showXAxisTicks?: boolean;
+  showYAxis?: boolean;
+  showYAxisTicks?: boolean;
+  showXAxisSplitLines?: boolean;
+  showYAxisSplitLines?: boolean;
   grid?: {
     left?: string | number;
     right?: string | number;
     top?: string | number;
     bottom?: string | number;
-    show?: boolean;
-    containLabel?: boolean;
   };
-  
-  /**
-   * Whether to display a legend for named series.
-   * @default false
-   */
   showLegend?: boolean;
-  
-  /**
-   * Legend configuration options.
-   */
-  legendConfig?: {
-    position?: 'top' | 'bottom' | 'left' | 'right';
-    [key: string]: any;
-  };
-  
-  /**
-   * Tooltip configuration.
-   */
-  tooltipConfig?: {
-    show?: boolean;
-    trigger?: 'axis' | 'item' | 'none';
-    axisPointer?: {
-      type?: 'line' | 'shadow' | 'none' | 'cross';
-      [key: string]: any;
-    };
-    formatter?: (params: any) => string;
-    [key: string]: any;
-  };
-  
-  /**
-   * For negative bar charts: color for positive values.
-   */
-  positiveColor?: string;
-  
-  /**
-   * For negative bar charts: color for negative values.
-   */
-  negativeColor?: string;
-  
-  /**
-   * For active bar charts: index of the bar to highlight (zero-based).
-   */
-  activeIndex?: number;
-  
-  /**
-   * Whether to use different colors for each bar (mixed bar chart).
-   * @default false
-   */
-  mixedColors?: boolean;
-  
-  /**
-   * Whether to show split lines on the value axis.
-   * @default false
-   */
-  showSplitLine?: boolean;
+  showHighlighter?: boolean;
+  xAxisTickLabelFormatter?: (value: string, index?: number) => string;
+  yAxisTickLabelFormatter?: (value: string, index?: number) => string;
 }
 
 const ChartComponent = ({
-  xAxisData,
-  yAxisData,
   data,
   width = 220,
   height = 350,
-  orientation = 'vertical',
+  boundaryGap = true,
+  cornerRadius = [4, 4, 0, 0],
+  horizontal = false,
   stack,
   stackNormalize = false,
-  barWidth,
-  barGap,
-  borderRadius = [4, 4, 4, 4],
-  showLabels = false,
-  labelPosition = 'top',
-  labelFormatter,
-  showXAxisLabels = true,
-  showYAxisLabels = false,
+  showXAxis = true,
+  showXAxisTicks = true,
+  showYAxis = true,
+  showYAxisTicks = true,
+  showXAxisSplitLines = true,
+  showYAxisSplitLines = true,
   grid,
   showLegend = false,
-  legendConfig,
-  tooltipConfig,
-  positiveColor,
-  negativeColor,
-  activeIndex,
-  mixedColors = false,
-  showSplitLine = false,
+  showHighlighter = true,
+  xAxisTickLabelFormatter,
+  yAxisTickLabelFormatter,
   ...props
 }: BarChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
-  // Normalize data format to always work with array of series
   const normalizedSeries = useMemo(() => {
-    if (Array.isArray(data) && data.length > 0) {
-      // Check if it's a single number array
-      if (typeof data[0] === 'number') {
-        return [{ data: data as number[] }];
-      }
-      // Check if it's array of objects with data property
-      if ('data' in data[0]) {
-        return data as Array<{ name?: string; data: number[] | Array<{ value: number; itemStyle?: any }>; borderRadius?: number[] }>;
-      }
+    let normalizedData: Array<{
+      name: string;
+      data: [string | number, number][];
+    }> = [];
+    if (!Array.isArray(data) || data.length === 0) return normalizedData;
+    const first = data[0];
+
+    if (typeof first === 'number') {
+      normalizedData = [
+        {
+          name: 'Series 1',
+          data: (data as number[]).map((value, index) => [String(index), value]) as [string, number][],
+        },
+      ];
+    } else if (Array.isArray(first) && first.length === 2) {
+      normalizedData = [{ name: 'Series 1', data: data as [string | number, number][] }];
+    } else {
+      normalizedData = (
+        JSON.parse(JSON.stringify(data)) as Array<{
+          name?: string;
+          data: [string | number, number][] | number[];
+        }>
+      )
+        .filter((item) => item.data && item.data.length > 0)
+        .map((item, index) => {
+          const firstItem = item.data[0];
+          if (typeof firstItem === 'number') {
+            item.data = (item.data as number[]).map((value, i) => [
+              String(i),
+              value,
+            ]) as [string, number][];
+          }
+          return {
+            name: item.name || 'Series ' + (index + 1),
+            data: [...(item.data as [string | number, number][])],
+          };
+        });
     }
-    return [];
+    return normalizedData;
   }, [data]);
 
-  // Check if series have names
-  const hasNamedSeries = useMemo(() => {
-    return normalizedSeries.some(s => 'name' in s && s.name);
-  }, [normalizedSeries]);
+  const hasNamedSeries = useMemo(
+    () => normalizedSeries.some((s) => 'name' in s && s.name),
+    [normalizedSeries]
+  );
+
+  const displaySeries = useMemo(() => {
+    if (!stackNormalize || normalizedSeries.length <= 1) return normalizedSeries;
+    const len = normalizedSeries[0]?.data?.length ?? 0;
+    if (len === 0) return normalizedSeries;
+    return normalizedSeries.map((s) => {
+      const rawData = s.data;
+      const sumsAt = new Array(len).fill(0);
+      normalizedSeries.forEach((other) => {
+        const d = 'data' in other ? other.data : [];
+        d.forEach((v, i) => {
+          if (i < len) sumsAt[i] += typeof v === 'number' ? v : v[1];
+        });
+      });
+      const normalizedData = rawData.map((v, i) => {
+        const val = typeof v === 'number' ? v : v[1];
+        const sum = sumsAt[i] || 1;
+        return sum > 0 ? (val / sum) * 100 : 0;
+      });
+      return {
+        name: s.name,
+        data: rawData.map((v, i) => [v[0], normalizedData[i]] as [string | number, number]),
+      };
+    });
+  }, [normalizedSeries, stackNormalize]);
 
   const option = useMemo(() => {
-    // Helper to extract labels
-    const getAxisLabels = (axisData: AxisData): string[] => {
-      if (!Array.isArray(axisData) || axisData.length === 0) {
-        return [];
-      }
-      if (typeof axisData[0] === 'string') {
-        return axisData as string[];
-      }
-      return (axisData as Array<{ label: string; value: number }>).map(item => item.label);
-    };
+    const categories = (displaySeries[0]?.data ?? []).map((item) => String(item[0]));
+    const dataPoints = displaySeries.flatMap((s) => s.data.map((d) => d[1]));
+    const xAxisLabels = categories.length > 0 ? categories : getAxis(dataPoints).map(String);
 
-    // Helper to check if axis data is in object format
-    const isObjectFormat = (axisData: AxisData): boolean => {
-      if (!Array.isArray(axisData) || axisData.length === 0) {
-        return false;
-      }
-      return typeof axisData[0] === 'object';
-    };
+    const tooltipConfig: any = showHighlighter
+      ? {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow',
+            shadowStyle: {
+              color: 'rgba(0,0,0,0.08)',
+            },
+          },
+        }
+      : { trigger: 'axis' };
 
-    const isHorizontal = orientation === 'horizontal';
-    const categoryAxisData = isHorizontal ? yAxisData : xAxisData;
-    const valueAxisData = isHorizontal ? xAxisData : yAxisData;
-    
-    const categoryLabels = categoryAxisData ? getAxisLabels(categoryAxisData) : [];
-    const categoryIsObjectFormat = categoryAxisData ? isObjectFormat(categoryAxisData) : false;
-
-    // Build tooltip config
-    const tooltipConfigFinal: any = {
-      trigger: 'axis',
-      ...tooltipConfig,
-    };
-    if (tooltipConfig?.show === false) {
-      tooltipConfigFinal.show = false;
-    }
-
-    // Build category axis config (X for vertical, Y for horizontal)
     const categoryAxisConfig: any = {
-      type: categoryIsObjectFormat ? 'value' : 'category',
-      data: categoryIsObjectFormat ? undefined : categoryLabels,
+      type: 'category',
+      data: xAxisLabels,
+      boundaryGap,
       axisLabel: {
-        show: isHorizontal ? showYAxisLabels : showXAxisLabels,
-        fontSize: 10,
-        color: theme.axis[isHorizontal ? 'y' : 'x'].tickLabelColor,
-        formatter: categoryIsObjectFormat 
-          ? (value: number) => {
-              const item = (categoryAxisData as Array<{ label: string; value: number }>).find(x => x.value === value);
-              return item ? item.label : value.toString();
-            }
-          : undefined,
+        show: showXAxis,
+        color: theme.axis.x.tickLabelColor,
+        formatter: xAxisTickLabelFormatter ?? undefined,
       },
-      axisLine: {
-        show: false,
-      },
+      axisLine: showXAxis
+        ? {
+            show: true,
+            lineStyle: {
+              color: theme.axis.x.lineColor,
+              width: theme.axis.x.lineWidth,
+            },
+          }
+        : { show: false },
       axisTick: {
-        show: false,
+        show: showXAxisTicks,
+        lineStyle: {
+          color: theme.axis.x.tickColor,
+          width: theme.axis.x.tickWidth,
+        },
+      },
+      splitLine: {
+        show: showXAxisSplitLines,
+        lineStyle: {
+          color: theme.axis.x.splitLineColor,
+          width: theme.axis.x.splitLineWidth,
+        },
       },
     };
 
-    // Build value axis config (Y for vertical, X for horizontal)
     const valueAxisConfig: any = {
       type: 'value',
+      ...(stackNormalize &&
+        displaySeries.length > 1 && {
+          min: 0,
+          max: 100,
+        }),
       axisLabel: {
-        show: showYAxisLabels && !isHorizontal,
-        color: theme.axis[isHorizontal ? 'x' : 'y'].tickLabelColor,
+        show: showYAxis,
+        color: theme.axis.y.tickLabelColor,
+        formatter:
+          yAxisTickLabelFormatter ??
+          (stackNormalize && displaySeries.length > 1
+            ? (value: number) => `${value}%`
+            : undefined),
       },
-      axisLine: {
-        show: false,
-      },
+      axisLine: showYAxis
+        ? {
+            show: true,
+            lineStyle: {
+              color: theme.axis.y.lineColor,
+              width: theme.axis.y.lineWidth,
+            },
+          }
+        : { show: false },
       axisTick: {
-        show: false,
-      },
-      splitLine: showSplitLine ? {
-        show: true,
+        show: showYAxisTicks,
         lineStyle: {
-          color: theme.axis[isHorizontal ? 'x' : 'y'].splitLineColor || theme.axis[isHorizontal ? 'x' : 'y'].tickColor,
-          width: theme.axis[isHorizontal ? 'x' : 'y'].splitLineWidth || 1,
-          opacity: 0.5,
+          color: theme.axis.y.tickColor,
+          width: theme.axis.y.tickWidth,
         },
-      } : {
-        show: false,
+      },
+      splitLine: {
+        show: showYAxisSplitLines,
+        lineStyle: {
+          color: theme.axis.y.splitLineColor,
+          width: theme.axis.y.splitLineWidth,
+        },
       },
     };
 
-    // Build legend config
-    const legendConfigFinal: any = showLegend && hasNamedSeries ? {
-      data: normalizedSeries
-        .filter(s => 'name' in s && s.name)
-        .map(s => (s as { name: string }).name),
-      textStyle: {
-        color: theme.legend.textColor,
-        fontSize: theme.legend.fontSize,
-      },
-      backgroundColor: theme.legend.backgroundColor,
-      ...legendConfig,
-    } : undefined;
+    const xAxisConfig = horizontal ? valueAxisConfig : categoryAxisConfig;
+    const yAxisConfig = horizontal ? categoryAxisConfig : valueAxisConfig;
 
-    // Build series config
-    const seriesConfig = normalizedSeries.map((s, index) => {
+    const legendConfig: any =
+      showLegend && hasNamedSeries
+        ? {
+            data: normalizedSeries
+              .filter((s) => 'name' in s && s.name)
+              .map((s) => (s as { name: string }).name),
+            textStyle: {
+              color: theme.legend.textColor,
+              fontSize: theme.legend.fontSize,
+            },
+            backgroundColor: theme.legend.backgroundColor,
+          }
+        : undefined;
+
+    const isDefaultVerticalRadius =
+      Array.isArray(cornerRadius) &&
+      cornerRadius[0] === 4 &&
+      cornerRadius[1] === 4 &&
+      cornerRadius[2] === 0 &&
+      cornerRadius[3] === 0;
+    const effectiveCornerRadius: [number, number, number, number] = horizontal
+      ? isDefaultVerticalRadius
+        ? [0, 4, 4, 0]
+        : Array.isArray(cornerRadius)
+          ? cornerRadius
+          : [0, cornerRadius, cornerRadius, 0]
+      : Array.isArray(cornerRadius)
+        ? cornerRadius
+        : [cornerRadius, cornerRadius, cornerRadius, cornerRadius];
+
+    const isStacked =
+      (stack !== undefined && stack !== false) ||
+      (stackNormalize && displaySeries.length > 1);
+
+    const seriesConfig = displaySeries.map((s, index) => {
       const seriesColor = theme.series[index % theme.series.length].color;
-      const seriesData = 'data' in s ? s.data : [];
-      
-      // Handle mixed colors - each bar gets a different color
-      let processedData: any[] = [];
-      if (mixedColors && Array.isArray(seriesData) && seriesData.length > 0 && typeof seriesData[0] === 'number') {
-        processedData = (seriesData as number[]).map((value, dataIndex) => {
-          const itemStyle = theme.series[dataIndex % theme.series.length];
-          return {
-            value,
-            itemStyle: {
-              color: itemStyle.color,
-              borderRadius: itemStyle.borderRadius || borderRadius,
-            },
-          };
-        });
-      } else if (activeIndex !== undefined && Array.isArray(seriesData) && seriesData.length > 0 && typeof seriesData[0] === 'number') {
-        // Handle active bar - highlight one bar
-        processedData = (seriesData as number[]).map((value, dataIndex) => {
-          const isActive = dataIndex === activeIndex;
-          const itemStyle = theme.series[isActive ? 0 : 1 % theme.series.length];
-          return {
-            value,
-            itemStyle: {
-              color: itemStyle.color,
-              borderColor: isActive ? (itemStyle.borderColor || itemStyle.color) : undefined,
-              borderWidth: isActive ? 2 : 0,
-              borderType: isActive ? 'dashed' as const : 'solid' as const,
-              borderRadius: itemStyle.borderRadius || borderRadius,
-            },
-          };
-        });
-      } else if ((positiveColor || negativeColor) && Array.isArray(seriesData) && seriesData.length > 0 && typeof seriesData[0] === 'number') {
-        // Handle negative bars - different colors for positive/negative
-        processedData = (seriesData as number[]).map((value) => {
-          const posColor = positiveColor || theme.series[1].color;
-          const negColor = negativeColor || theme.series[0].color;
-          return {
-            value,
-            itemStyle: {
-              color: value >= 0 ? posColor : negColor,
-              borderRadius: borderRadius,
-            },
-          };
-        });
-      } else {
-        processedData = seriesData as any[];
-      }
-      
-      const series: any = {
-        data: processedData,
+      const isEndBar = index === displaySeries.length - 1;
+      const barBorderRadius =
+        isStacked && !isEndBar ? ([0, 0, 0, 0] as const) : effectiveCornerRadius;
+      const barSeries: any = {
         type: 'bar',
-        barWidth: barWidth,
-        barGap: barGap,
-        itemStyle: !mixedColors && activeIndex === undefined && !positiveColor && !negativeColor ? {
+        data: s.data.map((d) => d[1]),
+        itemStyle: {
           color: seriesColor,
-          borderRadius: ('borderRadius' in s && s.borderRadius) ? s.borderRadius : borderRadius,
-        } : undefined,
+          borderRadius: barBorderRadius,
+        },
+        emphasis: showHighlighter
+          ? {
+              focus: 'self',
+              itemStyle: {
+                color: seriesColor,
+                borderColor: '#fff',
+                borderWidth: 1,
+              },
+            }
+          : { focus: 'none' },
       };
-
-      // Add name if present
-      if ('name' in s && s.name) {
-        series.name = s.name;
-      }
-
-      // Handle stacking
+      if (s.name) barSeries.name = s.name;
       if (stack !== undefined && stack !== false) {
-        series.stack = stackNormalize ? 'normalized' : (typeof stack === 'string' ? stack : 'total');
-      } else if (stackNormalize) {
-        series.stack = 'normalized';
+        barSeries.stack = typeof stack === 'string' ? stack : 'total';
+      } else if (stackNormalize && displaySeries.length > 1) {
+        barSeries.stack = 'total';
       }
-
-      // Handle labels
-      if (showLabels || labelFormatter) {
-        series.label = {
-          show: true,
-          position: labelPosition,
-          fontSize: 10,
-          color: theme.axis.x.tickLabelColor,
-          formatter: labelFormatter,
-        };
-      }
-
-      series.emphasis = {
-        disabled: true,
-      };
-
-      return series;
+      return barSeries;
     });
 
     const config: any = {
-      tooltip: tooltipConfigFinal,
-      grid: grid || {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true,
-        show: false,
-        splitLine: {
-          show: false,
-        },
-      },
-      [isHorizontal ? 'yAxis' : 'xAxis']: categoryAxisConfig,
-      [isHorizontal ? 'xAxis' : 'yAxis']: valueAxisConfig,
+      tooltip: tooltipConfig,
+      xAxis: xAxisConfig,
+      yAxis: yAxisConfig,
       series: seriesConfig,
     };
-
-    // Add legend if configured
-    if (legendConfigFinal) {
-      config.legend = legendConfigFinal;
-    }
-
+    if (legendConfig) config.legend = legendConfig;
+    if (grid) config.grid = grid;
     return config;
   }, [
     theme,
-    xAxisData,
-    yAxisData,
     normalizedSeries,
-    orientation,
+    displaySeries,
+    boundaryGap,
+    cornerRadius,
+    horizontal,
     stack,
     stackNormalize,
-    barWidth,
-    barGap,
-    borderRadius,
-    showLabels,
-    labelPosition,
-    labelFormatter,
-    showXAxisLabels,
-    showYAxisLabels,
+    showXAxis,
+    showXAxisTicks,
+    showYAxis,
+    showYAxisTicks,
+    showXAxisSplitLines,
+    showYAxisSplitLines,
     grid,
     showLegend,
     hasNamedSeries,
-    legendConfig,
-    tooltipConfig,
-    positiveColor,
-    negativeColor,
-    activeIndex,
-    mixedColors,
-    showSplitLine,
+    showHighlighter,
+    xAxisTickLabelFormatter,
+    yAxisTickLabelFormatter,
   ]);
 
   useEffect(() => {
     let chart: any;
     if (chartRef.current) {
       try {
-        chart = echarts.init(chartRef.current, 'light', {
-          width: width,
-          height: height,
-        });
-        
+        chart = echarts.init(chartRef.current, 'light', { width, height });
         chart.setOption(option);
       } catch (error) {
         console.warn('Chart initialization error:', error);
@@ -536,7 +397,10 @@ const ChartComponent = ({
     };
   }, [option, width, height]);
 
-  return <SkiaChart ref={chartRef} />;
+  return <SkiaChart ref={chartRef} useRNGH />;
 };
 
-export const BarChart = withResponsiveContainer(withChartTheme(ChartComponent));
+const BarChartComponent = withResponsiveContainer(withChartTheme(ChartComponent));
+export const BarChart = Object.assign(BarChartComponent, {
+  displayName: 'BarChart',
+});

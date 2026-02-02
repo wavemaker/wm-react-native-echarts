@@ -45,6 +45,35 @@ export const commonChartArgTypes = {
     control: 'boolean',
     description: 'Whether to display a legend for named series. Default: false',
   },
+  showXAxis: {
+    control: 'boolean',
+    description: 'Whether to show the X-axis. Default: true',
+  },
+  showYAxis: {
+    control: 'boolean',
+    description: 'Whether to show the Y-axis. Default: true',
+  },
+  showXAxisTicks: {
+    control: 'boolean',
+    description: 'Whether to show X-axis tick marks. Default: true',
+  },
+  showYAxisTicks: {
+    control: 'boolean',
+    description: 'Whether to show Y-axis tick marks. Default: true',
+  },
+  showXAxisSplitLines: {
+    control: 'boolean',
+    description: 'Whether to show vertical grid lines. Default: true',
+  },
+  showYAxisSplitLines: {
+    control: 'boolean',
+    description: 'Whether to show horizontal grid lines. Default: true',
+  },
+  showHighlighter: {
+    control: 'boolean',
+    description:
+      'Whether to show the highlighter (emphasis) when interacting with the chart. Default: true',
+  },
   xAxisTickLabelFormatter: {
     control: false,
     description: 'Formatter for X-axis tick labels. (value, index?) => string',

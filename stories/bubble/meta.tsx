@@ -52,34 +52,6 @@ export default {
       control: 'object',
       description: 'Pixel size range [min, max] for scaling the third data value to bubble radius. Default: [8, 50]',
     },
-    showXAxis: {
-      control: 'boolean',
-      description: 'Whether to show the X-axis. Default: true',
-    },
-    showYAxis: {
-      control: 'boolean',
-      description: 'Whether to show the Y-axis. Default: true',
-    },
-    showXAxisTicks: {
-      control: 'boolean',
-      description: 'Whether to show X-axis tick marks. Default: true',
-    },
-    showYAxisTicks: {
-      control: 'boolean',
-      description: 'Whether to show Y-axis tick marks. Default: true',
-    },
-    showXAxisSplitLines: {
-      control: 'boolean',
-      description: 'Whether to show vertical grid lines. Default: true',
-    },
-    showYAxisSplitLines: {
-      control: 'boolean',
-      description: 'Whether to show horizontal grid lines. Default: true',
-    },
-    showHighlighter: {
-      control: 'boolean',
-      description: 'Whether to show the highlighter at the cursor position when interacting. Default: true',
-    },
   },
   decorators: [
     ((Story, context) => (

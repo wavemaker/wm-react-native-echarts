@@ -68,34 +68,6 @@ export default {
         options: ['gradient', 'transparent', 'solid'],
         description: 'Fill style for the area: gradient (default), transparent, or solid.',
       },
-      showXAxis: {
-        control: 'boolean',
-        description: 'Whether to show the X-axis (data indices 0, 1, 2, ...). Default: true',
-      },
-      showYAxis: {
-        control: 'boolean',
-        description: 'Whether to show the Y-axis (scale from data). Default: true',
-      },
-      showXAxisTicks: {
-        control: 'boolean',
-        description: 'Whether to show X-axis tick marks. Default: true',
-      },
-      showYAxisTicks: {
-        control: 'boolean',
-        description: 'Whether to show Y-axis tick marks. Default: true',
-      },
-      showXAxisSplitLines: {
-        control: 'boolean',
-        description: 'Whether to show vertical grid lines (X-axis split lines). Default: true',
-      },
-      showYAxisSplitLines: {
-        control: 'boolean',
-        description: 'Whether to show horizontal grid lines (Y-axis split lines). Default: true',
-      },
-      showHighlighter: {
-        control: 'boolean',
-        description: 'Whether to show the highlighter (emphasis circle) at the cursor position when interacting with the chart. Default: true',
-      },
     },
     decorators: [
       ((Story, context) => (
