@@ -60,6 +60,7 @@ const ChartComponent = ({
   showRegressionLine = false,
   xAxisTickLabelFormatter,
   yAxisTickLabelFormatter,
+  xAxisTicks,
   ...props
 }: ScatterChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
@@ -84,7 +85,10 @@ const ChartComponent = ({
 
   const option = useMemo(() => {
     const dataPoints = normalizedSeries.map(s => s.data.map(item => item[0] as number)).flat();
-    const xAxisLabels = getAxis(dataPoints).map(String);
+    const xAxisData =
+      xAxisTicks != null && xAxisTicks.length > 0
+        ? xAxisTicks
+        : getAxis(dataPoints).map(String);
     const tooltipConfig: any = showHighlighter
       ? {
           trigger: 'item',
@@ -103,7 +107,7 @@ const ChartComponent = ({
     const xAxisConfig: any = {
       type: 'category',
       boundaryGap,
-      data: xAxisLabels,
+      data: xAxisData,
       axisLabel: {
         show: showXAxis,
         color: theme.axis.x.tickLabelColor,
@@ -262,6 +266,7 @@ const ChartComponent = ({
     showRegressionLine,
     xAxisTickLabelFormatter,
     yAxisTickLabelFormatter,
+    xAxisTicks,
   ]);
 
   useEffect(() => {

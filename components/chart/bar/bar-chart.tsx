@@ -43,6 +43,7 @@ const ChartComponent = ({
   showHighlighter = true,
   xAxisTickLabelFormatter,
   yAxisTickLabelFormatter,
+  xAxisTicks,
   ...props
 }: BarChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
@@ -123,7 +124,12 @@ const ChartComponent = ({
   const option = useMemo(() => {
     const categories = (displaySeries[0]?.data ?? []).map((item) => String(item[0]));
     const dataPoints = displaySeries.flatMap((s) => s.data.map((d) => d[1]));
-    const xAxisLabels = categories.length > 0 ? categories : getAxis(dataPoints).map(String);
+    const xAxisData =
+      xAxisTicks != null && xAxisTicks.length > 0
+        ? xAxisTicks
+        : categories.length > 0
+          ? categories
+          : getAxis(dataPoints).map(String);
 
     const tooltipConfig: any = showHighlighter
       ? {
@@ -139,7 +145,7 @@ const ChartComponent = ({
 
     const categoryAxisConfig: any = {
       type: 'category',
-      data: xAxisLabels,
+      data: xAxisData,
       boundaryGap,
       axisLabel: {
         show: showXAxis,
@@ -311,6 +317,7 @@ const ChartComponent = ({
     showHighlighter,
     xAxisTickLabelFormatter,
     yAxisTickLabelFormatter,
+    xAxisTicks,
   ]);
 
   useEffect(() => {

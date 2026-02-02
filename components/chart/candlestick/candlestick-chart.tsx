@@ -1,9 +1,9 @@
 import { withResponsiveContainer } from '../chart-container';
-import { ChartTheme, useChartTheme, withChartTheme } from '../chart-theme.context';
+import { useChartTheme, withChartTheme } from '../chart-theme.context';
+import type { CandlestickChartProps, CandlestickData } from './candlestick-chart.props';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { BarChart, CandlestickChart as EChartsCandlestickChart, LineChart } from 'echarts/charts';
 import {
-  DataZoomComponent,
   GridComponent,
   LegendComponent,
   TooltipComponent,
@@ -11,443 +11,261 @@ import {
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 
-// Register necessary components for this chart
+export type { CandlestickChartProps, CandlestickData, CandlestickItem } from './candlestick-chart.props';
+
 echarts.use([
   TooltipComponent,
-  LegendComponent,
   GridComponent,
-  DataZoomComponent,
+  LegendComponent,
   SkiaRenderer,
   EChartsCandlestickChart,
-  LineChart,
   BarChart,
+  LineChart,
 ]);
 
-/**
- * Props for the CandlestickChart component.
- * A unified candlestick chart component that supports basic candlestick, moving averages, and volume.
- */
-export interface CandlestickChartProps {
-  /**
-   * Array of date/time labels for the X-axis.
-   */
-  xAxisData: string[];
-  
-  /**
-   * Array of OHLC price data. Each item is [open, close, low, high].
-   * For basic candlestick, use this prop.
-   * For MA or Volume charts, use priceData instead.
-   */
-  data?: number[][];
-  
-  /**
-   * Array of OHLC price data. Each item is [open, close, low, high].
-   * Used when moving averages or volume are enabled.
-   */
-  priceData?: number[][];
-  
-  /**
-   * 5-period moving average data.
-   * When provided, displays MA5 line overlay.
-   */
-  ma5Data?: number[];
-  
-  /**
-   * 10-period moving average data.
-   * When provided, displays MA10 line overlay.
-   */
-  ma10Data?: number[];
-  
-  /**
-   * 20-period moving average data.
-   * When provided, displays MA20 line overlay.
-   */
-  ma20Data?: number[];
-  
-  /**
-   * Array of volume data corresponding to each price period.
-   * When provided, displays volume bars below the candlestick chart.
-   */
-  volumeData?: number[];
-  
-  /**
-   * Candlestick colors for up (rising) candles.
-   * @default '#ec0000'
-   */
-  upColor?: string;
-  
-  /**
-   * Candlestick colors for down (falling) candles.
-   * @default '#00da3c'
-   */
-  downColor?: string;
-  
-  /**
-   * Candlestick border color for up candles.
-   * @default '#8A0000'
-   */
-  upBorderColor?: string;
-  
-  /**
-   * Candlestick border color for down candles.
-   * @default '#008F28'
-   */
-  downBorderColor?: string;
-  
-  /**
-   * Width of the chart in pixels.
-   * @default 220
-   */
-  width?: number;
-  
-  /**
-   * Height of the chart in pixels.
-   * @default 450
-   */
-  height?: number;
-  
-  /**
-   * Partial theme override for customizing chart appearance.
-   */
-  theme?: Partial<ChartTheme>;
-
-  /**
-   * Colors for the chart.
-   * @default theme.itemStyles.map(item => item.color)
-   */
-  colors?: string[];
-}
-
 const ChartComponent = ({
+  data,
   xAxisData,
-  data: dataProp,
-  priceData,
-  ma5Data,
-  ma10Data,
-  ma20Data,
   volumeData,
-  upColor = '#ec0000',
-  downColor = '#00da3c',
-  upBorderColor = '#8A0000',
-  downBorderColor = '#008F28',
+  ma5,
+  ma10,
+  ma20,
   width = 220,
-  height = 450,
+  height = 350,
+  boundaryGap = true,
+  showXAxis = true,
+  showXAxisTicks = true,
+  showYAxis = true,
+  showYAxisTicks = true,
+  showXAxisSplitLines = true,
+  showYAxisSplitLines = true,
+  grid,
+  showLegend = false,
+  showHighlighter = true,
+  xAxisTickLabelFormatter,
+  yAxisTickLabelFormatter,
+  xAxisTicks,
   ...props
 }: CandlestickChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
-  // Determine which data to use - prioritize priceData for MA/Volume charts, fallback to data
-  const candlestickData = priceData || dataProp || [];
-  const hasMA = !!(ma5Data || ma10Data || ma20Data);
-  const hasVolume = !!volumeData;
-  const showLegend = hasMA || hasVolume;
+  const categories = useMemo(() => {
+    if (xAxisTicks != null && xAxisTicks.length > 0) return xAxisTicks;
+    if (xAxisData?.length) return xAxisData.map(String);
+    return data.map((_, i) => String(i));
+  }, [xAxisTicks, xAxisData, data]);
+
+  const hasVolume = volumeData != null && volumeData.length > 0;
+  const hasMA = (ma5?.length ?? 0) > 0 || (ma10?.length ?? 0) > 0 || (ma20?.length ?? 0) > 0;
 
   const option = useMemo(() => {
-    const series: any[] = [];
-    
-    // Candlestick series
-    series.push({
-      name: 'Price',
-      type: 'candlestick',
-      data: candlestickData,
-      itemStyle: {
-        color: upColor,
-        color0: downColor,
-        borderColor: upBorderColor,
-        borderColor0: downBorderColor,
+    if (!data?.length) return { series: [] };
+
+    const tooltipConfig: any = showHighlighter
+      ? {
+          trigger: 'axis',
+          axisPointer: { type: 'cross' },
+        }
+      : { trigger: 'axis' };
+
+    const candlestickColorUp = theme.series[0]?.color ?? '#26a69a';
+    const candlestickColorDown = theme.series[1]?.color ?? '#ef5350';
+    const volumeColorUp = candlestickColorUp + '40';
+    const volumeColorDown = candlestickColorDown + '40';
+
+    const mainGrid: any = hasVolume
+      ? { left: '10%', right: '8%', top: '8%', height: '55%' }
+      : grid ?? { left: '10%', right: '8%', top: '8%', bottom: '15%' };
+    const volumeGrid: any = hasVolume
+      ? { left: '10%', right: '8%', top: '72%', height: '18%' }
+      : undefined;
+
+    const xAxisMain: any = {
+      type: 'category',
+      data: categories,
+      boundaryGap,
+      axisLabel: {
+        show: showXAxis,
+        color: theme.axis.x.tickLabelColor,
+        formatter: xAxisTickLabelFormatter ?? undefined,
       },
-    });
+      axisLine: showXAxis
+        ? { show: true, lineStyle: { color: theme.axis.x.lineColor, width: theme.axis.x.lineWidth } }
+        : { show: false },
+      axisTick: {
+        show: showXAxisTicks,
+        lineStyle: { color: theme.axis.x.tickColor, width: theme.axis.x.tickWidth },
+      },
+      splitLine: {
+        show: showXAxisSplitLines,
+        lineStyle: { color: theme.axis.x.splitLineColor, width: theme.axis.x.splitLineWidth },
+      },
+    };
+    if (hasVolume) {
+      xAxisMain.gridIndex = 0;
+      xAxisMain.axisLabel = { ...xAxisMain.axisLabel, show: false };
+    }
 
-    // Moving average series
-    if (ma5Data) {
+    const yAxisMain: any = {
+      type: 'value',
+      scale: true,
+      axisLabel: {
+        show: showYAxis,
+        color: theme.axis.y.tickLabelColor,
+        formatter: yAxisTickLabelFormatter ?? undefined,
+      },
+      axisLine: showYAxis
+        ? { show: true, lineStyle: { color: theme.axis.y.lineColor, width: theme.axis.y.lineWidth } }
+        : { show: false },
+      axisTick: {
+        show: showYAxisTicks,
+        lineStyle: { color: theme.axis.y.tickColor, width: theme.axis.y.tickWidth },
+      },
+      splitLine: {
+        show: showYAxisSplitLines,
+        lineStyle: { color: theme.axis.y.splitLineColor, width: theme.axis.y.splitLineWidth },
+      },
+    };
+    if (hasVolume) yAxisMain.gridIndex = 0;
+
+    const candlestickSeries: any = {
+      type: 'candlestick',
+      data,
+      itemStyle: {
+        color: candlestickColorUp,
+        color0: candlestickColorDown,
+        borderColor: candlestickColorUp,
+        borderColor0: candlestickColorDown,
+      },
+      emphasis: showHighlighter ? { focus: 'self' } : { focus: 'none' },
+    };
+    if (hasVolume) {
+      candlestickSeries.xAxisIndex = 0;
+      candlestickSeries.yAxisIndex = 0;
+    }
+
+    const series: any[] = [candlestickSeries];
+
+    if (ma5?.length) {
       series.push({
+        type: 'line',
         name: 'MA5',
-        type: 'line',
-        data: ma5Data,
+        data: ma5,
         smooth: true,
-        lineStyle: {
-          opacity: 0.7,
-          color: theme.series[0]?.color || '#5470c6',
-          width: 2,
-        },
+        symbol: 'none',
+        lineStyle: { width: 2, color: theme.series[2]?.color ?? '#ff9800' },
+        xAxisIndex: hasVolume ? 0 : undefined,
+        yAxisIndex: hasVolume ? 0 : undefined,
       });
     }
-
-    if (ma10Data) {
+    if (ma10?.length) {
       series.push({
+        type: 'line',
         name: 'MA10',
-        type: 'line',
-        data: ma10Data,
+        data: ma10,
         smooth: true,
-        lineStyle: {
-          opacity: 0.7,
-          color: theme.series[1]?.color || '#91cc75',
-          width: 2,
-        },
+        symbol: 'none',
+        lineStyle: { width: 2, color: theme.series[3]?.color ?? '#2196f3' },
+        xAxisIndex: hasVolume ? 0 : undefined,
+        yAxisIndex: hasVolume ? 0 : undefined,
       });
     }
-
-    if (ma20Data) {
+    if (ma20?.length) {
       series.push({
+        type: 'line',
         name: 'MA20',
-        type: 'line',
-        data: ma20Data,
+        data: ma20,
         smooth: true,
-        lineStyle: {
-          opacity: 0.7,
-          color: theme.series[2]?.color || '#fac858',
-          width: 2,
-        },
+        symbol: 'none',
+        lineStyle: { width: 2, color: theme.series[4]?.color ?? '#9c27b0' },
+        xAxisIndex: hasVolume ? 0 : undefined,
+        yAxisIndex: hasVolume ? 0 : undefined,
       });
     }
 
-    // Volume series (if provided)
-    if (volumeData) {
+    const config: any = {
+      tooltip: tooltipConfig,
+      grid: hasVolume ? [mainGrid, volumeGrid] : mainGrid,
+      xAxis: hasVolume ? [xAxisMain, { ...xAxisMain, gridIndex: 1, axisLabel: { ...xAxisMain.axisLabel, show: true } }] : xAxisMain,
+      yAxis: hasVolume
+        ? [
+            yAxisMain,
+            {
+              type: 'value',
+              gridIndex: 1,
+              axisLabel: { show: showYAxis, color: theme.axis.y.tickLabelColor },
+              axisLine: { show: false },
+              axisTick: { show: false },
+              splitLine: { show: showYAxisSplitLines, lineStyle: { color: theme.axis.y.splitLineColor } },
+            },
+          ]
+        : yAxisMain,
+      series,
+    };
+
+    if (hasVolume) {
+      const volumeBarData = volumeData!.map((v, i) => {
+        const ohlc = data[i];
+        const isUp = ohlc && ohlc[1] >= ohlc[0];
+        return { value: v, itemStyle: { color: isUp ? volumeColorUp : volumeColorDown } };
+      });
       series.push({
-        name: 'Volume',
         type: 'bar',
+        name: 'Volume',
         xAxisIndex: 1,
         yAxisIndex: 1,
-        data: volumeData,
-        itemStyle: {
-          color: theme.series[0]?.color || '#5470c6',
-          opacity: 0.7,
-        },
+        data: volumeBarData,
+        emphasis: showHighlighter ? { focus: 'self' } : { focus: 'none' },
       });
     }
 
-    // Build legend data
-    const legendData: string[] = ['Price'];
-    if (ma5Data) legendData.push('MA5');
-    if (ma10Data) legendData.push('MA10');
-    if (ma20Data) legendData.push('MA20');
-    if (volumeData) legendData.push('Volume');
+    if (showLegend && hasMA) {
+      config.legend = {
+        data: ['MA5', 'MA10', 'MA20'].filter((name) => {
+          if (name === 'MA5') return ma5?.length;
+          if (name === 'MA10') return ma10?.length;
+          return ma20?.length;
+        }),
+        textStyle: { color: theme.legend.textColor, fontSize: theme.legend.fontSize },
+        backgroundColor: theme.legend.backgroundColor,
+      };
+    }
 
-    // Configure grid based on whether volume is shown
-    const gridConfig = hasVolume
-      ? [
-          {
-            left: '10%',
-            right: '8%',
-            height: '50%',
-          },
-          {
-            left: '10%',
-            right: '8%',
-            top: '63%',
-            height: '16%',
-          },
-        ]
-      : {
-          left: '10%',
-          right: '10%',
-          bottom: '15%',
-        };
-
-    // Configure xAxis based on whether volume is shown
-    const xAxisConfig = hasVolume
-      ? [
-          {
-            type: 'category',
-            data: xAxisData,
-            scale: true,
-            boundaryGap: false,
-            axisLine: {
-              onZero: false,
-              lineStyle: {
-                color: theme.axis.x.lineColor,
-                width: theme.axis.x.lineWidth,
-              },
-            },
-            splitLine: { show: false },
-            min: 'dataMin',
-            max: 'dataMax',
-            axisLabel: {
-              color: theme.axis.x.tickLabelColor,
-            },
-          },
-          {
-            type: 'category',
-            gridIndex: 1,
-            data: xAxisData,
-            scale: true,
-            boundaryGap: false,
-            axisLine: {
-              onZero: false,
-              lineStyle: {
-                color: theme.axis.x.lineColor,
-                width: theme.axis.x.lineWidth,
-              },
-            },
-            axisTick: { show: false },
-            splitLine: { show: false },
-            axisLabel: { show: false },
-            min: 'dataMin',
-            max: 'dataMax',
-          },
-        ]
-      : {
-          type: 'category',
-          data: xAxisData,
-          scale: true,
-          boundaryGap: false,
-          axisLine: {
-            onZero: false,
-            lineStyle: {
-              color: theme.axis.x.lineColor,
-              width: theme.axis.x.lineWidth,
-            },
-          },
-          splitLine: { show: false },
-          min: 'dataMin',
-          max: 'dataMax',
-          axisLabel: {
-            color: theme.axis.x.tickLabelColor,
-          },
-        };
-
-    // Configure yAxis based on whether volume is shown
-    const yAxisConfig = hasVolume
-      ? [
-          {
-            scale: true,
-            splitArea: {
-              show: true,
-            },
-            axisLabel: {
-              color: theme.axis.y.tickLabelColor,
-            },
-            splitLine: {
-              lineStyle: {
-                color: theme.grid.y.lineColor,
-                width: theme.grid.y.lineWidth,
-              },
-            },
-          },
-          {
-            scale: true,
-            gridIndex: 1,
-            splitNumber: 2,
-            axisLabel: { show: false },
-            axisLine: { show: false },
-            axisTick: { show: false },
-            splitLine: { show: false },
-          },
-        ]
-      : {
-          scale: true,
-          splitArea: {
-            show: true,
-          },
-          axisLabel: {
-            color: theme.axis.y.tickLabelColor,
-          },
-          splitLine: {
-            lineStyle: {
-              color: theme.grid.y.lineColor,
-              width: theme.grid.y.lineWidth,
-            },
-          },
-        };
-
-    // Configure dataZoom
-    const dataZoomConfig = hasVolume
-      ? [
-          {
-            type: 'inside',
-            xAxisIndex: [0, 1],
-            start: 50,
-            end: 100,
-          },
-          {
-            show: true,
-            xAxisIndex: [0, 1],
-            type: 'slider',
-            top: '85%',
-            start: 50,
-            end: 100,
-          },
-        ]
-      : [
-          {
-            type: 'inside',
-            start: 50,
-            end: 100,
-          },
-          {
-            show: true,
-            type: 'slider',
-            top: '90%',
-            start: 50,
-            end: 100,
-          },
-        ];
-
-    return {
-      tooltip: {
-        trigger: 'axis',
-        ...(hasMA || hasVolume
-          ? {
-              axisPointer: {
-                type: 'cross',
-              },
-            }
-          : {}),
-        backgroundColor: theme.tooltip.backgroundColor,
-        borderColor: theme.tooltip.borderColor,
-        borderWidth: theme.tooltip.borderWidth,
-        textStyle: {
-          color: theme.tooltip.valueColor,
-        },
-      },
-      ...(showLegend
-        ? {
-            legend: {
-              data: legendData,
-              textStyle: {
-                color: theme.legend.textColor,
-                fontSize: theme.legend.fontSize,
-              },
-              backgroundColor: theme.legend.backgroundColor,
-            },
-          }
-        : {}),
-      grid: gridConfig,
-      xAxis: xAxisConfig,
-      yAxis: yAxisConfig,
-      dataZoom: dataZoomConfig,
-      series: series,
-    };
+    return config;
   }, [
-    theme,
-    xAxisData,
-    candlestickData,
-    ma5Data,
-    ma10Data,
-    ma20Data,
+    data,
+    categories,
     volumeData,
-    upColor,
-    downColor,
-    upBorderColor,
-    downBorderColor,
-    hasMA,
+    ma5,
+    ma10,
+    ma20,
     hasVolume,
+    hasMA,
+    theme,
+    boundaryGap,
+    showXAxis,
+    showXAxisTicks,
+    showYAxis,
+    showYAxisTicks,
+    showXAxisSplitLines,
+    showYAxisSplitLines,
+    grid,
     showLegend,
+    showHighlighter,
+    xAxisTickLabelFormatter,
+    yAxisTickLabelFormatter,
+    xAxisTicks,
   ]);
 
   useEffect(() => {
     let chart: any;
     if (chartRef.current) {
       try {
-        chart = echarts.init(chartRef.current, 'light', {
-          width: width,
-          height: height,
-        });
-        
+        chart = echarts.init(chartRef.current, 'light', { width, height });
         chart.setOption(option);
       } catch (error) {
-        console.warn('Chart initialization error:', error);
+        console.warn('Candlestick chart initialization error:', error);
       }
     }
     return () => {
@@ -455,24 +273,16 @@ const ChartComponent = ({
         try {
           chart.dispose();
         } catch (error) {
-          console.warn('Chart disposal error:', error);
+          console.warn('Candlestick chart disposal error:', error);
         }
       }
     };
   }, [option, width, height]);
 
-  return <SkiaChart ref={chartRef} />;
+  return <SkiaChart ref={chartRef} useRNGH />;
 };
 
-// Wrapper to ensure data prop is always set for ChartContainer
-// ChartContainer checks for props.data, so we need to ensure it's set from priceData if data is not provided
-const ChartComponentWrapper = (props: CandlestickChartProps) => {
-  // Ensure data is set from priceData if data is not provided, so ChartContainer can find it
-  const data = props.data || props.priceData;
-  return <ChartComponent {...props} data={data} />;
-};
-
-export const CandlestickChart = withResponsiveContainer(
-  withChartTheme(ChartComponentWrapper),
-  'data'
-);
+const CandlestickChartComponent = withResponsiveContainer(withChartTheme(ChartComponent));
+export const CandlestickChart = Object.assign(CandlestickChartComponent, {
+  displayName: 'CandlestickChart',
+});

@@ -31,6 +31,19 @@ export const BoundaryGap: Story = {
   args: { data, boundaryGap: true },
 };
 
+/** xAxisTicks: numeric tick values; labels from xAxisTickLabelFormatter (6 data, 10 ticks). */
+export const CustomTicks: Story = {
+  args: {
+    data,
+    xAxisTicks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    xAxisTickLabelFormatter: (value) => {
+      const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'];
+      const i = Number(value);
+      return labels[i] ?? String(value);
+    },
+  },
+};
+
 /** xAxisTickLabelFormatter: format X-axis tick labels. */
 export const LabelFormatter: Story = {
   args: {

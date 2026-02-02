@@ -3,6 +3,15 @@
  * common -> cartesian -> area | bar | scatter
  */
 export const cartesianChartArgTypes = {
+  xAxisTicks: {
+    control: 'object',
+    description:
+      'Custom X-axis tick values (numbers only). When provided, used as x-axis data; labels are generated using xAxisTickLabelFormatter.',
+  },
+  yAxisTicks: {
+    control: 'object',
+    description: 'Custom Y-axis tick positions (for value axis).',
+  },
   boundaryGap: {
     control: 'boolean',
     description: 'Whether to leave gaps at the start and end of the axis. Default: false',

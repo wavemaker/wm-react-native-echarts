@@ -8,13 +8,9 @@
   },
   "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-candlestick-candlestickchart--docs",
   "displayName": "Candlestick Chart",
-  "description": "Unified candlestick chart component supporting all variations: basic, moving averages (MA5, MA10, MA20), and volume configurations",
+  "description": "Candlestick (OHLC) chart with optional volume bars and moving averages (MA5, MA10, MA20)",
   "iconUrl": "wmx.icon.svg",
-  "preview": [
-    "basic-candlestick.png",
-    "candlestick-ma.png",
-    "volume-candlestick.png"
-  ],
+  "preview": [],
   "component": "candlestick-chart.tsx",
   "requires": [
     "../candlestick-chart.tsx",
@@ -30,65 +26,28 @@
   },
   "keywords": [
     "candlestick",
-    "OHLC",
+    "k-line",
+    "ohlc",
     "chart",
-    "unified",
-    "financial",
-    "stock",
-    "moving-average",
-    "MA",
     "volume",
-    "visualization",
-    "data-analysis",
+    "moving average",
     "chart/candlestick"
   ],
   "wmx": {
     "group": "chart/candlestick",
     "props": {
-      "xAxisData": {
-        "name": "xAxisData",
-        "displayName": "X Axis Data",
-        "description": "Array of date/time labels for the X-axis. Example: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']",
+      "data": {
+        "name": "data",
+        "displayName": "Data",
+        "description": "Candlestick data: array of [open, close, low, high] per period.",
         "type": "object",
         "isList": true,
         "isRequired": true
       },
-      "data": {
-        "name": "data",
-        "displayName": "Data",
-        "description": "Array of OHLC data for basic candlestick. Each item is [open, close, low, high]. Example: [[20, 34, 10, 38], [40, 35, 30, 50]]",
-        "type": "object",
-        "isList": true,
-        "isRequired": false
-      },
-      "priceData": {
-        "name": "priceData",
-        "displayName": "Price Data",
-        "description": "Array of OHLC price data when using moving averages or volume. Each item is [open, close, low, high]. Example: [[100, 120, 95, 130], [120, 115, 110, 125]]",
-        "type": "object",
-        "isList": true,
-        "isRequired": false
-      },
-      "ma5Data": {
-        "name": "ma5Data",
-        "displayName": "MA5 Data",
-        "description": "5-period moving average data. When provided, displays MA5 line overlay. Example: [110, 115, 120, 125]",
-        "type": "object",
-        "isList": true,
-        "isRequired": false
-      },
-      "ma10Data": {
-        "name": "ma10Data",
-        "displayName": "MA10 Data",
-        "description": "10-period moving average data. When provided, displays MA10 line overlay. Example: [105, 110, 115, 120]",
-        "type": "object",
-        "isList": true,
-        "isRequired": false
-      },
-      "ma20Data": {
-        "name": "ma20Data",
-        "displayName": "MA20 Data",
-        "description": "20-period moving average data. When provided, displays MA20 line overlay. Example: [100, 105, 110, 115]",
+      "xAxisData": {
+        "name": "xAxisData",
+        "displayName": "X Axis Data",
+        "description": "X-axis category labels. Example: ['Mon', 'Tue', 'Wed']",
         "type": "object",
         "isList": true,
         "isRequired": false
@@ -96,51 +55,39 @@
       "volumeData": {
         "name": "volumeData",
         "displayName": "Volume Data",
-        "description": "Array of volume data corresponding to each price period. When provided, displays volume bars below the candlestick chart. Example: [150000, 180000, 220000]",
+        "description": "Optional volume data (bar series below candlestick).",
         "type": "object",
         "isList": true,
         "isRequired": false
       },
-      "upColor": {
-        "name": "upColor",
-        "displayName": "Up Color",
-        "description": "Candlestick color for up (rising) candles. Example: '#ec0000'",
-        "type": "string",
-        "isList": false,
-        "defaultValue": "#ec0000",
+      "ma5": {
+        "name": "ma5",
+        "displayName": "MA5",
+        "description": "Optional 5-period moving average line data.",
+        "type": "object",
+        "isList": true,
         "isRequired": false
       },
-      "downColor": {
-        "name": "downColor",
-        "displayName": "Down Color",
-        "description": "Candlestick color for down (falling) candles. Example: '#00da3c'",
-        "type": "string",
-        "isList": false,
-        "defaultValue": "#00da3c",
+      "ma10": {
+        "name": "ma10",
+        "displayName": "MA10",
+        "description": "Optional 10-period moving average line data.",
+        "type": "object",
+        "isList": true,
         "isRequired": false
       },
-      "upBorderColor": {
-        "name": "upBorderColor",
-        "displayName": "Up Border Color",
-        "description": "Candlestick border color for up candles. Example: '#8A0000'",
-        "type": "string",
-        "isList": false,
-        "defaultValue": "#8A0000",
-        "isRequired": false
-      },
-      "downBorderColor": {
-        "name": "downBorderColor",
-        "displayName": "Down Border Color",
-        "description": "Candlestick border color for down candles. Example: '#008F28'",
-        "type": "string",
-        "isList": false,
-        "defaultValue": "#008F28",
+      "ma20": {
+        "name": "ma20",
+        "displayName": "MA20",
+        "description": "Optional 20-period moving average line data.",
+        "type": "object",
+        "isList": true,
         "isRequired": false
       },
       "width": {
         "name": "width",
         "displayName": "Width",
-        "description": "Width of the chart in pixels. Example: 220",
+        "description": "Width of the chart in pixels.",
         "type": "number",
         "isList": false,
         "defaultValue": 220,
@@ -149,12 +96,22 @@
       "height": {
         "name": "height",
         "displayName": "Height",
-        "description": "Height of the chart in pixels. Example: 450",
+        "description": "Height of the chart in pixels.",
         "type": "number",
         "isList": false,
-        "defaultValue": 450,
+        "defaultValue": 350,
+        "isRequired": false
+      },
+      "showLegend": {
+        "name": "showLegend",
+        "displayName": "Show Legend",
+        "description": "Whether to display legend for moving averages.",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
         "isRequired": false
       }
-    }
+    },
+    "webSupport": true
   }
 }

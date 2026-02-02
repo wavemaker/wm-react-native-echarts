@@ -22,6 +22,17 @@ export interface CartesianChartProps extends CommonChartProps {
    */
   boundaryGap?: boolean;
   /**
+   * Custom X-axis tick values (numbers only). When provided, used as the x-axis data; labels are
+   * generated using xAxisTickLabelFormatter. Otherwise each chart derives x-axis from data.
+   * @default undefined
+   */
+  xAxisTicks?: number[];
+  /**
+   * Custom Y-axis tick positions (for value axis).
+   * @default undefined
+   */
+  yAxisTicks?: number[];
+  /**
    * Whether to show the X-axis line and labels.
    * @default true
    */

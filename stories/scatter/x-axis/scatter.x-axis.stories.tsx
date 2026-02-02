@@ -37,6 +37,19 @@ export const NoSplitLines: Story = {
   },
 };
 
+/** xAxisTicks: numeric tick values; labels from xAxisTickLabelFormatter (5 data, 8 ticks). */
+export const CustomTicks: Story = {
+  args: {
+    data,
+    xAxisTicks: [0, 1, 2, 3, 4, 5, 6, 7],
+    xAxisTickLabelFormatter: (value) => {
+      const labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+      const i = Number(value);
+      return labels[i] ?? String(value);
+    },
+  },
+};
+
 /** xAxisTickLabelFormatter: format X-axis (value) tick labels. */
 export const LabelFormatter: Story = {
   args: {
