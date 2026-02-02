@@ -1,14 +1,27 @@
-import {
-  BasicPieChart,
-  DonutActiveChart,
-  DonutChart,
-  DonutTextChart,
-  LabelPieChart,
-  LegendPieChart,
-  StackedPieChart,
-} from '@/components/chart/pie';
+import { PieChart } from '@/components/chart/pie';
 import { useTheme } from '@/contexts/ThemeContext';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
+
+const basicData = [
+  { name: 'Desktop', value: 275 },
+  { name: 'Mobile', value: 200 },
+  { name: 'Tablet', value: 187 },
+  { name: 'Other', value: 90 },
+];
+
+const labelData = [
+  ...basicData.slice(0, 3),
+  { name: 'Other', value: 173 },
+  { name: 'Unknown', value: 90 },
+];
+
+const legendData = [
+  { name: 'Chrome', value: 275 },
+  { name: 'Safari', value: 200 },
+  { name: 'Firefox', value: 187 },
+  { name: 'Edge', value: 173 },
+  { name: 'Other', value: 90 },
+];
 
 export default function PieChartScreen() {
   const { colorScheme } = useTheme();
@@ -33,111 +46,49 @@ export default function PieChartScreen() {
       shadowRadius: 3.84,
       elevation: 5,
     },
-    chart: {
-      marginVertical: 8,
-      borderRadius: 16,
-    },
   });
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.chartContainer}>
-        <BasicPieChart 
+        <PieChart height={400} data={basicData} />
+      </View>
+
+      <View style={styles.chartContainer}>
+        <PieChart
           height={400}
-          data={[
-            { value: 275, name: 'Desktop' },
-            { value: 200, name: 'Mobile' },
-            { value: 187, name: 'Tablet' },
-            { value: 90, name: 'Other' },
-          ]}
+          data={labelData}
+          showLabel={true}
+          labelPosition="outside"
+          showLabelLine={true}
         />
       </View>
 
       <View style={styles.chartContainer}>
-        <LabelPieChart 
+        <PieChart height={400} data={legendData} showLegend={true} />
+      </View>
+
+      <View style={styles.chartContainer}>
+        <PieChart height={400} data={basicData} radius={['50%', '75%']} />
+      </View>
+
+      <View style={styles.chartContainer}>
+        <PieChart
           height={400}
-          data={[
-            { value: 275, name: 'Desktop' },
-            { value: 200, name: 'Mobile' },
-            { value: 187, name: 'Tablet' },
-            { value: 173, name: 'Other' },
-            { value: 90, name: 'Unknown' },
-          ]}
+          data={basicData}
+          radius={['50%', '75%']}
+          showHighlighter={true}
         />
       </View>
 
       <View style={styles.chartContainer}>
-        <LegendPieChart 
+        <PieChart
           height={400}
-          data={[
-            { value: 275, name: 'Chrome' },
-            { value: 200, name: 'Safari' },
-            { value: 187, name: 'Firefox' },
-            { value: 173, name: 'Edge' },
-            { value: 90, name: 'Other' },
-          ]}
+          data={basicData}
+          radius={['50%', '75%']}
+          labelPosition="center"
+          showLabelLine={false}
         />
-      </View>
-
-      <View style={styles.chartContainer}>
-        <DonutChart 
-          height={400}
-          data={[
-            { value: 275, name: 'Desktop' },
-            { value: 200, name: 'Mobile' },
-            { value: 187, name: 'Tablet' },
-            { value: 90, name: 'Other' },
-          ]}
-        />
-      </View>
-
-      <View style={styles.chartContainer}>
-        <DonutActiveChart 
-          height={400}
-          data={[
-            { value: 275, name: 'Desktop', selected: true },
-            { value: 200, name: 'Mobile' },
-            { value: 187, name: 'Tablet' },
-            { value: 90, name: 'Other' },
-          ]}
-        />
-      </View>
-
-      <View style={styles.chartContainer}>
-        <DonutTextChart 
-          height={400}
-          data={[
-            { value: 275, name: 'Desktop' },
-            { value: 200, name: 'Mobile' },
-            { value: 187, name: 'Tablet' },
-            { value: 90, name: 'Other' },
-          ]}
-        />
-      </View>
-
-      <View style={styles.chartContainer}>
-        <StackedPieChart height={400} data={[
-          {
-            name: 'Q1-Q2',
-            radius: ['0%', '35%'],
-            data: [
-              { value: 275, name: 'Desktop' },
-              { value: 200, name: 'Mobile' },
-              { value: 187, name: 'Tablet' },
-              { value: 90, name: 'Other' },
-            ],
-          },
-          {
-            name: 'Q3-Q4',
-            radius: ['45%', '60%'],
-            data: [
-              { value: 320, name: 'Desktop' },
-              { value: 250, name: 'Mobile' },
-              { value: 200, name: 'Tablet' },
-              { value: 130, name: 'Other' },
-            ],
-          },
-        ]}/>
       </View>
     </ScrollView>
   );
