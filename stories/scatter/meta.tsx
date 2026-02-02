@@ -2,7 +2,7 @@ import type { Meta, Decorator } from '@storybook/react';
 import React from 'react';
 import { ScatterChart } from '@components/chart/scatter/scatter-chart';
 import { StyleSheet, View, Text } from 'react-native';
-import { commonChartArgTypes } from '../common-chart-argTypes';
+import { scatterChartArgTypes } from './scatter.args';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,20 +40,7 @@ export default {
   },
   tags: ['autodocs'],
   argTypes: {
-    ...commonChartArgTypes,
-    data: {
-      control: 'object',
-      description: 'Scatter data: array of [x, y] pairs, or multiple series with { name, data: number[][] }.',
-    },
-    symbol: {
-      control: 'select',
-      options: ['none', 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'],
-      description: 'Symbol type for data points. Default: circle',
-    },
-    showRegressionLine: {
-      control: 'boolean',
-      description: 'When true, draws a linear regression line per scatter series. Default: false',
-    },
+    ...scatterChartArgTypes,
   },
   decorators: [
     ((Story, context) => (

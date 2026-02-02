@@ -1,5 +1,6 @@
 import { withResponsiveContainer } from '../chart-container';
-import { ChartTheme, useChartTheme, withChartTheme } from '../chart-theme.context';
+import { useChartTheme, withChartTheme } from '../chart-theme.context';
+import type { BubbleChartProps } from './bubble-chart.props';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { ScatterChart as EChartsScatterChart } from 'echarts/charts';
 import {
@@ -10,6 +11,9 @@ import {
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 
+/** common -> cartesian -> scatter -> bubble */
+export type { BubbleChartProps, BubbleSeriesData } from './bubble-chart.props';
+
 echarts.use([
   TooltipComponent,
   GridComponent,
@@ -17,48 +21,6 @@ echarts.use([
   SkiaRenderer,
   EChartsScatterChart,
 ]);
-
-/**
- * Bubble data: [x, y, size]. The third value (size) drives the bubble radius.
- * - Single series: [number, number, number][] e.g. [[10, 5, 20], [0, 8, 15], [6, 10, 30]]
- * - Multiple series: Array<{ name: string; data: [number, number, number][] }>
- */
-export type BubbleSeriesData =
-  | [number, number, number][]
-  | Array<{ name: string; data: [number, number, number][] }>;
-
-export interface BubbleChartProps {
-  /** Bubble data: array of [x, y, size] per series. Size drives bubble radius. */
-  data: BubbleSeriesData;
-  width?: number;
-  height?: number;
-  theme?: Partial<ChartTheme>;
-  colors?: string[];
-  /** Symbol shape for bubbles. Default: circle. */
-  symbol?: 'none' | 'circle' | 'rect' | 'roundRect' | 'triangle' | 'diamond' | 'pin' | 'arrow' | string;
-  /**
-   * Pixel size range [min, max] for scaling the third data value to bubble radius.
-   * @default [8, 50]
-   */
-  sizeRange?: [number, number];
-  showXAxis?: boolean;
-  showXAxisTicks?: boolean;
-  showYAxis?: boolean;
-  showYAxisTicks?: boolean;
-  showXAxisSplitLines?: boolean;
-  showYAxisSplitLines?: boolean;
-  boundaryGap?: boolean;
-  grid?: {
-    left?: string | number;
-    right?: string | number;
-    top?: string | number;
-    bottom?: string | number;
-  };
-  showLegend?: boolean;
-  showHighlighter?: boolean;
-  xAxisTickLabelFormatter?: (value: string | number, index?: number) => string;
-  yAxisTickLabelFormatter?: (value: string | number, index?: number) => string;
-}
 
 function scaleSize(value: number, dataMin: number, dataMax: number, outMin: number, outMax: number): number {
   if (dataMax <= dataMin) return outMin;

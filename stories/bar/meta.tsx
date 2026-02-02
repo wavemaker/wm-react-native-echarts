@@ -2,7 +2,7 @@ import type { Meta, Decorator } from '@storybook/react';
 import React from 'react';
 import { BarChart } from '@components/chart/bar/bar-chart';
 import { StyleSheet, View, Text } from 'react-native';
-import { commonChartArgTypes } from '../common-chart-argTypes';
+import { barChartArgTypes } from './bar.args';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,28 +40,7 @@ export default {
   },
   tags: ['autodocs'],
   argTypes: {
-    ...(() => {
-      const { symbol: _sym, symbolSize: _sz, ...rest } = commonChartArgTypes;
-      return rest;
-    })(),
-    stack: {
-      control: 'text',
-      description: 'Stack ID for stacking multiple series. When set, bars stack on top of each other.',
-    },
-    stackNormalize: {
-      control: 'boolean',
-      description: 'Whether to normalize stacked values to show percentages (0-100%). Default: false',
-    },
-    cornerRadius: {
-      control: 'object',
-      description:
-        'Bar corner radius: a number (all corners) or array of 4 values [topLeft, topRight, bottomRight, bottomLeft]. Default: [4, 4, 0, 0]',
-    },
-    horizontal: {
-      control: 'boolean',
-      description:
-        'When true, bars are horizontal (categories on Y-axis). Corner radius applies to the right edge. Default: false',
-    },
+    ...barChartArgTypes,
   },
   decorators: [
     ((Story, context) => (

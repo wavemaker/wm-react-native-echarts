@@ -2,7 +2,7 @@ import type { Meta, Decorator } from '@storybook/react';
 import React from 'react';
 import { BubbleChart } from '@components/chart/bubble/bubble-chart';
 import { StyleSheet, View, Text } from 'react-native';
-import { commonChartArgTypes } from '../common-chart-argTypes';
+import { bubbleChartArgTypes } from './bubble.args';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,18 +40,7 @@ export default {
   },
   tags: ['autodocs'],
   argTypes: {
-    ...(() => {
-      const { symbolSize: _s, ...rest } = commonChartArgTypes;
-      return rest;
-    })(),
-    data: {
-      control: 'object',
-      description: 'Bubble data: array of [x, y, size] per series. Size drives bubble radius.',
-    },
-    sizeRange: {
-      control: 'object',
-      description: 'Pixel size range [min, max] for scaling the third data value to bubble radius. Default: [8, 50]',
-    },
+    ...bubbleChartArgTypes,
   },
   decorators: [
     ((Story, context) => (

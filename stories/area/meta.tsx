@@ -2,7 +2,7 @@ import type { Meta, Decorator } from '@storybook/react';
 import React from 'react';
 import { AreaChart } from '@components/chart/area/area-chart';
 import { StyleSheet, View, Text } from 'react-native';
-import { commonChartArgTypes } from '../common-chart-argTypes';
+import { areaChartArgTypes } from './area.args';
 
 const styles = StyleSheet.create({
     container: {
@@ -40,34 +40,7 @@ export default {
     },
     tags: ['autodocs'],
     argTypes: {
-      ...commonChartArgTypes,
-      type: {
-        control: 'select',
-        options: ['default', 'smooth', 'step'],
-        description: 'Curve type: default (linear), smooth (Bezier), or step.',
-      },
-      step: {
-        control: 'select',
-        options: ['start', 'middle', 'end'],
-        description: 'Step mode when type="step". Default: start.',
-      },
-      stack: {
-        control: 'text',
-        description: 'Stack ID for stacking multiple series. When set, series are stacked on top of each other.',
-      },
-      stackNormalize: {
-        control: 'boolean',
-        description: 'Whether to normalize stacked values to show percentages (0-100%). Default: false',
-      },
-      areaOpacity: {
-        control: { type: 'range', min: 0, max: 1, step: 0.1 },
-        description: 'Opacity of the filled area (0-1). Default: 0.6',
-      },
-      areaFill: {
-        control: 'select',
-        options: ['gradient', 'transparent', 'solid'],
-        description: 'Fill style for the area: gradient (default), transparent, or solid.',
-      },
+      ...areaChartArgTypes,
     },
     decorators: [
       ((Story, context) => (

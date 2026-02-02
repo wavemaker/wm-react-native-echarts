@@ -2,7 +2,7 @@ import type { Meta, Decorator } from '@storybook/react';
 import React from 'react';
 import { LineChart } from '@components/chart/line/line-chart';
 import { StyleSheet, View, Text } from 'react-native';
-import { commonChartArgTypes } from '../common-chart-argTypes';
+import { lineChartArgTypes } from './line.args';
 
 const styles = StyleSheet.create({
   container: {
@@ -39,27 +39,9 @@ export default {
     layout: 'centered',
   },
   tags: ['autodocs'],
-  argTypes: {
-    ...commonChartArgTypes,
-    type: {
-      control: 'select',
-      options: ['default', 'smooth', 'step'],
-      description: 'Curve type: default (linear), smooth (Bezier), or step.',
+    argTypes: {
+      ...lineChartArgTypes,
     },
-    step: {
-      control: 'select',
-      options: [false, 'start', 'middle', 'end'],
-      description: 'Step mode when type="step". Default: start.',
-    },
-    stack: {
-      control: 'text',
-      description: 'Stack ID for stacking multiple series.',
-    },
-    stackNormalize: {
-      control: 'boolean',
-      description: 'Whether to normalize stacked values to show percentages (0-100%). Default: false',
-    },
-  },
   decorators: [
     ((Story, context) => (
       <View style={styles.container}>

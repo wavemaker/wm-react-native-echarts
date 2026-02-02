@@ -1,5 +1,6 @@
 import { withResponsiveContainer } from '../chart-container';
-import { ChartTheme, useChartTheme, withChartTheme } from '../chart-theme.context';
+import { useChartTheme, withChartTheme } from '../chart-theme.context';
+import type { ScatterChartProps } from './scatter-chart.props';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { LineChart as EChartsLineChart, ScatterChart as EChartsScatterChart } from 'echarts/charts';
 import {
@@ -10,6 +11,9 @@ import {
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { getAxis } from '../axis';
+
+/** common -> cartesian -> scatter */
+export type { ScatterChartProps, ScatterSeriesData } from './scatter-chart.props';
 
 echarts.use([
   TooltipComponent,
@@ -35,65 +39,6 @@ function linearRegression(points: number[][]): { slope: number; intercept: numbe
   const slope = denom === 0 ? 0 : (n * sumXY - sumX * sumY) / denom;
   const intercept = (sumY - slope * sumX) / n;
   return { slope, intercept };
-}
-
-/**
- * Scatter data: array of [x, y] pairs (both axes are value/continuous).
- * - Single series: number[][] e.g. [[10, 5], [0, 8], [6, 10]]
- * - Multiple series: Array<{ name: string; data: number[][] }>
- */
-export type ScatterSeriesData =
-  | number[][]
-  | Array<{ name: string; data: number[][] }>;
-
-export interface ScatterChartProps {
-  /** Scatter data: array of [x, y] pairs per series. */
-  data: ScatterSeriesData;
-  width?: number;
-  height?: number;
-  theme?: Partial<ChartTheme>;
-  colors?: string[];
-  symbol?: 'none' | 'circle' | 'rect' | 'roundRect' | 'triangle' | 'diamond' | 'pin' | 'arrow' | string;
-  symbolSize?: number | number[] | Function;
-  showXAxis?: boolean;
-  showXAxisTicks?: boolean;
-  showYAxis?: boolean;
-  showYAxisTicks?: boolean;
-  showXAxisSplitLines?: boolean;
-  showYAxisSplitLines?: boolean;
-  /**
-   * Whether to leave a gap between the axis and the first/last data point.
-   * @default false
-   */
-  boundaryGap?: boolean;
-  grid?: {
-    left?: string | number;
-    right?: string | number;
-    top?: string | number;
-    bottom?: string | number;
-  };
-  showLegend?: boolean;
-  /**
-   * Whether to show the highlighter (emphasis circle) at the cursor position when interacting with the chart.
-   *
-   * @default true
-   * @example
-   * showHighlighter={true}  // Show circle at hovered point (default)
-   * showHighlighter={false} // Hide highlighter
-   */
-  showHighlighter?: boolean;
-  /** When true, draws a linear regression line per scatter series. */
-  showRegressionLine?: boolean;
-  /**
-   * Formatter for X-axis tick labels. Receives the axis value (and optional index) and returns the display string.
-   * @example xAxisTickLabelFormatter={(value) => `${value}%`}
-   */
-  xAxisTickLabelFormatter?: (value: string | number, index?: number) => string;
-  /**
-   * Formatter for Y-axis tick labels. Receives the axis value (and optional index) and returns the display string.
-   * @example yAxisTickLabelFormatter={(value) => `$${value}`}
-   */
-  yAxisTickLabelFormatter?: (value: string | number, index?: number) => string;
 }
 
 const ChartComponent = ({

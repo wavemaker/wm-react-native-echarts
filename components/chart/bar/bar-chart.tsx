@@ -1,5 +1,6 @@
 import { withResponsiveContainer } from '../chart-container';
-import { ChartTheme, useChartTheme, withChartTheme } from '../chart-theme.context';
+import { useChartTheme, withChartTheme } from '../chart-theme.context';
+import type { BarChartProps } from './bar-chart.props';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { BarChart as EChartsBarChart } from 'echarts/charts';
 import {
@@ -11,6 +12,9 @@ import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { getAxis } from '../axis';
 
+/** common -> cartesian -> bar */
+export type { BarChartProps } from './bar-chart.props';
+
 echarts.use([
   TooltipComponent,
   GridComponent,
@@ -18,73 +22,6 @@ echarts.use([
   SkiaRenderer,
   EChartsBarChart,
 ]);
-
-/**
- * Bar chart data. Same shape as area chart:
- * - Single series: number[] (categories 0, 1, 2, ...)
- * - Single series with labels: [string | number, number][]
- * - Multiple series: Array<{ name?: string; data: number[] }> or Array<{ name?: string; data: [string | number, number][] }>
- */
-type SeriesData =
-  | number[]
-  | [string | number, number][]
-  | Array<{ name?: string; data: number[] }>
-  | Array<{ name?: string; data: [string | number, number][] }>;
-
-export interface BarChartProps {
-  /**
-   * Chart data. Can be:
-   * - Single series: number[] — categories 0, 1, 2, ...
-   * - Single series with labels: [string | number, number][]
-   * - Multiple series with names: Array<{ name: string; data: number[] }>
-   */
-  data: SeriesData;
-  width?: number;
-  height?: number;
-  theme?: Partial<ChartTheme>;
-  colors?: string[];
-  /**
-   * Whether to leave gaps at the start and end of the axis.
-   * @default true (bars typically have gap)
-   */
-  boundaryGap?: boolean;
-  /**
-   * Bar corner radius: a number (all corners) or array of 4 values [topLeft, topRight, bottomRight, bottomLeft].
-   * @default [4, 4, 0, 0] (vertical: top edge only; horizontal: use right edge [0, 4, 4, 0])
-   */
-  cornerRadius?: number | [number, number, number, number];
-  /**
-   * When true, bars are horizontal (categories on Y-axis, values on X-axis). Corner radius applies to the right edge.
-   * @default false
-   */
-  horizontal?: boolean;
-  /**
-   * Stack ID for stacking multiple series. Same stack ID stacks together.
-   * @example stack="total"
-   */
-  stack?: string | false;
-  /**
-   * When true with stack, show stacked bars as percentages (0–100%).
-   * @default false
-   */
-  stackNormalize?: boolean;
-  showXAxis?: boolean;
-  showXAxisTicks?: boolean;
-  showYAxis?: boolean;
-  showYAxisTicks?: boolean;
-  showXAxisSplitLines?: boolean;
-  showYAxisSplitLines?: boolean;
-  grid?: {
-    left?: string | number;
-    right?: string | number;
-    top?: string | number;
-    bottom?: string | number;
-  };
-  showLegend?: boolean;
-  showHighlighter?: boolean;
-  xAxisTickLabelFormatter?: (value: string, index?: number) => string;
-  yAxisTickLabelFormatter?: (value: string, index?: number) => string;
-}
 
 const ChartComponent = ({
   data,
