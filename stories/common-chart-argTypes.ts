@@ -3,18 +3,10 @@
  * Common props use the same descriptions and default wording.
  */
 export const commonChartArgTypes = {
-  xAxisData: {
-    control: 'object',
-    description: 'X-axis labels. Can be a string array or object array with label and value.',
-  },
   data: {
     control: 'object',
     description:
       'Chart data. Can be single series (number[]), multiple series without names, or multiple series with names.',
-  },
-  yAxisData: {
-    control: 'object',
-    description: 'Y-axis labels (optional). When provided, enables custom Y-axis labels.',
   },
   width: {
     control: 'number',
@@ -52,5 +44,13 @@ export const commonChartArgTypes = {
   showLegend: {
     control: 'boolean',
     description: 'Whether to display a legend for named series. Default: false',
+  },
+  xAxisTickLabelFormatter: {
+    control: false,
+    description: 'Formatter for X-axis tick labels. (value, index?) => string',
+  },
+  yAxisTickLabelFormatter: {
+    control: false,
+    description: 'Formatter for Y-axis tick labels. (value, index?) => string',
   },
 } as const;

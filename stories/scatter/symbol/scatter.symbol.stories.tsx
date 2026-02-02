@@ -1,20 +1,12 @@
 import type { StoryObj } from '@storybook/react';
 import meta from '../meta';
 
-export default { ...meta, title: 'Charts/Area/Symbol' };
+export default { ...meta, title: 'Charts/Scatter/Symbol' };
 type Story = StoryObj<typeof meta>;
 
-const data = [40, 82, 91, 74, 120, 95];
+const data: number[][] = [[10, 5], [0, 8], [6, 10], [2, 12], [8, 9]];
 
-/** No symbols on data points (default). */
-export const None: Story = {
-  args: {
-    data,
-    symbol: 'none',
-  },
-};
-
-/** symbol="circle" — circular markers. */
+/** symbol="circle" (default for scatter). */
 export const Circle: Story = {
   args: {
     data,

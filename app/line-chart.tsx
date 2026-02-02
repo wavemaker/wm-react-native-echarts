@@ -26,7 +26,6 @@ export default function LineChartScreen() {
   return (
     <ScrollView style={styles.container}>
       <InteractiveLineChart 
-        xAxisData={['Apr 2', 'Apr 7', 'Apr 12', 'Apr 17', 'Apr 22', 'Apr 28', 'May 4', 'May 9', 'May 15', 'May 21', 'May 27', 'Jun 2', 'Jun 7', 'Jun 12', 'Jun 18', 'Jun 24', 'Jun 30']}
         data={[
           {
             name: 'Desktop',
@@ -39,15 +38,12 @@ export default function LineChartScreen() {
         ]}
       />
       <DefaultLineChart 
-        xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
         data={[142, 267, 189, 95, 178, 231]}
       />
       <LinearLineChart 
-        xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
         data={[180, 220, 240, 160, 190, 270]}
       />
       <StepLineChart 
-        xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
         data={[170, 170, 230, 230, 180, 180]}
       />
       <MultipleLineChart 
@@ -58,15 +54,12 @@ export default function LineChartScreen() {
         ]}
       />
       <DotsLineChart 
-        xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
         data={[174, 291, 249, 87, 197, 226]}
       />
       <CustomDotsLineChart 
-        xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
         data={[186, 305, 237, 73, 209, 214]}
       />
       <DotsColorsLineChart 
-        xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
         data={[
           { value: 186, itemStyle: { color: '#1e40af' } },
           { value: 305, itemStyle: { color: '#3b82f6' } },
@@ -77,11 +70,9 @@ export default function LineChartScreen() {
         ]}
       />
       <LabelLineChart 
-        xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
         data={[186, 305, 237, 73, 209, 214]}
       />
       <CustomLabelLineChart 
-        xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
         data={[
           { value: 186, label: { formatter: 'Chrome' } },
           { value: 305, label: { formatter: 'Safari' } },

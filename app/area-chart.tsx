@@ -25,7 +25,6 @@ export default function AreaChartScreen() {
     <ScrollView style={styles.container}>
       {/* Main Interactive Chart */}
       <InteractiveAreaChart 
-        xAxisData={['Apr 6', 'Apr 11', 'Apr 16', 'Apr 22', 'Apr 28', 'May 4', 'May 9', 'May 15', 'May 21', 'May 27', 'Jun 1', 'Jun 6', 'Jun 11', 'Jun 17', 'Jun 23', 'Jun 30']}
         data={[
           {
             name: 'Mobile',
@@ -40,19 +39,15 @@ export default function AreaChartScreen() {
 
       {/* Grid of smaller charts */}
       <DefaultAreaChart 
-        xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
         data={[150, 230, 180, 120, 200, 250]}
       />
       <LinearAreaChart 
-        xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
         data={[180, 220, 240, 160, 190, 270]}
       />
       <StepAreaChart 
-        xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
         data={[160, 220, 220, 180, 180, 240]}
       />
       <LegendAreaChart 
-        xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
         data={[
           {
             name: 'Mobile',
@@ -65,7 +60,6 @@ export default function AreaChartScreen() {
         ]}
       />
       <StackedAreaChart 
-        xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
         data={[
           {
             data: [120, 132, 101, 134, 90, 230],
@@ -87,7 +81,6 @@ export default function AreaChartScreen() {
         ]}
       />
       <IconsAreaChart 
-        xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
         data={[
           {
             name: 'Mobile',
@@ -100,7 +93,6 @@ export default function AreaChartScreen() {
         ]}
       />
       <GradientAreaChart 
-        xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
         data={[
           {
             data: [140, 180, 200, 150, 160, 210],
@@ -111,14 +103,6 @@ export default function AreaChartScreen() {
         ]}
       />
       <AxesAreaChart 
-        xAxisData={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']}
-        yAxisData={[
-          { label: '0', value: 0 },
-          { label: '200', value: 200 },
-          { label: '400', value: 400 },
-          { label: '600', value: 600 },
-          { label: '800', value: 800 },
-        ]}
         data={[200, 350, 500, 300, 400, 600]}
       />
     </ScrollView>

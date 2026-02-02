@@ -4,11 +4,17 @@ import meta from '../meta';
 
 export default {
   ...meta,
-  title: 'Charts/Line/Colors',
+  title: 'Charts/Bubble/Colors',
 };
 type Story = StoryObj<typeof meta>;
 
-const data = [40, 82, 91, 74, 120, 95];
+const data: [number, number, number][] = [
+  [10, 20, 30],
+  [15, 25, 15],
+  [20, 15, 45],
+  [25, 30, 25],
+  [30, 22, 35],
+];
 const colors = ['#F2A65A', '#6F8F72', '#132440'];
 
 /** Default theme colors (single series). */
@@ -30,9 +36,9 @@ export const CustomColor: Story = {
 export const MultipleSeriesColors: Story = {
   args: {
     data: [
-      { name: 'Series A', data: [40, 82, 91, 74, 90, 88] },
-      { name: 'Series B', data: [20, 62, 71, 54, 70, 68] },
-      { name: 'Series C', data: [60, 42, 51, 94, 50, 48] },
+      { name: 'Series A', data: [[10, 20, 30], [15, 25, 15], [20, 15, 45]] },
+      { name: 'Series B', data: [[12, 18, 25], [18, 22, 35], [22, 28, 20]] },
+      { name: 'Series C', data: [[14, 24, 28], [20, 16, 38], [26, 30, 22]] },
     ],
     colors,
     showLegend: true,

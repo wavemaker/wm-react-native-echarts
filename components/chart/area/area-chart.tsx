@@ -9,6 +9,7 @@ import {
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
+import { getAxis } from '../axis';
 
 // Register necessary components for this chart
 echarts.use([
@@ -20,25 +21,17 @@ echarts.use([
 ]);
 
 /**
- * Type definition for axis data. Can be either a simple string array or an array of objects with label and value.
- * @example
- * // String array
- * ['Jan', 'Feb', 'Mar']
- * // Object array
- * [{ label: 'Q1', value: 0 }, { label: 'Q2', value: 3 }]
- */
-type AxisData = string[] | Array<{ label: string; value: number }>;
-
-/**
  * Type definition for series data. Can be:
  * - Single series: number[]
  * - Multiple series without names: Array<{ data: number[] }>
  * - Multiple series with names: Array<{ name: string; data: number[] }>
  */
-type SeriesData = 
-  | number[] 
-  | Array<{ data: number[] }> 
-  | Array<{ name: string; data: number[] }>;
+/** Two-dimensional: array of series (each series is number[]), or named series. */
+type SeriesData =
+  | number[]
+  | [string | number, number][]
+  | Array<{ name?: string; data: number[] }>
+  | Array<{ name?: string; data: [string | number, number][] }>;
 
 /**
  * Props for the AreaChart component.
@@ -46,15 +39,11 @@ type SeriesData =
  * 
  * @example
  * // Basic single series area chart
- * <AreaChart
- *   xAxisData={['Jan', 'Feb', 'Mar']}
- *   data={[100, 200, 150]}
- * />
+ * <AreaChart data={[100, 200, 150]} />
  * 
  * @example
  * // Multiple named series with legend
  * <AreaChart
- *   xAxisData={['Q1', 'Q2', 'Q3']}
  *   data={[
  *     { name: 'Sales', data: [100, 150, 120] },
  *     { name: 'Revenue', data: [80, 130, 110] }
@@ -64,33 +53,19 @@ type SeriesData =
  */
 export interface AreaChartProps {
   /**
-   * X-axis labels. Can be a string array or object array with label and value.
-   * When using object format, the chart will use value-based positioning.
-   * 
-   * @example
-   * // String array
-   * ['Jan', 'Feb', 'Mar', 'Apr']
-   * 
-   * @example
-   * // Object array with custom positioning
-   * [{ label: 'Q1', value: 0 }, { label: 'Q2', value: 3 }, { label: 'Q3', value: 6 }]
-   */
-  xAxisData?: AxisData;
-  
-  /**
    * Chart data. Can be:
    * - Single series: number[] - Simple array of numeric values
-   * - Multiple series without names: Array<{ data: number[] }> - Multiple series without labels
+   * - Multiple series without names: number[][] - Rows = series (two-dimensional)
    * - Multiple series with names: Array<{ name: string; data: number[] }> - Named series for legends
-   * 
+   *
    * @example
    * // Single series
    * [186, 305, 237, 73, 209, 214]
-   * 
+   *
    * @example
-   * // Multiple unnamed series
-   * [{ data: [100, 150, 120] }, { data: [80, 130, 110] }]
-   * 
+   * // Multiple unnamed series (two-dimensional)
+   * [[100, 150, 120], [80, 130, 110]]
+   *
    * @example
    * // Multiple named series
    * [
@@ -99,21 +74,6 @@ export interface AreaChartProps {
    * ]
    */
   data: SeriesData;
-  
-  /**
-   * Y-axis labels. When provided, enables custom Y-axis labels.
-   * Similar to xAxisData, can be a string array or object array with label and value.
-   * When provided, Y-axis labels will be shown automatically.
-   * 
-   * @example
-   * // String array
-   * ['0', '50', '100', '150', '200']
-   * 
-   * @example
-   * // Object array
-   * [{ label: 'Low', value: 0 }, { label: 'Medium', value: 50 }, { label: 'High', value: 100 }]
-   */
-  yAxisData?: AxisData;
   
   /**
    * Width of the chart in pixels.
@@ -274,11 +234,11 @@ export interface AreaChartProps {
   
   /**
    * Whether to show the X-axis line and labels.
-   * When true and xAxisData is not provided, data indices (0, 1, 2, ...) are shown.
-   * 
+   * When true, data indices (0, 1, 2, ...) are shown as X-axis labels.
+   *
    * @default true
    * @example
-   * showXAxis={true} // Show X-axis (uses xAxisData or indices)
+   * showXAxis={true} // Show X-axis
    * showXAxis={false} // Hide X-axis
    */
   showXAxis?: boolean;
@@ -296,11 +256,11 @@ export interface AreaChartProps {
   
   /**
    * Whether to show the Y-axis line and labels.
-   * When true and yAxisData is not provided, scale is computed from the dataset.
-   * 
+   * When true, Y-axis scale is computed from the dataset.
+   *
    * @default true
    * @example
-   * showYAxis={true} // Show Y-axis (uses yAxisData or auto-scale from data)
+   * showYAxis={true} // Show Y-axis
    * showYAxis={false} // Hide Y-axis
    */
   showYAxis?: boolean;
@@ -383,12 +343,27 @@ export interface AreaChartProps {
    * showHighlighter={false} // Hide highlighter
    */
   showHighlighter?: boolean;
+
+  /**
+   * Formatter for X-axis tick labels. Receives the axis value (and optional index) and returns the display string.
+   *
+   * @example
+   * xAxisTickLabelFormatter={(value) => `${value}%`}
+   * xAxisTickLabelFormatter={(value, index) => index % 2 === 0 ? String(value) : ''}
+   */
+  xAxisTickLabelFormatter?: (value: string, index?: number) => string;
+
+  /**
+   * Formatter for Y-axis tick labels. Receives the axis value (and optional index) and returns the display string.
+   *
+   * @example
+   * yAxisTickLabelFormatter={(value) => `$${value}`}
+   */
+  yAxisTickLabelFormatter?: (value: string, index?: number) => string;
 }
 
 const ChartComponent = ({
-  xAxisData,
   data,
-  yAxisData,
   width = 220,
   height = 350,
   type = 'default',
@@ -409,6 +384,8 @@ const ChartComponent = ({
   grid,
   showLegend = false,
   showHighlighter = true,
+  xAxisTickLabelFormatter,
+  yAxisTickLabelFormatter,
   ...props
 }: AreaChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
@@ -418,21 +395,36 @@ const ChartComponent = ({
   const effectiveSmooth = type === 'smooth';
   const effectiveStep = type === 'step' ? (step ?? 'start') : (step ?? false);
 
-  // Normalize data format to always work with array of series
+  // Normalize data to array of { data: number[] } or { name: string; data: number[] }
   const normalizedSeries = useMemo(() => {
-    if (Array.isArray(data) && data.length > 0) {
-      // Check if it's a single number array
-      if (typeof data[0] === 'number') {
-        return [{ data: data as number[] }];
-      }
-      // Check if it's array of objects with data property
-      if ('data' in data[0] && !('name' in data[0])) {
-        return data as Array<{ data: number[] }>;
-      }
-      // It's array of objects with name and data
-      return data as Array<{ name: string; data: number[] }>;
+    let normalizedData: Array<{
+      name: string;
+      data: [string | number, number][];
+    }> = [];
+    if (!Array.isArray(data) || data.length === 0) return normalizedData;
+    const first = data[0];
+
+    // Single series: number[] → one series
+    if (typeof first === 'number') {
+      normalizedData = [{ name: 'Series 1', data: (data as number[]).map((value, index) => [String(index), value]) as [string, number][] }];
+    } else if (Array.isArray(first) && first.length ===2 ) {
+      normalizedData = [{ name: 'Series 1', data: (data as [string | number, number][])}];
+    } else {
+      normalizedData = (JSON.parse(JSON.stringify(data)) as Array<{ name?: string; data: [string | number, number][] | number[] }>)
+      .filter(item => item.data && item.data.length > 0)
+      .map((item, index) => {
+        const first = item.data[0];
+        // Single series: number[] → one series
+        if (typeof first === 'number') {
+          item.data = (item.data as number[]).map((value, index) => [String(index), value]) as [string, number][];
+        } 
+        return {
+          name: item.name || 'Series ' + (index + 1),
+          data: [...item.data as [string | number, number][]],
+        };
+      });
     }
-    return [];
+    return normalizedData;
   }, [data]);
 
   // Check if series have names
@@ -448,7 +440,7 @@ const ChartComponent = ({
     const len = normalizedSeries[0]?.data?.length ?? 0;
     if (len === 0) return normalizedSeries;
     return normalizedSeries.map(s => {
-      const rawData = 'data' in s ? s.data : [];
+      const rawData = s.data;
       const sumsAt = new Array(len).fill(0);
       normalizedSeries.forEach((other, _i) => {
         const d = 'data' in other ? other.data : [];
@@ -456,7 +448,7 @@ const ChartComponent = ({
       });
       const normalizedData = rawData.map((v, i) => {
         const sum = sumsAt[i] || 1;
-        return sum > 0 ? (v / sum) * 100 : 0;
+        return sum > 0 ? (v[1] / sum) * 100 : 0;
       });
       return 'name' in s && s.name
         ? { name: s.name, data: normalizedData }
@@ -465,33 +457,8 @@ const ChartComponent = ({
   }, [normalizedSeries, stackNormalize]);
 
   const option = useMemo(() => {
-    // Helper to extract labels
-    const getAxisLabels = (axisData: AxisData): string[] => {
-      if (!Array.isArray(axisData) || axisData.length === 0) {
-        return [];
-      }
-      if (typeof axisData[0] === 'string') {
-        return axisData as string[];
-      }
-      return (axisData as Array<{ label: string; value: number }>).map(item => item.label);
-    };
-
-    // Helper to check if axis data is in object format
-    const isObjectFormat = (axisData: AxisData): boolean => {
-      if (!Array.isArray(axisData) || axisData.length === 0) {
-        return false;
-      }
-      return typeof axisData[0] === 'object';
-    };
-
-    const hasXAxisData = Array.isArray(xAxisData) && xAxisData.length > 0;
-    const xAxisLabels = hasXAxisData
-      ? getAxisLabels(xAxisData)
-      : Array.from(
-          { length: normalizedSeries[0]?.data?.length ?? 0 },
-          (_, i) => String(i)
-        );
-    const xAxisIsObjectFormat = hasXAxisData && isObjectFormat(xAxisData);
+    const dataPoints = normalizedSeries.map(s => s.data.map(item => item[0] as number)).flat();
+    const xAxisLabels = getAxis(dataPoints).map(String);
 
     // Build tooltip config
     // axisPointer with snap: true so the pointer snaps to data points and triggers
@@ -509,19 +476,14 @@ const ChartComponent = ({
       },
     } : null;
 
-    // Build xAxis config
+    // Build xAxis config (category with data indices)
     const xAxisConfig: any = {
-      type: xAxisIsObjectFormat ? 'value' : 'category',
-      data: xAxisIsObjectFormat ? undefined : xAxisLabels,
+      type: 'category',
+      data: xAxisLabels,
       axisLabel: {
         show: showXAxis,
         color: theme.axis.x.tickLabelColor,
-        formatter: xAxisIsObjectFormat 
-          ? (value: number) => {
-              const item = (xAxisData as Array<{ label: string; value: number }>).find(x => x.value === value);
-              return item ? item.label : value.toString();
-            }
-          : undefined,
+        formatter: xAxisTickLabelFormatter ?? undefined,
       },
       axisLine: showXAxis ? {
         show: true,
@@ -550,20 +512,9 @@ const ChartComponent = ({
     
     xAxisConfig.boundaryGap = boundaryGap;
 
-    // Build yAxis config
-    let yAxisLabels: string[] | undefined;
-    let yAxisIsObjectFormat = false;
-    const hasYAxisData = !!(yAxisData && Array.isArray(yAxisData) && yAxisData.length > 0);
-    if (yAxisData) {
-      yAxisLabels = getAxisLabels(yAxisData);
-      yAxisIsObjectFormat = isObjectFormat(yAxisData);
-    }
-
+    // Build yAxis config (value, auto-scale from data)
     const yAxisConfig: any = {
-      type: yAxisData 
-        ? (yAxisIsObjectFormat ? 'value' : 'category')
-        : 'value',
-      data: yAxisData && !yAxisIsObjectFormat ? yAxisLabels : undefined,
+      type: 'value',
       ...(stackNormalize && displaySeries.length > 1 && {
         min: 0,
         max: 100,
@@ -571,14 +522,9 @@ const ChartComponent = ({
       axisLabel: {
         show: showYAxis,
         color: theme.axis.y.tickLabelColor,
-        formatter: stackNormalize && displaySeries.length > 1
+        formatter: yAxisTickLabelFormatter ?? (stackNormalize && displaySeries.length > 1
           ? (value: number) => `${value}%`
-          : yAxisData && yAxisIsObjectFormat
-            ? (value: number) => {
-                const item = (yAxisData as Array<{ label: string; value: number }>).find(y => y.value === value);
-                return item ? item.label : value.toString();
-              }
-            : undefined,
+          : undefined),
       },
       axisLine: showYAxis ? {
         show: true,
@@ -609,7 +555,7 @@ const ChartComponent = ({
     const legendConfigFinal: any = showLegend && hasNamedSeries ? {
       data: normalizedSeries
         .filter(s => 'name' in s && s.name)
-        .map(s => (s as { name: string; data: number[] }).name),
+        .map(s => s.name),
       textStyle: {
         color: theme.legend.textColor,
         fontSize: theme.legend.fontSize,
@@ -718,8 +664,6 @@ const ChartComponent = ({
     return config;
   }, [
     theme,
-    xAxisData,
-    yAxisData,
     normalizedSeries,
     displaySeries,
     type,
@@ -742,6 +686,8 @@ const ChartComponent = ({
     showLegend,
     hasNamedSeries,
     showHighlighter,
+    xAxisTickLabelFormatter,
+    yAxisTickLabelFormatter,
   ]);
 
   useEffect(() => {

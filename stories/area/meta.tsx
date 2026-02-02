@@ -70,11 +70,11 @@ export default {
       },
       showXAxis: {
         control: 'boolean',
-        description: 'Whether to show the X-axis. When true and xAxisData is not provided, data indices are shown. Default: true',
+        description: 'Whether to show the X-axis (data indices 0, 1, 2, ...). Default: true',
       },
       showYAxis: {
         control: 'boolean',
-        description: 'Whether to show the Y-axis. When true and yAxisData is not provided, scale is computed from the dataset. Default: true',
+        description: 'Whether to show the Y-axis (scale from data). Default: true',
       },
       showXAxisTicks: {
         control: 'boolean',

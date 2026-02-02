@@ -5,12 +5,10 @@ export default { ...meta, title: 'Charts/Line/Symbol' };
 type Story = StoryObj<typeof meta>;
 
 const data = [40, 82, 91, 74, 120, 95];
-const xAxisLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
 
 /** No symbols on data points (default). */
 export const None: Story = {
   args: {
-    xAxisData: xAxisLabels,
     data,
     symbol: 'none',
   },
@@ -19,7 +17,6 @@ export const None: Story = {
 /** symbol="circle" — circular markers. */
 export const Circle: Story = {
   args: {
-    xAxisData: xAxisLabels,
     data,
     symbol: 'circle',
     symbolSize: 8,
@@ -29,7 +26,6 @@ export const Circle: Story = {
 /** symbol="rect" — square markers. */
 export const Rect: Story = {
   args: {
-    xAxisData: xAxisLabels,
     data,
     symbol: 'rect',
     symbolSize: 8,
@@ -39,7 +35,6 @@ export const Rect: Story = {
 /** symbol="roundRect" — rounded rectangle markers. */
 export const RoundRect: Story = {
   args: {
-    xAxisData: xAxisLabels,
     data,
     symbol: 'roundRect',
     symbolSize: 8,
@@ -49,7 +44,6 @@ export const RoundRect: Story = {
 /** symbol="triangle" — triangle markers. */
 export const Triangle: Story = {
   args: {
-    xAxisData: xAxisLabels,
     data,
     symbol: 'triangle',
     symbolSize: 8,
@@ -59,7 +53,6 @@ export const Triangle: Story = {
 /** symbol="diamond" — diamond markers. */
 export const Diamond: Story = {
   args: {
-    xAxisData: xAxisLabels,
     data,
     symbol: 'diamond',
     symbolSize: 8,
@@ -69,7 +62,6 @@ export const Diamond: Story = {
 /** symbol="pin" — pin markers. */
 export const Pin: Story = {
   args: {
-    xAxisData: xAxisLabels,
     data,
     symbol: 'pin',
     symbolSize: 8,
@@ -79,7 +71,6 @@ export const Pin: Story = {
 /** symbol="arrow" — arrow markers. */
 export const Arrow: Story = {
   args: {
-    xAxisData: xAxisLabels,
     data,
     symbol: 'arrow',
     symbolSize: 8,
@@ -89,7 +80,6 @@ export const Arrow: Story = {
 /** Larger symbols: symbolSize={12}. */
 export const LargeSymbols: Story = {
   args: {
-    xAxisData: xAxisLabels,
     data,
     symbol: 'circle',
     symbolSize: 12,
@@ -99,7 +89,6 @@ export const LargeSymbols: Story = {
 /** Smaller symbols: symbolSize={4}. */
 export const SmallSymbols: Story = {
   args: {
-    xAxisData: xAxisLabels,
     data,
     symbol: 'circle',
     symbolSize: 4,

@@ -1,35 +1,46 @@
 import type { StoryObj } from '@storybook/react';
 import meta from '../meta';
 
-export default { ...meta, title: 'Charts/Line/Y-Axis' };
+export default { ...meta, title: 'Charts/Scatter/Y-Axis' };
 type Story = StoryObj<typeof meta>;
 
-const data = [40, 82, 91, 74, 90, 88];
+const data: number[][] = [[10, 5], [0, 8], [6, 10], [2, 12], [8, 9]];
 
-/** Y-axis scale computed from the dataset. */
+/** Default: Y-axis shown (value axis from data). */
 export const Default: Story = {
-  args: { data },
+  args: {
+    data,
+  },
 };
 
 /** showYAxis: false — Y-axis and its labels hidden. */
 export const HideAxis: Story = {
-  args: { data, showYAxis: false },
+  args: {
+    data,
+    showYAxis: false,
+  },
 };
 
 /** showYAxisTicks: false — Y-axis visible but tick marks hidden. */
 export const NoTicks: Story = {
-  args: { data, showYAxisTicks: false },
+  args: {
+    data,
+    showYAxisTicks: false,
+  },
 };
 
 /** showYAxisSplitLines: false — horizontal grid lines hidden. */
 export const NoSplitLines: Story = {
-  args: { data, showYAxisSplitLines: false },
+  args: {
+    data,
+    showYAxisSplitLines: false,
+  },
 };
 
-/** yAxisTickLabelFormatter: format Y-axis tick labels (e.g. add units). */
+/** yAxisTickLabelFormatter: format Y-axis (value) tick labels. */
 export const LabelFormatter: Story = {
   args: {
     data,
-    yAxisTickLabelFormatter: (value) => `${value} pts`,
+    yAxisTickLabelFormatter: (value) => `y=${value}`,
   },
 };

@@ -1,10 +1,10 @@
 import type { StoryObj } from '@storybook/react';
 import meta from '../meta';
 
-export default { ...meta, title: 'Charts/Line/Dimensions' };
+export default { ...meta, title: 'Charts/Scatter/Dimensions' };
 type Story = StoryObj<typeof meta>;
 
-const data = [40, 82, 91, 74, 120, 95];
+const data: number[][] = [[10, 5], [0, 8], [6, 10], [2, 12], [8, 9]];
 
 /** Default size: width 220, height 350. */
 export const Default: Story = {

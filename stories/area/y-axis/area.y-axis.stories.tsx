@@ -5,55 +5,34 @@ export default { ...meta, title: 'Charts/Area/Y-Axis' };
 type Story = StoryObj<typeof meta>;
 
 const data = [40, 82, 91, 74, 90, 88];
-const xAxisLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
-const yAxisLabels = [{ label: 'F', value: 0 }, 
-  { label: '', value: 20 },  
-  { label: 'P', value: 40 }, 
-  { label: 'C', value: 60 }, 
-  { label: 'B', value: 80 }, 
-  { label: 'A', value: 90 }, 
-  { label: 'A+', value: 100 }];
 
-/** No yAxisData: scale computed from the dataset. */
+/** Y-axis scale computed from the dataset. */
 export const Default: Story = {
-  args: {
-    xAxisData: xAxisLabels,
-    data,
-  },
-};
-
-/** Y-axis with custom string labels. */
-export const WithLabels: Story = {
-  args: {
-    xAxisData: xAxisLabels,
-    data,
-    yAxisData: yAxisLabels,
-  },
+  args: { data },
 };
 
 /** showYAxis: false — Y-axis and its labels hidden. */
 export const HideAxis: Story = {
-  args: {
-    xAxisData: xAxisLabels,
-    data,
-    showYAxis: false,
-  },
+  args: { data, showYAxis: false },
 };
 
 /** showYAxisTicks: false — Y-axis visible but tick marks hidden. */
 export const NoTicks: Story = {
-  args: {
-    xAxisData: xAxisLabels,
-    data,
-    showYAxisTicks: false,
-  },
+  args: { data, showYAxisTicks: false },
 };
 
 /** showYAxisSplitLines: false — horizontal grid lines hidden. */
 export const NoSplitLines: Story = {
+  args: { data, showYAxisSplitLines: false },
+};
+
+/** yAxisTickLabelFormatter: format Y-axis tick labels (e.g. add K for thousands). */
+export const LabelFormatter: Story = {
   args: {
-    xAxisData: xAxisLabels,
     data,
-    showYAxisSplitLines: false,
+    yAxisTickLabelFormatter: (value) => {
+      const n = Number(value);
+      return n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
+    },
   },
 };

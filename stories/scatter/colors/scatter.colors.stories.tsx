@@ -4,11 +4,11 @@ import meta from '../meta';
 
 export default {
   ...meta,
-  title: 'Charts/Line/Colors',
+  title: 'Charts/Scatter/Colors',
 };
 type Story = StoryObj<typeof meta>;
 
-const data = [40, 82, 91, 74, 120, 95];
+const data: number[][] = [[10, 5], [0, 8], [6, 10], [2, 12], [8, 9], [12, 6]];
 const colors = ['#F2A65A', '#6F8F72', '#132440'];
 
 /** Default theme colors (single series). */
@@ -30,9 +30,9 @@ export const CustomColor: Story = {
 export const MultipleSeriesColors: Story = {
   args: {
     data: [
-      { name: 'Series A', data: [40, 82, 91, 74, 90, 88] },
-      { name: 'Series B', data: [20, 62, 71, 54, 70, 68] },
-      { name: 'Series C', data: [60, 42, 51, 94, 50, 48] },
+      { name: 'Series A', data: [[10, 5], [0, 8], [6, 10], [2, 12]] },
+      { name: 'Series B', data: [[5, 10], [8, 0], [10, 6], [12, 2]] },
+      { name: 'Series C', data: [[6, 12], [4, 4], [8, 8], [14, 2]] },
     ],
     colors,
     showLegend: true,

@@ -11,17 +11,9 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    xAxisData: {
-      control: 'object',
-      description: 'X-axis labels',
-    },
     data: {
       control: 'object',
       description: 'Chart data (single series, multiple series, or named series)',
-    },
-    yAxisData: {
-      control: 'object',
-      description: 'Y-axis labels (optional)',
     },
     width: {
       control: 'number',
@@ -81,7 +73,6 @@ const styles = StyleSheet.create({
 // Default Line Chart - matches default-line.chart
 export const Default: Story = {
   args: {
-    xAxisData: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
     data: [186, 305, 237, 73, 209, 214],
     width: 400,
     height: 350,
@@ -93,7 +84,6 @@ export const Default: Story = {
 // Interactive Line Chart - matches interactive-line.chart
 export const Interactive: Story = {
   args: {
-    xAxisData: ['Apr 2', 'Apr 7', 'Apr 12', 'Apr 17', 'Apr 22', 'Apr 28', 'May 4', 'May 9', 'May 15', 'May 21', 'May 27', 'Jun 2', 'Jun 7', 'Jun 12', 'Jun 18', 'Jun 24', 'Jun 30'],
     data: [
       { name: 'Desktop', data: [7000, 8900, 15200, 18900, 22300, 19800, 25600, 24100, 27800, 26200, 23800, 25300, 24100, 23700, 23900, 24100, 23828] },
       { name: 'Mobile', data: [5000, 6200, 12500, 17700, 21400, 24800, 23100, 26500, 25200, 21800, 24100, 22900, 22100, 22300, 22500, 24010] },
@@ -109,7 +99,6 @@ export const Interactive: Story = {
 // Multiple Line Chart - matches multiple-line.chart
 export const Multiple: Story = {
   args: {
-    xAxisData: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
     data: [
       { name: 'Series A', data: [186, 305, 237, 73, 209, 214] },
       { name: 'Series B', data: [150, 280, 200, 90, 180, 190] },
@@ -125,7 +114,6 @@ export const Multiple: Story = {
 // Linear Line Chart - matches linear-line.chart
 export const Linear: Story = {
   args: {
-    xAxisData: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
     data: [186, 305, 237, 73, 209, 214],
     width: 400,
     height: 350,
@@ -137,7 +125,6 @@ export const Linear: Story = {
 // Step Line Chart - matches step-line.chart
 export const Step: Story = {
   args: {
-    xAxisData: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
     data: [186, 305, 237, 73, 209, 214],
     width: 400,
     height: 350,
@@ -150,7 +137,6 @@ export const Step: Story = {
 // Dots Line Chart - matches dots-line.chart
 export const Dots: Story = {
   args: {
-    xAxisData: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
     data: [186, 305, 237, 73, 209, 214],
     width: 400,
     height: 350,
@@ -164,7 +150,6 @@ export const Dots: Story = {
 // Dots Colors Line Chart - matches dots-colors-line.chart (AreaChart does not support per-point itemStyle; use colors prop)
 export const DotsColors: Story = {
   args: {
-    xAxisData: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
     data: [186, 305, 237, 73, 209, 214],
     width: 400,
     height: 350,
@@ -179,7 +164,6 @@ export const DotsColors: Story = {
 // Custom Dots Line Chart (AreaChart/LineChart do not support data point labels)
 export const CustomLabel: Story = {
   args: {
-    xAxisData: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
     data: [186, 305, 237, 73, 209, 214],
     width: 400,
     height: 350,

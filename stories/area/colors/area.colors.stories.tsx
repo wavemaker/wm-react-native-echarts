@@ -9,13 +9,11 @@ export default {
 type Story = StoryObj<typeof meta>;
 
 const data = [40, 82, 91, 74, 120, 95];
-const xAxisLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
 const colors = ['#F2A65A', '#6F8F72', '#132440'];
 
 /** Default theme colors (single series). */
 export const Default: Story = {
   args: {
-    xAxisData: xAxisLabels,
     data,
   },
 };
@@ -23,7 +21,6 @@ export const Default: Story = {
 /** Custom series color: colors={['#FF6B6B']}. */
 export const CustomColor: Story = {
   args: {
-    xAxisData: xAxisLabels,
     data,
     colors: colors,
   },
@@ -32,7 +29,6 @@ export const CustomColor: Story = {
 /** Multiple custom colors for multiple series. Colors cycle if more series than colors. */
 export const MultipleSeriesColors: Story = {
   args: {
-    xAxisData: xAxisLabels,
     data: [
       { name: 'Series A', data: [40, 82, 91, 74, 90, 88] },
       { name: 'Series B', data: [20, 62, 71, 54, 70, 68] },
@@ -46,7 +42,6 @@ export const MultipleSeriesColors: Story = {
 /** Theme override: axis label and line colors. */
 export const ThemeOverride: Story = {
   args: {
-    xAxisData: xAxisLabels,
     data,
     theme: {
       series: [{ color: colors[0] }],
