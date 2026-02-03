@@ -1,212 +1,184 @@
 import { withResponsiveContainer } from '../chart-container';
-import { ChartTheme, useChartTheme, withChartTheme } from '../chart-theme.context';
-import worldData from '@/data/world.json';
+import { useChartTheme, withChartTheme } from '../chart-theme.context';
+import type { GeoChartProps, GeoDataItem } from './geo-chart.props';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { MapChart } from 'echarts/charts';
-import {
-  GeoComponent,
-  TooltipComponent,
-  VisualMapComponent
-} from 'echarts/components';
+import { TooltipComponent, VisualMapComponent } from 'echarts/components';
 import * as echarts from 'echarts/core';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { createContext, useContext, useEffect, useMemo, useRef } from 'react';
+import worldJson from '../../../data/world.json';
+import type { GeoJSONMap } from './geo-chart.props';
 
-// Register necessary components for this chart
+export type { GeoChartProps, GeoDataItem, GeoJSONMap } from './geo-chart.props';
+
+/** Optional context to provide mapJson without passing as prop (avoids Storybook serialization issues). */
+export const GeoMapJsonContext = createContext<GeoJSONMap | null>(null);
+
 echarts.use([
   TooltipComponent,
   VisualMapComponent,
-  GeoComponent,
   SkiaRenderer,
   MapChart,
 ]);
 
-/**
- * Props for the GeoChart component.
- * A unified geographic/map chart component that supports all geo chart variations.
- */
-export interface GeoChartProps {
-  /**
-   * Array of country data with names and values.
-   */
-  data: Array<{ name: string; value: number }>;
-  
-  /**
-   * Minimum value for the visual map scale.
-   * @default 0
-   */
-  visualMapMin?: number;
-  
-  /**
-   * Maximum value for the visual map scale.
-   * @default 1000
-   */
-  visualMapMax?: number;
-  
-  /**
-   * Array of colors for the gradient scale.
-   * If not provided, uses theme colors or default colors based on chart type.
-   */
-  colors?: string[];
-  
-  /**
-   * Custom tooltip formatter string.
-   * Use ECharts formatter syntax: '{b}' for name, '{c}' for value.
-   * @default '{b}<br/>Value: {c}'
-   */
-  tooltipFormatter?: string;
-  
-  /**
-   * Whether to show country name labels on the map.
-   * @default false
-   */
-  showLabel?: boolean;
-  
-  /**
-   * Enable pan and zoom interactions (roam).
-   * Can be true (pan and zoom), false (disabled), 'scale' (zoom only), or 'move' (pan only).
-   * @default false
-   */
-  roam?: boolean | 'scale' | 'move';
-  
-  /**
-   * Visual map text labels. Array of two strings: [high label, low label].
-   * @default ['High', 'Low']
-   */
-  visualMapText?: [string, string];
-  
-  /**
-   * Series name for the map data.
-   */
-  seriesName?: string;
-  
-  /**
-   * Width of the chart in pixels.
-   * @default 220
-   */
-  width?: number;
-  
-  /**
-   * Height of the chart in pixels.
-   * @default 350
-   */
-  height?: number;
-  
-  /**
-   * Partial theme override for customizing chart appearance.
-   */
-  theme?: Partial<ChartTheme>;
-
-  /**
-   * Colors for the chart item styles.
-   * @default theme.itemStyles.map(item => item.color)
-   */
-  itemColors?: string[];
-}
+const DEFAULT_MAP_NAME = 'world';
 
 const ChartComponent = ({
   data,
-  visualMapMin = 0,
-  visualMapMax = 1000,
-  colors,
+  mapJson: mapJsonProp,
+  mapName = DEFAULT_MAP_NAME,
+  width = 400,
+  height = 300,
+  showLegend = true,
+  showHighlighter = true,
   tooltipFormatter,
-  showLabel = false,
-  roam = false,
-  visualMapText = ['High', 'Low'],
-  seriesName,
-  width = 220,
-  height = 350,
+  visualMapMin,
+  visualMapMax,
+  visualMapMode = 'continuous',
+  piecewisePieces,
   ...props
 }: GeoChartProps) => {
-  const { theme } = useChartTheme(props.theme, props.itemColors);
+  const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
+  const contextMapJson = useContext(GeoMapJsonContext);
+  const mapJson = mapJsonProp ?? contextMapJson ?? (worldJson as any);
+
+  useEffect(() => {
+    if (mapJson?.type === 'FeatureCollection' && mapJson.features?.length) {
+      try {
+        echarts.registerMap(mapName, mapJson as any);
+      } catch (e) {
+        console.warn('GeoChart: registerMap failed', e);
+      }
+    }
+  }, [mapName, mapJson]);
+
+  const valueRange = useMemo(() => {
+    if (!Array.isArray(data) || data.length === 0) return { min: 0, max: 100 };
+    const values = data.map((d: GeoDataItem) => d.value).filter((v): v is number => typeof v === 'number');
+    if (values.length === 0) return { min: 0, max: 100 };
+    const min = visualMapMin ?? Math.min(...values);
+    const max = visualMapMax ?? Math.max(...values);
+    return { min: min === max ? min - 1 : min, max: min === max ? max + 1 : max };
+  }, [data, visualMapMin, visualMapMax]);
 
   const option = useMemo(() => {
-    // Determine colors to use
-    let finalColors: string[];
-    if (colors && colors.length > 0) {
-      finalColors = colors;
-    } else {
-      // Default gradient colors
-      finalColors = ['#91cc75', '#5470c6', '#ee6666'];
+    if (!Array.isArray(data) || data.length === 0) {
+      return { series: [{ type: 'map', map: mapName, data: [] }] };
     }
 
-    // Determine tooltip formatter
-    const formatter = tooltipFormatter || '{b}<br/>Value: {c}';
+    const seriesColor = theme.series[0]?.color ?? '#3b82f6';
 
-    return {
-      tooltip: {
-        trigger: 'item',
-        formatter: formatter,
+    const tooltipConfig: any = {
+      trigger: 'item',
+      formatter: tooltipFormatter
+        ? (params: any) => {
+            const p = params?.data ?? params;
+            return tooltipFormatter({ name: p?.name ?? '', value: p?.value ?? 0 });
+          }
+        : undefined,
+      backgroundColor: theme.tooltip.backgroundColor,
+      borderColor: theme.tooltip.borderColor,
+      borderWidth: theme.tooltip.borderWidth,
+      borderRadius: theme.tooltip.borderRadius,
+      padding: theme.tooltip.padding,
+    };
+
+    const visualMapConfig: any = showLegend
+      ? visualMapMode === 'piecewise' && piecewisePieces?.length
+        ? {
+            type: 'piecewise',
+            min: valueRange.min,
+            max: valueRange.max,
+            pieces: piecewisePieces.map((p) => ({
+              min: p.min,
+              max: p.max,
+              label: p.label,
+              color: p.color,
+            })),
+            textStyle: {
+              color: theme.legend.textColor,
+              fontSize: theme.legend.fontSize,
+            },
+            right: 10,
+            bottom: 20,
+            orient: 'vertical',
+          }
+        : {
+            type: 'continuous',
+            min: valueRange.min,
+            max: valueRange.max,
+            text: [String(valueRange.max), String(valueRange.min)],
+            realtime: false,
+            calculable: true,
+            inRange: {
+              color: [theme.series[1]?.color ?? '#93c5fd', seriesColor],
+            },
+            textStyle: {
+              color: theme.legend.textColor,
+              fontSize: theme.legend.fontSize,
+            },
+            right: 10,
+            bottom: 20,
+            orient: 'vertical',
+          }
+      : undefined;
+
+    const seriesConfig: any = {
+      type: 'map',
+      map: mapName,
+      roam: true,
+      data: data,
+      itemStyle: {
+        ...(visualMapConfig ? {} : { areaColor: '#f0f0f0' }),
+        borderColor: '#ccc',
+        borderWidth: 1,
       },
-      visualMap: {
-        min: visualMapMin,
-        max: visualMapMax,
-        left: 'left',
-        top: 'bottom',
-        text: visualMapText,
-        calculable: true,
-        inRange: {
-          color: finalColors,
-        },
-        textStyle: {
-          color: theme.axis.x.tickLabelColor,
-        },
-      },
-      series: [
-        {
-          ...(seriesName ? { name: seriesName } : {}),
-          type: 'map',
-          map: 'world',
-          roam: roam,
-          emphasis: {
+      emphasis: showHighlighter
+        ? {
+            itemStyle: {
+              areaColor: seriesColor,
+              borderColor: '#333',
+              borderWidth: 1,
+            },
             label: {
               show: true,
-              color: theme.axis.x.tickLabelColor,
+              color: theme.legend.textColor,
             },
-            itemStyle: {
-              areaColor: theme.series[0].color,
-            },
-          },
-          ...(roam ? {
-            select: {
-              label: {
-                show: true,
-                color: theme.axis.x.tickLabelColor,
-              },
-              itemStyle: {
-                areaColor: theme.series[1]?.color || theme.series[0].color,
-              },
-            },
-          } : {}),
-          itemStyle: {
-            borderColor: theme.grid.x.lineColor,
-            borderWidth: 0.5,
-          },
-          label: {
-            show: showLabel,
-            color: theme.axis.x.tickLabelColor,
-          },
-          data: data,
-        },
-      ],
+          }
+        : { disabled: true },
     };
-  }, [theme, data, visualMapMin, visualMapMax, colors, tooltipFormatter, showLabel, roam, visualMapText, seriesName]);
+
+    const config: any = {
+      tooltip: tooltipConfig,
+      series: [seriesConfig],
+    };
+    if (visualMapConfig) config.visualMap = visualMapConfig;
+
+    return config;
+  }, [
+    data,
+    mapName,
+    theme,
+    valueRange,
+    showLegend,
+    showHighlighter,
+    tooltipFormatter,
+    visualMapMode,
+    piecewisePieces,
+  ]);
 
   useEffect(() => {
     let chart: any;
     if (chartRef.current) {
       try {
-        // Register map data
-        echarts.registerMap('world', worldData as any);
-        
         chart = echarts.init(chartRef.current, 'light', {
-          width: width,
-          height: height,
+          width,
+          height,
         });
-        
         chart.setOption(option);
       } catch (error) {
-        console.warn('Chart initialization error:', error);
+        console.warn('GeoChart initialization error:', error);
       }
     }
     return () => {
@@ -214,13 +186,16 @@ const ChartComponent = ({
         try {
           chart.dispose();
         } catch (error) {
-          console.warn('Chart disposal error:', error);
+          console.warn('GeoChart disposal error:', error);
         }
       }
     };
   }, [option, width, height]);
 
-  return <SkiaChart ref={chartRef} />;
+  return <SkiaChart ref={chartRef} useRNGH />;
 };
 
-export const GeoChart = withResponsiveContainer(withChartTheme(ChartComponent));
+const GeoChartComponent = withResponsiveContainer(withChartTheme(ChartComponent));
+export const GeoChart = Object.assign(GeoChartComponent, {
+  displayName: 'GeoChart',
+});

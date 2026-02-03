@@ -8,11 +8,9 @@
   },
   "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-geo-geochart--docs",
   "displayName": "Geo Chart",
-  "description": "Unified geographic/map chart component supporting all variations: default, GDP, population, interactive, and labeled configurations",
+  "description": "Map chart component for geographic data. Displays regions colored by value with optional visual map legend and tooltips.",
   "iconUrl": "wmx.icon.svg",
-  "preview": [
-    "default-geo.png"
-  ],
+  "preview": [],
   "component": "geo-chart.tsx",
   "requires": [
     "../geo-chart.tsx",
@@ -29,16 +27,11 @@
   "keywords": [
     "geo",
     "map",
-    "geographic",
     "chart",
-    "unified",
-    "world",
-    "country",
-    "interactive",
-    "GDP",
-    "population",
+    "geographic",
+    "regions",
     "visualization",
-    "data-analysis",
+    "choropleth",
     "chart/geo"
   ],
   "wmx": {
@@ -47,97 +40,97 @@
       "data": {
         "name": "data",
         "displayName": "Data",
-        "description": "Array of country data with names and values. Example: [{name: 'United States', value: 500}, {name: 'China', value: 450}]",
+        "description": "Array of { name, value } for each region. Region names must match the map GeoJSON feature names. Example: [{name: 'United States', value: 500}, {name: 'China', value: 600}]",
         "type": "object",
         "isList": true,
         "isRequired": true
       },
-      "visualMapMin": {
-        "name": "visualMapMin",
-        "displayName": "Visual Map Min",
-        "description": "Minimum value for the visual map scale. Example: 0",
-        "type": "number",
-        "isList": false,
-        "defaultValue": 0,
-        "isRequired": false
-      },
-      "visualMapMax": {
-        "name": "visualMapMax",
-        "displayName": "Visual Map Max",
-        "description": "Maximum value for the visual map scale. Example: 1000",
-        "type": "number",
-        "isList": false,
-        "defaultValue": 1000,
-        "isRequired": false
-      },
-      "colors": {
-        "name": "colors",
-        "displayName": "Colors",
-        "description": "Array of colors for the gradient scale. Example: ['#91cc75', '#5470c6', '#ee6666']",
+      "mapJson": {
+        "name": "mapJson",
+        "displayName": "Map GeoJSON",
+        "description": "GeoJSON FeatureCollection for the map. Pass the map data to display.",
         "type": "object",
-        "isList": true,
-        "isRequired": false
+        "isList": false,
+        "isRequired": true
       },
-      "tooltipFormatter": {
-        "name": "tooltipFormatter",
-        "displayName": "Tooltip Formatter",
-        "description": "Custom tooltip formatter string. Use ECharts formatter syntax: '{b}' for name, '{c}' for value. Example: '{b}<br/>GDP: ${c}B'",
+      "mapName": {
+        "name": "mapName",
+        "displayName": "Map Name",
+        "description": "Name used when registering the map. Default: 'world'",
         "type": "string",
         "isList": false,
-        "isRequired": false
-      },
-      "showLabel": {
-        "name": "showLabel",
-        "displayName": "Show Label",
-        "description": "Whether to show country name labels on the map. Example: false",
-        "type": "boolean",
-        "isList": false,
-        "defaultValue": false,
-        "isRequired": false
-      },
-      "roam": {
-        "name": "roam",
-        "displayName": "Roam",
-        "description": "Enable pan and zoom interactions. Can be true (pan and zoom), false (disabled), 'scale' (zoom only), or 'move' (pan only). Example: false",
-        "type": "boolean",
-        "isList": false,
-        "defaultValue": false,
-        "isRequired": false
-      },
-      "visualMapText": {
-        "name": "visualMapText",
-        "displayName": "Visual Map Text",
-        "description": "Visual map text labels. Array of two strings: [high label, low label]. Example: ['High', 'Low']",
-        "type": "object",
-        "isList": true,
-        "isRequired": false
-      },
-      "seriesName": {
-        "name": "seriesName",
-        "displayName": "Series Name",
-        "description": "Series name for the map data. Example: 'GDP'",
-        "type": "string",
-        "isList": false,
+        "defaultValue": "world",
         "isRequired": false
       },
       "width": {
         "name": "width",
         "displayName": "Width",
-        "description": "Width of the chart in pixels. Example: 220",
+        "description": "Width of the chart in pixels. Example: 400",
         "type": "number",
         "isList": false,
-        "defaultValue": 220,
+        "defaultValue": 400,
         "isRequired": false
       },
       "height": {
         "name": "height",
         "displayName": "Height",
-        "description": "Height of the chart in pixels. Example: 350",
+        "description": "Height of the chart in pixels. Example: 300",
         "type": "number",
         "isList": false,
-        "defaultValue": 350,
+        "defaultValue": 300,
+        "isRequired": false
+      },
+      "theme": {
+        "name": "theme",
+        "displayName": "Theme",
+        "description": "Partial theme override for customizing chart appearance.",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "colors": {
+        "name": "colors",
+        "displayName": "Colors",
+        "description": "Colors for the visual map scale. Example: ['#93c5fd', '#3b82f6']",
+        "type": "string",
+        "isList": true,
+        "isRequired": false
+      },
+      "showLegend": {
+        "name": "showLegend",
+        "displayName": "Show Legend",
+        "description": "Whether to show the visual map (color scale) legend. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "showHighlighter": {
+        "name": "showHighlighter",
+        "displayName": "Show Highlighter",
+        "description": "Whether to emphasize the hovered region. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "visualMapMin": {
+        "name": "visualMapMin",
+        "displayName": "Visual Map Min",
+        "description": "Minimum value for the color scale. Auto-derived from data if not set.",
+        "type": "number",
+        "isList": false,
+        "isRequired": false
+      },
+      "visualMapMax": {
+        "name": "visualMapMax",
+        "displayName": "Visual Map Max",
+        "description": "Maximum value for the color scale. Auto-derived from data if not set.",
+        "type": "number",
+        "isList": false,
         "isRequired": false
       }
-    }
+    },
+    "webSupport": true
   }
 }
