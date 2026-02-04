@@ -1,12 +1,6 @@
-import {
-  GridRadialChart,
-  LabelRadialChart,
-  ShapeRadialChart,
-  StackedRadialChart,
-  TextRadialChart,
-} from '@/components/chart/radial';
+import { RadialChart } from '@/components/chart/radial';
 import { useTheme } from '@/contexts/ThemeContext';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 export default function RadialChartScreen() {
   const { colorScheme } = useTheme();
@@ -20,39 +14,51 @@ export default function RadialChartScreen() {
 
   return (
     <ScrollView style={styles.container}>
-      <LabelRadialChart 
+      <RadialChart
         data={[
-          { label: 'Chrome', value: 85 },
-          { label: 'Safari', value: 70 },
-          { label: 'Firefox', value: 60 },
-          { label: 'Edge', value: 45 },
-          { label: 'Other', value: 30 },
+          { value: 92 },
+          { value: 82 },
+          { value: 52 },
+          { value: 42 },
+          { value: 28 },
         ]}
+        width={400}
+        height={400}
+        innerRadius="20%"
       />
-      <GridRadialChart 
+      <RadialChart
         data={[
-          { label: 'A', value: 85, color: '#60a5fa' },
-          { label: 'B', value: 70, color: '#3b82f6' },
-          { label: 'C', value: 60, color: '#2563eb' },
-          { label: 'D', value: 45, color: '#1e40af' },
-          { label: 'E', value: 30, color: '#1e3a8a' },
+          { label: 'A', value: 85 },
+          { label: 'B', value: 70 },
+          { label: 'C', value: 60 },
+          { label: 'D', value: 45 },
+          { label: 'E', value: 30 },
         ]}
+        width={400}
+        height={400}
+        colors={['#60a5fa', '#3b82f6', '#2563eb', '#1e40af', '#1e3a8a']}
       />
-      <TextRadialChart 
-        value={200}
-        maxValue={300}
-        label="Visitors"
+      <RadialChart
+        data={[{ value: 67 }]}
+        width={400}
+        height={400}
+        centerText="200 / 300"
       />
-      <ShapeRadialChart 
-        value={1260}
-        maxValue={1500}
-        label="Visitors"
+      <RadialChart
+        data={[{ value: 84 }]}
+        width={400}
+        height={400}
+        centerText="1260 / 1500"
       />
-      <StackedRadialChart 
+      <RadialChart
         data={[
-          { name: 'Inner', value: 30, color: '#93c5fd' },
-          { name: 'Outer', value: 20, color: '#3b82f6' },
+          { label: 'Inner', value: 30 },
+          { label: 'Outer', value: 20 },
         ]}
+        width={400}
+        height={400}
+        innerRadius="40%"
+        colors={['#93c5fd', '#3b82f6']}
       />
     </ScrollView>
   );

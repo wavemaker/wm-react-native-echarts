@@ -1,0 +1,159 @@
+{
+  "name": "radial-chart",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/radial"
+  },
+  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-radial-radialchart--docs",
+  "displayName": "Radial Chart",
+  "description": "Concentric ring chart: multiple rings with partial fill (0–100% per ring), blue gradient, center hole, optional center text",
+  "iconUrl": "wmx.icon.svg",
+  "preview": [
+    "label-radial.png",
+    "shape-radial.png",
+    "stacked-radial.png",
+    "text-radial.png"
+  ],
+  "component": "radial-chart.tsx",
+  "requires": [
+    "../radial-chart.tsx",
+    "../../chart-container.tsx",
+    "../../chart-theme.context.tsx"
+  ],
+  "dependencies": {
+    "@wuba/react-native-echarts": "3.0.1",
+    "@shopify/react-native-skia": "2.2.12",
+    "react-native-svg": "15.12.1",
+    "echarts": "5.5.1",
+    "zrender": "5.6.0"
+  },
+  "keywords": [
+    "radial",
+    "polar",
+    "chart",
+    "ring",
+    "bar",
+    "visualization",
+    "chart/radial"
+  ],
+  "wmx": {
+    "group": "chart/radial",
+    "props": {
+      "data": {
+        "name": "data",
+        "displayName": "Data",
+        "description": "One item per concentric ring. value = fill percentage (0–100). Example: [{ value: 90 }, { value: 80 }, { value: 50 }]",
+        "type": "object",
+        "isList": true,
+        "isRequired": true
+      },
+      "width": {
+        "name": "width",
+        "displayName": "Width",
+        "description": "Width of the chart in pixels.",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 220,
+        "isRequired": false
+      },
+      "height": {
+        "name": "height",
+        "displayName": "Height",
+        "description": "Height of the chart in pixels.",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 350,
+        "isRequired": false
+      },
+      "innerRadius": {
+        "name": "innerRadius",
+        "displayName": "Inner Radius",
+        "description": "Inner radius of the chart (center hole). Example: '20%'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "20%",
+        "isRequired": false
+      },
+      "backgroundColor": {
+        "name": "backgroundColor",
+        "displayName": "Background Color",
+        "description": "Color for the unfilled portion of each ring.",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "#e8e8e899",
+        "isRequired": false
+      },
+      "showLabel": {
+        "name": "showLabel",
+        "displayName": "Show Label",
+        "description": "Whether to show segment labels on the rings.",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "startAngle": {
+        "name": "startAngle",
+        "displayName": "Start Angle",
+        "description": "Start angle of the fill in degrees. 0 = right, 90 = top.",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 0,
+        "isRequired": false
+      },
+      "clockwise": {
+        "name": "clockwise",
+        "displayName": "Clockwise",
+        "description": "Direction of the fill and animation: true = clockwise, false = counter-clockwise (anti-clockwise).",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "ringGap": {
+        "name": "ringGap",
+        "displayName": "Ring Gap",
+        "description": "Gap between concentric rings (e.g. '4%' or number).",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "4%",
+        "isRequired": false
+      },
+      "centerText": {
+        "name": "centerText",
+        "displayName": "Center Text",
+        "description": "Optional center text (e.g. main value or title).",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "centerSubtext": {
+        "name": "centerSubtext",
+        "displayName": "Center Subtext",
+        "description": "Optional center subtext below center text (e.g. label or unit).",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "theme": {
+        "name": "theme",
+        "displayName": "Theme",
+        "description": "Partial theme override for customizing chart appearance.",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "colors": {
+        "name": "colors",
+        "displayName": "Colors",
+        "description": "Colors for the chart segments. Overrides theme colors.",
+        "type": "string",
+        "isList": true,
+        "isRequired": false
+      }
+    },
+    "webSupport": true
+  }
+}
