@@ -1,6 +1,6 @@
 import type { StoryObj } from '@storybook/react';
 import meta from './meta';
-export default { ...meta, title: 'Charts/Geo' };
+export default { ...meta, title: 'Charts/Geo', tags: ['autodocs'] };
 type Story = StoryObj<typeof meta>;
 
 // Sample data matching world.json region names (e.g. Somalia, Liechtenstein, etc.)

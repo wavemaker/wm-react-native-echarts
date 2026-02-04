@@ -1,7 +1,7 @@
 import type { StoryObj } from '@storybook/react';
 import meta from './meta';
 
-export default { ...meta, title: 'Charts/Candlestick' };
+export default { ...meta, title: 'Charts/Candlestick', tags: ['autodocs']  };
 type Story = StoryObj<typeof meta>;
 
 const xAxisData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];

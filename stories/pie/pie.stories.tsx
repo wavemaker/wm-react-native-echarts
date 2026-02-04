@@ -1,7 +1,7 @@
 import type { StoryObj } from '@storybook/react';
 import meta from './meta';
 
-export default { ...meta, title: 'Charts/Pie' };
+export default { ...meta, title: 'Charts/Pie', tags: ['autodocs'] };
 type Story = StoryObj<typeof meta>;
 
 const defaultData = [

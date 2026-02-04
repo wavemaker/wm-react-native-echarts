@@ -1,7 +1,7 @@
 import type { StoryObj } from '@storybook/react';
 import meta from './meta';
 
-export default { ...meta, title: 'Charts/Bubble' };
+export default { ...meta, title: 'Charts/Bubble', tags: ['autodocs']  };
 type Story = StoryObj<typeof meta>;
 
 /** Default bubble chart: data is array of [x, y, size]. Size drives bubble radius. */
