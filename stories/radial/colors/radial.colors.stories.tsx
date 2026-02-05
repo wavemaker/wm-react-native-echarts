@@ -5,11 +5,11 @@ export default { ...meta, title: 'Charts/Radial/Colors' };
 type Story = StoryObj<typeof meta>;
 
 const data = [
-  { value: 90 },
-  { value: 75 },
-  { value: 55 },
-  { value: 40 },
-  { value: 30 },
+  { label: 'Chrome', value: 92 },
+  { label: 'Firefox', value: 78 },
+  { label: 'Safari', value: 65 },
+  { label: 'Brave', value: 52 },
+  { label: 'Edge', value: 38 },
 ];
 const colors = ['#1e3a8a', '#2563eb', '#3b82f6', '#60a5fa', '#93c5fd'];
 
@@ -23,5 +23,13 @@ export const CustomColors: Story = {
   args: {
     data,
     colors,
+  },
+};
+
+/** Custom unfilled (background) color. */
+export const background: Story = {
+  args: {
+    data,
+    backgroundColor: '#3b82f611',
   },
 };

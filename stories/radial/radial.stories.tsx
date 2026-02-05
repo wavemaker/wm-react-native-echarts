@@ -4,13 +4,13 @@ import meta from './meta';
 export default { ...meta, title: 'Charts/Radial', tags: ['autodocs'] };
 type Story = StoryObj<typeof meta>;
 
-/** Data matching label-radial.png: 5 concentric rings, fill % outer→inner. */
+/** Browser usage: 5 concentric rings, fill % outer→inner. */
 const defaultData = [
-  { value: 92 },
-  { value: 82 },
-  { value: 52 },
-  { value: 42 },
-  { value: 28 },
+  { label: 'Chrome', value: 92 },
+  { label: 'Firefox', value: 78 },
+  { label: 'Safari', value: 65 },
+  { label: 'Brave', value: 52 },
+  { label: 'Edge', value: 38 },
 ];
 
 /** Default concentric ring chart (blue gradient, outer dark → inner light). */
@@ -26,22 +26,6 @@ export const CenterText: Story = {
     data: defaultData,
     centerText: 'Total',
     centerSubtext: '200 / 300',
-  },
-};
-
-/** Custom inner radius (larger center hole). */
-export const LargeCenterHole: Story = {
-  args: {
-    data: defaultData,
-    innerRadius: '35%',
-  },
-};
-
-/** Custom unfilled color. */
-export const CustomBackground: Story = {
-  args: {
-    data: defaultData,
-    backgroundColor: '#f0f0f0',
   },
 };
 
@@ -69,16 +53,3 @@ export const Clockwise: Story = {
   },
 };
 
-/** With segment labels on rings. */
-export const WithLabels: Story = {
-  args: {
-    data: [
-      { label: 'Ring 1', value: 92 },
-      { label: 'Ring 2', value: 82 },
-      { label: 'Ring 3', value: 52 },
-      { label: 'Ring 4', value: 42 },
-      { label: 'Ring 5', value: 28 },
-    ],
-    showLabel: true,
-  },
-};

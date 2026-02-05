@@ -25,10 +25,6 @@ const radialOnlyArgTypes = {
     control: 'text',
     description: 'Optional center subtext below center text (e.g. label or unit).',
   },
-  showLabel: {
-    control: 'boolean',
-    description: 'Whether to show segment labels on the rings.',
-  },
   startAngle: {
     control: { type: 'number', min: 0, max: 360, step: 15 },
     description: 'Start angle of the fill (degrees). 0 = right, 90 = top.',

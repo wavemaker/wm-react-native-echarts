@@ -85,15 +85,6 @@
         "defaultValue": "#e8e8e899",
         "isRequired": false
       },
-      "showLabel": {
-        "name": "showLabel",
-        "displayName": "Show Label",
-        "description": "Whether to show segment labels on the rings.",
-        "type": "boolean",
-        "isList": false,
-        "defaultValue": false,
-        "isRequired": false
-      },
       "startAngle": {
         "name": "startAngle",
         "displayName": "Start Angle",

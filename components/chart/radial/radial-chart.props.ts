@@ -37,11 +37,6 @@ export interface RadialChartProps extends CommonChartProps {
    */
   centerSubtext?: string;
   /**
-   * Whether to show segment labels on the rings.
-   * @default false
-   */
-  showLabel?: boolean;
-  /**
    * Start angle of the fill (and animation), in degrees. 0 = right (3 o'clock), 90 = top (12 o'clock).
    * @default 0
    */
@@ -56,4 +51,14 @@ export interface RadialChartProps extends CommonChartProps {
    * @default '4%'
    */
   ringGap?: string | number;
+  /**
+   * Whether to show the legend (ring labels).
+   * @default true
+   */
+  showLegend?: boolean;
+  /**
+   * Position of the legend.
+   * @default 'bottom'
+   */
+  legendPosition?: 'left' | 'right' | 'top' | 'bottom';
 }

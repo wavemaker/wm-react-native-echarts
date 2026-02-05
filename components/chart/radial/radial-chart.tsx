@@ -3,14 +3,19 @@ import { useChartTheme, withChartTheme } from '../chart-theme.context';
 import type { RadialChartProps, RadialDataItem } from './radial-chart.props';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { PieChart as EChartsPieChart } from 'echarts/charts';
-import { TitleComponent, TooltipComponent } from 'echarts/components';
+import { LegendComponent, TitleComponent, TooltipComponent } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 
 // Re-export types for backward compatibility
 export type { RadialChartProps, RadialDataItem } from './radial-chart.props';
 
-echarts.use([TooltipComponent, TitleComponent, SkiaRenderer, EChartsPieChart]);
+echarts.use([TooltipComponent, TitleComponent, LegendComponent, SkiaRenderer, EChartsPieChart]);
+
+/** Percent of height reserved for horizontal legend (top/bottom) to avoid overlap */
+const LEGEND_RESERVE_PCT = 22;
+/** Percent of width reserved for vertical legend (left/right) to avoid overlap */
+const LEGEND_RESERVE_WIDTH_PCT = 26;
 
 /** Default blue gradient (outer dark → inner light) for concentric rings */
 const DEFAULT_RING_COLORS = [
@@ -31,7 +36,8 @@ const ChartComponent = ({
   backgroundColor = '#e8e8e899',
   centerText,
   centerSubtext,
-  showLabel = false,
+  showLegend = true,
+  legendPosition = 'bottom',
   startAngle = 0,
   clockwise = false,
   ringGap = '4%',
@@ -77,7 +83,27 @@ const ChartComponent = ({
     const available = 100 - innerPct - totalGap;
     const ringStep = n > 0 ? available / n : 0;
 
-    const labelColor = theme.axis?.x?.tickLabelColor ?? theme.legend?.textColor ?? '#666';
+    const legendTopBottom =
+      showLegend && (legendPosition === 'top' || legendPosition === 'bottom');
+    const legendLeftRight =
+      showLegend && (legendPosition === 'left' || legendPosition === 'right');
+    const radiusScaleY = legendTopBottom
+      ? (100 - LEGEND_RESERVE_PCT) / 100
+      : 1;
+    const radiusScaleX = legendLeftRight
+      ? (100 - LEGEND_RESERVE_WIDTH_PCT) / 100
+      : 1;
+    const radiusScale = Math.min(radiusScaleY, radiusScaleX);
+    const centerY = legendTopBottom
+      ? legendPosition === 'bottom'
+        ? (100 - LEGEND_RESERVE_PCT) / 2
+        : 100 - (100 - LEGEND_RESERVE_PCT) / 2
+      : 50;
+    const centerX = legendLeftRight
+      ? legendPosition === 'left'
+        ? 100 - (100 - LEGEND_RESERVE_WIDTH_PCT) / 2
+        : (100 - LEGEND_RESERVE_WIDTH_PCT) / 2
+      : 50;
 
     const seriesConfigs = normalizedData.map((item, index) => {
       const fillPct = item.value;
@@ -86,11 +112,13 @@ const ChartComponent = ({
       const ringOuter = ringInner + ringStep;
       const color = ringColors[index % ringColors.length];
       const name = item.label ?? `Ring ${index + 1}`;
+      const scaledInner = ringInner * radiusScale;
+      const scaledOuter = ringOuter * radiusScale;
 
       return {
         type: 'pie',
-        radius: [`${ringInner}%`, `${ringOuter}%`],
-        center: ['50%', '50%'],
+        radius: [`${scaledInner}%`, `${scaledOuter}%`],
+        center: [`${centerX}%`, `${centerY}%`],
         startAngle,
         clockwise,
         data: [
@@ -107,13 +135,7 @@ const ChartComponent = ({
             labelLine: { show: false },
           },
         ],
-        label: {
-          show: showLabel,
-          position: 'inside',
-          color: labelColor,
-          fontSize: theme.legend?.fontSize ?? 11,
-          formatter: (params: any) => (params.name ? params.name : ''),
-        },
+        label: { show: false },
         labelLine: { show: false },
         emphasis: {
           scale: false,
@@ -126,6 +148,10 @@ const ChartComponent = ({
       };
     });
 
+    const legendData = normalizedData.map((item, index) =>
+      `${item.label ?? `Ring ${index + 1}`} (${item.value}%)`
+    );
+
     const config: any = {
       tooltip: {
         trigger: 'item',
@@ -134,6 +160,23 @@ const ChartComponent = ({
       },
       series: seriesConfigs,
     };
+
+    if (showLegend) {
+      const isVertical = legendPosition === 'left' || legendPosition === 'right';
+      config.legend = {
+        show: true,
+        data: legendData,
+        orient: isVertical ? 'vertical' : 'horizontal',
+        ...(legendPosition === 'top' && { top: 8 }),
+        ...(legendPosition === 'bottom' && { bottom: 8 }),
+        ...(legendPosition === 'left' && { left: 8 }),
+        ...(legendPosition === 'right' && { right: 8 }),
+        textStyle: {
+          color: theme.legend?.textColor ?? '#333333',
+          fontSize: theme.legend?.fontSize ?? 11,
+        },
+      };
+    }
 
     if (centerText != null && centerText !== '' || centerSubtext != null && centerSubtext !== '') {
       const textColor = theme.legend?.textColor ?? '#333333';
@@ -164,7 +207,8 @@ const ChartComponent = ({
     backgroundColor,
     centerText,
     centerSubtext,
-    showLabel,
+    showLegend,
+    legendPosition,
     startAngle,
     clockwise,
     ringGap,

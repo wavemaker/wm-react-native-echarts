@@ -230,22 +230,22 @@ export const LIGHT_THEME: ChartTheme = {
   },
   series: [
     {
+      color: '#1e3a8a',
+      borderRadius: [4, 4, 4, 4],
+      lineWidth: 2,
+    },
+    {
+      color: '#2563eb',
+      borderRadius: [4, 4, 4, 4],
+      lineWidth: 2,
+    },
+    {
       color: '#3b82f6',
       borderRadius: [4, 4, 4, 4],
       lineWidth: 2,
     },
     {
-      color: '#8ec5ff',
-      borderRadius: [4, 4, 4, 4],
-      lineWidth: 2,
-    },
-    {
       color: '#60a5fa',
-      borderRadius: [4, 4, 4, 4],
-      lineWidth: 2,
-    },
-    {
-      color: '#93c5fd',
       borderRadius: [4, 4, 4, 4],
       lineWidth: 2,
     },

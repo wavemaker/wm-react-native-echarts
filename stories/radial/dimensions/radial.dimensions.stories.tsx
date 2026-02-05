@@ -5,11 +5,11 @@ export default { ...meta, title: 'Charts/Radial/Dimensions' };
 type Story = StoryObj<typeof meta>;
 
 const data = [
-  { value: 85 },
-  { value: 70 },
-  { value: 50 },
-  { value: 35 },
-  { value: 22 },
+  { label: 'Chrome', value: 92 },
+  { label: 'Firefox', value: 78 },
+  { label: 'Safari', value: 65 },
+  { label: 'Brave', value: 52 },
+  { label: 'Edge', value: 38 },
 ];
 
 /** Default size: width 220, height 350. */
@@ -33,5 +33,13 @@ export const InnerRadius: Story = {
     width: 320,
     height: 320,
     innerRadius: '30%',
+  },
+};
+
+/** Custom inner radius (larger center hole). */
+export const LargeCenterHole: Story = {
+  args: {
+    data,
+    innerRadius: '35%',
   },
 };
