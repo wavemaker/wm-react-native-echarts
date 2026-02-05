@@ -1,8 +1,11 @@
 /**
  * ArgTypes for Candlestick chart (common + cartesian + candlestick).
+ * colors omitted; use positiveColor and negativeColor.
  */
 import { commonChartArgTypes } from '../args/common';
 import { cartesianChartArgTypes } from '../args/cartesian';
+
+const { ...commonRest } = commonChartArgTypes;
 
 const candlestickOnlyArgTypes = {
   data: {
@@ -29,10 +32,18 @@ const candlestickOnlyArgTypes = {
     control: 'object',
     description: 'Optional MA20 (20-period moving average) line data.',
   },
+  positiveColor: {
+    control: 'color',
+    description: 'Color for positive (up) candles.',
+  },
+  negativeColor: {
+    control: 'color',
+    description: 'Color for negative (down) candles.',
+  },
 } as const;
 
 export const candlestickChartArgTypes = {
-  ...commonChartArgTypes,
+  ...commonRest,
   ...cartesianChartArgTypes,
   ...candlestickOnlyArgTypes,
 } as const;

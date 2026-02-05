@@ -12,9 +12,10 @@ export type CandlestickData = CandlestickItem[];
 
 /**
  * Props for CandlestickChart.
- * common -> cartesian -> candlestick
+ * common -> cartesian -> candlestick.
+ * colors is omitted; use positiveColor and negativeColor for candle colors.
  */
-export interface CandlestickChartProps extends CartesianChartProps {
+export interface CandlestickChartProps extends Omit<CartesianChartProps, 'colors'> {
   /**
    * Candlestick data: array of [open, close, low, high] per period.
    */
@@ -39,4 +40,14 @@ export interface CandlestickChartProps extends CartesianChartProps {
    * Optional MA20 (20-period moving average) line. Length should match data.
    */
   ma20?: number[];
+  /**
+   * Color for positive (up) candles.
+   * @default '#008000'
+   */
+  positiveColor?: string;
+  /**
+   * Color for negative (down) candles.
+   * @default '#FF2C2C'
+   */
+  negativeColor?: string;
 }

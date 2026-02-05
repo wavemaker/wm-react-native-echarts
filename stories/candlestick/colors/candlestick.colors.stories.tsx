@@ -16,35 +16,33 @@ const data: [number, number, number, number][] = [
   [38, 15, 5, 42],
   [25, 32, 28, 35],
 ];
-const colors = ['#26a69a', '#ef5350', '#ff9800', '#2196f3', '#9c27b0'];
 
-/** Default theme colors (up/down candles). */
+/** Default colors (green up, red down). */
 export const Default: Story = {
   args: { data, xAxisData },
 };
 
-/** Custom up/down colors via theme series. */
+/** Custom positive/negative candle colors. */
 export const CustomColors: Story = {
   args: {
     data,
     xAxisData,
-    colors,
+    positiveColor: '#0066cc',
+    negativeColor: '#cc3300',
   },
 };
 
-/** Theme override for axis and candle colors. */
+const axisColors = { tickLabelColor: '#9c27b0', lineColor: '#ff9800' };
+
+/** Theme override for axis colors. */
 export const ThemeOverride: Story = {
   args: {
     data,
     xAxisData,
     theme: {
-      series: [
-        { color: colors[0] },
-        { color: colors[1] },
-      ],
       axis: {
-        x: { tickLabelColor: colors[4], lineColor: colors[2] },
-        y: { tickLabelColor: colors[4], lineColor: colors[2] },
+        x: axisColors,
+        y: axisColors,
       },
     } as Partial<ChartTheme>,
   },

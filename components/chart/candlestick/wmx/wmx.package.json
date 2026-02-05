@@ -84,6 +84,24 @@
         "isList": true,
         "isRequired": false
       },
+      "positiveColor": {
+        "name": "positiveColor",
+        "displayName": "Positive Color",
+        "description": "Color for positive (up) candles.",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "#008000",
+        "isRequired": false
+      },
+      "negativeColor": {
+        "name": "negativeColor",
+        "displayName": "Negative Color",
+        "description": "Color for negative (down) candles.",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "#FF2C2C",
+        "isRequired": false
+      },
       "width": {
         "name": "width",
         "displayName": "Width",

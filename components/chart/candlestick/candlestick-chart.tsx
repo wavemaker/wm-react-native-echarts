@@ -42,12 +42,14 @@ const ChartComponent = ({
   grid,
   showLegend = false,
   showHighlighter = true,
+  positiveColor = '#008000',
+  negativeColor = '#FF2C2C',
   xAxisTickLabelFormatter,
   yAxisTickLabelFormatter,
   xAxisTicks,
   ...props
 }: CandlestickChartProps) => {
-  const { theme } = useChartTheme(props.theme, props.colors);
+  const { theme } = useChartTheme(props.theme, undefined);
   const chartRef = useRef<any>(null);
 
   const categories = useMemo(() => {
@@ -69,10 +71,8 @@ const ChartComponent = ({
         }
       : { trigger: 'axis' };
 
-    const candlestickColorUp = theme.series[0]?.color ?? '#26a69a';
-    const candlestickColorDown = theme.series[1]?.color ?? '#ef5350';
-    const volumeColorUp = candlestickColorUp + '40';
-    const volumeColorDown = candlestickColorDown + '40';
+    const volumeColorUp = positiveColor + '40';
+    const volumeColorDown = negativeColor + '40';
 
     const mainGrid: any = hasVolume
       ? { left: '10%', right: '8%', top: '8%', height: '55%' }
@@ -133,10 +133,10 @@ const ChartComponent = ({
       type: 'candlestick',
       data,
       itemStyle: {
-        color: candlestickColorUp,
-        color0: candlestickColorDown,
-        borderColor: candlestickColorUp,
-        borderColor0: candlestickColorDown,
+        color: positiveColor,
+        color0: negativeColor,
+        borderColor: positiveColor,
+        borderColor0: negativeColor,
       },
       emphasis: showHighlighter ? { focus: 'self' } : { focus: 'none' },
     };
@@ -253,6 +253,8 @@ const ChartComponent = ({
     grid,
     showLegend,
     showHighlighter,
+    positiveColor,
+    negativeColor,
     xAxisTickLabelFormatter,
     yAxisTickLabelFormatter,
     xAxisTicks,
