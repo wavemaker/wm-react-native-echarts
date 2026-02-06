@@ -41,3 +41,12 @@ export const LabelFormatter: Story = {
     yAxisTickLabelFormatter: (value) => `$${Number(value).toFixed(0)}`,
   },
 };
+
+/** yAxisLabel — Y-axis label displayed along the axis. */
+export const YAxisLabel: Story = {
+  args: {
+    data,
+    xAxisData,
+    yAxisLabel: 'Price ($)',
+  },
+};

@@ -61,3 +61,11 @@ export const LabelFormatter: Story = {
     },
   },
 };
+
+/** xAxisLabel — X-axis label (horizontal bar: value axis). */
+export const XAxisLabel: Story = {
+  args: {
+    data,
+    xAxisLabel: 'Count',
+  },
+};

@@ -63,6 +63,16 @@ export interface CartesianChartProps extends CommonChartProps {
    */
   showYAxisSplitLines?: boolean;
   /**
+   * Label text for the X-axis (displayed along the axis).
+   * @default undefined
+   */
+  xAxisLabel?: string;
+  /**
+   * Label text for the Y-axis (displayed along the axis).
+   * @default undefined
+   */
+  yAxisLabel?: string;
+  /**
    * Grid positioning configuration.
    */
   grid?: CartesianGrid;

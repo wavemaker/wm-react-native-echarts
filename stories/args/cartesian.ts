@@ -48,6 +48,14 @@ export const cartesianChartArgTypes = {
     control: 'boolean',
     description: 'Whether to show horizontal grid lines. Default: true',
   },
+  xAxisLabel: {
+    control: 'text',
+    description: 'Label text for the X-axis (displayed along the axis).',
+  },
+  yAxisLabel: {
+    control: 'text',
+    description: 'Label text for the Y-axis (displayed along the axis).',
+  },
   showHighlighter: {
     control: 'boolean',
     description:

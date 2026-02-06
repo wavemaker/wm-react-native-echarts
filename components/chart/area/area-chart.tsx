@@ -49,6 +49,8 @@ const ChartComponent = ({
   xAxisTickLabelFormatter,
   yAxisTickLabelFormatter,
   xAxisTicks,
+  xAxisLabel,
+  yAxisLabel,
   ...props
 }: AreaChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
@@ -146,6 +148,12 @@ const ChartComponent = ({
     const xAxisConfig: any = {
       type: 'category',
       data: xAxisData,
+      ...(xAxisLabel != null && xAxisLabel !== '' && {
+        name: xAxisLabel,
+        nameLocation: 'middle',
+        nameGap: 25,
+        nameTextStyle: { color: theme.axis.x.tickLabelColor },
+      }),
       axisLabel: {
         show: showXAxis,
         color: theme.axis.x.tickLabelColor,
@@ -184,6 +192,12 @@ const ChartComponent = ({
       ...(stackNormalize && displaySeries.length > 1 && {
         min: 0,
         max: 100,
+      }),
+      ...(yAxisLabel != null && yAxisLabel !== '' && {
+        name: yAxisLabel,
+        nameLocation: 'middle',
+        nameGap: 40,
+        nameTextStyle: { color: theme.axis.y.tickLabelColor },
       }),
       axisLabel: {
         show: showYAxis,
@@ -355,6 +369,8 @@ const ChartComponent = ({
     xAxisTickLabelFormatter,
     yAxisTickLabelFormatter,
     xAxisTicks,
+    xAxisLabel,
+    yAxisLabel,
   ]);
 
   useEffect(() => {

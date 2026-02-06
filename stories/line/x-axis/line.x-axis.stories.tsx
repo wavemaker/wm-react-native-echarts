@@ -51,3 +51,11 @@ export const LabelFormatter: Story = {
     xAxisTickLabelFormatter: (value) => `${String(value).slice(0, 1)}.0`,
   },
 };
+
+/** xAxisLabel — X-axis label displayed along the axis. */
+export const XAxisLabel: Story = {
+  args: {
+    data,
+    xAxisLabel: 'Month',
+  },
+};

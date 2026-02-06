@@ -61,6 +61,8 @@ const ChartComponent = ({
   xAxisTickLabelFormatter,
   yAxisTickLabelFormatter,
   xAxisTicks,
+  xAxisLabel,
+  yAxisLabel,
   ...props
 }: ScatterChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
@@ -108,6 +110,12 @@ const ChartComponent = ({
       type: 'category',
       boundaryGap,
       data: xAxisData,
+      ...(xAxisLabel != null && xAxisLabel !== '' && {
+        name: xAxisLabel,
+        nameLocation: 'middle',
+        nameGap: 25,
+        nameTextStyle: { color: theme.axis.x.tickLabelColor },
+      }),
       axisLabel: {
         show: showXAxis,
         color: theme.axis.x.tickLabelColor,
@@ -140,6 +148,12 @@ const ChartComponent = ({
 
     const yAxisConfig: any = {
       type: 'value',
+      ...(yAxisLabel != null && yAxisLabel !== '' && {
+        name: yAxisLabel,
+        nameLocation: 'middle',
+        nameGap: 40,
+        nameTextStyle: { color: theme.axis.y.tickLabelColor },
+      }),
       axisLabel: {
         show: showYAxis,
         color: theme.axis.y.tickLabelColor,
@@ -267,6 +281,8 @@ const ChartComponent = ({
     xAxisTickLabelFormatter,
     yAxisTickLabelFormatter,
     xAxisTicks,
+    xAxisLabel,
+    yAxisLabel,
   ]);
 
   useEffect(() => {

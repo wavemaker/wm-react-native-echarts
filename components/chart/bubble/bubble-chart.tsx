@@ -46,6 +46,8 @@ const ChartComponent = ({
   showHighlighter = true,
   xAxisTickLabelFormatter,
   yAxisTickLabelFormatter,
+  xAxisLabel,
+  yAxisLabel,
   ...props
 }: BubbleChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
@@ -117,6 +119,12 @@ const ChartComponent = ({
     const xAxisConfig: any = {
       type: 'value',
       boundaryGap,
+      ...(xAxisLabel != null && xAxisLabel !== '' && {
+        name: xAxisLabel,
+        nameLocation: 'middle',
+        nameGap: 25,
+        nameTextStyle: { color: theme.axis.x.tickLabelColor },
+      }),
       axisLabel: {
         show: showXAxis,
         color: theme.axis.x.tickLabelColor,
@@ -149,6 +157,12 @@ const ChartComponent = ({
 
     const yAxisConfig: any = {
       type: 'value',
+      ...(yAxisLabel != null && yAxisLabel !== '' && {
+        name: yAxisLabel,
+        nameLocation: 'middle',
+        nameGap: 40,
+        nameTextStyle: { color: theme.axis.y.tickLabelColor },
+      }),
       axisLabel: {
         show: showYAxis,
         color: theme.axis.y.tickLabelColor,
@@ -258,6 +272,8 @@ const ChartComponent = ({
     showHighlighter,
     xAxisTickLabelFormatter,
     yAxisTickLabelFormatter,
+    xAxisLabel,
+    yAxisLabel,
   ]);
 
   useEffect(() => {

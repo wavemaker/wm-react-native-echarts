@@ -47,6 +47,8 @@ const ChartComponent = ({
   xAxisTickLabelFormatter,
   yAxisTickLabelFormatter,
   xAxisTicks,
+  xAxisLabel,
+  yAxisLabel,
   ...props
 }: CandlestickChartProps) => {
   const { theme } = useChartTheme(props.theme, undefined);
@@ -85,6 +87,12 @@ const ChartComponent = ({
       type: 'category',
       data: categories,
       boundaryGap,
+      ...(xAxisLabel != null && xAxisLabel !== '' && {
+        name: xAxisLabel,
+        nameLocation: 'middle',
+        nameGap: 25,
+        nameTextStyle: { color: theme.axis.x.tickLabelColor },
+      }),
       axisLabel: {
         show: showXAxis,
         color: theme.axis.x.tickLabelColor,
@@ -110,6 +118,12 @@ const ChartComponent = ({
     const yAxisMain: any = {
       type: 'value',
       scale: true,
+      ...(yAxisLabel != null && yAxisLabel !== '' && {
+        name: yAxisLabel,
+        nameLocation: 'middle',
+        nameGap: 40,
+        nameTextStyle: { color: theme.axis.y.tickLabelColor },
+      }),
       axisLabel: {
         show: showYAxis,
         color: theme.axis.y.tickLabelColor,
@@ -258,6 +272,8 @@ const ChartComponent = ({
     xAxisTickLabelFormatter,
     yAxisTickLabelFormatter,
     xAxisTicks,
+    xAxisLabel,
+    yAxisLabel,
   ]);
 
   useEffect(() => {

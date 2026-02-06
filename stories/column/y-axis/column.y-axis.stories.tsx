@@ -36,3 +36,11 @@ export const LabelFormatter: Story = {
     },
   },
 };
+
+/** yAxisLabel — Y-axis label displayed along the axis. */
+export const YAxisLabel: Story = {
+  args: {
+    data,
+    yAxisLabel: 'Value',
+  },
+};

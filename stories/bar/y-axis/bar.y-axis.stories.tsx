@@ -36,3 +36,11 @@ export const LabelFormatter: Story = {
     },
   },
 };
+
+/** yAxisLabel — Y-axis label (horizontal bar: category axis). */
+export const YAxisLabel: Story = {
+  args: {
+    data,
+    yAxisLabel: 'Category',
+  },
+};

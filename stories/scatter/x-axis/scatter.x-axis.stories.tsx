@@ -62,3 +62,11 @@ export const LabelFormatter: Story = {
 export const BoundaryGap: Story = {
   args: { data, boundaryGap: true },
 };
+
+/** xAxisLabel — X-axis label displayed along the axis. */
+export const XAxisLabel: Story = {
+  args: {
+    data,
+    xAxisLabel: 'X value',
+  },
+};

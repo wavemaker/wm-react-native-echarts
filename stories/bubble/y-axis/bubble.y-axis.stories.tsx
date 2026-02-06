@@ -50,3 +50,11 @@ export const LabelFormatter: Story = {
     yAxisTickLabelFormatter: (value) => `y=${value}`,
   },
 };
+
+/** yAxisLabel — Y-axis label displayed along the axis. */
+export const YAxisLabel: Story = {
+  args: {
+    data,
+    yAxisLabel: 'Y',
+  },
+};
