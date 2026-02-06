@@ -1,6 +1,6 @@
 /**
- * ArgTypes for Bar chart (common + cartesian + bar).
- * common -> cartesian -> bar
+ * ArgTypes for Bar chart (horizontal orientation of column chart).
+ * Bar chart = ColumnChart with horizontal={true}.
  */
 import { commonChartArgTypes } from '../args/common';
 import { cartesianChartArgTypes } from '../args/cartesian';
@@ -19,11 +19,6 @@ const barOnlyArgTypes = {
     control: 'object',
     description:
       'Bar corner radius: a number (all corners) or array of 4 values [topLeft, topRight, bottomRight, bottomLeft]. Default: [4, 4, 0, 0]',
-  },
-  horizontal: {
-    control: 'boolean',
-    description:
-      'When true, bars are horizontal (categories on Y-axis). Corner radius applies to the right edge. Default: false',
   },
   stack: {
     control: 'text',

@@ -8,7 +8,7 @@
   },
   "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-bar-barchart--docs",
   "displayName": "Bar Chart",
-  "description": "Unified bar chart component supporting all variations: default, interactive, multiple, stacked, horizontal, label, custom-label, negative, active, and mixed configurations",
+  "description": "Bar chart is the horizontal orientation of column chart. Unified horizontal bar chart supporting default, interactive, multiple, stacked, label, custom-label, negative, active, and mixed configurations",
   "iconUrl": "wmx.icon.svg",
   "preview": [
     "default-bar.png",
@@ -112,15 +112,6 @@
         "description": "Colors for the chart series. Overrides theme colors. Example: ['#3b82f6', '#10b981', '#f59e0b']",
         "type": "string",
         "isList": true,
-        "isRequired": false
-      },
-      "orientation": {
-        "name": "orientation",
-        "displayName": "Orientation",
-        "description": "Orientation of the bars. Options: 'vertical' or 'horizontal'. Default: 'vertical'",
-        "type": "string",
-        "isList": false,
-        "defaultValue": "vertical",
         "isRequired": false
       },
       "stack": {
