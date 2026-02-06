@@ -155,7 +155,7 @@ const ChartComponent = ({
         nameTextStyle: { color: theme.axis.x.tickLabelColor },
       }),
       axisLabel: {
-        show: true,
+        show: showXAxis,
         color: theme.axis.x.tickLabelColor,
         formatter: xAxisTickLabelFormatter ?? undefined,
       },
@@ -169,7 +169,7 @@ const ChartComponent = ({
         show: false,
       },
       axisTick: {
-        show: showXAxisTicks,
+        show: showXAxis && showXAxisTicks,
         lineStyle: {
           color: theme.axis.x.tickColor,
           width: theme.axis.x.tickWidth,
@@ -200,7 +200,7 @@ const ChartComponent = ({
         nameTextStyle: { color: theme.axis.y.tickLabelColor },
       }),
       axisLabel: {
-        show: true,
+        show: showYAxis,
         color: theme.axis.y.tickLabelColor,
         formatter: yAxisTickLabelFormatter ?? (stackNormalize && displaySeries.length > 1
           ? (value: number) => `${value}%`
@@ -216,7 +216,7 @@ const ChartComponent = ({
         show: false,
       },
       axisTick: {
-        show: showYAxisTicks,
+        show: showYAxis && showYAxisTicks,
         lineStyle: {
           color: theme.axis.y.tickColor,
           width: theme.axis.y.tickWidth,
@@ -276,8 +276,9 @@ const ChartComponent = ({
       const series: any = {
         data: 'data' in s ? s.data : [],
         type: 'line',
-        symbol: symbol === 'none' ? 'circle' : symbol,
-        symbolSize: symbol === 'none' ? 8 : symbolSize,
+        symbol: symbol === 'none' ? 'none' : symbol,
+        symbolSize: symbol === 'none' ? 0 : symbolSize,
+        showSymbol: symbol !== 'none',
         areaStyle: areaStyleConfig,
         itemStyle: {
           color: seriesColor,
