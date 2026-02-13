@@ -35,4 +35,50 @@ export interface ColumnChartProps extends CartesianChartProps {
    * @default false
    */
   stackNormalize?: boolean;
+  /**
+   * Zero-based index of the bar to highlight (active state). Only applies to single series.
+   * The active bar uses activeColor and a dashed border.
+   */
+  activeIndex?: number;
+  /**
+   * Color for the active bar when activeIndex is set.
+   * @default darker shade of series color
+   */
+  activeColor?: string;
+  /**
+   * Position of the label inside the bar.
+   * @default 'start'
+   */
+  barInsideLabelPosition?: 'start' | 'middle' | 'end' | ((value: number, index: number, category?: string) => 'start' | 'middle' | 'end');
+  /**
+   * Formatter for the label inside the bar.
+   * @default undefined
+   */
+  barInsideLabelFormatter?: (value: number, index: number, category?: string) => string;
+  /**
+   * Position of the label outside the bar.
+   * @default 'start'
+   */
+  barOutsideLabelPosition?: 'start' | 'end' | ((value: number, index: number, category?: string) => 'start' | 'end');
+  /**
+   * Formatter for the label outside the bar.
+   * @default undefined
+   */
+  barOutsideLabelFormatter?: (value: number, index: number, category?: string) => string;
+  /**
+   * Per-bar item style override. When provided for single series, called for each bar with (value, index).
+   * Returned object is merged over the base itemStyle (e.g. color, borderColor, borderRadius).
+   */
+  itemStyle?: (value: number, index: number) => BarItemStyle;
+}
+
+/**
+ * Per-bar style overrides (ECharts itemStyle subset).
+ */
+export interface BarItemStyle {
+  color?: string;
+  borderColor?: string;
+  borderWidth?: number;
+  borderType?: 'solid' | 'dashed' | 'dotted';
+  borderRadius?: number | number[];
 }

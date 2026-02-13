@@ -32,6 +32,13 @@ const ChartComponent = ({
   horizontal = false,
   stack,
   stackNormalize = false,
+  activeIndex,
+  activeColor,
+  barInsideLabelPosition = 'start',
+  barInsideLabelFormatter,
+  barOutsideLabelPosition = 'start',
+  barOutsideLabelFormatter,
+  itemStyle,
   showXAxis = true,
   showXAxisTicks = true,
   showYAxis = true,
@@ -156,7 +163,7 @@ const ChartComponent = ({
         nameTextStyle: { color: horizontal ? theme.axis.y.tickLabelColor : theme.axis.x.tickLabelColor },
       }),
       axisLabel: {
-        show: showXAxis,
+        show: showXAxis || xAxisTickLabelFormatter != null,
         color: theme.axis.x.tickLabelColor,
         formatter: xAxisTickLabelFormatter ?? undefined,
       },
@@ -199,7 +206,7 @@ const ChartComponent = ({
         nameTextStyle: { color: horizontal ? theme.axis.x.tickLabelColor : theme.axis.y.tickLabelColor },
       }),
       axisLabel: {
-        show: showYAxis,
+        show: showYAxis || yAxisTickLabelFormatter != null,
         color: theme.axis.y.tickLabelColor,
         formatter:
           yAxisTickLabelFormatter ??
@@ -269,18 +276,135 @@ const ChartComponent = ({
       (stack !== undefined && stack !== false) ||
       (stackNormalize && displaySeries.length > 1);
 
+    const showLabelInside = barInsideLabelFormatter != null;
+    const showLabelOutside = barOutsideLabelFormatter != null;
+    const isSingleSeries = displaySeries.length === 1;
+
+    const insideLabelPositionMap: Record<string, string> = horizontal
+      ? { start: 'insideLeft', middle: 'inside', end: 'insideRight' }
+      : { start: 'insideLeft', middle: 'inside', end: 'insideRight' };
+    const outsideLabelPositionMap: Record<string, string> = horizontal
+      ? { start: 'right', end: 'left' }
+      : { start: 'top', end: 'bottom' };
+    const resolveInsidePosition = (value: number, index: number, category?: string): string => {
+      const pos = typeof barInsideLabelPosition === 'function'
+        ? barInsideLabelPosition(value, index, category)
+        : barInsideLabelPosition;
+      return insideLabelPositionMap[pos] ?? 'insideLeft';
+    };
+    const resolveOutsidePosition = (value: number, index: number, category?: string): string => {
+      const pos = typeof barOutsideLabelPosition === 'function'
+        ? barOutsideLabelPosition(value, index, category)
+        : barOutsideLabelPosition;
+      return outsideLabelPositionMap[pos] ?? (horizontal ? 'right' : 'top');
+    };
+    const echartsInsidePosition = typeof barInsideLabelPosition === 'function'
+      ? undefined
+      : (insideLabelPositionMap[barInsideLabelPosition] ?? 'insideLeft');
+    const echartsOutsidePosition = typeof barOutsideLabelPosition === 'function'
+      ? undefined
+      : (outsideLabelPositionMap[barOutsideLabelPosition] ?? (horizontal ? 'right' : 'top'));
+
     const seriesConfig = displaySeries.map((s, index) => {
       const seriesColor = theme.series[index % theme.series.length].color;
       const isEndBar = index === displaySeries.length - 1;
       const barBorderRadius =
         isStacked && !isEndBar ? ([0, 0, 0, 0] as const) : effectiveCornerRadius;
+      const isSingle = displaySeries.length === 1;
+      const showActive =
+        isSingle &&
+        activeIndex != null &&
+        activeIndex >= 0 &&
+        activeIndex < s.data.length;
+      const effectiveActiveColor =
+        activeColor ?? seriesColor;
+      const useItemStyleFn = isSingle && itemStyle != null;
+      const baseItemStyle = {
+        color: seriesColor,
+        borderRadius: barBorderRadius,
+      };
+      const barData = showActive
+        ? s.data.map((d, i) => {
+            const value = d[1];
+            if (i === activeIndex) {
+              return {
+                value,
+                itemStyle: {
+                  color: effectiveActiveColor,
+                  borderColor: effectiveActiveColor,
+                  borderWidth: 2,
+                  borderType: 'dashed',
+                  borderRadius: barBorderRadius,
+                },
+              };
+            }
+            const override = itemStyle ? itemStyle(value, i) : {};
+            return {
+              value,
+              itemStyle: { ...baseItemStyle, ...override },
+            };
+          })
+        : useItemStyleFn
+          ? s.data.map((d, i) => {
+              const value = d[1];
+              const override = itemStyle(value, i);
+              return {
+                value,
+                itemStyle: { ...baseItemStyle, ...override },
+              };
+            })
+          : s.data.map((d) => d[1]);
+      const labelConfig: any = {};
+      if (showLabelInside && isSingleSeries && barInsideLabelFormatter) {
+        labelConfig.show = true;
+        labelConfig.position =
+          typeof barInsideLabelPosition === 'function'
+            ? (params: any) =>
+                resolveInsidePosition(
+                  params.value,
+                  params.dataIndex,
+                  categories[params.dataIndex]
+                )
+            : echartsInsidePosition;
+        labelConfig.color = '#fff';
+        labelConfig.formatter = (params: any) =>
+          barInsideLabelFormatter(
+            params.value,
+            params.dataIndex,
+            categories[params.dataIndex]
+          );
+      } else if (
+        showLabelOutside &&
+        isSingleSeries &&
+        barOutsideLabelFormatter &&
+        !(showLabelInside && barInsideLabelFormatter)
+      ) {
+        labelConfig.show = true;
+        labelConfig.position =
+          typeof barOutsideLabelPosition === 'function'
+            ? (params: any) =>
+                resolveOutsidePosition(
+                  params.value,
+                  params.dataIndex,
+                  categories[params.dataIndex]
+                )
+            : echartsOutsidePosition;
+        labelConfig.formatter = (params: any) =>
+          barOutsideLabelFormatter(
+            params.value,
+            params.dataIndex,
+            categories[params.dataIndex]
+          );
+      }
       const barSeries: any = {
         type: 'bar',
-        data: s.data.map((d) => d[1]),
-        itemStyle: {
-          color: seriesColor,
-          borderRadius: barBorderRadius,
-        },
+        data: barData,
+        itemStyle: showActive || useItemStyleFn
+          ? undefined
+          : {
+              color: seriesColor,
+              borderRadius: barBorderRadius,
+            },
         emphasis: showHighlighter
           ? {
               focus: 'self',
@@ -292,6 +416,7 @@ const ChartComponent = ({
             }
           : { focus: 'none' },
       };
+      if (Object.keys(labelConfig).length > 0) barSeries.label = labelConfig;
       if (s.name) barSeries.name = s.name;
       if (stack !== undefined && stack !== false) {
         barSeries.stack = typeof stack === 'string' ? stack : 'total';
@@ -300,6 +425,39 @@ const ChartComponent = ({
       }
       return barSeries;
     });
+
+    // When both inside and outside formatters are set, add a second series for outside labels (transparent bars)
+    if (showLabelInside && showLabelOutside && isSingleSeries && seriesConfig.length > 0) {
+      const first = seriesConfig[0];
+      const labelOnlySeries: any = {
+        type: 'bar',
+        data: first.data,
+        barGap: '-100%',
+        itemStyle: { color: 'transparent', borderColor: 'transparent' },
+        label: {
+          show: true,
+          position:
+            typeof barOutsideLabelPosition === 'function'
+              ? (params: any) =>
+                  resolveOutsidePosition(
+                    params.value,
+                    params.dataIndex,
+                    categories[params.dataIndex]
+                  )
+              : echartsOutsidePosition,
+          color: theme.axis.x?.tickLabelColor ?? '#333',
+          formatter: (params: any) =>
+            barOutsideLabelFormatter(
+              params.value,
+              params.dataIndex,
+              categories[params.dataIndex]
+            ),
+        },
+        emphasis: { focus: 'none' },
+        tooltip: { show: false },
+      };
+      seriesConfig.push(labelOnlySeries);
+    }
 
     const config: any = {
       tooltip: tooltipConfig,
@@ -319,6 +477,13 @@ const ChartComponent = ({
     horizontal,
     stack,
     stackNormalize,
+    activeIndex,
+    activeColor,
+    barInsideLabelPosition,
+    barInsideLabelFormatter,
+    barOutsideLabelPosition,
+    barOutsideLabelFormatter,
+    itemStyle,
     showXAxis,
     showXAxisTicks,
     showYAxis,

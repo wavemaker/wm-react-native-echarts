@@ -8,7 +8,10 @@ const data = [40, 82, 91, 74, 120, 95];
 
 /** Default fill: gradient from series color (with areaOpacity) to transparent. */
 export const Gradient: Story = {
-  args: { data },
+  args: {
+    data,
+    areaFill: "gradient"
+  },
 };
 
 /** areaFill="transparent" — flat fill with areaOpacity applied. */

@@ -28,62 +28,63 @@ export const AxesArea: Story = {
 
 /** Area chart without axes, matching default-area.png.
  * Features: smooth curve, no axes, no grid lines. */
-export const DefaultArea: Story = {
+export const AreaWithoutAxes: Story = {
   args: {
     data: [200, 350, 500, 300, 450, 600],
     type: 'smooth',
     showXAxisSplitLines: false,
     showYAxisSplitLines: false,
     showYAxis: false,
-    showXAxis: false,
+    xAxisTickLabelFormatter: (value, index) => {
+      const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+      const i = Number(value);
+      return labels[i] ?? String(value);
+    },
     symbol: "circle",
     showYAxisTicks: false,
     areaFill: "transparent"
   },
 };
 
-/**
- * Area chart with multiple series.
- */
-export const MultipleSeries: Story = {
+const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+const gradientXFormatter = (value: string | number) => {
+  const i = Number(value);
+  return monthLabels[i] ?? String(value);
+};
+
+/** Two-series area chart with gradient fills, matching gradient-area.png.
+ * Features: smooth curves, two layered blue series, gradient area fill, monthly x-axis, horizontal grid. */
+export const GradientArea: Story = {
   args: {
     data: [
-      { name: 'Series A', data: [200, 350, 500, 300, 450, 600] },
-      { name: 'Series B', data: [ 100, 250, 600, 280, 350, 500] },
-      { name: 'Series C', data: [150, 400, 200, 250, 400, 550] },
+      { name: 'Series 1', data: [150, 280, 400, 250, 380, 500] },
+      { name: 'Series 2', data: [200, 350, 500, 300, 450, 600] },
     ],
     type: 'smooth',
+    areaFill: 'gradient',
+    xAxisTickLabelFormatter: gradientXFormatter,
     showXAxisSplitLines: false,
-    showYAxisSplitLines: false,
-    symbol: "none",
+    showYAxisSplitLines: true,
+    showYAxis: false,
   },
 };
 
-/**
- * Area chart showing GDP of top economies over the last decade (2014-2024).
- * Features: smooth curve, transparent fill, shows GDP growth trends.
- */
-export const GDPContribution: Story = {
+/** Two-series area chart with circular data point markers, matching icons-area.png.
+ * Features: smooth curves, two blue series, gradient fill, circle symbols at each point, monthly x-axis, horizontal grid. */
+export const IconsArea: Story = {
   args: {
     data: [
-      { name: 'United States', data: [17.4, 18.1, 18.7, 19.5, 20.5, 21.4, 21.0, 23.3, 25.5, 26.9, 27.9] },
-      { name: 'China', data: [10.4, 11.0, 11.2, 12.2, 13.1, 14.3, 15.4, 17.7, 18.0, 17.9, 18.5] },
-      { name: 'Japan', data: [4.6, 4.1, 4.9, 4.9, 4.9, 4.9, 4.9, 4.9, 4.9, 4.2, 4.2] },
-      { name: 'Germany', data: [3.9, 3.4, 3.5, 3.7, 3.8, 3.8, 3.8, 4.1, 4.3, 4.1, 4.3] },
-      { name: 'India', data: [2.0, 2.1, 2.3, 2.6, 2.7, 2.9, 3.2, 3.4, 3.7, 3.7, 4.1] },
+      { name: 'Series 1', data: [150, 280, 400, 250, 380, 500] },
+      { name: 'Series 2', data: [200, 350, 500, 300, 450, 600] },
     ],
-    xAxisTickLabelFormatter: (value) => {
-      const years = ['2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'];
-      const i = Number(value);
-      return years[i] ?? String(value);
-    },
     type: 'smooth',
-    areaFill: 'transparent',
+    areaFill: 'gradient',
+    symbol: 'circle',
+    xAxisTickLabelFormatter: gradientXFormatter,
     showXAxisSplitLines: false,
     showYAxisSplitLines: true,
-    symbol: 'none',
-    xAxisLabel: 'Year',
-    yAxisLabel: 'GDP (Trillions USD)',
-    yAxisTicks: [0, 5, 10, 15, 20, 25, 30],
+    showYAxis: false,
   },
 };
+
+

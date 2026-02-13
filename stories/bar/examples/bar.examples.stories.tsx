@@ -36,6 +36,24 @@ export const DefaultBar: Story = {
   },
 };
 
+/** Horizontal bar chart matching horizontal-bar.png.
+ * Features: bars extend left to right, months (Jan–Jun) on Y-axis, value axis 0–350 with vertical grid, light blue bars. */
+export const HorizontalBar: Story = {
+  args: {
+    data: [190, 300, 240, 70, 210, 210],
+    xAxisTickLabelFormatter: (value) => {
+      const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+      const i = Number(value);
+      return labels[i] ?? String(value);
+    },
+    yAxisTicks: [0, 50, 100, 150, 200, 250, 300, 350],
+    showXAxisSplitLines: false,
+    showXAxisTicks: false,
+    showYAxisSplitLines: true,
+    showYAxisTicks: false,
+  },
+};
+
 /**
  * Bar chart with multiple series.
  */
@@ -59,14 +77,14 @@ export const MultipleSeries: Story = {
 export const GDPContribution: Story = {
   args: {
     data: [
-      { name: 'United States', data: [17.4, 18.1, 18.7, 19.5, 20.5, 21.4, 21.0, 23.3, 25.5, 26.9, 27.9] },
-      { name: 'China', data: [10.4, 11.0, 11.2, 12.2, 13.1, 14.3, 15.4, 17.7, 18.0, 17.9, 18.5] },
-      { name: 'Japan', data: [4.6, 4.1, 4.9, 4.9, 4.9, 4.9, 4.9, 4.9, 4.9, 4.2, 4.2] },
-      { name: 'Germany', data: [3.9, 3.4, 3.5, 3.7, 3.8, 3.8, 3.8, 4.1, 4.3, 4.1, 4.3] },
-      { name: 'India', data: [2.0, 2.1, 2.3, 2.6, 2.7, 2.9, 3.2, 3.4, 3.7, 3.7, 4.1] },
+      { name: 'United States', data: [21.0, 23.3, 25.5, 26.9, 27.9] },
+      { name: 'China', data: [15.4, 17.7, 18.0, 17.9, 18.5] },
+      { name: 'Japan', data: [ 4.9, 4.9, 4.9, 4.2, 4.2] },
+      { name: 'Germany', data: [3.8, 4.1, 4.3, 4.1, 4.3] },
+      { name: 'India', data: [3.2, 3.4, 3.7, 3.7, 4.1] },
     ],
     xAxisTickLabelFormatter: (value) => {
-      const years = ['2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'];
+      const years = ['2020', '2021', '2022', '2023', '2024'];
       const i = Number(value);
       return years[i] ?? String(value);
     },
@@ -76,5 +94,69 @@ export const GDPContribution: Story = {
     yAxisLabel: 'GDP (Trillions USD)',
     yAxisTicks: [0, 5, 10, 15, 20, 25, 30],
     showLegend: true,
+  },
+};
+
+const browserLabels = ['Chrome', 'Safari', 'Firefox', 'Edge', 'Other'];
+
+/** Bar chart with one bar highlighted (active), matching active-bar.png.
+ * Features: single series, light blue bars, Firefox (index 2) active with darker blue and dashed outline, horizontal grid. */
+export const ActiveBar: Story = {
+  args: {
+    data: [72, 28, 92, 82, 32],
+    xAxisTickLabelFormatter: (value) => {
+      const i = Number(value);
+      return browserLabels[i] ?? String(value);
+    },
+    activeIndex: 2,
+    activeColor: '#FDDA0D',
+    showXAxisSplitLines: false,
+    showYAxisSplitLines: true,
+    showYAxisTicks: false,
+  },
+};
+
+/** Horizontal bar chart with custom labels: month name inside each bar (white), value to the right, matching custom-label-bar.png. */
+export const CustomLabelBar: Story = {
+  args: {
+    data: [
+      ['January', 100],
+      ['February', 150],
+      ['March', 120],
+      ['April', 40],
+      ['May', 110],
+      ['June', 120],
+    ] as [string, number][],
+    barInsideLabelFormatter: (_value, _index, category) => category ?? '',
+    barOutsideLabelFormatter: (value) => String(value),
+    cornerRadius: [4, 4, 4, 4],
+    showXAxis: false,
+    showYAxis: false,
+    showXAxisSplitLines: false,
+    showYAxisSplitLines: false,
+    showXAxisTicks: false,
+    showYAxisTicks: false,
+  },
+};
+
+const mixedBarColors = ['#f97316', '#eab308', '#22c55e', '#06b6d4', '#8b5cf6'];
+
+/** Horizontal bar chart with a different shade of blue per bar, matching mixed-bar.png.
+ * Features: Chrome (top, longest) to Other (bottom, shortest), light-to-dark blue gradient, no axes or grid, rounded bar ends. */
+export const MixedBar: Story = {
+  args: {
+    data: [50, 100, 180, 220, 300],
+    xAxisTickLabelFormatter: (value) => {
+      const labels = ['Other', 'Edge', 'Safari', 'Firefox', 'Chrome'];
+      const i = Number(value);
+      return labels[i] ?? String(value);
+    },
+    itemStyle: (_value, index) => ({ color: mixedBarColors[index] ?? undefined }),
+    showXAxis: false,
+    showYAxis: false,
+    showXAxisSplitLines: false,
+    showYAxisSplitLines: false,
+    showXAxisTicks: true,
+    cornerRadius: [4, 4, 4, 4],
   },
 };

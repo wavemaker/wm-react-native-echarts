@@ -126,7 +126,7 @@ const ChartComponent = ({
         nameTextStyle: { color: theme.axis.x.tickLabelColor },
       }),
       axisLabel: {
-        show: showXAxis,
+        show: showXAxis || xAxisTickLabelFormatter != null,
         color: theme.axis.x.tickLabelColor,
         ...(xAxisTickLabelFormatter && { formatter: xAxisTickLabelFormatter }),
       },
@@ -164,7 +164,7 @@ const ChartComponent = ({
         nameTextStyle: { color: theme.axis.y.tickLabelColor },
       }),
       axisLabel: {
-        show: showYAxis,
+        show: showYAxis || yAxisTickLabelFormatter != null,
         color: theme.axis.y.tickLabelColor,
         ...(yAxisTickLabelFormatter && { formatter: yAxisTickLabelFormatter }),
       },

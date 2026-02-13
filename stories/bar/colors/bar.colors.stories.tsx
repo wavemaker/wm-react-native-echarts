@@ -52,3 +52,12 @@ export const ThemeOverride: Story = {
     } as Partial<ChartTheme>,
   },
 };
+
+/** Active bar color: highlight one bar with activeIndex and custom activeColor. */
+export const ActiveColor: Story = {
+  args: {
+    data,
+    activeIndex: 2,
+    activeColor: '#FDDA0D',
+  },
+};

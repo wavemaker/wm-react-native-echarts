@@ -33,7 +33,7 @@ const ChartComponent = ({
   boundaryGap = false,
   stack,
   stackNormalize = false,
-  symbol = 'none',
+  symbol,
   symbolSize,
   areaOpacity = 0.6,
   areaFill = 'gradient',
@@ -155,7 +155,7 @@ const ChartComponent = ({
         nameTextStyle: { color: theme.axis.x.tickLabelColor },
       }),
       axisLabel: {
-        show: showXAxis,
+        show: showXAxis || xAxisTickLabelFormatter != null,
         color: theme.axis.x.tickLabelColor,
         formatter: xAxisTickLabelFormatter ?? undefined,
       },
@@ -169,7 +169,7 @@ const ChartComponent = ({
         show: false,
       },
       axisTick: {
-        show: showXAxis && showXAxisTicks,
+        show: showXAxisTicks,
         lineStyle: {
           color: theme.axis.x.tickColor,
           width: theme.axis.x.tickWidth,
@@ -200,7 +200,7 @@ const ChartComponent = ({
         nameTextStyle: { color: theme.axis.y.tickLabelColor },
       }),
       axisLabel: {
-        show: showYAxis,
+        show: showYAxis || yAxisTickLabelFormatter != null,
         color: theme.axis.y.tickLabelColor,
         formatter: yAxisTickLabelFormatter ?? (stackNormalize && displaySeries.length > 1
           ? (value: number) => `${value}%`
@@ -216,7 +216,7 @@ const ChartComponent = ({
         show: false,
       },
       axisTick: {
-        show: showYAxis && showYAxisTicks,
+        show: showYAxisTicks,
         lineStyle: {
           color: theme.axis.y.tickColor,
           width: theme.axis.y.tickWidth,
@@ -276,9 +276,8 @@ const ChartComponent = ({
       const series: any = {
         data: 'data' in s ? s.data : [],
         type: 'line',
-        symbol: symbol === 'none' ? 'none' : symbol,
-        symbolSize: symbol === 'none' ? 0 : symbolSize,
-        showSymbol: symbol !== 'none',
+        symbol: !symbol || symbol === 'none' ? undefined : symbol,
+        symbolSize: symbolSize || 8,
         areaStyle: areaStyleConfig,
         itemStyle: {
           color: seriesColor,
