@@ -347,5 +347,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const RadialGaugeChart = withResponsiveContainer(withChartTheme(ChartComponent), 'value');
+export const RadialGaugeChart = Object.assign(withResponsiveContainer(withChartTheme(ChartComponent), 'value'), {
+  displayName: 'RadialGaugeChart',
+});
 

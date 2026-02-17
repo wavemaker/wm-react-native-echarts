@@ -382,5 +382,7 @@ const ChartComponent = ({
   );
 };
 
-export const AnimatedGaugeChart = withResponsiveContainer(withChartTheme(ChartComponent), 'value');
+export const AnimatedGaugeChart = Object.assign(withResponsiveContainer(withChartTheme(ChartComponent), 'value'), {
+  displayName: 'AnimatedGaugeChart',
+});
 

@@ -346,5 +346,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const SemiCircularGaugeChart = withResponsiveContainer(withChartTheme(ChartComponent), 'value');
+export const SemiCircularGaugeChart = Object.assign(withResponsiveContainer(withChartTheme(ChartComponent), 'value'), {
+  displayName: 'SemiCircularGaugeChart',
+});
 
