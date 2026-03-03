@@ -1,5 +1,6 @@
-export { RadialGaugeChart } from './radial-gauge/radial-gauge.chart';
-export { AnimatedGaugeChart } from './animated-gauge/animated-gauge.chart';
-export { LabeledGaugeChart } from './labeled-gauge/labeled-gauge.chart';
-export { SemiCircularGaugeChart } from './semi-circular-gauge/semi-circular-gauge.chart';
+export type { BaseGaugeProps } from './gauge.types';
+export { SimpleGauge } from './simple/simple.gauge';
+export { DigitalGauge } from './digital/digital.gauge';
+export { SpeedometerGauge } from './speedometer/speedometer.gauge';
+export { RadialGauge } from './radial/radial.gauge';
 

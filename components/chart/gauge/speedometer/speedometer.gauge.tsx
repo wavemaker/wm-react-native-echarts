@@ -1,11 +1,12 @@
 import { withResponsiveContainer } from '../../chart-container';
-import { ChartTheme, useChartTheme, withChartTheme } from '../../chart-theme.context';
+import { useChartTheme, withChartTheme } from '../../chart-theme.context';
 import { useTheme } from '@/contexts/ThemeContext';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { GaugeChart } from 'echarts/charts';
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { View, StyleSheet } from 'react-native';
+import type { BaseGaugeProps } from '../gauge.types';
 
 // Register necessary components for this chart
 echarts.use([
@@ -14,52 +15,17 @@ echarts.use([
 ]);
 
 /**
- * Props for the SemiCircularGaugeChart component.
+ * Props for the SpeedometerGauge component.
  * A semi-circular gauge chart with color-coded segments and modern design.
  */
-interface SemiCircularGaugeChartProps {
-  /**
-   * Current value to display on the gauge.
-   * @default 85
-   */
-  value: number;
-  
-  /**
-   * Minimum value of the gauge scale.
-   * @default 0
-   */
-  min?: number;
-  
-  /**
-   * Maximum value of the gauge scale.
-   * @default 100
-   */
-  max?: number;
-  
-  /**
-   * Width of the chart in pixels.
-   * @default 400
-   */
-  width?: number;
-  
-  /**
-   * Height of the chart in pixels.
-   * @default 250
-   */
-  height?: number;
-  
-  /**
-   * Partial theme override for customizing chart appearance.
-   */
-  theme?: Partial<ChartTheme>;
-  
+interface SpeedometerGaugeProps extends BaseGaugeProps {
   /**
    * Array of colors for the axis segments.
    * If not provided, uses theme colors.
    * Example: ['#e74c3c', '#3498db', '#2ecc71']
    */
   axisColors?: string[];
-  
+
   /**
    * Array of endpoint values for each color segment.
    * The length should match axisColors length.
@@ -71,30 +37,6 @@ interface SemiCircularGaugeChartProps {
    * If not provided, segments are divided evenly based on max value.
    */
   axisColorLengths?: number[];
-  
-  /**
-   * Background color for the axis line.
-   * @default '#DDDDDD'
-   */
-  axisBgColor?: string;
-  
-  /**
-   * Width of the axis line in pixels.
-   * @default 30
-   */
-  axisWidth?: number;
-  
-  /**
-   * Color for the tick marks and split lines.
-   * If not provided, uses theme tick color.
-   */
-  tickColor?: string;
-
-  /**
-   * Colors for the chart.
-   * @default theme.itemStyles.map(item => item.color)
-   */
-  colors?: string[];
 }
 
 const ChartComponent = ({
@@ -109,7 +51,7 @@ const ChartComponent = ({
   axisWidth = 30,
   tickColor: tickColorProp,
   ...props
-}: SemiCircularGaugeChartProps) => {
+}: SpeedometerGaugeProps) => {
   const { colorScheme } = useTheme();
   const { theme: chartTheme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
@@ -152,6 +94,7 @@ const ChartComponent = ({
         }]
     };
   }, [max, min, axisBgColor, axisWidth]);
+  
   const option = useMemo(() => {
     const pointerColor = chartTheme.axis.r.lineColor || '#1e3a8a'; // Use axis line color for needle
     const whiteColor = '#ffffff';
@@ -346,7 +289,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const SemiCircularGaugeChart = Object.assign(withResponsiveContainer(withChartTheme(ChartComponent), 'value'), {
-  displayName: 'SemiCircularGaugeChart',
+export const SpeedometerGauge = Object.assign(withResponsiveContainer(withChartTheme(ChartComponent), 'value'), {
+  displayName: 'SpeedometerGauge',
 });
 

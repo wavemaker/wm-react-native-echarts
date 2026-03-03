@@ -1,10 +1,11 @@
 import { withResponsiveContainer } from '../../chart-container';
-import { ChartTheme, useChartTheme, withChartTheme } from '../../chart-theme.context';
+import { useChartTheme, withChartTheme } from '../../chart-theme.context';
 import { useTheme } from '@/contexts/ThemeContext';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { GaugeChart } from 'echarts/charts';
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
+import type { BaseGaugeProps } from '../gauge.types';
 
 // Register necessary components for this chart
 echarts.use([
@@ -13,56 +14,16 @@ echarts.use([
 ]);
 
 /**
- * Props for the LabeledGaugeChart component.
+ * Props for the SimpleGauge component.
  * A gauge chart with customizable title and detail text labels.
  */
-interface LabeledGaugeChartProps {
-  /**
-   * Current value to display on the gauge.
-   */
-  value: number;
-  
-  /**
-   * Minimum value of the gauge scale.
-   * @default 0
-   */
-  min?: number;
-  
-  /**
-   * Maximum value of the gauge scale.
-   * @default 100
-   */
-  max?: number;
-  
-  /**
-   * Width of the chart in pixels.
-   * @default 220
-   */
-  width?: number;
-  
-  /**
-   * Height of the chart in pixels.
-   * @default 240
-   */
-  height?: number;
-  
-  /**
-   * Partial theme override for customizing chart appearance.
-   */
-  theme?: Partial<ChartTheme>;
-
-  /**
-   * Colors for the chart.
-   * @default theme.itemStyles.map(item => item.color)
-   */
-  colors?: string[];
-  
+interface SimpleGaugeProps extends BaseGaugeProps {
   /**
    * Title text displayed on the gauge.
    * @default 'Metric'
    */
   title?: string;
-  
+
   /**
    * Detail text showing the value.
    * @default '30%'
@@ -78,18 +39,21 @@ const ChartComponent = ({
   height = 240,
   title = 'Metric',
   detailText = '30%',
+  axisBgColor: axisBgColorProp,
+  axisWidth = 50,
+  tickColor: tickColorProp,
   ...props
-}: LabeledGaugeChartProps) => {
+}: SimpleGaugeProps) => {
   const { colorScheme } = useTheme();
   const { theme: chartTheme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
   const option = useMemo(() => {
-    const backgroundColor = chartTheme.axis.r.tickColor;
+    const backgroundColor = axisBgColorProp ?? chartTheme.axis.r.tickColor;
     const mainColor = chartTheme.series[0].color;
     const pointerColor = chartTheme.axis.r.lineColor;
-    const titleColor = chartTheme.axis.r.tickLabelColor;
-    const detailColor = chartTheme.axis.r.tickLabelColor;
+    const titleColor = tickColorProp ?? chartTheme.axis.r.tickLabelColor;
+    const detailColor = tickColorProp ?? chartTheme.axis.r.tickLabelColor;
     
     return {
       series: [
@@ -103,7 +67,7 @@ const ChartComponent = ({
           max: max,
           axisLine: {
             lineStyle: {
-              width: 50,
+              width: axisWidth,
               color: [
                 [value / max, mainColor],
                 [1, backgroundColor],
@@ -143,7 +107,7 @@ const ChartComponent = ({
         },
       ],
     };
-  }, [chartTheme, value, min, max, title, detailText]);
+  }, [chartTheme, value, min, max, title, detailText, axisBgColorProp, axisWidth, tickColorProp]);
 
   useEffect(() => {
     let chart: any;
@@ -173,8 +137,8 @@ const ChartComponent = ({
   return <SkiaChart ref={chartRef} />;
 };
 
-export const LabeledGaugeChart = Object.assign(withResponsiveContainer(withChartTheme(ChartComponent), 'value'), {
-  displayName: 'LabeledGaugeChart',
+export const SimpleGauge = Object.assign(withResponsiveContainer(withChartTheme(ChartComponent), 'value'), {
+  displayName: 'SimpleGauge',
 });
 
 

@@ -1,5 +1,5 @@
 import { withResponsiveContainer } from '../../chart-container';
-import { ChartTheme, useChartTheme, withChartTheme } from '../../chart-theme.context';
+import { useChartTheme, withChartTheme } from '../../chart-theme.context';
 import { useTheme } from '@/contexts/ThemeContext';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { BarChart } from 'echarts/charts';
@@ -8,6 +8,7 @@ import { PolarComponent } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { View, StyleSheet } from 'react-native';
+import type { BaseGaugeProps } from '../gauge.types';
 
 // Register necessary components for this chart
 echarts.use([
@@ -18,50 +19,10 @@ echarts.use([
 ]);
 
 /**
- * Props for the RadialGaugeChart component.
+ * Props for the RadialGauge component.
  * A composite gauge with both radial progress bar and traditional gauge display.
  */
-interface RadialGaugeChartProps {
-  /**
-   * Current value to display on the gauge.
-   */
-  value: number;
-  
-  /**
-   * Minimum value of the gauge scale.
-   * @default 0
-   */
-  min?: number;
-  
-  /**
-   * Maximum value of the gauge scale.
-   * @default 100
-   */
-  max?: number;
-  
-  /**
-   * Width of the chart in pixels.
-   * @default 220
-   */
-  width?: number;
-  
-  /**
-   * Height of the chart in pixels.
-   * @default 240
-   */
-  height?: number;
-  
-  /**
-   * Partial theme override for customizing chart appearance.
-   */
-  theme?: Partial<ChartTheme>;
-
-  /**
-   * Colors for the chart.
-   * @default theme.itemStyles.map(item => item.color)
-   */
-  colors?: string[];
-}
+interface RadialGaugeProps extends BaseGaugeProps {}
 
 const ChartComponent = ({
   value,
@@ -69,8 +30,11 @@ const ChartComponent = ({
   max = 100,
   width = 220,
   height = 240,
+  axisBgColor: axisBgColorProp,
+  axisWidth: axisWidthProp,
+  tickColor: tickColorProp,
   ...props
-}: RadialGaugeChartProps) => {
+}: RadialGaugeProps) => {
   const { colorScheme } = useTheme();
   const { theme: chartTheme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
@@ -83,7 +47,7 @@ const ChartComponent = ({
     const innerRadius = minDim * 0.30;  // ~77px at 240px - inner edge of radial ring
     const outerRadius = minDim * 0.48;  // ~115px at 240px - outer edge of radial ring
     
-    const backgroundColor = chartTheme.axis.r.tickColor;
+    const backgroundColor = axisBgColorProp ?? chartTheme.axis.r.tickColor;
     const progressColor = chartTheme.series[0].color;
     
     return {
@@ -139,7 +103,7 @@ const ChartComponent = ({
         },
       ]
     };
-  }, [chartTheme, value, max, width, height]);
+  }, [chartTheme, value, max, width, height, axisBgColorProp]);
 
   // Gauge option (progressArcOption)
   const gaugeOption = useMemo(() => {
@@ -147,13 +111,13 @@ const ChartComponent = ({
     const minDim = Math.min(width, height);
     const gaugeRadius = minDim * 0.32; // ~65px at 240px - creates gap with radial inner ring (77px)
     
-    const axisLineColor = chartTheme.axis.r.tickColor;
+    const axisLineColor = axisBgColorProp ?? chartTheme.axis.r.tickColor;
     const pointerColor = chartTheme.axis.r.lineColor;
-    const tickColor = chartTheme.axis.r.tickColor;
-    const splitLineColor = chartTheme.axis.r.tickColor;
+    const tickColor = tickColorProp ?? chartTheme.axis.r.tickColor;
+    const splitLineColor = tickColorProp ?? chartTheme.axis.r.tickColor;
     const labelColor = chartTheme.axis.r.tickLabelColor;
     const anchorColor = chartTheme.axis.r.lineColor;
-    const anchorBorderColor = chartTheme.axis.r.tickColor;
+    const anchorBorderColor = tickColorProp ?? chartTheme.axis.r.tickColor;
     const valueColor = chartTheme.axis.r.tickLabelColor;
     const unitColor = chartTheme.axis.r.tickLabelColor;
     
@@ -173,7 +137,7 @@ const ChartComponent = ({
             distance: 1,
             length: 8,
             lineStyle: {
-              width: 1,
+              width: axisWidthProp ?? 1,
               color: [[1, axisLineColor]],
             },
           },
@@ -253,7 +217,7 @@ const ChartComponent = ({
         backgroundColor: 'transparent',
       },
     };
-  }, [chartTheme, value, min, max, width, height]);
+  }, [chartTheme, value, min, max, width, height, axisBgColorProp, axisWidthProp, tickColorProp]);
 
   // Initialize radial background chart
   useEffect(() => {
@@ -347,7 +311,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const RadialGaugeChart = Object.assign(withResponsiveContainer(withChartTheme(ChartComponent), 'value'), {
-  displayName: 'RadialGaugeChart',
+export const RadialGauge = Object.assign(withResponsiveContainer(withChartTheme(ChartComponent), 'value'), {
+  displayName: 'RadialGauge',
 });
 

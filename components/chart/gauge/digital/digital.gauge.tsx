@@ -1,54 +1,27 @@
 import { withResponsiveContainer } from '../../chart-container';
-import { ChartTheme, useChartTheme, withChartTheme } from '../../chart-theme.context';
+import { useChartTheme, withChartTheme } from '../../chart-theme.context';
 import { useTheme } from '@/contexts/ThemeContext';
 import React, { useEffect, useRef, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import Svg, { Circle, Defs, G, LinearGradient, Path, Stop, Text as SvgText } from 'react-native-svg';
+import type { BaseGaugeProps } from '../gauge.types';
 
 /**
- * Props for the AnimatedGaugeChart component.
+ * Props for the DigitalGauge component.
  * A gauge chart with smooth animations built using SVG.
  */
-interface AnimatedGaugeChartProps {
+interface DigitalGaugeProps extends BaseGaugeProps {
   /**
-   * Current value to display on the gauge.
+   * Whether to show the inner arc.
+   * @default false
    */
-  value: number;
-  
-  /**
-   * Minimum value of the gauge scale.
-   * @default 0
-   */
-  min?: number;
-  
-  /**
-   * Maximum value of the gauge scale.
-   * @default 100
-   */
-  max?: number;
-  
-  /**
-   * Width of the chart in pixels.
-   * @default 220
-   */
-  width?: number;
-  
-  /**
-   * Height of the chart in pixels.
-   * @default 240
-   */
-  height?: number;
-  
-  /**
-   * Partial theme override for customizing chart appearance.
-   */
-  theme?: Partial<ChartTheme>;
+  showInnerArc?: boolean;
 
   /**
-   * Colors for the chart.
-   * @default theme.itemStyles.map(item => item.color)
+   * Animation duration in milliseconds.
+   * @default 1000
    */
-  colors?: string[];
+  animationDuration?: number;
 }
 
 // SVG Gauge Component
@@ -60,24 +33,19 @@ const SVGGaugeChart = ({
   height,
   animationDuration = 1000,
   colors,
-}: { 
-  value: number; 
-  max?: number;
-  showInnerArc?: boolean;
-  width?: number;
-  height?: number;
-  animationDuration?: number;
-  colors?: string[];
-}) => {
+  axisBgColor: axisBgColorProp,
+  axisWidth: axisWidthProp,
+  tickColor: tickColorProp,
+}: DigitalGaugeProps) => {
   const { colorScheme } = useTheme();
   const { theme: chartTheme } = useChartTheme(undefined, colors);
   
-  // Use theme colors
+  // Use theme colors; allow overrides from props
   const gradientColors = chartTheme.series.map(item => item.color);
-  const inactiveTickColor = chartTheme.axis.r.tickColor;
+  const inactiveTickColor = tickColorProp ?? axisBgColorProp ?? chartTheme.axis.r.tickColor;
   const labelColor = chartTheme.axis.r.tickLabelColor;
   const innerTickColor = chartTheme.axis.r.lineColor;
-  const arcColor = chartTheme.grid.r.lineColor;
+  const arcColor = axisBgColorProp ?? chartTheme.grid.r.lineColor;
   const dimensions = useWindowDimensions();
   const [animatedValue, setAnimatedValue] = useState(value);
   const currentValueRef = useRef(value); // Stores the current animated value synchronously
@@ -136,6 +104,7 @@ const SVGGaugeChart = ({
   const strokeWidth = 12;
   const center = size / 2;
   const radius = (size - strokeWidth) / 2 - 20;
+  const tickStrokeWidth = axisWidthProp ?? 3;
   const startAngle = -135;
   const endAngle = 135;
   const totalAngle = endAngle - startAngle;
@@ -202,10 +171,7 @@ const SVGGaugeChart = ({
     const angle = startAngle + (i / numTicks) * totalAngle;
     const isActive = i <= activeTickCount;
     const isMajor = i % 5 === 0;
-    //const tickLength = isMajor ? 16 : 10;
     const tickLength = outerTickLength;
-    //const tickWidth = isMajor ? 3 : 2;
-    const tickWidth = 3;
     
     const outerPoint = polarToCartesian(center, center, radius + 10, angle);
     const innerPoint = polarToCartesian(center, center, radius + 10 - tickLength, angle);
@@ -224,7 +190,7 @@ const SVGGaugeChart = ({
         key={i}
         d={`M ${outerPoint.x} ${outerPoint.y} L ${innerPoint.x} ${innerPoint.y}`}
         stroke={tickColor}
-        strokeWidth={tickWidth}
+        strokeWidth={tickStrokeWidth}
         strokeLinecap="round"
       />
     );
@@ -369,20 +335,30 @@ const ChartComponent = ({
   max = 90,
   width,
   height,
+  axisBgColor,
+  axisWidth,
+  tickColor,
+  showInnerArc,
+  animationDuration,
   ...props
-}: AnimatedGaugeChartProps) => {
+}: DigitalGaugeProps) => {
   return (
-    <SVGGaugeChart 
-      value={value} 
+    <SVGGaugeChart
+      value={value}
       max={max}
       width={width}
       height={height}
       colors={props.colors}
+      axisBgColor={axisBgColor}
+      axisWidth={axisWidth}
+      tickColor={tickColor}
+      showInnerArc={showInnerArc}
+      animationDuration={animationDuration}
     />
   );
 };
 
-export const AnimatedGaugeChart = Object.assign(withResponsiveContainer(withChartTheme(ChartComponent), 'value'), {
-  displayName: 'AnimatedGaugeChart',
+export const DigitalGauge = Object.assign(withResponsiveContainer(withChartTheme(ChartComponent), 'value'), {
+  displayName: 'DigitalGauge',
 });
 

@@ -1,8 +1,8 @@
 import type { Meta, Decorator } from '@storybook/react';
 import React from 'react';
-import { RadialGaugeChart } from '@components/chart/gauge/radial-gauge/radial-gauge.chart';
+import { DigitalGauge } from '@components/chart/gauge';
 import { StyleSheet, View, Text } from 'react-native';
-import { gaugeChartArgTypes } from './gauge.args';
+import { digitalGaugeArgTypes, commonGaugeArgs } from '../gauge.args';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,14 +33,21 @@ const styles = StyleSheet.create({
 });
 
 export default {
-  title: 'Charts/Gauge/Type',
-  component: RadialGaugeChart,
+  title: 'Charts/Gauge/Digital',
+  component: DigitalGauge,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
   argTypes: {
-    ...gaugeChartArgTypes,
+    ...digitalGaugeArgTypes,
+  },
+  args: {
+    ...commonGaugeArgs,
+    width: 240,
+    height: 240,
+    showInnerArc: false,
+    animationDuration: 1000,
   },
   decorators: [
     ((Story, context) => (
@@ -55,4 +62,4 @@ export default {
       </View>
     )) as Decorator,
   ],
-} satisfies Meta<typeof RadialGaugeChart>;
+} satisfies Meta<typeof DigitalGauge>;
