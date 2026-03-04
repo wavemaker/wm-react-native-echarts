@@ -10,12 +10,6 @@
   "displayName": "Radial Chart",
   "description": "Concentric ring chart: multiple rings with partial fill (0–100% per ring), blue gradient, center hole, optional center text",
   "iconUrl": "wmx.icon.svg",
-  "preview": [
-    "label-radial.png",
-    "shape-radial.png",
-    "stacked-radial.png",
-    "text-radial.png"
-  ],
   "component": "radial-chart.tsx",
   "requires": [
     "../radial-chart.tsx",
@@ -44,33 +38,15 @@
       "data": {
         "name": "data",
         "displayName": "Data",
-        "description": "One item per concentric ring. value = fill percentage (0–100). Example: [{ value: 90 }, { value: 80 }, { value: 50 }]",
+        "description": "Chart data: one item per concentric ring. value = fill percentage (0–100), label optional (tooltip). Example: [{ value: 90, label: 'Score' }, { value: 80 }, { value: 50 }]",
         "type": "object",
         "isList": true,
         "isRequired": true
       },
-      "width": {
-        "name": "width",
-        "displayName": "Width",
-        "description": "Width of the chart in pixels.",
-        "type": "number",
-        "isList": false,
-        "defaultValue": 220,
-        "isRequired": false
-      },
-      "height": {
-        "name": "height",
-        "displayName": "Height",
-        "description": "Height of the chart in pixels.",
-        "type": "number",
-        "isList": false,
-        "defaultValue": 350,
-        "isRequired": false
-      },
       "innerRadius": {
         "name": "innerRadius",
         "displayName": "Inner Radius",
-        "description": "Inner radius of the chart (center hole). Example: '20%'",
+        "description": "Inner radius of the chart (center hole), e.g. '20%' or 40. Default: '20%'",
         "type": "string",
         "isList": false,
         "defaultValue": "20%",
@@ -79,37 +55,10 @@
       "backgroundColor": {
         "name": "backgroundColor",
         "displayName": "Background Color",
-        "description": "Color for the unfilled portion of each ring.",
+        "description": "Color for the unfilled portion of each ring. Default: '#e8e8e899'",
         "type": "string",
         "isList": false,
         "defaultValue": "#e8e8e899",
-        "isRequired": false
-      },
-      "startAngle": {
-        "name": "startAngle",
-        "displayName": "Start Angle",
-        "description": "Start angle of the fill in degrees. 0 = right, 90 = top.",
-        "type": "number",
-        "isList": false,
-        "defaultValue": 0,
-        "isRequired": false
-      },
-      "clockwise": {
-        "name": "clockwise",
-        "displayName": "Clockwise",
-        "description": "Direction of the fill and animation: true = clockwise, false = counter-clockwise (anti-clockwise).",
-        "type": "boolean",
-        "isList": false,
-        "defaultValue": false,
-        "isRequired": false
-      },
-      "ringGap": {
-        "name": "ringGap",
-        "displayName": "Ring Gap",
-        "description": "Gap between concentric rings (e.g. '4%' or number).",
-        "type": "string",
-        "isList": false,
-        "defaultValue": "4%",
         "isRequired": false
       },
       "centerText": {
@@ -123,15 +72,78 @@
       "centerSubtext": {
         "name": "centerSubtext",
         "displayName": "Center Subtext",
-        "description": "Optional center subtext below center text (e.g. label or unit).",
+        "description": "Optional center subtext shown below center text (e.g. label or unit).",
         "type": "string",
         "isList": false,
+        "isRequired": false
+      },
+      "startAngle": {
+        "name": "startAngle",
+        "displayName": "Start Angle",
+        "description": "Start angle of the fill (and animation), in degrees. 0 = right (3 o'clock), 90 = top (12 o'clock). Default: 0",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 0,
+        "isRequired": false
+      },
+      "clockwise": {
+        "name": "clockwise",
+        "displayName": "Clockwise",
+        "description": "Direction of the fill and animation. true = clockwise, false = counter-clockwise. Default: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "ringGap": {
+        "name": "ringGap",
+        "displayName": "Ring Gap",
+        "description": "Gap between concentric rings, as percentage of chart radius (e.g. '4%') or number. Default: '4%'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "4%",
+        "isRequired": false
+      },
+      "showLegend": {
+        "name": "showLegend",
+        "displayName": "Show Legend",
+        "description": "Whether to show the legend (ring labels). Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "legendPosition": {
+        "name": "legendPosition",
+        "displayName": "Legend Position",
+        "description": "Position of the legend. 'left' | 'right' | 'top' | 'bottom'. Default: 'bottom'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "bottom",
+        "isRequired": false
+      },
+      "width": {
+        "name": "width",
+        "displayName": "Width",
+        "description": "Width of the chart in pixels. Default: 220",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 220,
+        "isRequired": false
+      },
+      "height": {
+        "name": "height",
+        "displayName": "Height",
+        "description": "Height of the chart in pixels. Default: 350",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 350,
         "isRequired": false
       },
       "theme": {
         "name": "theme",
         "displayName": "Theme",
-        "description": "Partial theme override for customizing chart appearance.",
+        "description": "Partial theme override. Merged with default theme from ChartThemeContext.",
         "type": "object",
         "isList": false,
         "isRequired": false

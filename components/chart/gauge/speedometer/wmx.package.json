@@ -10,9 +10,6 @@
   "displayName": "Semi Circular Gauge",
   "description": "Semi-circular gauge chart with color-coded segments, customizable tick marks, and modern design",
   "iconUrl": "wmx.icon.svg",
-  "preview": [
-    "wmx.preview.1.png"
-  ],
   "component": "semi-circular-gauge.chart.tsx",
   "requires": [
     "../../chart-container.tsx",

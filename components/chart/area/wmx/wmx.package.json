@@ -10,17 +10,6 @@
   "displayName": "Area Chart",
   "description": "Unified area chart component supporting all variations: default, gradient, stacked, interactive, linear, step, axes, icons, and legend configurations",
   "iconUrl": "wmx.icon.svg",
-  "preview": [
-    "axes-area.png",
-    "default-area.png",
-    "gradient-area.png",
-    "stacked-expanded-area.png",
-    "stacked-area.png",
-    "interactive-area.png",
-    "linear-area.png",
-    "step-area.png",
-    "icons-area.png"
-  ],
   "component": "area-chart.tsx",
   "requires": [
     "../area-chart.tsx",
@@ -56,93 +45,35 @@
   "wmx": {
     "group": "chart/line/area",
     "props": {
-      "xAxisData": {
-        "name": "xAxisData",
-        "displayName": "X Axis Data",
-        "description": "X-axis labels. Can be a string array or object array with label and value. Example: ['Jan', 'Feb', 'Mar'] or [{label: 'Jan', value: 0}, {label: 'Feb', value: 1}]",
-        "type": "object",
-        "isList": true,
-        "isRequired": true
-      },
       "data": {
         "name": "data",
         "displayName": "Data",
-        "description": "Chart data. Can be: single series (number[]), multiple series (Array<{data: number[]}>), or named series (Array<{name: string, data: number[]}>). Example: [100, 200, 150] or [{data: [100, 200]}, {data: [150, 250]}] or [{name: 'Series A', data: [100, 200]}]",
+        "description": "Chart data. Single series (number[]), single with labels ([string|number, number][]), or multiple series (Array<{name?: string, data: number[] | [string|number, number][]}>). Example: [100, 200, 150] or [[0, 100], [1, 200]] or [{name: 'Series A', data: [100, 200]}]",
         "type": "object",
         "isList": true,
         "isRequired": true
       },
-      "yAxisData": {
-        "name": "yAxisData",
-        "displayName": "Y Axis Data",
-        "description": "Y-axis labels. Can be a string array or object array with label and value. When provided, enables custom Y-axis labels. Example: ['0', '50', '100'] or [{label: 'Low', value: 0}, {label: 'High', value: 100}]",
-        "type": "object",
-        "isList": true,
-        "isRequired": false
-      },
-      "width": {
-        "name": "width",
-        "displayName": "Width",
-        "description": "Width of the chart in pixels. Example: 220",
-        "type": "number",
-        "isList": false,
-        "defaultValue": 220,
-        "isRequired": false
-      },
-      "height": {
-        "name": "height",
-        "displayName": "Height",
-        "description": "Height of the chart in pixels. Example: 350",
-        "type": "number",
-        "isList": false,
-        "defaultValue": 350,
-        "isRequired": false
-      },
-      "theme": {
-        "name": "theme",
-        "displayName": "Theme",
-        "description": "Partial theme override for customizing chart appearance. Example: {series: [{color: '#3b82f6'}]}",
-        "type": "object",
-        "isList": false,
-        "isRequired": false
-      },
-      "colors": {
-        "name": "colors",
-        "displayName": "Colors",
-        "description": "Colors for the chart series. Overrides theme colors. Example: ['#3b82f6', '#10b981', '#f59e0b']",
+      "type": {
+        "name": "type",
+        "displayName": "Type",
+        "description": "Curve type: 'default' (linear), 'smooth' (Bezier), or 'step'. Default: 'default'",
         "type": "string",
-        "isList": true,
-        "isRequired": false
-      },
-      "smooth": {
-        "name": "smooth",
-        "displayName": "Smooth",
-        "description": "Whether to use smooth curve interpolation. Default: true",
-        "type": "boolean",
         "isList": false,
-        "defaultValue": true,
+        "defaultValue": "default",
         "isRequired": false
       },
       "step": {
         "name": "step",
         "displayName": "Step",
-        "description": "Step interpolation mode. When set, creates step lines instead of smooth curves. Options: 'start', 'middle', 'end', or false. Takes precedence over smooth.",
+        "description": "Step mode when type='step'. Options: 'start', 'middle', 'end', or false. Default: 'start' when type is step.",
         "type": "string",
-        "isList": false,
-        "isRequired": false
-      },
-      "boundaryGap": {
-        "name": "boundaryGap",
-        "displayName": "Boundary Gap",
-        "description": "Whether to leave gaps at the start and end of the axis. When undefined, uses ECharts default behavior.",
-        "type": "boolean",
         "isList": false,
         "isRequired": false
       },
       "stack": {
         "name": "stack",
         "displayName": "Stack",
-        "description": "Stack ID for stacking multiple series. When set, series are stacked on top of each other. Example: 'total'",
+        "description": "Stack ID for stacking multiple series. Use false to disable. Example: 'total'",
         "type": "string",
         "isList": false,
         "isRequired": false
@@ -150,7 +81,7 @@
       "stackNormalize": {
         "name": "stackNormalize",
         "displayName": "Stack Normalize",
-        "description": "Whether to normalize stacked values to show percentages (0-100%). Default: false",
+        "description": "When true with stack, show stacked values as percentages (0–100%). Default: false",
         "type": "boolean",
         "isList": false,
         "defaultValue": false,
@@ -168,7 +99,7 @@
       "symbolSize": {
         "name": "symbolSize",
         "displayName": "Symbol Size",
-        "description": "Size of the symbol. Example: 6",
+        "description": "Size of the symbol. Number, [width, height], or function. Example: 6",
         "type": "number",
         "isList": false,
         "isRequired": false
@@ -182,28 +113,148 @@
         "defaultValue": 0.6,
         "isRequired": false
       },
-      "showXAxisLabels": {
-        "name": "showXAxisLabels",
-        "displayName": "Show X Axis Labels",
-        "description": "Whether to show X-axis labels. Default: true",
-        "type": "boolean",
+      "areaFill": {
+        "name": "areaFill",
+        "displayName": "Area Fill",
+        "description": "Fill style for the area under the line: 'gradient' | 'transparent' | 'solid'. Default: 'gradient'",
+        "type": "string",
         "isList": false,
-        "defaultValue": true,
+        "defaultValue": "gradient",
         "isRequired": false
       },
-      "showYAxisLabels": {
-        "name": "showYAxisLabels",
-        "displayName": "Show Y Axis Labels",
-        "description": "Whether to show Y-axis labels. Default: false",
+      "width": {
+        "name": "width",
+        "displayName": "Width",
+        "description": "Width of the chart in pixels. Default: 220",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 220,
+        "isRequired": false
+      },
+      "height": {
+        "name": "height",
+        "displayName": "Height",
+        "description": "Height of the chart in pixels. Default: 350",
+        "type": "number",
+        "isList": false,
+        "defaultValue": 350,
+        "isRequired": false
+      },
+      "theme": {
+        "name": "theme",
+        "displayName": "Theme",
+        "description": "Partial theme override for customizing chart appearance. Merged with default theme from ChartThemeContext.",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "colors": {
+        "name": "colors",
+        "displayName": "Colors",
+        "description": "Colors for the chart series. Overrides theme colors. Example: ['#3b82f6', '#10b981', '#f59e0b']",
+        "type": "string",
+        "isList": true,
+        "isRequired": false
+      },
+      "boundaryGap": {
+        "name": "boundaryGap",
+        "displayName": "Boundary Gap",
+        "description": "Whether to leave gaps at the start and end of the axis. Default: false",
         "type": "boolean",
         "isList": false,
         "defaultValue": false,
         "isRequired": false
       },
+      "xAxisTicks": {
+        "name": "xAxisTicks",
+        "displayName": "X Axis Ticks",
+        "description": "Custom X-axis tick values (numbers only). When provided, used as x-axis data; labels from xAxisTickLabelFormatter.",
+        "type": "number",
+        "isList": true,
+        "isRequired": false
+      },
+      "yAxisTicks": {
+        "name": "yAxisTicks",
+        "displayName": "Y Axis Ticks",
+        "description": "Custom Y-axis tick positions for the value axis.",
+        "type": "number",
+        "isList": true,
+        "isRequired": false
+      },
+      "showXAxis": {
+        "name": "showXAxis",
+        "displayName": "Show X Axis",
+        "description": "Whether to show the X-axis line and labels. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "showXAxisTicks": {
+        "name": "showXAxisTicks",
+        "displayName": "Show X Axis Ticks",
+        "description": "Whether to show X-axis tick marks. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "showYAxis": {
+        "name": "showYAxis",
+        "displayName": "Show Y Axis",
+        "description": "Whether to show the Y-axis line and labels. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "showYAxisTicks": {
+        "name": "showYAxisTicks",
+        "displayName": "Show Y Axis Ticks",
+        "description": "Whether to show Y-axis tick marks. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "showXAxisSplitLines": {
+        "name": "showXAxisSplitLines",
+        "displayName": "Show X Axis Split Lines",
+        "description": "Whether to show vertical grid lines. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "showYAxisSplitLines": {
+        "name": "showYAxisSplitLines",
+        "displayName": "Show Y Axis Split Lines",
+        "description": "Whether to show horizontal grid lines. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "xAxisLabel": {
+        "name": "xAxisLabel",
+        "displayName": "X Axis Label",
+        "description": "Label text for the X-axis (displayed along the axis).",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "yAxisLabel": {
+        "name": "yAxisLabel",
+        "displayName": "Y Axis Label",
+        "description": "Label text for the Y-axis (displayed along the axis).",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
       "grid": {
         "name": "grid",
         "displayName": "Grid",
-        "description": "Grid positioning configuration. Example: {left: '10%', right: '5%', bottom: '10%', top: '10%'}",
+        "description": "Grid positioning. Values: percentages (e.g. '10%') or pixels. Example: {left: '10%', right: '5%', bottom: '10%', top: '10%'}",
         "type": "object",
         "isList": false,
         "isRequired": false
@@ -217,19 +268,28 @@
         "defaultValue": false,
         "isRequired": false
       },
-      "legendConfig": {
-        "name": "legendConfig",
-        "displayName": "Legend Config",
-        "description": "Legend configuration options. Example: {position: 'top'}",
-        "type": "object",
+      "showHighlighter": {
+        "name": "showHighlighter",
+        "displayName": "Show Highlighter",
+        "description": "Whether to show the highlighter (emphasis) when interacting with the chart. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "xAxisTickLabelFormatter": {
+        "name": "xAxisTickLabelFormatter",
+        "displayName": "X Axis Tick Label Formatter",
+        "description": "Formatter for X-axis tick labels. (value, index?) => string",
+        "type": "function",
         "isList": false,
         "isRequired": false
       },
-      "tooltipAxisPointer": {
-        "name": "tooltipAxisPointer",
-        "displayName": "Tooltip Axis Pointer",
-        "description": "Tooltip axis pointer configuration. Example: {type: 'line'}",
-        "type": "object",
+      "yAxisTickLabelFormatter": {
+        "name": "yAxisTickLabelFormatter",
+        "displayName": "Y Axis Tick Label Formatter",
+        "description": "Formatter for Y-axis tick labels. (value, index?) => string",
+        "type": "function",
         "isList": false,
         "isRequired": false
       }

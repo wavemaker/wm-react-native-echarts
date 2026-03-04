@@ -10,7 +10,6 @@
   "displayName": "Candlestick Chart",
   "description": "Candlestick (OHLC) chart with optional volume bars and moving averages (MA5, MA10, MA20)",
   "iconUrl": "wmx.icon.svg",
-  "preview": [],
   "component": "candlestick-chart.tsx",
   "requires": [
     "../candlestick-chart.tsx",
@@ -47,47 +46,47 @@
       "xAxisData": {
         "name": "xAxisData",
         "displayName": "X Axis Data",
-        "description": "X-axis category labels. Example: ['Mon', 'Tue', 'Wed']",
-        "type": "object",
+        "description": "X-axis category labels. If omitted, indices (0, 1, 2, ...) are used. Example: ['Mon', 'Tue', 'Wed']",
+        "type": "string",
         "isList": true,
         "isRequired": false
       },
       "volumeData": {
         "name": "volumeData",
         "displayName": "Volume Data",
-        "description": "Optional volume data (bar series below candlestick).",
-        "type": "object",
+        "description": "Optional volume data (bar series below candlestick). Length should match data.",
+        "type": "number",
         "isList": true,
         "isRequired": false
       },
       "ma5": {
         "name": "ma5",
         "displayName": "MA5",
-        "description": "Optional 5-period moving average line data.",
-        "type": "object",
+        "description": "Optional MA5 (5-period moving average) line. Length should match data.",
+        "type": "number",
         "isList": true,
         "isRequired": false
       },
       "ma10": {
         "name": "ma10",
         "displayName": "MA10",
-        "description": "Optional 10-period moving average line data.",
-        "type": "object",
+        "description": "Optional MA10 (10-period moving average) line. Length should match data.",
+        "type": "number",
         "isList": true,
         "isRequired": false
       },
       "ma20": {
         "name": "ma20",
         "displayName": "MA20",
-        "description": "Optional 20-period moving average line data.",
-        "type": "object",
+        "description": "Optional MA20 (20-period moving average) line. Length should match data.",
+        "type": "number",
         "isList": true,
         "isRequired": false
       },
       "positiveColor": {
         "name": "positiveColor",
         "displayName": "Positive Color",
-        "description": "Color for positive (up) candles.",
+        "description": "Color for positive (up) candles. Default: '#008000'",
         "type": "string",
         "isList": false,
         "defaultValue": "#008000",
@@ -96,7 +95,7 @@
       "negativeColor": {
         "name": "negativeColor",
         "displayName": "Negative Color",
-        "description": "Color for negative (down) candles.",
+        "description": "Color for negative (down) candles. Default: '#FF2C2C'",
         "type": "string",
         "isList": false,
         "defaultValue": "#FF2C2C",
@@ -105,7 +104,7 @@
       "width": {
         "name": "width",
         "displayName": "Width",
-        "description": "Width of the chart in pixels.",
+        "description": "Width of the chart in pixels. Default: 220",
         "type": "number",
         "isList": false,
         "defaultValue": 220,
@@ -114,19 +113,155 @@
       "height": {
         "name": "height",
         "displayName": "Height",
-        "description": "Height of the chart in pixels.",
+        "description": "Height of the chart in pixels. Default: 350",
         "type": "number",
         "isList": false,
         "defaultValue": 350,
         "isRequired": false
       },
-      "showLegend": {
-        "name": "showLegend",
-        "displayName": "Show Legend",
-        "description": "Whether to display legend for moving averages.",
+      "theme": {
+        "name": "theme",
+        "displayName": "Theme",
+        "description": "Partial theme override. Merged with default theme from ChartThemeContext.",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "boundaryGap": {
+        "name": "boundaryGap",
+        "displayName": "Boundary Gap",
+        "description": "Whether to leave gaps at the start and end of the axis. Default: false",
         "type": "boolean",
         "isList": false,
         "defaultValue": false,
+        "isRequired": false
+      },
+      "xAxisTicks": {
+        "name": "xAxisTicks",
+        "displayName": "X Axis Ticks",
+        "description": "Custom X-axis tick values (numbers only). Labels from xAxisTickLabelFormatter.",
+        "type": "number",
+        "isList": true,
+        "isRequired": false
+      },
+      "yAxisTicks": {
+        "name": "yAxisTicks",
+        "displayName": "Y Axis Ticks",
+        "description": "Custom Y-axis tick positions for the value axis.",
+        "type": "number",
+        "isList": true,
+        "isRequired": false
+      },
+      "showXAxis": {
+        "name": "showXAxis",
+        "displayName": "Show X Axis",
+        "description": "Whether to show the X-axis line and labels. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "showXAxisTicks": {
+        "name": "showXAxisTicks",
+        "displayName": "Show X Axis Ticks",
+        "description": "Whether to show X-axis tick marks. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "showYAxis": {
+        "name": "showYAxis",
+        "displayName": "Show Y Axis",
+        "description": "Whether to show the Y-axis line and labels. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "showYAxisTicks": {
+        "name": "showYAxisTicks",
+        "displayName": "Show Y Axis Ticks",
+        "description": "Whether to show Y-axis tick marks. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "showXAxisSplitLines": {
+        "name": "showXAxisSplitLines",
+        "displayName": "Show X Axis Split Lines",
+        "description": "Whether to show vertical grid lines. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "showYAxisSplitLines": {
+        "name": "showYAxisSplitLines",
+        "displayName": "Show Y Axis Split Lines",
+        "description": "Whether to show horizontal grid lines. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "xAxisLabel": {
+        "name": "xAxisLabel",
+        "displayName": "X Axis Label",
+        "description": "Label text for the X-axis (displayed along the axis).",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "yAxisLabel": {
+        "name": "yAxisLabel",
+        "displayName": "Y Axis Label",
+        "description": "Label text for the Y-axis (displayed along the axis).",
+        "type": "string",
+        "isList": false,
+        "isRequired": false
+      },
+      "grid": {
+        "name": "grid",
+        "displayName": "Grid",
+        "description": "Grid positioning. Example: {left: '10%', right: '5%', bottom: '10%', top: '10%'}",
+        "type": "object",
+        "isList": false,
+        "isRequired": false
+      },
+      "showLegend": {
+        "name": "showLegend",
+        "displayName": "Show Legend",
+        "description": "Whether to display a legend for named series. Default: false",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": false,
+        "isRequired": false
+      },
+      "showHighlighter": {
+        "name": "showHighlighter",
+        "displayName": "Show Highlighter",
+        "description": "Whether to show the highlighter when interacting with the chart. Default: true",
+        "type": "boolean",
+        "isList": false,
+        "defaultValue": true,
+        "isRequired": false
+      },
+      "xAxisTickLabelFormatter": {
+        "name": "xAxisTickLabelFormatter",
+        "displayName": "X Axis Tick Label Formatter",
+        "description": "Formatter for X-axis tick labels. (value, index?) => string",
+        "type": "function",
+        "isList": false,
+        "isRequired": false
+      },
+      "yAxisTickLabelFormatter": {
+        "name": "yAxisTickLabelFormatter",
+        "displayName": "Y Axis Tick Label Formatter",
+        "description": "Formatter for Y-axis tick labels. (value, index?) => string",
+        "type": "function",
+        "isList": false,
         "isRequired": false
       }
     },

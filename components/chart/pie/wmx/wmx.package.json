@@ -10,14 +10,6 @@
   "displayName": "Pie Chart",
   "description": "Unified pie chart component supporting all variations: basic, donut, stacked, label, legend, donut-text, donut-active, interactive, and separator-none configurations",
   "iconUrl": "wmx.icon.svg",
-  "preview": [
-    "basic-pie.png",
-    "donut-active.png",
-    "donut-text.png",
-    "label-pie.png",
-    "legend-pie.png",
-    "stacked-pie.png"
-  ],
   "requires": [
     "../pie-chart.tsx",
     "../../chart-container.tsx",
@@ -50,144 +42,77 @@
       "data": {
         "name": "data",
         "displayName": "Data",
-        "description": "Array of data items for the pie slices. Each item should have 'value' (number) and 'name' (string). Example: [{value: 275, name: 'Desktop'}, {value: 200, name: 'Mobile'}]",
+        "description": "Chart data: single pie (array of { name, value, itemStyle? }) or concentric (array of { name?, radius, data }). Example: [{value: 275, name: 'Desktop'}, {value: 200, name: 'Mobile'}] or [{name: 'Q1', radius: ['0%', '35%'], data: [...]}]",
         "type": "object",
         "isList": true,
-        "isRequired": false
-      },
-      "stackedData": {
-        "name": "stackedData",
-        "displayName": "Stacked Data",
-        "description": "Array of configurations for stacked/concentric pie charts. When provided, takes precedence over data. Example: [{name: 'Q1', radius: ['0%', '35%'], data: [...]}]",
-        "type": "object",
-        "isList": true,
-        "isRequired": false
+        "isRequired": true
       },
       "radius": {
         "name": "radius",
         "displayName": "Radius",
-        "description": "Radius of the pie chart. Can be single string for regular pie (e.g., '50%') or array of two strings for donut (e.g., ['40%', '70%']). Default: '50%'",
+        "description": "Radius of the pie. Number (e.g. 100), string (e.g. '60%'), or [inner, outer] for donut. Default: '75%'",
         "type": "object",
         "isList": false,
-        "defaultValue": "50%",
-        "isRequired": false
-      },
-      "showLabel": {
-        "name": "showLabel",
-        "displayName": "Show Label",
-        "description": "Whether to show labels on the slices. Default: false",
-        "type": "boolean",
-        "isList": false,
-        "defaultValue": false,
-        "isRequired": false
-      },
-      "showLabelLine": {
-        "name": "showLabelLine",
-        "displayName": "Show Label Line",
-        "description": "Whether to show lines connecting labels to slices. Default: false",
-        "type": "boolean",
-        "isList": false,
-        "defaultValue": false,
-        "isRequired": false
-      },
-      "labelFormatter": {
-        "name": "labelFormatter",
-        "displayName": "Label Formatter",
-        "description": "Format string for the labels. Use '{b}' for name, '{c}' for value, '{b}: {c}' for name: value. Example: '{b}: {c}'",
-        "type": "string",
-        "isList": false,
-        "isRequired": false
-      },
-      "labelFontSize": {
-        "name": "labelFontSize",
-        "displayName": "Label Font Size",
-        "description": "Font size for the labels in pixels. Default: 12",
-        "type": "number",
-        "isList": false,
-        "defaultValue": 12,
+        "defaultValue": "75%",
         "isRequired": false
       },
       "showLegend": {
         "name": "showLegend",
         "displayName": "Show Legend",
-        "description": "Whether to show a legend. Default: false",
+        "description": "Whether to show the legend for slices. Default: false",
         "type": "boolean",
         "isList": false,
         "defaultValue": false,
         "isRequired": false
       },
-      "legendConfig": {
-        "name": "legendConfig",
-        "displayName": "Legend Config",
-        "description": "Legend configuration options. Example: {orient: 'horizontal', bottom: '10%', left: 'center'}",
-        "type": "object",
+      "showLabel": {
+        "name": "showLabel",
+        "displayName": "Show Label",
+        "description": "Whether to show slice labels (name/value on the chart). Default: true",
+        "type": "boolean",
         "isList": false,
+        "defaultValue": true,
         "isRequired": false
       },
-      "centerText": {
-        "name": "centerText",
-        "displayName": "Center Text",
-        "description": "Main text to display in the center (for donut charts). Example: '752'",
+      "labelPosition": {
+        "name": "labelPosition",
+        "displayName": "Label Position",
+        "description": "Label position: 'outside' | 'inside' | 'center'. Default: 'outside'",
         "type": "string",
         "isList": false,
+        "defaultValue": "outside",
         "isRequired": false
       },
-      "centerSubtext": {
-        "name": "centerSubtext",
-        "displayName": "Center Subtext",
-        "description": "Subtitle text below the main center text (for donut charts). Example: 'Visitors'",
-        "type": "string",
+      "showLabelLine": {
+        "name": "showLabelLine",
+        "displayName": "Show Label Line",
+        "description": "Whether to show label lines (connectors from slice to label). Default: true when labelPosition is 'outside'",
+        "type": "boolean",
         "isList": false,
+        "defaultValue": true,
         "isRequired": false
       },
-      "centerTextFontSize": {
-        "name": "centerTextFontSize",
-        "displayName": "Center Text Font Size",
-        "description": "Font size for the center main text. Default: 24",
-        "type": "number",
+      "showHighlighter": {
+        "name": "showHighlighter",
+        "displayName": "Show Highlighter",
+        "description": "Whether to emphasize (scale/highlight) the hovered slice. Default: true",
+        "type": "boolean",
         "isList": false,
-        "defaultValue": 24,
+        "defaultValue": true,
         "isRequired": false
       },
-      "centerSubtextFontSize": {
-        "name": "centerSubtextFontSize",
-        "displayName": "Center Subtext Font Size",
-        "description": "Font size for the center subtitle. Default: 14",
-        "type": "number",
-        "isList": false,
-        "defaultValue": 14,
-        "isRequired": false
-      },
-      "selectedOffset": {
-        "name": "selectedOffset",
-        "displayName": "Selected Offset",
-        "description": "Distance to offset selected slices in pixels. Default: 10",
-        "type": "number",
-        "isList": false,
-        "defaultValue": 10,
-        "isRequired": false
-      },
-      "selectedMode": {
-        "name": "selectedMode",
-        "displayName": "Selected Mode",
-        "description": "Whether to enable selection mode. Can be true, false, 'single', or 'multiple'. Default: false",
-        "type": "string",
-        "isList": false,
-        "defaultValue": false,
-        "isRequired": false
-      },
-      "gap": {
-        "name": "gap",
-        "displayName": "Gap",
-        "description": "Gap between slices in degrees. Set to 0 for no separator. Default: undefined (uses ECharts default)",
-        "type": "number",
+      "tooltipFormatter": {
+        "name": "tooltipFormatter",
+        "displayName": "Tooltip Formatter",
+        "description": "Formatter for tooltip. (params: { name, value, percent? }) => string",
+        "type": "function",
         "isList": false,
         "isRequired": false
       },
       "width": {
         "name": "width",
         "displayName": "Width",
-        "description": "Width of the chart in pixels. Example: 220",
+        "description": "Width of the chart in pixels. Default: 220",
         "type": "number",
         "isList": false,
         "defaultValue": 220,
@@ -196,16 +121,16 @@
       "height": {
         "name": "height",
         "displayName": "Height",
-        "description": "Height of the chart in pixels. Example: 400",
+        "description": "Height of the chart in pixels. Default: 350",
         "type": "number",
         "isList": false,
-        "defaultValue": 400,
+        "defaultValue": 350,
         "isRequired": false
       },
       "theme": {
         "name": "theme",
         "displayName": "Theme",
-        "description": "Partial theme override for customizing chart appearance. Example: {series: [{color: '#3b82f6'}]}",
+        "description": "Partial theme override. Merged with default theme from ChartThemeContext.",
         "type": "object",
         "isList": false,
         "isRequired": false
@@ -216,14 +141,6 @@
         "description": "Colors for the chart series. Overrides theme colors. Example: ['#3b82f6', '#10b981', '#f59e0b']",
         "type": "string",
         "isList": true,
-        "isRequired": false
-      },
-      "tooltipConfig": {
-        "name": "tooltipConfig",
-        "displayName": "Tooltip Config",
-        "description": "Tooltip configuration. Example: {trigger: 'item'}",
-        "type": "object",
-        "isList": false,
         "isRequired": false
       }
     },
