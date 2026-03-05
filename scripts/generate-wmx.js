@@ -4,7 +4,7 @@ const AdmZip = require('adm-zip');
 
 const root = process.cwd();
 const componentsDir = path.join(root, 'components');
-const destWmxDir = path.join(root, 'dist', 'wmx');
+const destWmxDir = path.join(root, 'dist', 'wmx', 'charts');
 
 const findWmxPackageJson = (dir, handleFile) => {
   const files = fs.readdirSync(dir);
@@ -39,7 +39,7 @@ const generateWMXZip = (wmxPackageJsonPath) => {
   delete packageJSON.requires;
   wmxJSON.component = packageJSON.component;
   delete packageJSON.component;
-  const destWmxDir = path.join(root, 'dist', 'wmx', packageJSON.name);
+  const destWmxDir = path.join(root, 'dist', 'wmx', 'charts', packageJSON.name);
   fs.mkdirSync(destWmxDir, { recursive: true });
   fs.writeFileSync(path.join(destWmxDir, 'package.json'), JSON.stringify(packageJSON, null, 2));
   fs.copyFileSync(path.join(wmxSrcDir, packageJSON.iconUrl), path.join(destWmxDir, 'icon.svg'));
@@ -47,7 +47,7 @@ const generateWMXZip = (wmxPackageJsonPath) => {
   wmxJSON.preview?.forEach(preview => {
     fs.copyFileSync(path.join(wmxSrcDir, preview), path.join(destWmxDir, preview));
   });
-  const wmxZipPath = path.join(root, 'dist', 'wmx', packageJSON.name + '.zip');
+  const wmxZipPath = path.join(root, 'dist', 'wmx', 'charts', packageJSON.name + '.zip');
   fs.mkdirSync(path.dirname(wmxZipPath), { recursive: true });
   const zip = new AdmZip();
   zip.addLocalFolder(destWmxDir);

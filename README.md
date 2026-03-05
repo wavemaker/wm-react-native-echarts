@@ -1,50 +1,81 @@
-# Welcome to your Expo app 👋
+# rn-widgets
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+React Native chart and gauge components built with ECharts (via `@wuba/react-native-echarts`) and Skia. Works with Expo and bare React Native.
 
-## Get started
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Installation
 
 ```bash
-npm run reset-project
+npm install rn-widgets
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Peer dependencies (install if not already present):
 
-## Learn more
+```bash
+npm install react react-native @wuba/react-native-echarts @shopify/react-native-skia react-native-svg echarts zrender
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## Usage
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```tsx
+import {
+  AreaChart,
+  LineChart,
+  PieChart,
+  SimpleGauge,
+  GeoChart,
+} from 'rn-widgets';
 
-## Join the community
+// Area chart
+<AreaChart data={[100, 200, 150]} width={220} height={350} />
 
-Join our community of developers creating universal apps.
+// Line chart
+<LineChart data={[[0, 10], [1, 20], [2, 15]]} />
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+// Pie chart
+<PieChart data={[{ value: 40, name: 'A' }, { value: 60, name: 'B' }]} />
+
+// Gauge
+<SimpleGauge value={75} max={100} width={120} height={120} />
+
+// Geo map
+<GeoChart data={[{ name: 'California', value: 100 }]} map="usa" />
+```
+
+Wrap your app or chart tree with a theme context if you want consistent styling:
+
+```tsx
+import { ChartThemeProvider } from 'rn-widgets'; // or use your own theme provider
+```
+
+## Exported components
+
+- **Charts (cartesian):** `AreaChart`, `LineChart`, `BarChart`, `ColumnChart`, `ScatterChart`, `BubbleChart`
+- **Charts (other):** `PieChart`, `RadarChart`, `RadialChart`, `CandlestickChart`
+- **Gauges:** `SimpleGauge`, `DigitalGauge`, `SpeedometerGauge`, `RadialGauge`
+- **Geo:** `GeoChart`, `USChart`, `WorldChart`, `GeoMapJsonContext`
+
+All chart components support width, height, theme overrides, and ECharts-style options where applicable.
+
+## Building the library (maintainers)
+
+Compile components to `dist/npm-packages/charts` and prepare the npm package:
+
+```bash
+npm run build:lib      # TypeScript compile components → dist/npm-packages/charts
+npm run prepare:npm    # Write package.json, copy README, .npmignore to npm-packages/charts
+cd dist/npm-packages/charts && npm publish
+```
+
+## Development
+
+This repo is an Expo app. To run the app and Storybook:
+
+```bash
+npm install
+npx expo start
+npm run storybook
+```
+
+## License
+
+MIT

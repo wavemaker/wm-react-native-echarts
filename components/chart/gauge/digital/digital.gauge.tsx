@@ -1,6 +1,5 @@
 import { withResponsiveContainer } from '../../chart-container';
 import { useChartTheme, withChartTheme } from '../../chart-theme.context';
-import { useTheme } from '@/contexts/ThemeContext';
 import React, { useEffect, useRef, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import Svg, { Circle, Defs, G, LinearGradient, Path, Stop, Text as SvgText } from 'react-native-svg';
@@ -37,7 +36,6 @@ const SVGGaugeChart = ({
   axisWidth: axisWidthProp,
   tickColor: tickColorProp,
 }: DigitalGaugeProps) => {
-  const { colorScheme } = useTheme();
   const { theme: chartTheme } = useChartTheme(undefined, colors);
   
   // Use theme colors; allow overrides from props

@@ -1,6 +1,5 @@
 import { withResponsiveContainer } from '../../chart-container';
 import { useChartTheme, withChartTheme } from '../../chart-theme.context';
-import { useTheme } from '@/contexts/ThemeContext';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { GaugeChart } from 'echarts/charts';
 import * as echarts from 'echarts/core';
@@ -52,7 +51,6 @@ const ChartComponent = ({
   tickColor: tickColorProp,
   ...props
 }: SpeedometerGaugeProps) => {
-  const { colorScheme } = useTheme();
   const { theme: chartTheme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
 
@@ -215,7 +213,7 @@ const ChartComponent = ({
         }
       ],
     };
-  }, [chartTheme, value, min, max, colorScheme, axisColors, axisColorLengths, axisWidth, tickColorProp]);
+  }, [chartTheme, value, min, max, axisColors, axisColorLengths, axisWidth, tickColorProp]);
 
   useEffect(() => {
     let chart: any;

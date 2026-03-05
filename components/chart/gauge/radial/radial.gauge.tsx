@@ -1,6 +1,5 @@
 import { withResponsiveContainer } from '../../chart-container';
 import { useChartTheme, withChartTheme } from '../../chart-theme.context';
-import { useTheme } from '@/contexts/ThemeContext';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { BarChart } from 'echarts/charts';
 import { GaugeChart } from 'echarts/charts';
@@ -35,7 +34,6 @@ const ChartComponent = ({
   tickColor: tickColorProp,
   ...props
 }: RadialGaugeProps) => {
-  const { colorScheme } = useTheme();
   const { theme: chartTheme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
   const radialChartRef = useRef<any>(null);
