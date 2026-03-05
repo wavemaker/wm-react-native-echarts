@@ -11,9 +11,9 @@
   "description": "Unified pie chart component supporting all variations: basic, donut, stacked, label, legend, donut-text, donut-active, interactive, and separator-none configurations",
   "iconUrl": "wmx.icon.svg",
   "requires": [
-    "../pie-chart.tsx",
-    "../../chart-container.tsx",
-    "../../chart-theme.context.tsx"
+    "../../../components/chart/pie/pie-chart.tsx",
+    "../../../components/chart/chart-container.tsx",
+    "../../../components/chart/chart-theme.context.tsx"
   ],
   "dependencies": {
     "@wuba/react-native-echarts": "3.0.1",

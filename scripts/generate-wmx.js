@@ -4,6 +4,7 @@ const AdmZip = require('adm-zip');
 
 const root = process.cwd();
 const componentsDir = path.join(root, 'components');
+const wmxDir = path.join(root, 'wmx');
 const destWmxDir = path.join(root, 'dist', 'wmx', 'charts');
 
 const findWmxPackageJson = (dir, handleFile) => {
@@ -56,16 +57,20 @@ const generateWMXZip = (wmxPackageJsonPath) => {
 };
 
 const generateWMX = () => {
-  log('Starting WMX generation (components: %s, output: %s)', componentsDir, destWmxDir);
+  log('Starting WMX generation (sources: wmx + components, output: %s)', destWmxDir);
   if (fs.existsSync(destWmxDir)) {
     log('Cleaning existing output directory');
     fs.rmSync(destWmxDir, { recursive: true });
   }
   fs.mkdirSync(destWmxDir, { recursive: true });
   let count = 0;
-  findWmxPackageJson(componentsDir, (filePath) => {
-    generateWMXZip(filePath);
-    count++;
+  [wmxDir, componentsDir].forEach((dir) => {
+    if (fs.existsSync(dir)) {
+      findWmxPackageJson(dir, (filePath) => {
+        generateWMXZip(filePath);
+        count++;
+      });
+    }
   });
   log('Done. Generated %d WMX package(s)', count);
 };

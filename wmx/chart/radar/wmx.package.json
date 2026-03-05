@@ -11,9 +11,9 @@
   "description": "Unified radar chart component supporting all variations: basic, multiple, grid-circle, grid-filled, dots, lines-only, and custom-label configurations",
   "iconUrl": "wmx.icon.svg",
   "requires": [
-    "../radar-chart.tsx",
-    "../../chart-container.tsx",
-    "../../chart-theme.context.tsx"
+    "../../../components/chart/radar/radar-chart.tsx",
+    "../../../components/chart/chart-container.tsx",
+    "../../../components/chart/chart-theme.context.tsx"
   ],
   "dependencies": {
     "@wuba/react-native-echarts": "3.0.1",

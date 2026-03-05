@@ -1,20 +1,20 @@
 {
-  "name": "area-chart",
+  "name": "candlestick-chart",
   "version": "1.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/area"
+    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/candlestick"
   },
-  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-area-areachart--docs",
-  "displayName": "Area Chart",
-  "description": "Unified area chart component supporting all variations: default, gradient, stacked, interactive, linear, step, axes, icons, and legend configurations",
+  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-candlestick-candlestickchart--docs",
+  "displayName": "Candlestick Chart",
+  "description": "Candlestick (OHLC) chart with optional volume bars and moving averages (MA5, MA10, MA20)",
   "iconUrl": "wmx.icon.svg",
-  "component": "area-chart.tsx",
+  "component": "candlestick-chart.tsx",
   "requires": [
-    "../area-chart.tsx",
-    "../../chart-container.tsx",
-    "../../chart-theme.context.tsx"
+    "../../../components/chart/candlestick/candlestick-chart.tsx",
+    "../../../components/chart/chart-container.tsx",
+    "../../../components/chart/chart-theme.context.tsx"
   ],
   "dependencies": {
     "@wuba/react-native-echarts": "3.0.1",
@@ -24,102 +24,81 @@
     "zrender": "5.6.0"
   },
   "keywords": [
-    "area",
+    "candlestick",
+    "k-line",
+    "ohlc",
     "chart",
-    "unified",
-    "master",
-    "multi-series",
-    "stacked",
-    "interactive",
-    "gradient",
-    "smooth",
-    "linear",
-    "step",
-    "axes",
-    "legend",
-    "icons",
-    "visualization",
-    "data-analysis",
-    "chart/line/area"
+    "volume",
+    "moving average",
+    "chart/candlestick"
   ],
   "wmx": {
-    "group": "chart/line/area",
+    "group": "chart/candlestick",
     "props": {
       "data": {
         "name": "data",
         "displayName": "Data",
-        "description": "Chart data. Single series (number[]), single with labels ([string|number, number][]), or multiple series (Array<{name?: string, data: number[] | [string|number, number][]}>). Example: [100, 200, 150] or [[0, 100], [1, 200]] or [{name: 'Series A', data: [100, 200]}]",
+        "description": "Candlestick data: array of [open, close, low, high] per period.",
         "type": "object",
         "isList": true,
         "isRequired": true
       },
-      "type": {
-        "name": "type",
-        "displayName": "Type",
-        "description": "Curve type: 'default' (linear), 'smooth' (Bezier), or 'step'. Default: 'default'",
+      "xAxisData": {
+        "name": "xAxisData",
+        "displayName": "X Axis Data",
+        "description": "X-axis category labels. If omitted, indices (0, 1, 2, ...) are used. Example: ['Mon', 'Tue', 'Wed']",
         "type": "string",
-        "isList": false,
-        "defaultValue": "default",
+        "isList": true,
         "isRequired": false
       },
-      "step": {
-        "name": "step",
-        "displayName": "Step",
-        "description": "Step mode when type='step'. Options: 'start', 'middle', 'end', or false. Default: 'start' when type is step.",
-        "type": "string",
-        "isList": false,
-        "isRequired": false
-      },
-      "stack": {
-        "name": "stack",
-        "displayName": "Stack",
-        "description": "Stack ID for stacking multiple series. Use false to disable. Example: 'total'",
-        "type": "string",
-        "isList": false,
-        "isRequired": false
-      },
-      "stackNormalize": {
-        "name": "stackNormalize",
-        "displayName": "Stack Normalize",
-        "description": "When true with stack, show stacked values as percentages (0–100%). Default: false",
-        "type": "boolean",
-        "isList": false,
-        "defaultValue": false,
-        "isRequired": false
-      },
-      "symbol": {
-        "name": "symbol",
-        "displayName": "Symbol",
-        "description": "Symbol type for data points. Options: 'none', 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'. Default: 'none'",
-        "type": "string",
-        "isList": false,
-        "defaultValue": "none",
-        "isRequired": false
-      },
-      "symbolSize": {
-        "name": "symbolSize",
-        "displayName": "Symbol Size",
-        "description": "Size of the symbol. Number, [width, height], or function. Example: 6",
+      "volumeData": {
+        "name": "volumeData",
+        "displayName": "Volume Data",
+        "description": "Optional volume data (bar series below candlestick). Length should match data.",
         "type": "number",
-        "isList": false,
+        "isList": true,
         "isRequired": false
       },
-      "areaOpacity": {
-        "name": "areaOpacity",
-        "displayName": "Area Opacity",
-        "description": "Opacity of the filled area (0-1). Default: 0.6",
+      "ma5": {
+        "name": "ma5",
+        "displayName": "MA5",
+        "description": "Optional MA5 (5-period moving average) line. Length should match data.",
         "type": "number",
-        "isList": false,
-        "defaultValue": 0.6,
+        "isList": true,
         "isRequired": false
       },
-      "areaFill": {
-        "name": "areaFill",
-        "displayName": "Area Fill",
-        "description": "Fill style for the area under the line: 'gradient' | 'transparent' | 'solid'. Default: 'gradient'",
+      "ma10": {
+        "name": "ma10",
+        "displayName": "MA10",
+        "description": "Optional MA10 (10-period moving average) line. Length should match data.",
+        "type": "number",
+        "isList": true,
+        "isRequired": false
+      },
+      "ma20": {
+        "name": "ma20",
+        "displayName": "MA20",
+        "description": "Optional MA20 (20-period moving average) line. Length should match data.",
+        "type": "number",
+        "isList": true,
+        "isRequired": false
+      },
+      "positiveColor": {
+        "name": "positiveColor",
+        "displayName": "Positive Color",
+        "description": "Color for positive (up) candles. Default: '#008000'",
         "type": "string",
         "isList": false,
-        "defaultValue": "gradient",
+        "defaultValue": "#008000",
+        "isRequired": false
+      },
+      "negativeColor": {
+        "name": "negativeColor",
+        "displayName": "Negative Color",
+        "description": "Color for negative (down) candles. Default: '#FF2C2C'",
+        "type": "string",
+        "isList": false,
+        "defaultValue": "#FF2C2C",
         "isRequired": false
       },
       "width": {
@@ -143,17 +122,9 @@
       "theme": {
         "name": "theme",
         "displayName": "Theme",
-        "description": "Partial theme override for customizing chart appearance. Merged with default theme from ChartThemeContext.",
+        "description": "Partial theme override. Merged with default theme from ChartThemeContext.",
         "type": "object",
         "isList": false,
-        "isRequired": false
-      },
-      "colors": {
-        "name": "colors",
-        "displayName": "Colors",
-        "description": "Colors for the chart series. Overrides theme colors. Example: ['#3b82f6', '#10b981', '#f59e0b']",
-        "type": "string",
-        "isList": true,
         "isRequired": false
       },
       "boundaryGap": {
@@ -168,7 +139,7 @@
       "xAxisTicks": {
         "name": "xAxisTicks",
         "displayName": "X Axis Ticks",
-        "description": "Custom X-axis tick values (numbers only). When provided, used as x-axis data; labels from xAxisTickLabelFormatter.",
+        "description": "Custom X-axis tick values (numbers only). Labels from xAxisTickLabelFormatter.",
         "type": "number",
         "isList": true,
         "isRequired": false
@@ -254,7 +225,7 @@
       "grid": {
         "name": "grid",
         "displayName": "Grid",
-        "description": "Grid positioning. Values: percentages (e.g. '10%') or pixels. Example: {left: '10%', right: '5%', bottom: '10%', top: '10%'}",
+        "description": "Grid positioning. Example: {left: '10%', right: '5%', bottom: '10%', top: '10%'}",
         "type": "object",
         "isList": false,
         "isRequired": false
@@ -271,7 +242,7 @@
       "showHighlighter": {
         "name": "showHighlighter",
         "displayName": "Show Highlighter",
-        "description": "Whether to show the highlighter (emphasis) when interacting with the chart. Default: true",
+        "description": "Whether to show the highlighter when interacting with the chart. Default: true",
         "type": "boolean",
         "isList": false,
         "defaultValue": true,

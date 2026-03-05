@@ -12,9 +12,9 @@
   "iconUrl": "wmx.icon.svg",
   "component": "geo-chart.tsx",
   "requires": [
-    "../geo-chart.tsx",
-    "../../chart-container.tsx",
-    "../../chart-theme.context.tsx"
+    "../../../components/chart/geo/geo-chart.tsx",
+    "../../../components/chart/chart-container.tsx",
+    "../../../components/chart/chart-theme.context.tsx"
   ],
   "dependencies": {
     "@wuba/react-native-echarts": "3.0.1",

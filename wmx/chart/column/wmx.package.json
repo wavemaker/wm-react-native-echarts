@@ -12,9 +12,9 @@
   "iconUrl": "wmx.icon.svg",
   "component": "column-chart.tsx",
   "requires": [
-    "../column-chart.tsx",
-    "../../chart-container.tsx",
-    "../../chart-theme.context.tsx"
+    "../../../components/chart/column/column-chart.tsx",
+    "../../../components/chart/chart-container.tsx",
+    "../../../components/chart/chart-theme.context.tsx"
   ],
   "dependencies": {
     "@wuba/react-native-echarts": "3.0.1",
