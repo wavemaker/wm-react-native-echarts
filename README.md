@@ -25,6 +25,16 @@ React Native chart components built with ECharts (via `@wuba/react-native-echart
 npm install @wavemaker/react-native-echarts
 ```
 
+## Peer Dependencies
+
+This library requires the following peer dependencies. Install them in your app:
+
+```bash
+npm install @shopify/react-native-skia @wuba/react-native-echarts echarts zrender react-native-svg
+```
+
+`react` and `react-native` are usually already present in your project. If not, add them as well.
+
 ---
 
 ## Quick start

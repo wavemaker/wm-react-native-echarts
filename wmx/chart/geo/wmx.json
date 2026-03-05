@@ -1,0 +1,153 @@
+{
+  "name": "geo-chart",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/geo"
+  },
+  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-geo-geochart--docs",
+  "displayName": "Geo Chart",
+  "description": "Map chart component for geographic data. Displays regions colored by value with optional visual map legend and tooltips.",
+  "iconUrl": "icon.svg",
+  "dependencies": {
+    "@wavemaker/react-native-echarts": "1.0.0",
+    "@wuba/react-native-echarts": "3.0.1",
+    "@shopify/react-native-skia": "2.2.12",
+    "react-native-svg": "15.12.1",
+    "echarts": "5.5.1",
+    "zrender": "5.6.0"
+  },
+  "keywords": [
+    "geo",
+    "map",
+    "chart",
+    "geographic",
+    "regions",
+    "visualization",
+    "choropleth",
+    "chart/geo"
+  ],
+  "props": {
+    "data": {
+      "name": "data",
+      "displayName": "Data",
+      "description": "Chart data: array of { name, value } for each region. Region names must match the map GeoJSON feature names. Example: [{name: 'United States', value: 500}, {name: 'China', value: 600}]",
+      "type": "object",
+      "isList": true,
+      "isRequired": true
+    },
+    "mapJson": {
+      "name": "mapJson",
+      "displayName": "Map GeoJSON",
+      "description": "GeoJSON map to display. Pass the FeatureCollection; it will be registered with mapName.",
+      "type": "object",
+      "isList": false,
+      "isRequired": false
+    },
+    "mapName": {
+      "name": "mapName",
+      "displayName": "Map Name",
+      "description": "Name used when registering the map. Use the same value in the chart option. Default: 'world'",
+      "type": "string",
+      "isList": false,
+      "defaultValue": "world",
+      "isRequired": false
+    },
+    "showLegend": {
+      "name": "showLegend",
+      "displayName": "Show Legend",
+      "description": "Whether to show the legend for the color scale (visual map). Default: true",
+      "type": "boolean",
+      "isList": false,
+      "defaultValue": true,
+      "isRequired": false
+    },
+    "showHighlighter": {
+      "name": "showHighlighter",
+      "displayName": "Show Highlighter",
+      "description": "Whether to emphasize (highlight) the hovered region. Default: true",
+      "type": "boolean",
+      "isList": false,
+      "defaultValue": true,
+      "isRequired": false
+    },
+    "tooltipFormatter": {
+      "name": "tooltipFormatter",
+      "displayName": "Tooltip Formatter",
+      "description": "Formatter for tooltip. (params: { name, value }) => string",
+      "type": "function",
+      "isList": false,
+      "isRequired": false
+    },
+    "visualMapMin": {
+      "name": "visualMapMin",
+      "displayName": "Visual Map Min",
+      "description": "Minimum value for the visual map scale. Auto-derived from data if not set.",
+      "type": "number",
+      "isList": false,
+      "isRequired": false
+    },
+    "visualMapMax": {
+      "name": "visualMapMax",
+      "displayName": "Visual Map Max",
+      "description": "Maximum value for the visual map scale. Auto-derived from data if not set.",
+      "type": "number",
+      "isList": false,
+      "isRequired": false
+    },
+    "visualMapMode": {
+      "name": "visualMapMode",
+      "displayName": "Visual Map Mode",
+      "description": "Visual map mode: 'continuous' (gradient) or 'piecewise' (distinct bands). Default: 'continuous'",
+      "type": "string",
+      "isList": false,
+      "defaultValue": "continuous",
+      "isRequired": false
+    },
+    "piecewisePieces": {
+      "name": "piecewisePieces",
+      "displayName": "Piecewise Pieces",
+      "description": "When visualMapMode is 'piecewise', define bands: [{ min, max, label, color }]. Example: [{ min: 0, max: 45, label: 'Low', color: '#3b82f6' }, { min: 45, max: 100, label: 'High', color: '#dc2626' }]",
+      "type": "object",
+      "isList": true,
+      "isRequired": false
+    },
+    "width": {
+      "name": "width",
+      "displayName": "Width",
+      "description": "Width of the chart in pixels. Default: 220",
+      "type": "number",
+      "isList": false,
+      "defaultValue": 220,
+      "isRequired": false
+    },
+    "height": {
+      "name": "height",
+      "displayName": "Height",
+      "description": "Height of the chart in pixels. Default: 350",
+      "type": "number",
+      "isList": false,
+      "defaultValue": 350,
+      "isRequired": false
+    },
+    "theme": {
+      "name": "theme",
+      "displayName": "Theme",
+      "description": "Partial theme override. Merged with default theme from ChartThemeContext.",
+      "type": "object",
+      "isList": false,
+      "isRequired": false
+    },
+    "colors": {
+      "name": "colors",
+      "displayName": "Colors",
+      "description": "Colors for the chart series. Overrides theme colors.",
+      "type": "string",
+      "isList": true,
+      "isRequired": false
+    }
+  },
+  "group": "chart/geo",
+  "webSupport": true
+}
