@@ -1,6 +1,23 @@
 {
-  "name": "rn-widgets",
+  "name": "@wavemaker/rn-e-charts",
   "main": "expo-router/entry",
+  "description": "React Native chart components built on using e-charts library.",
+  "keywords": [
+    "react-native",
+    "echarts",
+    "widgets",
+    "charting",
+    "charts",
+    "charts",
+    "gauges",
+    "geo",
+    "maps",
+    "visualization",
+    "data-visualization",
+    "data-analysis",
+    "data-visualization",
+    "data-analysis"
+  ],
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",

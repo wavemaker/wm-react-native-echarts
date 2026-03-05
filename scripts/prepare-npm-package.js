@@ -83,8 +83,6 @@ function buildPackageJson() {
     '@wuba/react-native-echarts',
     'echarts',
     'zrender',
-    'react',
-    'react-native',
     'react-native-svg',
   ];
   const dependencies = {};
@@ -94,7 +92,7 @@ function buildPackageJson() {
   }
 
   const entries = findEntryPoints(distDir);
-  const main = entries.main || 'index.js';
+  const main = 'index.js';
   const hasModule = Boolean(entries.module);
 
   const pkg = {
