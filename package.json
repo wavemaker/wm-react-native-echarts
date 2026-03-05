@@ -1,5 +1,5 @@
 {
-  "name": "@wavemaker/rn-e-charts",
+  "name": "@wavemaker/react-native-echarts",
   "main": "expo-router/entry",
   "description": "React Native chart components built on using e-charts library.",
   "keywords": [
