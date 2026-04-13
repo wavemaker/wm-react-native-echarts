@@ -1,5 +1,13 @@
 import type { CommonChartProps } from '../props/common';
 
+/** Emitted when the user taps/clicks a ring’s filled segment. */
+export interface RadialChartSelectEvent {
+  seriesIndex: number;
+  dataIndex: number;
+  label: string;
+  value: number;
+}
+
 /**
  * Single data item for radial chart: one concentric ring.
  * value = fill percentage (0–100) for that ring; label optional (tooltip).
@@ -61,4 +69,8 @@ export interface RadialChartProps extends CommonChartProps {
    * @default 'bottom'
    */
   legendPosition?: 'left' | 'right' | 'top' | 'bottom';
+  /**
+   * Called when the user selects (taps/clicks) a ring’s value segment.
+   */
+  onSelect?: (event: RadialChartSelectEvent) => void;
 }

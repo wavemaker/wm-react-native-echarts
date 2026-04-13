@@ -1,5 +1,16 @@
 import type { CommonChartProps } from '../props/common';
 
+/** Emitted when the user taps/clicks a pie slice. */
+export interface PieChartSelectEvent {
+  seriesIndex: number;
+  dataIndex: number;
+  name: string;
+  value: number;
+  /** Series/ring name when applicable (concentric pies). */
+  seriesName?: string;
+  percent?: number;
+}
+
 /**
  * Single slice data for pie/donut charts.
  */
@@ -89,4 +100,8 @@ export interface PieChartProps extends CommonChartProps {
    * Formatter for tooltip. (params) => string. Params include name, value, percent.
    */
   tooltipFormatter?: (params: { name: string; value: number; percent?: number }) => string;
+  /**
+   * Called when the user selects (taps/clicks) a slice.
+   */
+  onSelect?: (event: PieChartSelectEvent) => void;
 }

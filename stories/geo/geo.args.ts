@@ -37,6 +37,10 @@ const geoOnlyArgTypes = {
     control: 'number',
     description: 'Maximum value for the color scale. Auto-derived from data if not set.',
   },
+  onSelect: {
+    control: false,
+    description: 'Called when the user taps/clicks a map region. Receives name and value.',
+  },
 } as const;
 
 export const geoChartArgTypes = {

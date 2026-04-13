@@ -1,6 +1,6 @@
 import { withResponsiveContainer } from '../chart-container';
 import { useChartTheme, withChartTheme } from '../chart-theme.context';
-import type { RadialChartProps, RadialDataItem } from './radial-chart.props';
+import type { RadialChartProps, RadialChartSelectEvent, RadialDataItem } from './radial-chart.props';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { PieChart as EChartsPieChart } from 'echarts/charts';
 import { LegendComponent, TitleComponent, TooltipComponent } from 'echarts/components';
@@ -8,7 +8,7 @@ import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 
 // Re-export types for backward compatibility
-export type { RadialChartProps, RadialDataItem } from './radial-chart.props';
+export type { RadialChartProps, RadialChartSelectEvent, RadialDataItem } from './radial-chart.props';
 
 echarts.use([TooltipComponent, TitleComponent, LegendComponent, SkiaRenderer, EChartsPieChart]);
 
@@ -41,10 +41,14 @@ const ChartComponent = ({
   startAngle = 0,
   clockwise = false,
   ringGap = '4%',
+  onSelect,
   ...props
 }: RadialChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
+  const onSelectRef = useRef(onSelect);
+  onSelectRef.current = onSelect;
+  const selectContextRef = useRef<RadialDataItem[]>([]);
 
   const normalizedData = useMemo(() => {
     if (!Array.isArray(data) || data.length === 0) return [] as RadialDataItem[];
@@ -53,6 +57,8 @@ const ChartComponent = ({
       value: Math.min(100, Math.max(0, Number(d.value))),
     }));
   }, [data]);
+
+  selectContextRef.current = normalizedData;
 
   const option = useMemo(() => {
     if (normalizedData.length === 0) return { series: [] };
@@ -224,6 +230,33 @@ const ChartComponent = ({
           height,
         });
         chart.setOption(option);
+
+        const handlePieClick = (params: {
+          componentType?: string;
+          seriesType?: string;
+          seriesIndex?: number;
+          dataIndex?: number;
+          value?: number;
+        }) => {
+          const cb = onSelectRef.current;
+          if (typeof cb !== 'function') return;
+          if (params.componentType !== 'series') return;
+          if (params.seriesType !== 'pie') return;
+          if (params.dataIndex !== 0) return;
+          const ringIndex = params.seriesIndex;
+          if (typeof ringIndex !== 'number' || ringIndex < 0) return;
+          const row = selectContextRef.current[ringIndex];
+          if (!row) return;
+          const event: RadialChartSelectEvent = {
+            seriesIndex: ringIndex,
+            dataIndex: 0,
+            label: row.label ?? `Ring ${ringIndex + 1}`,
+            value: row.value,
+          };
+          cb(event);
+        };
+
+        chart.on('click', handlePieClick);
       } catch (error) {
         console.warn('Radial chart initialization error:', error);
       }

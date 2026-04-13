@@ -1,6 +1,27 @@
 import type { CommonChartProps } from './common';
 
 /**
+ * Emitted when the user taps/clicks a series data point on Cartesian-based charts
+ * (area, line, column, bar, scatter, bubble, candlestick, etc.).
+ */
+export interface CartesianChartSelectEvent {
+  seriesIndex: number;
+  dataIndex: number;
+  seriesName: string;
+  x: string | number;
+  y: number;
+  /** Third numeric dimension when present (e.g. bubble size). */
+  z?: number;
+  /** Set when the gesture targets a candlestick series. */
+  ohlc?: {
+    open: number;
+    close: number;
+    low: number;
+    high: number;
+  };
+}
+
+/**
  * Grid positioning configuration.
  * Values can be percentages (strings like '10%') or pixel values (numbers).
  */
@@ -94,4 +115,8 @@ export interface CartesianChartProps extends CommonChartProps {
    * Formatter for Y-axis tick labels. (value, index?) => string
    */
   yAxisTickLabelFormatter?: (value: string | number, index?: number) => string;
+  /**
+   * Called when the user selects (taps/clicks) a data point on a series (when supported).
+   */
+  onSelect?: (event: CartesianChartSelectEvent) => void;
 }

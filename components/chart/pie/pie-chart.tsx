@@ -1,6 +1,11 @@
 import { withResponsiveContainer } from '../chart-container';
 import { useChartTheme, withChartTheme } from '../chart-theme.context';
-import type { PieChartProps, PieDataItem, PieRingData } from './pie-chart.props';
+import type {
+  PieChartProps,
+  PieChartSelectEvent,
+  PieDataItem,
+  PieRingData,
+} from './pie-chart.props';
 import { isConcentricPieData } from './pie-chart.props';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { PieChart as EChartsPieChart } from 'echarts/charts';
@@ -12,7 +17,13 @@ import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 
 // Re-export types
-export type { PieChartProps, PieDataItem, PieRingData, PieChartData } from './pie-chart.props';
+export type {
+  PieChartProps,
+  PieChartSelectEvent,
+  PieDataItem,
+  PieRingData,
+  PieChartData,
+} from './pie-chart.props';
 export { isConcentricPieData } from './pie-chart.props';
 
 echarts.use([
@@ -33,10 +44,13 @@ const ChartComponent = ({
   showLabelLine = true,
   showHighlighter = true,
   tooltipFormatter,
+  onSelect,
   ...props
 }: PieChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
+  const onSelectRef = useRef(onSelect);
+  onSelectRef.current = onSelect;
 
   const option = useMemo(() => {
     if (!Array.isArray(data) || data.length === 0) {
@@ -216,6 +230,40 @@ const ChartComponent = ({
           height,
         });
         chart.setOption(option);
+
+        const handlePieClick = (params: {
+          componentType?: string;
+          seriesType?: string;
+          seriesIndex?: number;
+          dataIndex?: number;
+          name?: string;
+          value?: number;
+          seriesName?: string;
+          percent?: number;
+        }) => {
+          const cb = onSelectRef.current;
+          if (typeof cb !== 'function') return;
+          if (params.componentType !== 'series') return;
+          if (params.seriesType !== 'pie') return;
+          if (
+            typeof params.dataIndex !== 'number' ||
+            params.dataIndex < 0 ||
+            params.name == null
+          ) {
+            return;
+          }
+          const event: PieChartSelectEvent = {
+            seriesIndex: params.seriesIndex ?? 0,
+            dataIndex: params.dataIndex,
+            name: String(params.name),
+            value: Number(params.value ?? 0),
+            seriesName: params.seriesName,
+            percent: params.percent,
+          };
+          cb(event);
+        };
+
+        chart.on('click', handlePieClick);
       } catch (error) {
         console.warn('Pie chart initialization error:', error);
       }

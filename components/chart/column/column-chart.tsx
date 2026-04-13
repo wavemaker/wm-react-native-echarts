@@ -11,6 +11,7 @@ import {
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { getAxis } from '../axis';
+import type { CartesianChartSelectEvent } from '../props/cartesian';
 
 /** common -> cartesian -> column */
 export type { ColumnChartProps } from './column-chart.props';
@@ -53,10 +54,17 @@ const ChartComponent = ({
   xAxisTicks,
   xAxisLabel,
   yAxisLabel,
+  onSelect,
   ...props
 }: ColumnChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
+  const onSelectRef = useRef(onSelect);
+  onSelectRef.current = onSelect;
+  const selectContextRef = useRef<{
+    displaySeries: Array<{ name?: string; data: [string | number, number][] }>;
+    labelOverlayDuplicate: boolean;
+  }>({ displaySeries: [], labelOverlayDuplicate: false });
 
   const normalizedSeries = useMemo(() => {
     let normalizedData: Array<{
@@ -129,6 +137,14 @@ const ChartComponent = ({
       };
     });
   }, [normalizedSeries, stackNormalize]);
+
+  const showLabelInside = barInsideLabelFormatter != null;
+  const showLabelOutside = barOutsideLabelFormatter != null;
+  const isSingleSeries = displaySeries.length === 1;
+  const labelOverlayDuplicate =
+    showLabelInside && showLabelOutside && isSingleSeries;
+
+  selectContextRef.current = { displaySeries, labelOverlayDuplicate };
 
   const option = useMemo(() => {
     const categories = (displaySeries[0]?.data ?? []).map((item) => String(item[0]));
@@ -507,6 +523,51 @@ const ChartComponent = ({
       try {
         chart = echarts.init(chartRef.current, 'light', { width, height });
         chart.setOption(option);
+
+        const handleSeriesClick = (params: {
+          componentType?: string;
+          seriesType?: string;
+          seriesIndex?: number;
+          dataIndex?: number;
+        }) => {
+          const cb = onSelectRef.current;
+          if (typeof cb !== 'function') return;
+          if (params.componentType !== 'series') return;
+          if (params.seriesType !== 'bar') return;
+          let seriesIndex = params.seriesIndex;
+          const dataIndex = params.dataIndex;
+          if (
+            typeof seriesIndex !== 'number' ||
+            typeof dataIndex !== 'number' ||
+            dataIndex < 0
+          ) {
+            return;
+          }
+          const { displaySeries: ds, labelOverlayDuplicate: overlay } =
+            selectContextRef.current;
+          if (overlay && seriesIndex === 1) seriesIndex = 0;
+          const s = ds[seriesIndex];
+          if (!s?.data || !Array.isArray(s.data)) return;
+          const row = s.data[dataIndex];
+          if (row === undefined) return;
+          const seriesName =
+            s.name != null && s.name !== ''
+              ? String(s.name)
+              : `Series ${seriesIndex + 1}`;
+          if (!Array.isArray(row) || row.length < 2) return;
+          const x = row[0] as string | number;
+          const y = Number(row[1]);
+          const event: CartesianChartSelectEvent = {
+            seriesIndex,
+            dataIndex,
+            seriesName,
+            x,
+            y,
+          };
+          cb(event);
+        };
+
+        chart.on('click', handleSeriesClick);
       } catch (error) {
         console.warn('Chart initialization error:', error);
       }

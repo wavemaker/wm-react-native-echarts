@@ -1,5 +1,6 @@
 import { withResponsiveContainer } from '../chart-container';
 import { useChartTheme, withChartTheme } from '../chart-theme.context';
+import type { CartesianChartSelectEvent } from '../props/cartesian';
 import type { AreaChartProps, SeriesData } from './area-chart.props';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { LineChart } from 'echarts/charts';
@@ -13,7 +14,11 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { getAxis } from '../axis';
 
 // Re-export types for backward compatibility (common -> cartesian -> area)
-export type { AreaChartProps, SeriesData } from './area-chart.props';
+export type {
+  AreaChartProps,
+  AreaChartSelectEvent,
+  SeriesData,
+} from './area-chart.props';
 
 // Register necessary components for this chart
 echarts.use([
@@ -51,10 +56,20 @@ const ChartComponent = ({
   xAxisTicks,
   xAxisLabel,
   yAxisLabel,
+  onSelect,
   ...props
 }: AreaChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
+  const onSelectRef = useRef(onSelect);
+  onSelectRef.current = onSelect;
+  const selectContextRef = useRef<{
+    displaySeries: Array<{ name?: string; data: [string | number, number][] | number[] }>;
+    xAxisData: (string | number)[];
+  }>({
+    displaySeries: [],
+    xAxisData: [],
+  });
 
   // Derive smooth/step from type
   const effectiveSmooth = type === 'smooth';
@@ -121,13 +136,18 @@ const ChartComponent = ({
     });
   }, [normalizedSeries, stackNormalize]);
 
-  const option = useMemo(() => {
-    const dataPoints = normalizedSeries.map(s => s.data.map(item => item[0] as number)).flat();
-    const xAxisData =
-      xAxisTicks != null && xAxisTicks.length > 0
-        ? xAxisTicks
-        : getAxis(dataPoints).map(String);
+  const xAxisData = useMemo((): (string | number)[] => {
+    const dataPoints = normalizedSeries
+      .map(s => s.data.map(item => item[0] as number))
+      .flat();
+    return xAxisTicks != null && xAxisTicks.length > 0
+      ? xAxisTicks
+      : getAxis(dataPoints).map(String);
+  }, [normalizedSeries, xAxisTicks]);
 
+  selectContextRef.current = { displaySeries, xAxisData };
+
+  const option = useMemo(() => {
     // Build tooltip config
     // axisPointer with snap: true so the pointer snaps to data points and triggers
     // series emphasis (circle) at the hovered position. See https://echarts.apache.org/en/option.html#tooltip.axisPointer
@@ -345,6 +365,7 @@ const ChartComponent = ({
   }, [
     theme,
     normalizedSeries,
+    xAxisData,
     displaySeries,
     type,
     effectiveSmooth,
@@ -383,6 +404,55 @@ const ChartComponent = ({
         });
         
         chart.setOption(option);
+
+        const handleSeriesClick = (params: {
+          componentType?: string;
+          seriesIndex?: number;
+          dataIndex?: number;
+        }) => {
+          const cb = onSelectRef.current;
+          if (typeof cb !== 'function') return;
+          if (params.componentType !== 'series') return;
+          const seriesIndex = params.seriesIndex;
+          const dataIndex = params.dataIndex;
+          if (
+            typeof seriesIndex !== 'number' ||
+            typeof dataIndex !== 'number' ||
+            dataIndex < 0
+          ) {
+            return;
+          }
+          const { displaySeries: ds, xAxisData: xd } = selectContextRef.current;
+          const s = ds[seriesIndex];
+          if (!s?.data || !Array.isArray(s.data)) return;
+          const point = s.data[dataIndex];
+          if (point === undefined) return;
+          const seriesName =
+            s.name != null && s.name !== ''
+              ? String(s.name)
+              : `Series ${seriesIndex + 1}`;
+          let x: string | number;
+          let y: number;
+          if (typeof point === 'number') {
+            x = xd[dataIndex] ?? dataIndex;
+            y = point;
+          } else if (Array.isArray(point) && point.length >= 2) {
+            x = point[0] as string | number;
+            y = Number(point[1]);
+          } else {
+            return;
+          }
+          const event: CartesianChartSelectEvent = {
+            seriesIndex,
+            dataIndex,
+            seriesName,
+            x,
+            y,
+          };
+          cb(event);
+        };
+
+        chart.on('click', handleSeriesClick);
       } catch (error) {
         console.warn('Chart initialization error:', error);
       }

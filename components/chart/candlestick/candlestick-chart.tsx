@@ -10,6 +10,7 @@ import {
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
+import type { CartesianChartSelectEvent } from '../props/cartesian';
 
 export type { CandlestickChartProps, CandlestickData, CandlestickItem } from './candlestick-chart.props';
 
@@ -49,10 +50,17 @@ const ChartComponent = ({
   xAxisTicks,
   xAxisLabel,
   yAxisLabel,
+  onSelect,
   ...props
 }: CandlestickChartProps) => {
   const { theme } = useChartTheme(props.theme, undefined);
   const chartRef = useRef<any>(null);
+  const onSelectRef = useRef(onSelect);
+  onSelectRef.current = onSelect;
+  const selectContextRef = useRef<{
+    categories: (string | number)[];
+    ohlcData: CandlestickData;
+  }>({ categories: [], ohlcData: [] });
 
   const categories = useMemo(() => {
     if (xAxisTicks != null && xAxisTicks.length > 0) return xAxisTicks;
@@ -62,6 +70,8 @@ const ChartComponent = ({
 
   const hasVolume = volumeData != null && volumeData.length > 0;
   const hasMA = (ma5?.length ?? 0) > 0 || (ma10?.length ?? 0) > 0 || (ma20?.length ?? 0) > 0;
+
+  selectContextRef.current = { categories, ohlcData: data };
 
   const option = useMemo(() => {
     if (!data?.length) return { series: [] };
@@ -282,6 +292,36 @@ const ChartComponent = ({
       try {
         chart = echarts.init(chartRef.current, 'light', { width, height });
         chart.setOption(option);
+
+        const handleSeriesClick = (params: {
+          componentType?: string;
+          seriesType?: string;
+          seriesIndex?: number;
+          dataIndex?: number;
+        }) => {
+          const cb = onSelectRef.current;
+          if (typeof cb !== 'function') return;
+          if (params.componentType !== 'series') return;
+          if (params.seriesType !== 'candlestick') return;
+          const dataIndex = params.dataIndex;
+          if (typeof dataIndex !== 'number' || dataIndex < 0) return;
+          const { categories: cats, ohlcData } = selectContextRef.current;
+          const row = ohlcData[dataIndex];
+          if (!row || row.length < 4) return;
+          const [open, close, low, high] = row;
+          const x = cats[dataIndex] ?? dataIndex;
+          const event: CartesianChartSelectEvent = {
+            seriesIndex: params.seriesIndex ?? 0,
+            dataIndex,
+            seriesName: 'Candlestick',
+            x,
+            y: close,
+            ohlc: { open, close, low, high },
+          };
+          cb(event);
+        };
+
+        chart.on('click', handleSeriesClick);
       } catch (error) {
         console.warn('Candlestick chart initialization error:', error);
       }

@@ -1,6 +1,11 @@
 import { withResponsiveContainer } from '../chart-container';
 import { useChartTheme, withChartTheme } from '../chart-theme.context';
-import type { RadarChartProps, RadarIndicator, RadarSeriesData } from './radar-chart.props';
+import type {
+  RadarChartProps,
+  RadarChartSelectEvent,
+  RadarIndicator,
+  RadarSeriesData,
+} from './radar-chart.props';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { RadarChart as EChartsRadarChart } from 'echarts/charts';
 import {
@@ -11,7 +16,12 @@ import {
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 
-export type { RadarChartProps, RadarIndicator, RadarSeriesData } from './radar-chart.props';
+export type {
+  RadarChartProps,
+  RadarChartSelectEvent,
+  RadarIndicator,
+  RadarSeriesData,
+} from './radar-chart.props';
 
 echarts.use([
   TooltipComponent,
@@ -47,15 +57,21 @@ const ChartComponent = ({
   showIndicatorLabels = true,
   showSplitLine = true,
   showAxisLine = true,
+  onSelect,
   ...props
 }: RadarChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
+  const onSelectRef = useRef(onSelect);
+  onSelectRef.current = onSelect;
+  const selectContextRef = useRef<Array<{ name: string; value: number[] }>>([]);
 
   const normalizedSeries = useMemo(() => {
     const count = indicators?.length ?? 0;
     return normalizeRadarSeries(data, count);
   }, [data, indicators?.length]);
+
+  selectContextRef.current = normalizedSeries;
 
   const indicatorMax = useMemo(() => {
     if (!indicators?.length) return [];
@@ -171,6 +187,31 @@ const ChartComponent = ({
           height,
         });
         chart.setOption(option);
+
+        const handleRadarClick = (params: {
+          componentType?: string;
+          seriesType?: string;
+          seriesIndex?: number;
+          dataIndex?: number;
+        }) => {
+          const cb = onSelectRef.current;
+          if (typeof cb !== 'function') return;
+          if (params.componentType !== 'series') return;
+          if (params.seriesType !== 'radar') return;
+          const dataIndex = params.dataIndex;
+          if (typeof dataIndex !== 'number' || dataIndex < 0) return;
+          const row = selectContextRef.current[dataIndex];
+          if (!row) return;
+          const event: RadarChartSelectEvent = {
+            seriesIndex: params.seriesIndex ?? 0,
+            dataIndex,
+            seriesName: row.name,
+            value: [...row.value],
+          };
+          cb(event);
+        };
+
+        chart.on('click', handleRadarClick);
       } catch (error) {
         console.warn('Radar chart initialization error:', error);
       }

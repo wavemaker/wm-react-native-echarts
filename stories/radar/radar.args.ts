@@ -37,6 +37,11 @@ const radarOnlyArgTypes = {
     control: 'boolean',
     description: 'Whether to show axis line for each indicator. Default: true',
   },
+  onSelect: {
+    control: false,
+    description:
+      'Called when the user taps/clicks a radar polygon. Receives seriesIndex, dataIndex, seriesName, value (point values per axis).',
+  },
 } as const;
 
 export const radarChartArgTypes = {

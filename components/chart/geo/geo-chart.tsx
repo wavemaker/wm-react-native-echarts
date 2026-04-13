@@ -1,6 +1,6 @@
 import { withResponsiveContainer } from '../chart-container';
 import { useChartTheme, withChartTheme } from '../chart-theme.context';
-import type { GeoChartProps, GeoDataItem } from './geo-chart.props';
+import type { GeoChartProps, GeoChartSelectEvent, GeoDataItem } from './geo-chart.props';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { MapChart } from 'echarts/charts';
 import { TooltipComponent, VisualMapComponent } from 'echarts/components';
@@ -9,7 +9,7 @@ import React, { createContext, useContext, useEffect, useMemo, useRef } from 're
 import worldJson from '../../../data/world.json';
 import type { GeoJSONMap } from './geo-chart.props';
 
-export type { GeoChartProps, GeoDataItem, GeoJSONMap } from './geo-chart.props';
+export type { GeoChartProps, GeoChartSelectEvent, GeoDataItem, GeoJSONMap } from './geo-chart.props';
 
 /** Optional context to provide mapJson without passing as prop (avoids Storybook serialization issues). */
 export const GeoMapJsonContext = createContext<GeoJSONMap | null>(null);
@@ -36,10 +36,13 @@ const ChartComponent = ({
   visualMapMax,
   visualMapMode = 'continuous',
   piecewisePieces,
+  onSelect,
   ...props
 }: GeoChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
+  const onSelectRef = useRef(onSelect);
+  onSelectRef.current = onSelect;
   const contextMapJson = useContext(GeoMapJsonContext);
   const mapJson = mapJsonProp ?? contextMapJson ?? (worldJson as any);
 
@@ -177,6 +180,34 @@ const ChartComponent = ({
           height,
         });
         chart.setOption(option);
+
+        const handleMapClick = (params: {
+          componentType?: string;
+          seriesType?: string;
+          name?: string;
+          value?: number;
+          data?: GeoDataItem | { name?: string; value?: number };
+        }) => {
+          const cb = onSelectRef.current;
+          if (typeof cb !== 'function') return;
+          if (params.componentType !== 'series') return;
+          if (params.seriesType !== 'map') return;
+          const rawName = params.name ?? params.data?.name;
+          if (rawName == null || rawName === '') return;
+          let value = 0;
+          if (params.data && typeof params.data === 'object' && 'value' in params.data) {
+            value = Number((params.data as GeoDataItem).value);
+          } else if (typeof params.value === 'number') {
+            value = params.value;
+          }
+          const event: GeoChartSelectEvent = {
+            name: String(rawName),
+            value,
+          };
+          cb(event);
+        };
+
+        chart.on('click', handleMapClick);
       } catch (error) {
         console.warn('GeoChart initialization error:', error);
       }

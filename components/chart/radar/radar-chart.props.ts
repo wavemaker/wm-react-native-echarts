@@ -1,5 +1,13 @@
 import type { CommonChartProps } from '../props/common';
 
+/** Emitted when the user taps/clicks a radar series (polygon). */
+export interface RadarChartSelectEvent {
+  seriesIndex: number;
+  dataIndex: number;
+  seriesName: string;
+  value: number[];
+}
+
 /**
  * One dimension (axis) of the radar chart.
  */
@@ -67,4 +75,8 @@ export interface RadarChartProps extends CommonChartProps {
    * @default true
    */
   showAxisLine?: boolean;
+  /**
+   * Called when the user selects (taps/clicks) a radar series polygon.
+   */
+  onSelect?: (event: RadarChartSelectEvent) => void;
 }

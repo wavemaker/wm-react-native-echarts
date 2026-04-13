@@ -11,6 +11,7 @@ import {
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { getAxis } from '../axis';
+import type { CartesianChartSelectEvent } from '../props/cartesian';
 
 /** common -> cartesian -> scatter */
 export type { ScatterChartProps, ScatterSeriesData } from './scatter-chart.props';
@@ -63,10 +64,16 @@ const ChartComponent = ({
   xAxisTicks,
   xAxisLabel,
   yAxisLabel,
+  onSelect,
   ...props
 }: ScatterChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
+  const onSelectRef = useRef(onSelect);
+  onSelectRef.current = onSelect;
+  const selectContextRef = useRef<{
+    normalizedSeries: Array<{ name?: string; data: number[][] }>;
+  }>({ normalizedSeries: [] });
 
   const normalizedSeries = useMemo((): Array<{ name?: string; data: number[][] }> => {
     if (!Array.isArray(data) || data.length === 0) return [];
@@ -84,6 +91,8 @@ const ChartComponent = ({
     () => normalizedSeries.some((s) => 'name' in s && s.name),
     [normalizedSeries]
   );
+
+  selectContextRef.current = { normalizedSeries };
 
   const option = useMemo(() => {
     const dataPoints = normalizedSeries.map(s => s.data.map(item => item[0] as number)).flat();
@@ -291,6 +300,46 @@ const ChartComponent = ({
       try {
         chart = echarts.init(chartRef.current, 'light', { width, height });
         chart.setOption(option);
+
+        const handleSeriesClick = (params: {
+          componentType?: string;
+          seriesType?: string;
+          seriesIndex?: number;
+          dataIndex?: number;
+        }) => {
+          const cb = onSelectRef.current;
+          if (typeof cb !== 'function') return;
+          if (params.componentType !== 'series') return;
+          if (params.seriesType !== 'scatter') return;
+          const seriesIndex = params.seriesIndex;
+          const dataIndex = params.dataIndex;
+          if (
+            typeof seriesIndex !== 'number' ||
+            typeof dataIndex !== 'number' ||
+            dataIndex < 0
+          ) {
+            return;
+          }
+          const { normalizedSeries: ns } = selectContextRef.current;
+          const s = ns[seriesIndex];
+          if (!s?.data || !Array.isArray(s.data)) return;
+          const point = s.data[dataIndex];
+          if (!point || point.length < 2) return;
+          const seriesName =
+            s.name != null && s.name !== ''
+              ? String(s.name)
+              : `Series ${seriesIndex + 1}`;
+          const event: CartesianChartSelectEvent = {
+            seriesIndex,
+            dataIndex,
+            seriesName,
+            x: point[0],
+            y: Number(point[1]),
+          };
+          cb(event);
+        };
+
+        chart.on('click', handleSeriesClick);
       } catch (error) {
         console.warn('Chart initialization error:', error);
       }

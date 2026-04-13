@@ -37,6 +37,20 @@ const radialOnlyArgTypes = {
     control: 'text',
     description: 'Gap between concentric rings (e.g. "2%" or number).',
   },
+  showLegend: {
+    control: 'boolean',
+    description: 'Whether to show the legend (ring labels). Default: true',
+  },
+  legendPosition: {
+    control: 'select',
+    options: ['left', 'right', 'top', 'bottom'],
+    description: 'Legend position. Default: bottom',
+  },
+  onSelect: {
+    control: false,
+    description:
+      'Called when the user taps/clicks a ring’s filled segment. Receives seriesIndex, dataIndex, label, value.',
+  },
 } as const;
 
 export const radialChartArgTypes = {

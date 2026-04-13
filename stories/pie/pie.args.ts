@@ -38,6 +38,11 @@ const pieOnlyArgTypes = {
     control: false,
     description: 'Custom formatter for tooltip. (params) => string',
   },
+  onSelect: {
+    control: false,
+    description:
+      'Called when the user taps/clicks a slice. Receives seriesIndex, dataIndex, name, value, optional seriesName, percent.',
+  },
 } as const;
 
 export const pieChartArgTypes = {

@@ -1,5 +1,11 @@
 import type { CommonChartProps } from '../props/common';
 
+/** Emitted when the user taps/clicks a map region. */
+export interface GeoChartSelectEvent {
+  name: string;
+  value: number;
+}
+
 /**
  * GeoJSON Feature Collection (map geometry).
  * Used with echarts.registerMap() so region names in data match feature properties.
@@ -75,4 +81,8 @@ export interface GeoChartProps extends CommonChartProps {
    * Example: [{ min: 0, max: 45, label: 'Democrat', color: '#3b82f6' }, { min: 45, max: 55, label: 'Competitive', color: '#94a3b8' }, { min: 55, max: 100, label: 'Republican', color: '#dc2626' }].
    */
   piecewisePieces?: Array<{ min: number; max: number; label: string; color: string }>;
+  /**
+   * Called when the user selects (taps/clicks) a region on the map.
+   */
+  onSelect?: (event: GeoChartSelectEvent) => void;
 }

@@ -1,4 +1,4 @@
-import type { CartesianChartProps } from '../props/cartesian';
+import type { CartesianChartProps, CartesianChartSelectEvent } from '../props/cartesian';
 
 /**
  * Area/line/bar series data shape:
@@ -11,6 +11,9 @@ export type SeriesData =
   | [string | number, number][]
   | Array<{ name?: string; data: number[] }>
   | Array<{ name?: string; data: [string | number, number][] }>;
+
+/** @deprecated Use {@link CartesianChartSelectEvent} from `../props/cartesian`. */
+export type AreaChartSelectEvent = CartesianChartSelectEvent;
 
 /**
  * Props for AreaChart.

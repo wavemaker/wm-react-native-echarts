@@ -69,4 +69,9 @@ export const cartesianChartArgTypes = {
     control: false,
     description: 'Formatter for Y-axis tick labels. (value, index?) => string',
   },
+  onSelect: {
+    control: false,
+    description:
+      'Called when the user taps/clicks a data point (Cartesian charts). Receives seriesIndex, dataIndex, seriesName, x, y; optional z (bubble) or ohlc (candlestick).',
+  },
 } as const;
