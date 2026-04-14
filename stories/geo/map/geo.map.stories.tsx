@@ -1,13 +1,13 @@
 import type { StoryObj } from '@storybook/react';
 import meta from '../meta';
 import { USChart } from '@components/chart/geo';
+import presidentialResultsByState from '../../../data/senate-results-by-state.json';
 
 // Light colors for presidential map (used in both legend and region fill)
 const LIGHT_BLUE = '#93c5fd';
 const LIGHT_RED = '#fca5a5';
 
-// Last presidential election: electoral votes per state { name, republican, democrat }
-const presidentialResultsByState = (await import('../../../data/senate-results-by-state.json')).default;
+// Electoral-style data per state { name, republican, democrat } (see data file name)
 // Map to chart format: value = Republican EV, itemStyle.areaColor = light color so colors always show
 const presidentialChartData = presidentialResultsByState.map((s: { name: string; republican: number }) => ({
   name: s.name,

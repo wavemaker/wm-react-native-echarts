@@ -19,10 +19,34 @@ const config: StorybookConfig = {
   async viteFinal(config) {
     return mergeConfig(config, {
       resolve: {
+        // Prefer *.web.js (e.g. react-native-gesture-handler) over native RN files.
+        extensions: [
+          '.web.mjs',
+          '.web.js',
+          '.web.jsx',
+          '.web.ts',
+          '.web.tsx',
+          '.mjs',
+          '.js',
+          '.mts',
+          '.ts',
+          '.jsx',
+          '.tsx',
+          '.json',
+        ],
         alias: {
           '@': path.resolve(__dirname, '../'),
           '@components': path.resolve(__dirname, '../components'),
           '@stories': path.resolve(__dirname, '../stories'),
+          // Before `react-native` → web: RN paths that exist on native but not on react-native-web.
+          'react-native/Libraries/Utilities/codegenNativeComponent': path.resolve(
+            __dirname,
+            './shims/codegenNativeComponent.js'
+          ),
+          'react-native/Libraries/Pressability/PressabilityDebug': path.resolve(
+            __dirname,
+            './shims/PressabilityDebug.js'
+          ),
           'react-native': 'react-native-web',
           'react-native/Libraries/Image/AssetRegistry': 'react-native-web/dist/modules/AssetRegistry',
         },

@@ -1,13 +1,10 @@
 import React from 'react';
+import usStatesRaw from '../../../data/us-states.json';
 import { GeoChart, GeoMapJsonContext } from './geo-chart';
 import type { GeoChartProps, GeoJSONMap } from './geo-chart.props';
 
-/** US states GeoJSON — loaded once for USChart. */
-const usStatesMapJson: GeoJSONMap =
-  await (async () => {
-    const raw = (await import('../../../data/us-states.json')).default;
-    return raw as GeoJSONMap;
-  })();
+/** US states GeoJSON — bundled once for USChart (static import avoids top-level await in Vite builds). */
+const usStatesMapJson = usStatesRaw as GeoJSONMap;
 
 export type USChartProps = Omit<GeoChartProps, 'mapJson' | 'mapName'> & {
   /** @default 'usa' */
