@@ -1,6 +1,6 @@
 # @wavemaker/react-native-echarts
 
-React Native chart components built with ECharts (via `@wuba/react-native-echarts`) and Skia. Works with Expo and bare React Native.
+React Native chart components built with ECharts (via `@wuba/react-native-echarts`) and Skia. Works with Expo and bare React Native. Visit storybook at https://wavemaker.github.io/wm-react-native-echarts to check the components.
 
 ---
 
