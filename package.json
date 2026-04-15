@@ -24,7 +24,7 @@
     "data-visualization",
     "data-analysis"
   ],
-  "version": "1.0.0-dev.2",
+  "version": "1.0.0-dev.3",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -33,13 +33,13 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "storybook": "storybook dev -p 6006",
-    "build:storybook": "storybook build",
+    "build-storybook": "storybook build",
     "generate:wmx": "node ./scripts/generate-wmx.js",
     "build:lib": "node ./scripts/build-lib.js",
     "prepare:npm": "node ./scripts/prepare-npm-package.js",
     "generate:package": "npm run build:lib && npm run prepare:npm",
     "publish:npm": "npm run generate:package && cd dist/npm-packages/charts && npm publish",
-    "deploy:storybook": "storybook-to-ghpages"
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "peerDependencies": {
     "@shopify/react-native-skia": "*",
