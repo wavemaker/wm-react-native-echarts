@@ -50,7 +50,7 @@ export const NestedProviders: Story = {
         <ChartThemeProvider
           theme={{
             axis: { x: { lineColor: 'red' }, y: { lineColor: 'yellow' } },
-          }}
+          } as Partial<ChartTheme> }
         >
           <AreaChart {...args} />
         </ChartThemeProvider>
