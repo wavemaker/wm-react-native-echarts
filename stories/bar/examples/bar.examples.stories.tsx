@@ -1,7 +1,7 @@
 import type { StoryObj } from '@storybook/react';
 import meta from '../meta';
 
-export default { ...meta, title: 'Charts/Bar/Examples' };
+export default { ...meta, title: 'Examples/Bar' };
 type Story = StoryObj<typeof meta>;
 
 /** Bar chart with axes labels matching axes-area.png.

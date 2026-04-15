@@ -1,7 +1,7 @@
 import type { StoryObj } from '@storybook/react';
 import meta from '../meta';
 
-export default { ...meta, title: 'Charts/Column/Examples' };
+export default { ...meta, title: 'Examples/Column' };
 type Story = StoryObj<typeof meta>;
 
 

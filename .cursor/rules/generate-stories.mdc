@@ -63,3 +63,8 @@ export const CustomColor: Story = {
 - Reuse `meta` from `../meta` and only override `title`.
 - Put shared data (e.g. `data`, `xAxisLabels`) in consts at the top.
 - Export named stories with JSDoc and `args`; use PascalCase or camelCase for story names consistently with existing files.
+
+## Examples (reference-style stories)
+
+- Place them in `stories/<chart>/examples/<chart>.examples.stories.tsx`.
+- Set `title` to `Examples/<Chart>` (e.g. `Examples/Area`) so they appear under the **Examples** root in the sidebar, not under `Charts/...`.

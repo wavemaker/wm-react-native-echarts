@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const config: StorybookConfig = {
-  stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  stories: ['../stories/**/*.mdx', '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: ['@storybook/addon-links', '@storybook/addon-docs'],
 
   framework: {
@@ -73,6 +73,19 @@ const config: StorybookConfig = {
         },
       },
       plugins: [
+        {
+          name: 'storybook-mdx-shim-resolve',
+          enforce: 'pre',
+          resolveId(id) {
+            if (id.includes('mdx-react-shim')) {
+              return path.resolve(
+                __dirname,
+                '../node_modules/@storybook/addon-docs/dist/mdx-react-shim.js'
+              );
+            }
+            return null;
+          },
+        },
         {
           name: 'ignore-react-native-flow',
           enforce: 'pre',
