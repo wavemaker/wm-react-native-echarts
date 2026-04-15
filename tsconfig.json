@@ -1,0 +1,27 @@
+{
+  "extends": "expo/tsconfig.base",
+  "baseUrl": ".",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@wavemaker/react-native-echarts/*": [
+        "./components/chart/*"
+      ],
+      "@components/*": [
+        "./components/*"
+      ],
+      "@stories/*": [
+        "./stories/*"
+      ],
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
+  ]
+}

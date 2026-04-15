@@ -1,0 +1,69 @@
+# Publishes the library to npm and deploys Storybook when `main` is updated (including merges).
+#
+# - NPM_TOKEN: npm automation token with publish permission for the package scope.
+# - Storybook: uses `npm run deploy-storybook` (@storybook/storybook-deployer → gh-pages).
+#   GitHub Pages source should be the `gh-pages` branch (Settings → Pages → Deploy from a branch).
+#
+name: Publish npm & deploy Storybook
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish-npm:
+    name: Publish npm package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          registry-url: https://registry.npmjs.org/
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and prepare package
+        run: npm run generate:package
+
+      - name: Publish to npm
+        working-directory: dist/npm-packages/charts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public --provenance
+
+  deploy-storybook:
+    name: Deploy Storybook
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Deploy Storybook (storybook-to-ghpages)
+        env:
+          GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
+          STORYBOOK_BASE_PATH: ${{ endsWith(github.event.repository.name, '.github.io') && '/' || format('/{0}/', github.event.repository.name) }}
+        run: npm run deploy:storybook
