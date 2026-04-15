@@ -18,6 +18,7 @@ const config: StorybookConfig = {
 
   async viteFinal(config) {
     return mergeConfig(config, {
+      base: process.env.STORYBOOK_BASE_PATH || '/',
       resolve: {
         // Prefer *.web.js (e.g. react-native-gesture-handler) over native RN files.
         extensions: [

@@ -75,6 +75,7 @@ function buildPackageJson() {
   const description = rootPkg.description || 'React Native chart and gauge components';
   const license = rootPkg.license || 'MIT';
   const repository = rootPkg.repository || {};
+  const homepage = rootPkg.homepage || '';
   const keywords = rootPkg.keywords || ['react-native', 'charts', 'components', 'expo'];
 
   // Runtime deps that the built package should declare (from root dependencies)
@@ -91,6 +92,15 @@ function buildPackageJson() {
     if (allDeps[dep]) dependencies[dep] = allDeps[dep];
   }
 
+  const rootPeers = rootPkg.peerDependencies || {};
+  const peerDependencies = {
+    react: rootPeers.react || '*',
+    'react-native': rootPeers['react-native'] || '*',
+  };
+  for (const dep of runtimeDeps) {
+    peerDependencies[dep] = rootPeers[dep] || allDeps[dep] || '*';
+  }
+
   const entries = findEntryPoints(distDir);
   const main = 'index.js';
   const hasModule = Boolean(entries.module);
@@ -103,6 +113,7 @@ function buildPackageJson() {
     repository,
     keywords,
     main,
+    homepage,
     ...(entries.types && { types: entries.types }),
     ...(hasModule && { module: entries.module }),
     ...(hasModule && {
@@ -115,10 +126,7 @@ function buildPackageJson() {
       },
     }),
     files: ['*'],
-    peerDependencies: {
-      react: '*',
-      'react-native': '*',
-    },
+    peerDependencies,
     dependencies,
   };
 
