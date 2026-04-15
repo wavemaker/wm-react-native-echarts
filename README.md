@@ -34,9 +34,9 @@ Preview thumbnails for the chart examples in `assets/images/charts`. Each image 
 <table>
   <tbody>
     <tr>
-      <td align="center"><img src="assets/images/charts/area/chart1.png" width="200" height="200" alt="Area chart 1" style="object-fit: contain;" /><br /><sub>chart1</sub></td>
-      <td align="center"><img src="assets/images/charts/area/chart2.png" width="200" height="200" alt="Area chart 2" style="object-fit: contain;" /><br /><sub>chart2</sub></td>
-      <td align="center"><img src="assets/images/charts/area/chart3.png" width="200" height="200" alt="Area chart 3" style="object-fit: contain;" /><br /><sub>chart3</sub></td>
+      <td align="center"><img src="assets/images/charts/area/default.png" width="200" height="200" alt="Default" style="object-fit: contain;" /><br /><sub>Default</sub></td>
+      <td align="center"><img src="assets/images/charts/area/without-axes.png" width="200" height="200" alt="Witout axes" style="object-fit: contain;" /><br /><sub>Witout axes</sub></td>
+      <td align="center"><img src="assets/images/charts/area/with-gradient-bg.png" width="200" height="200" alt="With Gradient Bg" style="object-fit: contain;" /><br /><sub>With Gradient Bg</sub></td>
     </tr>
   </tbody>
 </table>
@@ -202,6 +202,20 @@ npm run storybook # to checout the component stories
 ## Maintainers
 
 This package is maintained by [WaveMaker](https://www.wavemaker.com/). The source repository is [wavemaker/wm-react-native-echarts](https://github.com/wavemaker/wm-react-native-echarts). Use [GitHub Issues](https://github.com/wavemaker/wm-react-native-echarts/issues) for bug reports and feature requests.
+
+### Contributors
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center" width="96">
+        <a href="https://github.com/sboyina"><img src="https://avatars.githubusercontent.com/u/2254369?s=96&v=4" width="72" height="72" alt="sboyina" style="border-radius: 50%;" /><br /><sub><b>sboyina</b></sub></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
 
 ---
 
