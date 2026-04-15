@@ -94,28 +94,28 @@ type LegendStyle = {
  */
 export type ChartTheme = {
   /** Configuration for chart axes (x, y, and radial) */
-  axis: {
+  axis: Partial<{
     /** X-axis styling configuration */
-    x: AxisStyle;
+    x: Partial<AxisStyle>;
     /** Y-axis styling configuration */
-    y: AxisStyle;
+    y: Partial<AxisStyle>;
     /** Radial axis styling configuration (for radar/polar charts) */
-    r: AxisStyle;
-  };
+    r: Partial<AxisStyle>;
+  }>;
   /** Configuration for grid lines */
-  grid: {
+  grid: Partial<{
     /** X-axis grid line styling */
-    x: GridLineStyle;
+    x: Partial<GridLineStyle>;
     /** Y-axis grid line styling */
-    y: GridLineStyle;
+    y: Partial<GridLineStyle>;
     /** Radial grid line styling (for radar/polar charts) */
-    r: GridLineStyle;
-  };
-  legend: LegendStyle;
+    r: Partial<GridLineStyle>;
+  }>;
+  legend: Partial<LegendStyle>;
   /** Configuration for tooltip appearance */
-  tooltip: TooltipStyle;
+  tooltip: Partial<TooltipStyle>;
   /** Array of series styles that cycle through for multiple data series */
-  series: Series[];
+  series: Partial<Series>[];
 };
 
 

@@ -26,7 +26,7 @@ Unlike using a single giant ECharts `option` object in JSX, this package exposes
 
 ## Theming
 
-Charts read from **`ChartThemeProvider`** / **`useChartTheme`**. Defaults are **`LIGHT_THEME`** and **`DARK_THEME`**. Per-chart overrides use the **`theme`** and **`colors`** props (partial theme + series palette). See the **Theming** section in the project README for more detail.
+Charts read from **`ChartThemeProvider`** / **`useChartTheme`**. Defaults are **`LIGHT_THEME`** and **`DARK_THEME`**. Per-chart overrides use the **`theme`** and **`colors`** props (partial theme + series palette). See **Theming → Overview** and **Theming → Examples** in this Storybook, and the **Theming** section in the project README.
 
 ## Maps and `GeoMapJsonContext`
 

@@ -68,3 +68,8 @@ export const CustomColor: Story = {
 
 - Place them in `stories/<chart>/examples/<chart>.examples.stories.tsx`.
 - Set `title` to `Examples/<Chart>` (e.g. `Examples/Area`) so they appear under the **Examples** root in the sidebar, not under `Charts/...`.
+
+## Theming (docs + demos)
+
+- Overview: `stories/theming/theming.md` + `theming.mdx` with `Meta title="Theming/Overview"`.
+- Live demos: `stories/theming/meta.tsx` + `examples.stories.tsx` with `title: 'Theming/Examples'` (reuse chart `argTypes` from an existing chart such as `area/area.args`).

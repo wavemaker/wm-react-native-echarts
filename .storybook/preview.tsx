@@ -14,11 +14,15 @@ const preview: Preview = {
           'Introduction/License',
         ];
         const introPrefix = 'Introduction/';
+        const chartsPrefix = 'Charts/';
         const examplesPrefix = 'Examples/';
+        const themingPrefix = 'Theming/';
         const bucket = (title) => {
           if (title.startsWith(introPrefix)) return 0;
+          if (title.startsWith(chartsPrefix)) return 1;
           if (title.startsWith(examplesPrefix)) return 2;
-          return 1;
+          if (title.startsWith(themingPrefix) || title === 'Theming') return 3;
+          return 4;
         };
         const ba = bucket(a.title);
         const bb = bucket(b.title);
@@ -39,6 +43,14 @@ const preview: Preview = {
           ];
           const ai = examplesOrder.indexOf(a.title);
           const bi = examplesOrder.indexOf(b.title);
+          if (ai !== -1 || bi !== -1) {
+            return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+          }
+        }
+        if (ba === 3) {
+          const themingOrder = ['Theming/Overview', 'Theming/Examples'];
+          const ai = themingOrder.indexOf(a.title);
+          const bi = themingOrder.indexOf(b.title);
           if (ai !== -1 || bi !== -1) {
             return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
           }
