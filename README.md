@@ -34,9 +34,23 @@ Preview thumbnails for the chart examples in `assets/images/charts`. Each image 
 <table>
   <tbody>
     <tr>
-      <td align="center"><img src="assets/images/charts/area/default.png" width="200" height="200" alt="Default" style="object-fit: contain;" /><br /><sub>Default</sub></td>
-      <td align="center"><img src="assets/images/charts/area/without-axes.png" width="200" height="200" alt="Witout axes" style="object-fit: contain;" /><br /><sub>Witout axes</sub></td>
-      <td align="center"><img src="assets/images/charts/area/with-gradient-bg.png" width="200" height="200" alt="With Gradient Bg" style="object-fit: contain;" /><br /><sub>With Gradient Bg</sub></td>
+      <td align="center">
+        <a href="https://wavemaker.github.io/wm-react-native-echarts/?path=/story/examples-area--axes-area" target="_blank">
+          <img src="assets/images/charts/area/default.png" width="200" height="200" alt="Default" style="object-fit: contain;" />
+          <br />
+          <sub>Default</sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://wavemaker.github.io/wm-react-native-echarts/?path=/story/examples-area--area-without-axes" target="_blank">
+          <img src="assets/images/charts/area/without-axes.png" width="200" height="200" alt="Witout axes" style="object-fit: contain;" /><br /><sub>Witout axes</sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://wavemaker.github.io/wm-react-native-echarts/?path=/story/examples-area--gradient-area" target="_blank">
+          <img src="assets/images/charts/area/with-gradient-bg.png" width="200" height="200" alt="With Gradient Bg" style="object-fit: contain;" /><br /><sub>With Gradient Bg</sub>
+        </a>
+      </td>
     </tr>
   </tbody>
 </table>
