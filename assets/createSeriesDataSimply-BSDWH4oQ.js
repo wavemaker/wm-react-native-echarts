@@ -1,0 +1,1 @@
+import{d as t,e as c,f as m,g as o}from"./install-BebJlzH2.js";function S(a,e,n){e=t(e)&&{coordDimensions:e}||c({encodeDefine:a.getEncode()},e);var r=a.getSource(),s=m(r,e).dimensions,i=new o(s,a);return i.initData(r,n),i}export{S as c};

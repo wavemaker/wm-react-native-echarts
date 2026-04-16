@@ -1,0 +1,1 @@
+const h=(s=0,t=100,o)=>{o=o||Math.floor((t-s)/10)||1;const n=[];for(let r=s;r<=t;r+=o)n.push(r);return n[n.length-1]!==t&&n.push(t),n},c=s=>{const t=Math.min(...s),o=Math.max(...s);return h(t,o)};export{c as g};
