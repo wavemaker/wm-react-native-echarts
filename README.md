@@ -287,7 +287,7 @@ Preview thumbnails for the chart examples in `assets/images/charts`. Each image 
         </a>
       </td>
       <td align="center">
-        <a href="" target="_blank">
+        <a href="https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-radial-colors--background" target="_blank">
           <img src="assets/images/charts/radial/with-bg.png" width="200" height="200" alt="Radial chart with background" style="object-fit: contain;" /><br /><sub>with-bg</sub>
         </a>
       </td>
