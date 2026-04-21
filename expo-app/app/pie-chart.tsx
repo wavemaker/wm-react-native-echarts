@@ -1,4 +1,4 @@
-import { PieChart } from '@/components/chart/pie';
+import { PieChart } from '@wavemaker/react-native-echarts/pie';
 import { useTheme } from '@/contexts/ThemeContext';
 import { ScrollView, StyleSheet, View } from 'react-native';
 

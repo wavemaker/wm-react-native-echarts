@@ -1,4 +1,4 @@
-import { RadarChart } from '@/components/chart/radar';
+import { RadarChart } from '@wavemaker/react-native-echarts/radar';
 import { useTheme } from '@/contexts/ThemeContext';
 import { ScrollView, StyleSheet, View } from 'react-native';
 

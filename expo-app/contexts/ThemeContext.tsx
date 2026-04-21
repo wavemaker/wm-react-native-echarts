@@ -1,5 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { Appearance } from 'react-native';
+import { Appearance, type ColorSchemeName } from 'react-native';
+
+function resolveColorScheme(scheme: ColorSchemeName | null | undefined): 'light' | 'dark' {
+  return scheme === 'dark' ? 'dark' : 'light';
+}
 
 type Theme = 'light' | 'dark' | 'system';
 
@@ -31,8 +35,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   useEffect(() => {
     const updateColorScheme = () => {
       if (theme === 'system') {
-        const systemColorScheme = Appearance.getColorScheme();
-        setColorScheme(systemColorScheme || 'light');
+        setColorScheme(resolveColorScheme(Appearance.getColorScheme()));
       } else {
         setColorScheme(theme);
       }
@@ -42,7 +45,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
     if (theme === 'system') {
       const subscription = Appearance.addChangeListener(({ colorScheme }) => {
-        setColorScheme(colorScheme || 'light');
+        setColorScheme(resolveColorScheme(colorScheme));
       });
 
       return () => subscription?.remove();

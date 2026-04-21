@@ -8,6 +8,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 const root = process.cwd();
 const distDir = path.join(root, 'dist');
@@ -170,6 +171,11 @@ function run() {
   writeNpmIgnore(chartsDir);
 
   log('Done. To publish: cd dist/npm-packages/charts && npm publish');
+  // publish to yalc
+  execSync('yalc publish', { stdio: 'inherit', cwd: chartsDir });
+  log('Published to yalc');
+  execSync('yalc add @wavemaker/react-native-echarts', { stdio: 'inherit', cwd: path.join(root, 'expo-app') });
+  log('Added @wavemaker/react-native-echarts to expo-app');
 }
 
 run();

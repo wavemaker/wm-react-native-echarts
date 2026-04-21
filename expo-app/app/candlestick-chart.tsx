@@ -1,4 +1,4 @@
-import { CandlestickChart } from '@/components/chart/candlestick';
+import { CandlestickChart } from '@wavemaker/react-native-echarts/candlestick';
 import { useTheme } from '@/contexts/ThemeContext';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 

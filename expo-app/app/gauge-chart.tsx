@@ -1,11 +1,6 @@
-import {
-  LabeledGaugeChart,
-  RadialGaugeChart,
-  AnimatedGaugeChart,
-  SemiCircularGaugeChart,
-} from '@/components/chart/gauge';
+import { DigitalGauge, RadialGauge, SimpleGauge, SpeedometerGauge } from '@wavemaker/react-native-echarts/gauge';
 import { useTheme } from '@/contexts/ThemeContext';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 
 export default function GaugeChartScreen() {
   const { colorScheme } = useTheme();
@@ -20,9 +15,9 @@ export default function GaugeChartScreen() {
 
   return (
     <ScrollView style={styles.container}>
-      <SemiCircularGaugeChart value={85} />
-      <SemiCircularGaugeChart 
-        value={85} 
+      <SpeedometerGauge value={85} />
+      <SpeedometerGauge
+        value={85}
         min={0}
         max={120}
         axisBgColor="#f0efdc"
@@ -31,13 +26,9 @@ export default function GaugeChartScreen() {
         axisWidth={20}
         tickColor="#aaaaaa"
       />
-      <RadialGaugeChart value={64}/>
-      <AnimatedGaugeChart value={48} />
-      <LabeledGaugeChart 
-        value={45} 
-        title="Metric A" 
-        detailText="45%" 
-      />
+      <RadialGauge value={64} />
+      <DigitalGauge value={48} />
+      <SimpleGauge value={45} title="Metric A" detailText="45%" />
     </ScrollView>
   );
 }

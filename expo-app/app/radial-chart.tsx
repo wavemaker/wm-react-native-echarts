@@ -1,4 +1,4 @@
-import { RadialChart } from '@/components/chart/radial';
+import { RadialChart } from '@wavemaker/react-native-echarts/radial';
 import { useTheme } from '@/contexts/ThemeContext';
 import { ScrollView, StyleSheet, View } from 'react-native';
 

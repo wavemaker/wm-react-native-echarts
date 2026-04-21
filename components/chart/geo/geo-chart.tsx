@@ -10,7 +10,7 @@ import { TooltipComponent, VisualMapComponent } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import React, { createContext, useContext, useEffect, useMemo, useRef } from 'react';
 import { View } from 'react-native';
-import worldJson from '../../../data/world.json';
+import worldJson from './world.json';
 import type { GeoJSONMap } from './geo-chart.props';
 
 export type { GeoChartProps, GeoChartSelectEvent, GeoDataItem, GeoJSONMap } from './geo-chart.props';

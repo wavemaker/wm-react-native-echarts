@@ -1,14 +1,10 @@
+import { WorldChart } from '@wavemaker/react-native-echarts/geo';
 import { useTheme } from '@/contexts/ThemeContext';
-import { DefaultGeoChart } from '@/components/chart/geo/default-geo.chart';
-import { GDPGeoChart } from '@/components/chart/geo/gdp-geo.chart';
-import { InteractiveGeoChart } from '@/components/chart/geo/interactive-geo.chart';
-import { PopulationGeoChart } from '@/components/chart/geo/population-geo.chart';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 
 export default function GeoChartScreen() {
   const { colorScheme } = useTheme();
 
-  // Sample data for different chart types
   const defaultGeoData = [
     { name: 'United States', value: 500 },
     { name: 'China', value: 600 },
@@ -95,14 +91,10 @@ export default function GeoChartScreen() {
 
   return (
     <ScrollView style={styles.container}>
-      {/* Main Interactive Chart */}
-      <InteractiveGeoChart data={interactiveGeoData} />
-
-      {/* Grid of smaller charts */}
-      <PopulationGeoChart data={populationData} />
-      <GDPGeoChart data={gdpData} />
-      <DefaultGeoChart data={defaultGeoData} />
-
+      <WorldChart tooltip="card" data={interactiveGeoData} />
+      <WorldChart data={populationData} />
+      <WorldChart data={gdpData} />
+      <WorldChart data={defaultGeoData} />
     </ScrollView>
   );
 }
