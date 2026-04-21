@@ -3,7 +3,6 @@ import type { ChartTooltipPreset } from '../../tooltip';
 import {
   TooltipPresetCard,
   TooltipPresetCompact,
-  TooltipPresetDark,
   TooltipPresetKpi,
   TooltipPresetStriped,
 } from '../../tooltip/chart-tooltip-preset-shells';
@@ -16,21 +15,6 @@ function axisCardFromParams({ axisValue, series }: AxisTooltipParams) {
       seriesRows={series.map((s) => ({
         key: s.seriesIndex,
         swatchColor: s.color ?? '#94a3b8',
-        label: s.seriesName,
-        value: s.value,
-      }))}
-    />
-  );
-}
-
-function axisDarkFromParams({ axisValue, series }: AxisTooltipParams) {
-  return (
-    <TooltipPresetDark
-      kind="axis"
-      categoryTitle={String(axisValue)}
-      seriesRows={series.map((s) => ({
-        key: s.seriesIndex,
-        barColor: s.color ?? '#64748b',
         label: s.seriesName,
         value: s.value,
       }))}
@@ -86,8 +70,6 @@ export function createAxisTooltipPreset(
   switch (preset) {
     case 'card':
       return (p) => axisCardFromParams(p);
-    case 'dark':
-      return (p) => axisDarkFromParams(p);
     case 'compact':
       return (p) => axisCompactFromParams(p);
     case 'kpi':
@@ -95,4 +77,5 @@ export function createAxisTooltipPreset(
     case 'striped':
       return (p) => axisStripedFromParams(p);
   }
+  throw new Error(`Unknown tooltip preset: ${String(preset)}`);
 }

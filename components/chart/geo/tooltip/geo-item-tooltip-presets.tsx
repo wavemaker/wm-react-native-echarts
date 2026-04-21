@@ -4,7 +4,6 @@ import type { ChartTooltipPreset } from '../../tooltip';
 import {
   TooltipPresetCard,
   TooltipPresetCompact,
-  TooltipPresetDark,
   TooltipPresetKpi,
   TooltipPresetStriped,
 } from '../../tooltip/chart-tooltip-preset-shells';
@@ -20,20 +19,6 @@ function geoCardFromParams(p: GeoItemTooltipParams) {
       <Text style={{ fontSize: 20, fontWeight: '800', color: '#0f172a' }}>{String(value)}</Text>
       <Text style={{ fontSize: 11, color: '#64748b', marginTop: 4 }}>Value</Text>
     </TooltipPresetCard>
-  );
-}
-
-function geoDarkFromParams(p: GeoItemTooltipParams) {
-  const { name, value, color } = p;
-  return (
-    <TooltipPresetDark
-      kind="item"
-      minWidth={140}
-      barColor={color ?? '#64748b'}
-      title={name}
-      primaryValue={String(value)}
-      primaryValueSize="lg"
-    />
   );
 }
 
@@ -71,8 +56,6 @@ export function createGeoTooltipPreset(
   switch (preset) {
     case 'card':
       return (p) => geoCardFromParams(p);
-    case 'dark':
-      return (p) => geoDarkFromParams(p);
     case 'compact':
       return (p) => geoCompactFromParams(p);
     case 'kpi':
@@ -80,4 +63,5 @@ export function createGeoTooltipPreset(
     case 'striped':
       return (p) => geoStripedFromParams(p);
   }
+  throw new Error(`Unknown tooltip preset: ${String(preset)}`);
 }

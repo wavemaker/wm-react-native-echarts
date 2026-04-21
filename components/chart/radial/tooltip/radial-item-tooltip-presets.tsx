@@ -5,7 +5,6 @@ import type { ChartTooltipPreset } from '../../tooltip';
 import {
   TooltipPresetCard,
   TooltipPresetCompact,
-  TooltipPresetDark,
   TooltipPresetKpi,
   TooltipPresetStriped,
 } from '../../tooltip/chart-tooltip-preset-shells';
@@ -18,22 +17,6 @@ function radialCardFromParams(p: RadialItemTooltipParams) {
       <Text style={{ fontSize: 22, fontWeight: '800', color: '#0f172a' }}>{value.toFixed(0)}%</Text>
       <Text style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>filled vs 100%</Text>
     </TooltipPresetCard>
-  );
-}
-
-function radialDarkFromParams(p: RadialItemTooltipParams) {
-  const { ringLabel, value, color } = p;
-  return (
-    <TooltipPresetDark
-      kind="item"
-      minWidth={140}
-      barColor={color ?? '#64748b'}
-      title={ringLabel}
-      headerMarginBottom={6}
-      primaryValue={`${value.toFixed(0)}%`}
-      primaryValueSize="xl"
-      footnote="ring fill"
-    />
   );
 }
 
@@ -80,8 +63,6 @@ export function createRadialTooltipPreset(
   switch (preset) {
     case 'card':
       return (p) => radialCardFromParams(p);
-    case 'dark':
-      return (p) => radialDarkFromParams(p);
     case 'compact':
       return (p) => radialCompactFromParams(p);
     case 'kpi':

@@ -41,16 +41,6 @@ export const Default: Story = {
   args: { ...baseArgs },
 };
 
-export const Dark: Story = {
-  render: (args) => (
-    <View>
-      <Text style={styles.hint}>Dark preset.</Text>
-      <BubbleChart {...args} />
-    </View>
-  ),
-  args: { ...baseArgs, tooltip: 'dark' },
-};
-
 export const Compact: Story = {
   render: (args) => (
     <View>
@@ -84,13 +74,13 @@ export const Striped: Story = {
 export const CustomOverride: Story = {
   render: (args) => (
     <View>
-      <Text style={styles.hint}>renderTooltip wins over the dark preset.</Text>
+      <Text style={styles.hint}>renderTooltip wins over the compact preset.</Text>
       <BubbleChart {...args} />
     </View>
   ),
   args: {
     ...baseArgs,
-    tooltip: 'dark',
+    tooltip: 'compact',
     renderTooltip: ({ seriesName, x, y }: ScatterItemTooltipParams) => (
       <View style={{ padding: 10, borderRadius: 8, backgroundColor: '#e0e7ff' }}>
         <Text style={{ fontWeight: '700' }}>{seriesName}</Text>

@@ -63,7 +63,7 @@ export const cartesianChartArgTypes = {
   },
   tooltip: {
     control: 'select',
-    options: ['card', 'dark', 'compact', 'kpi', 'striped', 'none'],
+    options: ['card', 'compact', 'kpi', 'striped', 'none'],
     description:
       "Built-in tooltip preset when renderTooltip is omitted (axis: area/line/column/bar; item: scatter/bubble). Default: 'card'. Use 'none' to hide. renderTooltip overrides the preset body.",
   },

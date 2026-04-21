@@ -4,7 +4,6 @@ import type { ChartTooltipPreset } from '../../tooltip';
 import {
   TooltipPresetCard,
   TooltipPresetCompact,
-  TooltipPresetDark,
   TooltipPresetKpi,
   TooltipPresetStriped,
 } from '../../tooltip/chart-tooltip-preset-shells';
@@ -21,21 +20,6 @@ function scatterCardFromParams(p: ScatterItemTooltipParams) {
         <Text style={{ fontSize: 12, color: '#64748b', marginTop: 4 }}>size: {String(z)}</Text>
       ) : null}
     </TooltipPresetCard>
-  );
-}
-
-function scatterDarkFromParams(p: ScatterItemTooltipParams) {
-  const { seriesName, x, y, z, color } = p;
-  const zPart = z != null && Number.isFinite(z) ? ` · ${String(z)}` : '';
-  return (
-    <TooltipPresetDark
-      kind="item"
-      minWidth={140}
-      barColor={color ?? '#64748b'}
-      title={seriesName}
-      caption={`x · y${z != null && Number.isFinite(z) ? ' · size' : ''}`}
-      valueLine={`${String(x)} · ${String(y)}${zPart}`}
-    />
   );
 }
 
@@ -91,8 +75,6 @@ export function createScatterTooltipPreset(
   switch (preset) {
     case 'card':
       return (p) => scatterCardFromParams(p);
-    case 'dark':
-      return (p) => scatterDarkFromParams(p);
     case 'compact':
       return (p) => scatterCompactFromParams(p);
     case 'kpi':
@@ -100,4 +82,5 @@ export function createScatterTooltipPreset(
     case 'striped':
       return (p) => scatterStripedFromParams(p);
   }
+  throw new Error(`Unknown tooltip preset: ${String(preset)}`);
 }

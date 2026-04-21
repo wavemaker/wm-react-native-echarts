@@ -4,7 +4,6 @@ import type { ChartTooltipPreset } from '../../tooltip';
 import {
   TooltipPresetCard,
   TooltipPresetCompact,
-  TooltipPresetDark,
   TooltipPresetKpi,
   TooltipPresetStriped,
 } from '../../tooltip/chart-tooltip-preset-shells';
@@ -21,20 +20,6 @@ function pieCardFromParams(p: PieItemTooltipParams) {
         {value} <Text style={{ fontWeight: '500', color: '#64748b' }}>({percent.toFixed(1)}%)</Text>
       </Text>
     </TooltipPresetCard>
-  );
-}
-
-function pieDarkFromParams(p: PieItemTooltipParams) {
-  const { name, value, percent, color } = p;
-  return (
-    <TooltipPresetDark
-      kind="item"
-      minWidth={140}
-      barColor={color ?? '#64748b'}
-      title={name}
-      caption="value · share"
-      valueLine={`${String(value)} · ${percent.toFixed(1)}%`}
-    />
   );
 }
 
@@ -75,8 +60,6 @@ export function createPieTooltipPreset(
   switch (preset) {
     case 'card':
       return (p) => pieCardFromParams(p);
-    case 'dark':
-      return (p) => pieDarkFromParams(p);
     case 'compact':
       return (p) => pieCompactFromParams(p);
     case 'kpi':
@@ -84,4 +67,5 @@ export function createPieTooltipPreset(
     case 'striped':
       return (p) => pieStripedFromParams(p);
   }
+  throw new Error(`Unknown tooltip preset: ${String(preset)}`);
 }

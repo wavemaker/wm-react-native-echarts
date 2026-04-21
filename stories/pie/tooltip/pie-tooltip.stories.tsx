@@ -86,16 +86,6 @@ export const Card: Story = {
   args: { ...baseArgs, tooltip: 'card' },
 };
 
-export const Dark: Story = {
-  render: (args) => (
-    <View>
-      <Text style={styles.hint}>Dark preset.</Text>
-      <PieChart {...args} />
-    </View>
-  ),
-  args: { ...baseArgs, tooltip: 'dark' },
-};
-
 export const Compact: Story = {
   render: (args) => (
     <View>
@@ -129,13 +119,13 @@ export const Striped: Story = {
 export const CustomOverride: Story = {
   render: (args) => (
     <View>
-      <Text style={styles.hint}>renderTooltip wins over the dark preset.</Text>
+      <Text style={styles.hint}>renderTooltip wins over the compact preset.</Text>
       <PieChart {...args} />
     </View>
   ),
   args: {
     ...baseArgs,
-    tooltip: 'dark',
+    tooltip: 'compact',
     renderTooltip: ({ name }: PieItemTooltipParams) => (
       <View style={{ padding: 12, borderRadius: 8, backgroundColor: '#fce7f3', borderWidth: 2, borderColor: '#db2777' }}>
         <Text style={{ fontWeight: '700', color: '#831843' }}>Custom slice</Text>

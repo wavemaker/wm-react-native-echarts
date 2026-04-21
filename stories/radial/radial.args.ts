@@ -48,7 +48,7 @@ const radialOnlyArgTypes = {
   },
   tooltip: {
     control: 'select',
-    options: ['card', 'dark', 'compact', 'kpi', 'striped', 'none'],
+    options: ['card', 'compact', 'kpi', 'striped', 'none'],
     description:
       "Built-in item tooltip preset when renderTooltip is omitted. Default: 'card'. Use 'none' to hide.",
   },

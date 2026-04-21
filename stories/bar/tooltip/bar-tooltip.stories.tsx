@@ -50,16 +50,6 @@ export const Card: Story = {
   args: { ...baseArgs, tooltip: 'card' },
 };
 
-export const Dark: Story = {
-  render: (args) => (
-    <View>
-      <Text style={styles.hint}>Dark preset.</Text>
-      <BarChart {...args} />
-    </View>
-  ),
-  args: { ...baseArgs, tooltip: 'dark' },
-};
-
 export const Compact: Story = {
   render: (args) => (
     <View>
@@ -93,13 +83,13 @@ export const Striped: Story = {
 export const CustomOverride: Story = {
   render: (args) => (
     <View>
-      <Text style={styles.hint}>renderTooltip wins over the dark preset.</Text>
+      <Text style={styles.hint}>renderTooltip wins over the compact preset.</Text>
       <BarChart {...args} />
     </View>
   ),
   args: {
     ...baseArgs,
-    tooltip: 'dark',
+    tooltip: 'compact',
     renderTooltip: ({ axisValue }: AxisTooltipParams) => (
       <View style={{ padding: 12, borderRadius: 8, backgroundColor: '#ffedd5', borderWidth: 2, borderColor: '#ea580c' }}>
         <Text style={{ fontWeight: '700', color: '#9a3412' }}>Custom</Text>

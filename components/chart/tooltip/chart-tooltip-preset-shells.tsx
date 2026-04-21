@@ -27,14 +27,6 @@ function hexToRgba(hex: string, alpha: number): string {
 type TooltipTokens = {
   /** Active merged theme.tooltip */
   t: ChartTheme['tooltip'];
-  lightTooltipBg: boolean;
-  /** Dark / compact preset panel (contrasts on light charts) */
-  darkPanel: {
-    shellBg: string;
-    shellBorder: string;
-    label: string;
-    value: string;
-  };
   card: {
     shell: object;
     eyebrow: object;
@@ -71,19 +63,6 @@ function useTooltipPresetTokens(): TooltipTokens {
     const ax = theme.axis.x;
     const lightTooltipBg = isLightBackground(t.backgroundColor);
     const dt = DARK_THEME.tooltip;
-    const darkPanel = lightTooltipBg
-      ? {
-          shellBg: dt.backgroundColor,
-          shellBorder: dt.borderColor,
-          label: dt.labelColor,
-          value: dt.valueColor,
-        }
-      : {
-          shellBg: t.backgroundColor,
-          shellBorder: t.borderColor,
-          label: t.labelColor,
-          value: t.valueColor,
-        };
 
     const padH = Math.max(12, t.padding * 5);
     const padV = Math.max(10, t.padding * 5);
@@ -174,8 +153,6 @@ function useTooltipPresetTokens(): TooltipTokens {
 
     return {
       t,
-      lightTooltipBg,
-      darkPanel,
       card,
       kpi,
       compact,
@@ -244,96 +221,6 @@ export function TooltipPresetCard({
         </View>
       ))}
       {children}
-    </View>
-  );
-}
-
-export type TooltipPresetDarkProps =
-  | {
-      minWidth?: number;
-      kind: 'axis';
-      categoryTitle: string;
-      seriesRows: Array<{
-        key: string | number;
-        barColor: string;
-        label: string;
-        value: React.ReactNode;
-      }>;
-    }
-  | {
-      minWidth?: number;
-      kind: 'item';
-      barColor: string;
-      title: string;
-      headerMarginBottom?: number;
-      caption?: string;
-      valueLine?: React.ReactNode;
-      primaryValue?: React.ReactNode;
-      primaryValueSize?: 'lg' | 'xl';
-      footnote?: string;
-      kvRows?: Array<{ key: string; left: string; right: React.ReactNode }>;
-    };
-
-/** Slate panel (axis bar rows, or item header + metrics / KV list). */
-export function TooltipPresetDark(props: TooltipPresetDarkProps) {
-  const { darkPanel, t } = useTooltipPresetTokens();
-  const minWidth = props.minWidth;
-  const shellBase = {
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    borderRadius: Math.max(8, t.borderRadius),
-    backgroundColor: darkPanel.shellBg,
-    borderWidth: t.borderWidth,
-    borderColor: darkPanel.shellBorder,
-  };
-
-  if (props.kind === 'axis') {
-    return (
-      <View style={[shellBase, minWidth != null && { minWidth }]}>
-        <Text style={[styles.darkCategoryTitle, { color: darkPanel.label }]}>{String(props.categoryTitle)}</Text>
-        {props.seriesRows.map((r) => (
-          <View key={String(r.key)} style={styles.darkSeriesRow}>
-            <View style={[styles.swatchBar, { backgroundColor: r.barColor }]} />
-            <Text style={[styles.darkSeriesLabel, { color: darkPanel.label }]}>{r.label}</Text>
-            <Text style={[styles.darkSeriesValue, { color: darkPanel.value }]}>{r.value}</Text>
-          </View>
-        ))}
-      </View>
-    );
-  }
-
-  const p = props;
-  const fontSize = p.primaryValueSize === 'xl' ? 22 : 18;
-  return (
-    <View style={[shellBase, minWidth != null && { minWidth }]}>
-      <View style={[styles.darkHeaderRow, { marginBottom: p.headerMarginBottom ?? 8 }]}>
-        <View style={[styles.swatchBar, { backgroundColor: p.barColor }]} />
-        <Text style={[styles.darkHeaderTitle, { color: darkPanel.value }]}>{p.title}</Text>
-      </View>
-      {p.kvRows != null && p.kvRows.length > 0
-        ? p.kvRows.map((r) => (
-            <View key={r.key} style={styles.kvRow}>
-              <Text style={[styles.kvRowText, { color: darkPanel.label }]}>{r.left}</Text>
-              <Text style={[styles.kvRowText, { color: darkPanel.value, fontWeight: '700' }]}>{r.right}</Text>
-            </View>
-          ))
-        : null}
-      {p.kvRows != null && p.kvRows.length > 0 ? null : (
-        <>
-          {p.caption != null && p.caption !== '' ? (
-            <Text style={[styles.darkCaption, { color: darkPanel.label }]}>{p.caption}</Text>
-          ) : null}
-          {p.valueLine != null ? (
-            <Text style={[styles.darkValueLine, { color: darkPanel.value }]}>{p.valueLine}</Text>
-          ) : null}
-          {p.primaryValue != null ? (
-            <Text style={[styles.darkPrimaryValue, { fontSize, color: darkPanel.value }]}>{p.primaryValue}</Text>
-          ) : null}
-          {p.footnote != null && p.footnote !== '' ? (
-            <Text style={[styles.darkFootnote, { color: darkPanel.label }]}>{p.footnote}</Text>
-          ) : null}
-        </>
-      )}
     </View>
   );
 }
@@ -481,12 +368,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginRight: 10,
   },
-  swatchBar: {
-    width: 6,
-    height: 16,
-    borderRadius: 2,
-    marginRight: 8,
-  },
   swatchSmall: {
     width: 8,
     height: 8,
@@ -509,49 +390,6 @@ const styles = StyleSheet.create({
   },
   kvRowText: {
     fontSize: 13,
-  },
-  darkCategoryTitle: {
-    fontSize: 13,
-    fontWeight: '600',
-    marginBottom: 8,
-  },
-  darkSeriesRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 4,
-  },
-  darkSeriesLabel: {
-    flex: 1,
-    fontSize: 13,
-  },
-  darkSeriesValue: {
-    fontSize: 13,
-    fontWeight: '700',
-  },
-  darkHeaderRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  darkHeaderTitle: {
-    fontSize: 13,
-    fontWeight: '600',
-  },
-  darkCaption: {
-    fontSize: 12,
-    marginTop: 0,
-  },
-  darkValueLine: {
-    fontSize: 15,
-    fontWeight: '700',
-    marginTop: 4,
-  },
-  darkPrimaryValue: {
-    fontWeight: '700',
-  },
-  darkFootnote: {
-    fontSize: 12,
-    marginTop: 4,
-    opacity: 0.9,
   },
   compactShellWrap: {
     flexWrap: 'wrap',

@@ -75,7 +75,7 @@
     "tooltip": {
       "name": "tooltip",
       "displayName": "Tooltip",
-      "description": "Built-in React Native region tooltip overlay when renderTooltip is omitted: card (default), dark, compact, kpi, striped, or none to hide the overlay.",
+      "description": "Built-in React Native region tooltip overlay when renderTooltip is omitted: card (default), compact, kpi, striped, or none to hide the overlay.",
       "type": "string",
       "isList": false,
       "defaultValue": "card",

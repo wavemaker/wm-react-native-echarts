@@ -3,7 +3,6 @@ import type { ChartTooltipPreset } from '../../tooltip';
 import {
   TooltipPresetCard,
   TooltipPresetCompact,
-  TooltipPresetDark,
   TooltipPresetKpi,
   TooltipPresetStriped,
 } from '../../tooltip/chart-tooltip-preset-shells';
@@ -15,24 +14,6 @@ function radarCardFromParams(p: RadarItemTooltipParams) {
     <TooltipPresetCard
       header={{ swatchColor: color, title: seriesName }}
       keyValueRows={dimensionValues.map((d) => ({
-        key: d.indicatorName,
-        left: d.indicatorName,
-        right: String(d.value),
-      }))}
-    />
-  );
-}
-
-function radarDarkFromParams(p: RadarItemTooltipParams) {
-  const { seriesName, dimensionValues, color } = p;
-  return (
-    <TooltipPresetDark
-      kind="item"
-      minWidth={160}
-      barColor={color ?? '#64748b'}
-      title={seriesName}
-      headerMarginBottom={8}
-      kvRows={dimensionValues.map((d) => ({
         key: d.indicatorName,
         left: d.indicatorName,
         right: String(d.value),
@@ -100,8 +81,6 @@ export function createRadarTooltipPreset(
   switch (preset) {
     case 'card':
       return (p) => radarCardFromParams(p);
-    case 'dark':
-      return (p) => radarDarkFromParams(p);
     case 'compact':
       return (p) => radarCompactFromParams(p);
     case 'kpi':
@@ -109,4 +88,5 @@ export function createRadarTooltipPreset(
     case 'striped':
       return (p) => radarStripedFromParams(p);
   }
+  throw new Error(`Unknown tooltip preset: ${String(preset)}`);
 }

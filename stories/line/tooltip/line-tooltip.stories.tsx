@@ -59,20 +59,6 @@ export const Card: Story = {
   },
 };
 
-/** Dark panel preset. */
-export const Dark: Story = {
-  render: (args) => (
-    <View>
-      <Text style={styles.hint}>Dark preset.</Text>
-      <LineChart {...args} />
-    </View>
-  ),
-  args: {
-    ...baseArgs,
-    tooltip: 'dark',
-  },
-};
-
 /** Compact inline preset. */
 export const Compact: Story = {
   render: (args) => (
@@ -120,14 +106,14 @@ export const CustomOverride: Story = {
   render: (args) => (
     <View>
       <Text style={styles.hint}>
-        renderTooltip is set: orange custom body wins over the dark preset.
+        renderTooltip is set: orange custom body wins over the compact preset.
       </Text>
       <LineChart {...args} />
     </View>
   ),
   args: {
     ...baseArgs,
-    tooltip: 'dark',
+    tooltip: 'compact',
     renderTooltip: ({ axisValue }: AxisTooltipParams) => (
       <View style={{ padding: 12, borderRadius: 8, backgroundColor: '#ffedd5', borderWidth: 2, borderColor: '#ea580c' }}>
         <Text style={{ fontWeight: '700', color: '#9a3412' }}>Custom</Text>
