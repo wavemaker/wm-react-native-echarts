@@ -34,9 +34,15 @@ const pieOnlyArgTypes = {
     control: 'boolean',
     description: 'Whether to emphasize the hovered slice. Default: true',
   },
-  tooltipFormatter: {
+  tooltip: {
+    control: 'select',
+    options: ['card', 'dark', 'compact', 'kpi', 'striped', 'none'],
+    description:
+      "Built-in item tooltip preset when renderTooltip is omitted. Default: 'card'. Use 'none' to hide.",
+  },
+  renderTooltip: {
     control: false,
-    description: 'Custom formatter for tooltip. (params) => string',
+    description: 'Custom React Native tooltip body for pie slices.',
   },
   onSelect: {
     control: false,

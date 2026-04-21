@@ -46,6 +46,16 @@ const radialOnlyArgTypes = {
     options: ['left', 'right', 'top', 'bottom'],
     description: 'Legend position. Default: bottom',
   },
+  tooltip: {
+    control: 'select',
+    options: ['card', 'dark', 'compact', 'kpi', 'striped', 'none'],
+    description:
+      "Built-in item tooltip preset when renderTooltip is omitted. Default: 'card'. Use 'none' to hide.",
+  },
+  renderTooltip: {
+    control: false,
+    description: 'Custom React Native tooltip body for the hovered ring fill.',
+  },
   onSelect: {
     control: false,
     description:

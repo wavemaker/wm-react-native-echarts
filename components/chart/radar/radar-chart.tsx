@@ -1,11 +1,14 @@
 import { withResponsiveContainer } from '../chart-container';
 import { useChartTheme, withChartTheme } from '../chart-theme.context';
+import { axisTooltipShowContentFlag } from '../cartesian/tooltip';
 import type {
   RadarChartProps,
   RadarChartSelectEvent,
   RadarIndicator,
   RadarSeriesData,
 } from './radar-chart.props';
+import { createRadarTooltipPreset, useRadarItemTooltip } from './tooltip';
+import type { RadarItemTooltipContext } from './tooltip/radar-item-tooltip.types';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { RadarChart as EChartsRadarChart } from 'echarts/charts';
 import {
@@ -15,6 +18,7 @@ import {
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
+import { View } from 'react-native';
 
 export type {
   RadarChartProps,
@@ -57,6 +61,8 @@ const ChartComponent = ({
   showIndicatorLabels = true,
   showSplitLine = true,
   showAxisLine = true,
+  tooltip = 'card',
+  renderTooltip,
   onSelect,
   ...props
 }: RadarChartProps) => {
@@ -64,14 +70,39 @@ const ChartComponent = ({
   const chartRef = useRef<any>(null);
   const onSelectRef = useRef(onSelect);
   onSelectRef.current = onSelect;
-  const selectContextRef = useRef<Array<{ name: string; value: number[] }>>([]);
+  const radarContextRef = useRef<RadarItemTooltipContext>({
+    indicators: [],
+    normalizedSeries: [],
+  });
+  const themeSeriesRef = useRef(theme.series);
+  themeSeriesRef.current = theme.series;
+
+  const tooltipOverlayActive = renderTooltip != null || tooltip !== 'none';
+
+  const renderTooltipFn = useMemo(() => {
+    if (renderTooltip != null) return renderTooltip;
+    if (tooltip === 'none') return () => null;
+    return createRadarTooltipPreset(tooltip);
+  }, [renderTooltip, tooltip]);
+
+  const { attachRadarItemTooltipListeners, renderRadarTooltipOverlay } = useRadarItemTooltip({
+    active: tooltipOverlayActive,
+    renderTooltip: renderTooltipFn,
+    contextRef: radarContextRef,
+    themeSeriesRef,
+    width,
+    height,
+  });
 
   const normalizedSeries = useMemo(() => {
     const count = indicators?.length ?? 0;
     return normalizeRadarSeries(data, count);
   }, [data, indicators?.length]);
 
-  selectContextRef.current = normalizedSeries;
+  radarContextRef.current = {
+    indicators: (indicators ?? []).map((ind) => ({ name: ind.name })),
+    normalizedSeries,
+  };
 
   const indicatorMax = useMemo(() => {
     if (!indicators?.length) return [];
@@ -137,7 +168,11 @@ const ChartComponent = ({
           lineStyle: { color: seriesColor, width: seriesLineWidth },
           areaStyle: { color: areaColor },
           emphasis: showHighlighter
-            ? { focus: 'self', lineStyle: { width: seriesLineWidth + 1 }, areaStyle: { opacity: 0.8 } }
+            ? {
+                focus: 'none',
+                lineStyle: { width: seriesLineWidth + 1 },
+                areaStyle: { opacity: 0.8 },
+              }
             : { focus: 'none' },
         };
       }),
@@ -155,12 +190,17 @@ const ChartComponent = ({
           }
         : undefined;
 
+    const tooltipConfig: any = tooltipOverlayActive
+      ? {
+          trigger: 'item',
+          ...axisTooltipShowContentFlag(true),
+        }
+      : { show: false };
+
     const config: any = {
       radar: radarConfig,
       series: [seriesConfig],
-      tooltip: {
-        trigger: 'item',
-      },
+      tooltip: tooltipConfig,
     };
     if (legendConfig) config.legend = legendConfig;
     return config;
@@ -176,10 +216,12 @@ const ChartComponent = ({
     showIndicatorLabels,
     showSplitLine,
     showAxisLine,
+    tooltipOverlayActive,
   ]);
 
   useEffect(() => {
     let chart: any;
+    let detachRadarTooltip = () => {};
     if (chartRef.current) {
       try {
         chart = echarts.init(chartRef.current, 'light', {
@@ -187,6 +229,8 @@ const ChartComponent = ({
           height,
         });
         chart.setOption(option);
+
+        detachRadarTooltip = attachRadarItemTooltipListeners(chart);
 
         const handleRadarClick = (params: {
           componentType?: string;
@@ -200,7 +244,7 @@ const ChartComponent = ({
           if (params.seriesType !== 'radar') return;
           const dataIndex = params.dataIndex;
           if (typeof dataIndex !== 'number' || dataIndex < 0) return;
-          const row = selectContextRef.current[dataIndex];
+          const row = radarContextRef.current.normalizedSeries[dataIndex];
           if (!row) return;
           const event: RadarChartSelectEvent = {
             seriesIndex: params.seriesIndex ?? 0,
@@ -217,6 +261,7 @@ const ChartComponent = ({
       }
     }
     return () => {
+      detachRadarTooltip();
       if (chart) {
         try {
           chart.dispose();
@@ -225,9 +270,14 @@ const ChartComponent = ({
         }
       }
     };
-  }, [option, width, height]);
+  }, [option, width, height, attachRadarItemTooltipListeners]);
 
-  return <SkiaChart ref={chartRef} useRNGH />;
+  return (
+    <View style={{ width, height, position: 'relative' }}>
+      <SkiaChart ref={chartRef} useRNGH />
+      {renderRadarTooltipOverlay()}
+    </View>
+  );
 };
 
 const RadarChartComponent = withResponsiveContainer(withChartTheme(ChartComponent));

@@ -7,3 +7,4 @@ export type {
   PieDataItem,
   PieRingData,
 } from './pie-chart.props';
+export * from './tooltip';

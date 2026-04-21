@@ -115,6 +115,23 @@
       "defaultValue": "bottom",
       "isRequired": false
     },
+    "tooltip": {
+      "name": "tooltip",
+      "displayName": "Tooltip",
+      "description": "Built-in React Native ring tooltip overlay when renderTooltip is omitted: card (default), dark, compact, kpi, striped, or none to hide the overlay.",
+      "type": "string",
+      "isList": false,
+      "defaultValue": "card",
+      "isRequired": false
+    },
+    "renderTooltip": {
+      "name": "renderTooltip",
+      "displayName": "Render Tooltip",
+      "description": "Optional (params) => ReactNode for the RN tooltip body at the pointer. When set, replaces the layout chosen by tooltip. Params: ringLabel, value (fill 0–100), color, pointerX and pointerY.",
+      "type": "function",
+      "isList": false,
+      "isRequired": false
+    },
     "width": {
       "name": "width",
       "displayName": "Width",

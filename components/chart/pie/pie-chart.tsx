@@ -1,5 +1,6 @@
 import { withResponsiveContainer } from '../chart-container';
 import { useChartTheme, withChartTheme } from '../chart-theme.context';
+import { axisTooltipShowContentFlag } from '../cartesian/tooltip';
 import type {
   PieChartProps,
   PieChartSelectEvent,
@@ -7,6 +8,8 @@ import type {
   PieRingData,
 } from './pie-chart.props';
 import { isConcentricPieData } from './pie-chart.props';
+import { createPieTooltipPreset, usePieItemTooltip } from './tooltip';
+import type { PieItemTooltipContext } from './tooltip/pie-item-tooltip.types';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { PieChart as EChartsPieChart } from 'echarts/charts';
 import {
@@ -15,6 +18,7 @@ import {
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
+import { View } from 'react-native';
 
 // Re-export types
 export type {
@@ -43,7 +47,8 @@ const ChartComponent = ({
   labelPosition = 'outside',
   showLabelLine = true,
   showHighlighter = true,
-  tooltipFormatter,
+  tooltip = 'card',
+  renderTooltip,
   onSelect,
   ...props
 }: PieChartProps) => {
@@ -51,6 +56,41 @@ const ChartComponent = ({
   const chartRef = useRef<any>(null);
   const onSelectRef = useRef(onSelect);
   onSelectRef.current = onSelect;
+  const pieContextRef = useRef<PieItemTooltipContext>({ normalizedSeries: [] });
+  const themeSeriesRef = useRef(theme.series);
+  themeSeriesRef.current = theme.series;
+
+  const tooltipOverlayActive = renderTooltip != null || tooltip !== 'none';
+
+  const renderTooltipFn = useMemo(() => {
+    if (renderTooltip != null) return renderTooltip;
+    if (tooltip === 'none') return () => null;
+    return createPieTooltipPreset(tooltip);
+  }, [renderTooltip, tooltip]);
+
+  const { attachPieItemTooltipListeners, renderPieTooltipOverlay } = usePieItemTooltip({
+    active: tooltipOverlayActive,
+    renderTooltip: renderTooltipFn,
+    contextRef: pieContextRef,
+    themeSeriesRef,
+    width,
+    height,
+  });
+
+  const normalizedSeries = useMemo((): PieItemTooltipContext['normalizedSeries'] => {
+    if (!Array.isArray(data) || data.length === 0) return [];
+    if (isConcentricPieData(data)) {
+      const rings = data as PieRingData[];
+      return rings.map((ring) => ({
+        name: ring.name,
+        data: ring.data.map((d) => ({ name: d.name, value: d.value })),
+      }));
+    }
+    const flat = data as PieDataItem[];
+    return [{ data: flat.map((d) => ({ name: d.name, value: d.value })) }];
+  }, [data]);
+
+  pieContextRef.current = { normalizedSeries };
 
   const option = useMemo(() => {
     if (!Array.isArray(data) || data.length === 0) {
@@ -93,6 +133,7 @@ const ChartComponent = ({
         },
         emphasis: showHighlighter
           ? {
+              focus: 'none',
               scale: true,
               scaleSize: 5,
               itemStyle: {
@@ -125,23 +166,12 @@ const ChartComponent = ({
           )
         : undefined;
 
-      const tooltipConfig: any = {
-        trigger: 'item',
-        backgroundColor: theme.tooltip.backgroundColor,
-        borderColor: theme.tooltip.borderColor,
-        borderWidth: theme.tooltip.borderWidth,
-        borderRadius: theme.tooltip.borderRadius,
-        padding: theme.tooltip.padding,
-        textStyle: { color: theme.tooltip.valueColor },
-        formatter: tooltipFormatter
-          ? (params: any) =>
-              tooltipFormatter({
-                name: params.name,
-                value: params.value,
-                percent: params.percent,
-              })
-          : undefined,
-      };
+      const tooltipConfig: any = tooltipOverlayActive
+        ? {
+            trigger: 'item',
+            ...axisTooltipShowContentFlag(true),
+          }
+        : { show: false };
 
       const config: any = {
         tooltip: tooltipConfig,
@@ -171,23 +201,12 @@ const ChartComponent = ({
 
     const seriesConfig = buildSeriesConfig(pieData, radius);
 
-    const tooltipConfig: any = {
-      trigger: 'item',
-      backgroundColor: theme.tooltip.backgroundColor,
-      borderColor: theme.tooltip.borderColor,
-      borderWidth: theme.tooltip.borderWidth,
-      borderRadius: theme.tooltip.borderRadius,
-      padding: theme.tooltip.padding,
-      textStyle: { color: theme.tooltip.valueColor },
-      formatter: tooltipFormatter
-        ? (params: any) =>
-            tooltipFormatter({
-              name: params.name,
-              value: params.value,
-              percent: params.percent,
-            })
-        : undefined,
-    };
+    const tooltipConfig: any = tooltipOverlayActive
+      ? {
+          trigger: 'item',
+          ...axisTooltipShowContentFlag(true),
+        }
+      : { show: false };
 
     const legendConfig =
       showLegend
@@ -217,12 +236,13 @@ const ChartComponent = ({
     labelPosition,
     showLabelLine,
     showHighlighter,
-    tooltipFormatter,
+    tooltipOverlayActive,
     theme,
   ]);
 
   useEffect(() => {
     let chart: any;
+    let detachPieTooltip = () => {};
     if (chartRef.current) {
       try {
         chart = echarts.init(chartRef.current, 'light', {
@@ -230,6 +250,8 @@ const ChartComponent = ({
           height,
         });
         chart.setOption(option);
+
+        detachPieTooltip = attachPieItemTooltipListeners(chart);
 
         const handlePieClick = (params: {
           componentType?: string;
@@ -269,6 +291,7 @@ const ChartComponent = ({
       }
     }
     return () => {
+      detachPieTooltip();
       if (chart) {
         try {
           chart.dispose();
@@ -277,9 +300,14 @@ const ChartComponent = ({
         }
       }
     };
-  }, [option, width, height]);
+  }, [option, width, height, attachPieItemTooltipListeners]);
 
-  return <SkiaChart ref={chartRef} useRNGH />;
+  return (
+    <View style={{ width, height, position: 'relative' }}>
+      <SkiaChart ref={chartRef} useRNGH />
+      {renderPieTooltipOverlay()}
+    </View>
+  );
 };
 
 const PieChartComponent = withResponsiveContainer(withChartTheme(ChartComponent), 'data');

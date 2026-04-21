@@ -1,4 +1,7 @@
 import type { CommonChartProps } from '../props/common';
+import type { ChartTooltipOption } from '../tooltip';
+import type { PieItemTooltipParams } from './tooltip/pie-item-tooltip.types';
+import type { ReactNode } from 'react';
 
 /** Emitted when the user taps/clicks a pie slice. */
 export interface PieChartSelectEvent {
@@ -97,9 +100,16 @@ export interface PieChartProps extends CommonChartProps {
    */
   showHighlighter?: boolean;
   /**
-   * Formatter for tooltip. (params) => string. Params include name, value, percent.
+   * Built-in item tooltip preset when `renderTooltip` is omitted. Use `none` to hide the overlay.
+   * When `renderTooltip` is set, it replaces the preset body. Overlay hidden only when `tooltip` is `none` and `renderTooltip` is omitted.
+   * @default 'card'
    */
-  tooltipFormatter?: (params: { name: string; value: number; percent?: number }) => string;
+  tooltip?: ChartTooltipOption;
+  /**
+   * Overrides the default React Native **item** tooltip body for pie slices (see {@link PieItemTooltipParams}).
+   * Takes precedence over {@link tooltip}.
+   */
+  renderTooltip?: (params: PieItemTooltipParams) => ReactNode;
   /**
    * Called when the user selects (taps/clicks) a slice.
    */

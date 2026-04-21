@@ -297,6 +297,23 @@
       "defaultValue": true,
       "isRequired": false
     },
+    "tooltip": {
+      "name": "tooltip",
+      "displayName": "Tooltip",
+      "description": "Built-in React Native axis-tooltip overlay when renderTooltip is omitted: card (default), dark, compact, kpi, striped, or none to hide the overlay.",
+      "type": "string",
+      "isList": false,
+      "defaultValue": "card",
+      "isRequired": false
+    },
+    "renderTooltip": {
+      "name": "renderTooltip",
+      "displayName": "Render Tooltip",
+      "description": "Optional (params) => ReactNode for the RN tooltip body at the pointer. When set, replaces the layout chosen by tooltip. Params: category axis value, dataIndex, per-series rows (name, value, color, seriesIndex), pointerX and pointerY in chart pixel space.",
+      "type": "function",
+      "isList": false,
+      "isRequired": false
+    },
     "xAxisTickLabelFormatter": {
       "name": "xAxisTickLabelFormatter",
       "displayName": "X Axis Tick Label Formatter",

@@ -24,6 +24,12 @@ Unlike using a single giant ECharts `option` object in JSX, this package exposes
 - **Candlestick**: `[open, close, low, high][]` per period.
 - **Geo**: `{ name, value }[]` where `name` matches GeoJSON feature names.
 
+## Tooltips (`tooltip` and `renderTooltip`)
+
+Interactive charts expose a string prop **`tooltip`** that selects a **built-in React Native overlay** next to the pointer: `card` (default), `dark`, `compact`, `kpi`, `striped`, or `none` to hide that overlay. This is separate from ECharts’ in-canvas tooltip styling under the chart **`theme`**.
+
+Optional **`renderTooltip`** is a function **`(params) => ReactNode`** that **replaces** the body produced by the `tooltip` preset when provided. Params depend on the chart: **axis** charts (area, line, column, bar) pass the category value and one row per series plus pointer coordinates; **item** charts (scatter, bubble, pie, geo, radar, radial) pass slice/region/series-specific fields and the pointer. See each chart’s Storybook **Tooltip** stories and TypeScript prop types for the exact payload.
+
 ## Theming
 
 Charts read from **`ChartThemeProvider`** / **`useChartTheme`**. Defaults are **`LIGHT_THEME`** and **`DARK_THEME`**. Per-chart overrides use the **`theme`** and **`colors`** props (partial theme + series palette). See **Theming → Overview** and **Theming → Examples** in this Storybook, and the **Theming** section in the project README.

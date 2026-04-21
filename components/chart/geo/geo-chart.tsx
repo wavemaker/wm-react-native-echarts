@@ -1,11 +1,15 @@
 import { withResponsiveContainer } from '../chart-container';
 import { useChartTheme, withChartTheme } from '../chart-theme.context';
+import { axisTooltipShowContentFlag } from '../cartesian/tooltip';
 import type { GeoChartProps, GeoChartSelectEvent, GeoDataItem } from './geo-chart.props';
+import { createGeoTooltipPreset, useGeoItemTooltip } from './tooltip';
+import type { GeoItemTooltipContext } from './tooltip/geo-item-tooltip.types';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { MapChart } from 'echarts/charts';
 import { TooltipComponent, VisualMapComponent } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import React, { createContext, useContext, useEffect, useMemo, useRef } from 'react';
+import { View } from 'react-native';
 import worldJson from '../../../data/world.json';
 import type { GeoJSONMap } from './geo-chart.props';
 
@@ -31,7 +35,8 @@ const ChartComponent = ({
   height = 300,
   showLegend = true,
   showHighlighter = true,
-  tooltipFormatter,
+  tooltip = 'card',
+  renderTooltip,
   visualMapMin,
   visualMapMax,
   visualMapMode = 'continuous',
@@ -43,8 +48,38 @@ const ChartComponent = ({
   const chartRef = useRef<any>(null);
   const onSelectRef = useRef(onSelect);
   onSelectRef.current = onSelect;
+  const geoContextRef = useRef<GeoItemTooltipContext>({ regions: [] });
+  const themeSeriesRef = useRef(theme.series);
+  themeSeriesRef.current = theme.series;
   const contextMapJson = useContext(GeoMapJsonContext);
   const mapJson = mapJsonProp ?? contextMapJson ?? (worldJson as any);
+
+  const tooltipOverlayActive = renderTooltip != null || tooltip !== 'none';
+
+  const renderTooltipFn = useMemo(() => {
+    if (renderTooltip != null) return renderTooltip;
+    if (tooltip === 'none') return () => null;
+    return createGeoTooltipPreset(tooltip);
+  }, [renderTooltip, tooltip]);
+
+  const { attachGeoItemTooltipListeners, renderGeoTooltipOverlay } = useGeoItemTooltip({
+    active: tooltipOverlayActive,
+    renderTooltip: renderTooltipFn,
+    contextRef: geoContextRef,
+    themeSeriesRef,
+    width,
+    height,
+  });
+
+  const tooltipRegions = useMemo(() => {
+    if (!Array.isArray(data) || data.length === 0) return [];
+    return data.map((d: GeoDataItem) => ({
+      name: String(d.name),
+      value: Number(d.value),
+    }));
+  }, [data]);
+
+  geoContextRef.current = { regions: tooltipRegions };
 
   useEffect(() => {
     if (mapJson?.type === 'FeatureCollection' && mapJson.features?.length) {
@@ -72,20 +107,12 @@ const ChartComponent = ({
 
     const seriesColor = theme.series[0]?.color ?? '#3b82f6';
 
-    const tooltipConfig: any = {
-      trigger: 'item',
-      formatter: tooltipFormatter
-        ? (params: any) => {
-            const p = params?.data ?? params;
-            return tooltipFormatter({ name: p?.name ?? '', value: p?.value ?? 0 });
-          }
-        : undefined,
-      backgroundColor: theme.tooltip.backgroundColor,
-      borderColor: theme.tooltip.borderColor,
-      borderWidth: theme.tooltip.borderWidth,
-      borderRadius: theme.tooltip.borderRadius,
-      padding: theme.tooltip.padding,
-    };
+    const tooltipConfig: any = tooltipOverlayActive
+      ? {
+          trigger: 'item',
+          ...axisTooltipShowContentFlag(true),
+        }
+      : { show: false };
 
     const visualMapConfig: any = showLegend
       ? visualMapMode === 'piecewise' && piecewisePieces?.length
@@ -139,15 +166,18 @@ const ChartComponent = ({
       },
       emphasis: showHighlighter
         ? {
+            focus: 'none',
             itemStyle: {
-              areaColor: seriesColor,
               borderColor: '#333',
               borderWidth: 1,
             },
-            label: {
-              show: true,
-              color: theme.legend.textColor,
-            },
+            // Avoid duplicating the region name when the RN tooltip is active.
+            label: tooltipOverlayActive
+              ? { show: false }
+              : {
+                  show: true,
+                  color: theme.legend.textColor,
+                },
           }
         : { disabled: true },
     };
@@ -166,13 +196,14 @@ const ChartComponent = ({
     valueRange,
     showLegend,
     showHighlighter,
-    tooltipFormatter,
+    tooltipOverlayActive,
     visualMapMode,
     piecewisePieces,
   ]);
 
   useEffect(() => {
     let chart: any;
+    let detachGeoTooltip = () => {};
     if (chartRef.current) {
       try {
         chart = echarts.init(chartRef.current, 'light', {
@@ -180,6 +211,8 @@ const ChartComponent = ({
           height,
         });
         chart.setOption(option);
+
+        detachGeoTooltip = attachGeoItemTooltipListeners(chart);
 
         const handleMapClick = (params: {
           componentType?: string;
@@ -213,6 +246,7 @@ const ChartComponent = ({
       }
     }
     return () => {
+      detachGeoTooltip();
       if (chart) {
         try {
           chart.dispose();
@@ -221,9 +255,14 @@ const ChartComponent = ({
         }
       }
     };
-  }, [option, width, height]);
+  }, [option, width, height, attachGeoItemTooltipListeners]);
 
-  return <SkiaChart ref={chartRef} useRNGH />;
+  return (
+    <View style={{ width, height, position: 'relative' }}>
+      <SkiaChart ref={chartRef} useRNGH />
+      {renderGeoTooltipOverlay()}
+    </View>
+  );
 };
 
 const GeoChartComponent = withResponsiveContainer(withChartTheme(ChartComponent));

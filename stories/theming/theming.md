@@ -8,7 +8,7 @@ Charts read a **chart theme** object that controls axes, grid lines, tooltips, l
 | --- | --- |
 | **`axis`** (`x`, `y`, `r`) | Axis lines, labels, ticks, split lines |
 | **`grid`** | Grid line color and width |
-| **`tooltip`** | Background, text, border, radius, padding |
+| **`tooltip`** | Background, text, border, radius, padding (ECharts tooltip surface styling) |
 | **`legend`** | Text color, font size, background |
 | **`series`** | Ordered styles used for each data series (color, `lineWidth`, bar `borderRadius`, etc.) |
 
