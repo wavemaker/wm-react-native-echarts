@@ -24,6 +24,33 @@ function hexToRgba(hex: string, alpha: number): string {
   return `rgba(${r},${g},${b},${alpha})`;
 }
 
+function parseHexRgb(hex: string): { r: number; g: number; b: number } | null {
+  const raw = hex.trim().replace(/^#/, '');
+  if (!/^[0-9a-f]{3}$|^[0-9a-f]{6}$/i.test(raw)) return null;
+  const full = raw.length === 3 ? raw.split('').map((c) => c + c).join('') : raw;
+  if (full.length !== 6) return null;
+  return {
+    r: parseInt(full.slice(0, 2), 16),
+    g: parseInt(full.slice(2, 4), 16),
+    b: parseInt(full.slice(4, 6), 16),
+  };
+}
+
+function rgbToHex(r: number, g: number, b: number): string {
+  const c = (n: number) =>
+    Math.max(0, Math.min(255, Math.round(n)))
+      .toString(16)
+      .padStart(2, '0');
+  return `#${c(r)}${c(g)}${c(b)}`;
+}
+
+function rgbMaxChannelDelta(
+  a: { r: number; g: number; b: number },
+  b: { r: number; g: number; b: number }
+): number {
+  return Math.max(Math.abs(a.r - b.r), Math.abs(a.g - b.g), Math.abs(a.b - b.b));
+}
+
 type TooltipTokens = {
   /** Active merged theme.tooltip */
   t: ChartTheme['tooltip'];
@@ -70,6 +97,7 @@ function useTooltipPresetTokens(): TooltipTokens {
 
     const card: TooltipTokens['card'] = {
       shell: {
+        alignSelf: 'flex-start' as const,
         paddingHorizontal: padH,
         paddingVertical: padV,
         borderRadius: radius,
@@ -91,12 +119,18 @@ function useTooltipPresetTokens(): TooltipTokens {
       },
       cardHeaderTitleSm: { fontSize: 12, fontWeight: '700' as const, color: t.labelColor },
       cardHeaderTitleMd: { fontSize: 13, fontWeight: '700' as const, color: t.valueColor },
-      cardSeriesLabel: { flex: 1, fontSize: 14, color: t.labelColor },
-      cardSeriesValue: { fontSize: 14, fontWeight: '700' as const, color: t.valueColor },
+      cardSeriesLabel: { fontSize: 14, color: t.labelColor },
+      cardSeriesValue: {
+        fontSize: 14,
+        fontWeight: '700' as const,
+        color: t.valueColor,
+        flexShrink: 0,
+      },
     };
 
     const kpi: TooltipTokens['kpi'] = {
       shell: {
+        alignSelf: 'flex-start' as const,
         padding: padV,
         borderRadius: radius,
         backgroundColor: t.backgroundColor,
@@ -112,7 +146,12 @@ function useTooltipPresetTokens(): TooltipTokens {
         borderTopColor: t.borderColor,
       },
       footerLeft: { fontSize: 12, color: t.labelColor },
-      footerRight: { fontSize: 12, fontWeight: '600' as const, color: t.valueColor },
+      footerRight: {
+        fontSize: 12,
+        fontWeight: '600' as const,
+        color: t.valueColor,
+        flexShrink: 0,
+      },
     };
 
     const compactBg = lightTooltipBg
@@ -123,19 +162,29 @@ function useTooltipPresetTokens(): TooltipTokens {
 
     const compact: TooltipTokens['compact'] = {
       shell: {
+        alignSelf: 'flex-start' as const,
         flexDirection: 'row' as const,
         alignItems: 'center' as const,
         paddingVertical: 6,
         paddingHorizontal: 10,
         borderRadius: Math.max(16, radius + 8),
         backgroundColor: compactBg,
+        minWidth: 0,
       },
-      emphasis: { fontSize: 12, fontWeight: '700' as const, color: compactEmph, marginRight: 8 },
-      detail: { fontSize: 12, color: compactDetail, flexShrink: 1 },
+      emphasis: {
+        fontSize: 12,
+        fontWeight: '700' as const,
+        color: compactEmph,
+        marginRight: 8,
+        flexShrink: 0,
+      },
+      detail: { fontSize: 12, color: compactDetail },
     };
 
     const striped: TooltipTokens['striped'] = {
       outer: {
+        alignSelf: 'flex-start' as const,
+        alignItems: 'flex-start' as const,
         borderRadius: Math.max(6, t.borderRadius - 1),
         overflow: 'hidden' as const,
         borderWidth: t.borderWidth,
@@ -147,7 +196,7 @@ function useTooltipPresetTokens(): TooltipTokens {
         backgroundColor: ax.splitLineColor,
       },
       headerTitle: { fontSize: 13, fontWeight: '700' as const, color: t.valueColor },
-      rowRight: { fontSize: 13, fontWeight: '600' as const, color: t.valueColor },
+      rowRight: { fontSize: 13, fontWeight: '600' as const, color: t.valueColor, flexShrink: 0 },
       rowLeftText: { fontSize: 13, color: t.labelColor },
     };
 
@@ -202,22 +251,30 @@ export function TooltipPresetCard({
           {header.swatchColor != null && header.swatchColor !== '' ? (
             <View style={[styles.swatchRound, { backgroundColor: header.swatchColor }]} />
           ) : null}
-          <Text style={header.titleVariant === 'emphasis' ? card.cardHeaderTitleMd : card.cardHeaderTitleSm}>
-            {header.title}
-          </Text>
+          <View style={styles.cardHeaderTitleCell}>
+            <Text style={header.titleVariant === 'emphasis' ? card.cardHeaderTitleMd : card.cardHeaderTitleSm}>
+              {header.title}
+            </Text>
+          </View>
         </View>
       ) : null}
       {seriesRows?.map((r) => (
         <View key={String(r.key)} style={styles.cardSeriesRow}>
           <View style={[styles.swatchRound, { backgroundColor: r.swatchColor }]} />
-          <Text style={card.cardSeriesLabel}>{r.label}</Text>
+          <View style={styles.cardSeriesLabelCell}>
+            <Text style={card.cardSeriesLabel}>{r.label}</Text>
+          </View>
           <Text style={card.cardSeriesValue}>{r.value}</Text>
         </View>
       ))}
       {keyValueRows?.map((r) => (
         <View key={r.key} style={styles.kvRow}>
-          <Text style={[styles.kvRowText, { color: t.labelColor }]}>{r.left}</Text>
-          <Text style={[styles.kvRowText, { color: t.valueColor, fontWeight: '700' }]}>{r.right}</Text>
+          <View style={styles.kvRowLeftCell}>
+            <Text style={[styles.kvRowText, { color: t.labelColor }]}>{r.left}</Text>
+          </View>
+          <Text style={[styles.kvRowText, { color: t.valueColor, fontWeight: '700', flexShrink: 0 }]}>
+            {r.right}
+          </Text>
         </View>
       ))}
       {children}
@@ -239,7 +296,9 @@ export function TooltipPresetCompact({
   return (
     <View style={[compact.shell, wrap && styles.compactShellWrap]}>
       <Text style={compact.emphasis}>{emphasis}</Text>
-      <Text style={compact.detail}>{detail}</Text>
+      <View style={styles.compactDetailCell}>
+        <Text style={compact.detail}>{detail}</Text>
+      </View>
     </View>
   );
 }
@@ -274,7 +333,9 @@ export function TooltipPresetKpi({
         <View style={kpi.footerRule}>
           {footerRows.map((r) => (
             <View key={String(r.key)} style={styles.kpiFooterRow}>
-              <Text style={kpi.footerLeft}>{r.left}</Text>
+              <View style={styles.kpiFooterLeftCell}>
+                <Text style={kpi.footerLeft}>{r.left}</Text>
+              </View>
               <Text style={kpi.footerRight}>{r.right}</Text>
             </View>
           ))}
@@ -316,7 +377,9 @@ export function TooltipPresetStriped({
     headerNode = (
       <View style={styles.stripedHeaderInner}>
         <View style={[styles.swatchSmall, { backgroundColor: headerSwatch.color }]} />
-        <Text style={striped.headerTitle}>{headerSwatch.title}</Text>
+        <View style={styles.stripedHeaderTitleCell}>
+          <Text style={striped.headerTitle}>{headerSwatch.title}</Text>
+        </View>
       </View>
     );
   } else if (headerTitle != null) {
@@ -327,38 +390,76 @@ export function TooltipPresetStriped({
 
   return (
     <View style={striped.outer}>
-      <View style={striped.headerBand}>{headerNode}</View>
-      {rows.map((r, i) => (
-        <View
-          key={r.key}
-          style={[
-            styles.stripedRow,
-            { backgroundColor: i % 2 === 0 ? t.backgroundColor : stripedAltRowBg(t.backgroundColor, t.borderColor) },
-          ]}
-        >
-          <View style={styles.stripedRowLeft}>
-            {r.left != null ? (
-              r.left
-            ) : (
-              <>
-                {r.leftSwatchColor != null ? (
-                  <View style={[styles.swatchSmall, { backgroundColor: r.leftSwatchColor }]} />
-                ) : null}
-                <Text style={striped.rowLeftText}>{r.leftLabel ?? ''}</Text>
-              </>
-            )}
+      <View style={styles.stripedInner}>
+        <View style={striped.headerBand}>{headerNode}</View>
+        {rows.map((r, i) => (
+          <View
+            key={r.key}
+            style={[
+              styles.stripedRow,
+              {
+                backgroundColor:
+                  i % 2 === 0 ? t.backgroundColor : stripedAltRowBg(t.backgroundColor, t.borderColor),
+              },
+            ]}
+          >
+            <View style={styles.stripedRowLeft}>
+              {r.left != null ? (
+                r.left
+              ) : (
+                <>
+                  {r.leftSwatchColor != null ? (
+                    <View style={[styles.swatchSmall, { backgroundColor: r.leftSwatchColor }]} />
+                  ) : null}
+                  <View style={styles.stripedRowLeftLabelCell}>
+                    <Text style={striped.rowLeftText}>{r.leftLabel ?? ''}</Text>
+                  </View>
+                </>
+              )}
+            </View>
+            <Text style={striped.rowRight}>{String(r.right)}</Text>
           </View>
-          <Text style={striped.rowRight}>{String(r.right)}</Text>
-        </View>
-      ))}
+        ))}
+      </View>
     </View>
   );
 }
 
-/** Alternate striped row: blend tooltip bg toward border color (no extra deps). */
+/** Between slate-300 and slate-400: zebra when border ≈ bg without overpowering the base row. */
+const STRIPE_NEUTRAL_LIGHT = { r: 176, g: 188, b: 205 };
+
+/**
+ * Alternate striped row fill: opaque blend of tooltip bg toward border.
+ * Light themes often use #fff + light gray border; a weak blend matches the base row—use a
+ * stronger mix and fall back to a neutral gray when border is missing or too close to bg.
+ */
 function stripedAltRowBg(bg: string, border: string): string {
-  if (!isLightBackground(bg)) return hexToRgba(border, 0.35);
-  return hexToRgba(border, 0.12);
+  const base = parseHexRgb(bg);
+  if (base == null) {
+    return isLightBackground(bg) ? '#f1f5f9' : '#1e293b';
+  }
+  const light = isLightBackground(bg);
+  const edge = parseHexRgb(border);
+  const sameAsBase = edge != null && rgbMaxChannelDelta(base, edge) < 4;
+  let mix = edge != null && !sameAsBase ? edge : light ? STRIPE_NEUTRAL_LIGHT : { r: 255, g: 255, b: 255 };
+  let t = light ? 0.5 : 0.32;
+  let r = base.r * (1 - t) + mix.r * t;
+  let g = base.g * (1 - t) + mix.g * t;
+  let b = base.b * (1 - t) + mix.b * t;
+  if (rgbMaxChannelDelta(base, { r, g, b }) < 14) {
+    t = light ? 0.66 : 0.46;
+    r = base.r * (1 - t) + mix.r * t;
+    g = base.g * (1 - t) + mix.g * t;
+    b = base.b * (1 - t) + mix.b * t;
+  }
+  if (rgbMaxChannelDelta(base, { r, g, b }) < 10) {
+    mix = light ? STRIPE_NEUTRAL_LIGHT : { r: 255, g: 255, b: 255 };
+    t = light ? 0.28 : 0.3;
+    r = base.r * (1 - t) + mix.r * t;
+    g = base.g * (1 - t) + mix.g * t;
+    b = base.b * (1 - t) + mix.b * t;
+  }
+  return rgbToHex(r, g, b);
 }
 
 const styles = StyleSheet.create({
@@ -377,16 +478,37 @@ const styles = StyleSheet.create({
   cardHeaderRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    minWidth: 0,
+  },
+  cardHeaderTitleCell: {
+    flexGrow: 1,
+    flexShrink: 1,
+    minWidth: 0,
   },
   cardSeriesRow: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 6,
+    minWidth: 0,
+  },
+  cardSeriesLabelCell: {
+    flexGrow: 1,
+    flexShrink: 1,
+    minWidth: 0,
+    marginRight: 8,
   },
   kvRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     marginTop: 4,
+    minWidth: 0,
+  },
+  kvRowLeftCell: {
+    flexGrow: 1,
+    flexShrink: 1,
+    minWidth: 0,
+    marginRight: 8,
   },
   kvRowText: {
     fontSize: 13,
@@ -394,24 +516,56 @@ const styles = StyleSheet.create({
   compactShellWrap: {
     flexWrap: 'wrap',
   },
+  compactDetailCell: {
+    flexGrow: 1,
+    flexShrink: 1,
+    minWidth: 0,
+  },
   kpiFooterRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     marginTop: 4,
+    minWidth: 0,
+  },
+  kpiFooterLeftCell: {
+    flexGrow: 1,
+    flexShrink: 1,
+    minWidth: 0,
+    marginRight: 8,
+  },
+  stripedInner: {
+    alignItems: 'stretch',
+    minWidth: 0,
   },
   stripedHeaderInner: {
     flexDirection: 'row',
     alignItems: 'center',
+    minWidth: 0,
+  },
+  stripedHeaderTitleCell: {
+    flexGrow: 1,
+    flexShrink: 1,
+    minWidth: 0,
   },
   stripedRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 10,
     paddingVertical: 6,
+    minWidth: 0,
   },
   stripedRowLeft: {
     flexDirection: 'row',
     alignItems: 'center',
-    flex: 1,
+    flexGrow: 1,
+    flexShrink: 1,
+    minWidth: 0,
+    marginRight: 8,
+  },
+  stripedRowLeftLabelCell: {
+    flexShrink: 1,
+    minWidth: 0,
   },
 });
