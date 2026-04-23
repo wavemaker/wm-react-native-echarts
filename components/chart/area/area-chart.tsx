@@ -1,7 +1,9 @@
 import { withResponsiveContainer } from '../chart-container';
 import { useChartTheme, withChartTheme } from '../chart-theme.context';
 import type { CartesianChartSelectEvent } from '../props/cartesian';
-import type { AreaChartProps, SeriesData } from './area-chart.props';
+import type { AreaChartProps } from './area-chart.props';
+import { createAxisTooltipPreset, useAxisTooltip } from '../cartesian/tooltip';
+import type { AxisTooltipContext } from '../cartesian/tooltip/axis-tooltip.types';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { LineChart } from 'echarts/charts';
 import {
@@ -11,12 +13,15 @@ import {
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
+import { View } from 'react-native';
 import { getAxis } from '../axis';
 
 // Re-export types for backward compatibility (common -> cartesian -> area)
 export type {
   AreaChartProps,
   AreaChartSelectEvent,
+  AreaChartAxisTooltipParams,
+  AreaChartTooltipSeriesItem,
   SeriesData,
 } from './area-chart.props';
 
@@ -51,24 +56,42 @@ const ChartComponent = ({
   grid,
   showLegend = false,
   showHighlighter = true,
+  tooltip = 'card',
   xAxisTickLabelFormatter,
   yAxisTickLabelFormatter,
   xAxisTicks,
   xAxisLabel,
   yAxisLabel,
   onSelect,
+  renderTooltip,
   ...props
 }: AreaChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
   const onSelectRef = useRef(onSelect);
   onSelectRef.current = onSelect;
-  const selectContextRef = useRef<{
-    displaySeries: Array<{ name?: string; data: [string | number, number][] | number[] }>;
-    xAxisData: (string | number)[];
-  }>({
+  const axisTooltipContextRef = useRef<AxisTooltipContext>({
     displaySeries: [],
-    xAxisData: [],
+    categoryAxisData: [],
+  });
+  const themeSeriesRef = useRef(theme.series);
+  themeSeriesRef.current = theme.series;
+
+  const tooltipOverlayActive = renderTooltip != null || tooltip !== 'none';
+
+  const renderTooltipFn = useMemo(() => {
+    if (renderTooltip != null) return renderTooltip;
+    if (tooltip === 'none') return () => null;
+    return createAxisTooltipPreset(tooltip);
+  }, [renderTooltip, tooltip]);
+
+  const { attachAxisTooltipListeners, renderAxisTooltipOverlay } = useAxisTooltip({
+    active: tooltipOverlayActive,
+    renderTooltip: renderTooltipFn,
+    contextRef: axisTooltipContextRef,
+    themeSeriesRef,
+    width,
+    height,
   });
 
   // Derive smooth/step from type
@@ -145,24 +168,9 @@ const ChartComponent = ({
       : getAxis(dataPoints).map(String);
   }, [normalizedSeries, xAxisTicks]);
 
-  selectContextRef.current = { displaySeries, xAxisData };
+  axisTooltipContextRef.current = { displaySeries, categoryAxisData: xAxisData };
 
   const option = useMemo(() => {
-    // Build tooltip config
-    // axisPointer with snap: true so the pointer snaps to data points and triggers
-    // series emphasis (circle) at the hovered position. See https://echarts.apache.org/en/option.html#tooltip.axisPointer
-    const tooltipConfig: any = showHighlighter ?  {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'line',
-        snap: true,
-        lineStyle: {
-          type: 'solid',
-          width: 1,
-          color: theme.series[0].color ?? '#999',
-        },
-      },
-    } : null;
 
     // Build xAxis config (category with data indices)
     const xAxisConfig: any = {
@@ -345,12 +353,24 @@ const ChartComponent = ({
     });
 
     const config: any = {
-      tooltip: tooltipConfig,
       xAxis: xAxisConfig,
       yAxis: yAxisConfig,
       series: seriesConfig,
+      axisPointer: {
+        show: true,
+        type: 'line',
+        snap: true,
+        lineStyle: {
+          type: 'solid' as const,
+          width: 1,
+          color: '#00000000',
+          show: false,
+        },
+        label: {
+          show: false,
+        }
+      }
     };
-
     // Add legend if configured
     if (legendConfigFinal) {
       config.legend = legendConfigFinal;
@@ -387,6 +407,7 @@ const ChartComponent = ({
     showLegend,
     hasNamedSeries,
     showHighlighter,
+    tooltipOverlayActive,
     xAxisTickLabelFormatter,
     yAxisTickLabelFormatter,
     xAxisTicks,
@@ -396,6 +417,7 @@ const ChartComponent = ({
 
   useEffect(() => {
     let chart: any;
+    let detachAxisTooltip = () => {};
     if (chartRef.current) {
       try {
         chart = echarts.init(chartRef.current, 'light', {
@@ -404,6 +426,8 @@ const ChartComponent = ({
         });
         
         chart.setOption(option);
+
+        detachAxisTooltip = attachAxisTooltipListeners(chart);
 
         const handleSeriesClick = (params: {
           componentType?: string;
@@ -422,7 +446,7 @@ const ChartComponent = ({
           ) {
             return;
           }
-          const { displaySeries: ds, xAxisData: xd } = selectContextRef.current;
+          const { displaySeries: ds, categoryAxisData: xd } = axisTooltipContextRef.current;
           const s = ds[seriesIndex];
           if (!s?.data || !Array.isArray(s.data)) return;
           const point = s.data[dataIndex];
@@ -458,6 +482,7 @@ const ChartComponent = ({
       }
     }
     return () => {
+      detachAxisTooltip();
       if (chart) {
         try {
           chart.dispose();
@@ -466,9 +491,14 @@ const ChartComponent = ({
         }
       }
     };
-  }, [option, width, height]);
+  }, [option, width, height, attachAxisTooltipListeners]);
 
-  return <SkiaChart ref={chartRef} useRNGH />;
+  return (
+    <View style={{ width, height, position: 'relative' }}>
+      <SkiaChart ref={chartRef} useRNGH />
+      {renderAxisTooltipOverlay()}
+    </View>
+  );
 };
 
 const AreaChartComponent = withResponsiveContainer(withChartTheme(ChartComponent));

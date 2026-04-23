@@ -1,4 +1,6 @@
 import type { CartesianChartProps } from '../props/cartesian';
+import type { ReactNode } from 'react';
+import type { ScatterItemTooltipParams } from './tooltip/scatter-item-tooltip.types';
 
 /**
  * Scatter data: array of [x, y] pairs per series.
@@ -13,7 +15,7 @@ export type ScatterSeriesData =
  * Props for ScatterChart.
  * common -> cartesian -> scatter
  */
-export interface ScatterChartProps extends CartesianChartProps {
+export interface ScatterChartProps extends Omit<CartesianChartProps, 'renderTooltip'> {
   /**
    * Scatter data: array of [x, y] pairs per series.
    */
@@ -33,4 +35,8 @@ export interface ScatterChartProps extends CartesianChartProps {
    * @default false
    */
   showRegressionLine?: boolean;
+  /**
+   * Overrides the default React Native **item** tooltip body (scatter points; see {@link ScatterItemTooltipParams}).
+   */
+  renderTooltip?: (params: ScatterItemTooltipParams) => ReactNode;
 }

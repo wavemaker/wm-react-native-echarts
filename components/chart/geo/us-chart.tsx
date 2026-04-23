@@ -1,5 +1,5 @@
 import React from 'react';
-import usStatesRaw from '../../../data/us-states.json';
+import usStatesRaw from './us-states.json';
 import { GeoChart, GeoMapJsonContext } from './geo-chart';
 import type { GeoChartProps, GeoJSONMap } from './geo-chart.props';
 

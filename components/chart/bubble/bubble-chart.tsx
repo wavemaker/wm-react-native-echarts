@@ -10,7 +10,11 @@ import {
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
+import { View } from 'react-native';
 import type { CartesianChartSelectEvent } from '../props/cartesian';
+import { axisTooltipShowContentFlag } from '../cartesian/tooltip';
+import { createScatterTooltipPreset, useScatterItemTooltip } from '../scatter/tooltip';
+import type { ScatterItemTooltipContext } from '../scatter/tooltip/scatter-item-tooltip.types';
 
 /** common -> cartesian -> scatter -> bubble */
 export type { BubbleChartProps, BubbleSeriesData } from './bubble-chart.props';
@@ -29,12 +33,14 @@ function scaleSize(value: number, dataMin: number, dataMax: number, outMin: numb
   return outMin + t * (outMax - outMin);
 }
 
+const DEFAULT_SIZE_RANGE: [number, number] = [8, 50];
+
 const ChartComponent = ({
   data,
   width = 220,
   height = 350,
   symbol = 'circle',
-  sizeRange = [8, 50],
+  sizeRange = DEFAULT_SIZE_RANGE,
   showXAxis = true,
   showXAxisTicks = true,
   showYAxis = true,
@@ -45,20 +51,39 @@ const ChartComponent = ({
   grid,
   showLegend = false,
   showHighlighter = true,
+  tooltip = 'card',
   xAxisTickLabelFormatter,
   yAxisTickLabelFormatter,
   xAxisLabel,
   yAxisLabel,
   onSelect,
+  renderTooltip,
   ...props
 }: BubbleChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
   const onSelectRef = useRef(onSelect);
   onSelectRef.current = onSelect;
-  const selectContextRef = useRef<{
-    normalizedSeries: Array<{ name?: string; data: [number, number, number][] }>;
-  }>({ normalizedSeries: [] });
+  const selectContextRef = useRef<ScatterItemTooltipContext>({ normalizedSeries: [] });
+  const themeSeriesRef = useRef(theme.series);
+  themeSeriesRef.current = theme.series;
+
+  const tooltipOverlayActive = renderTooltip != null || tooltip !== 'none';
+
+  const renderTooltipFn = useMemo(() => {
+    if (renderTooltip != null) return renderTooltip;
+    if (tooltip === 'none') return () => null;
+    return createScatterTooltipPreset(tooltip);
+  }, [renderTooltip, tooltip]);
+
+  const { attachScatterItemTooltipListeners, renderScatterTooltipOverlay } = useScatterItemTooltip({
+      active: tooltipOverlayActive,
+      renderTooltip: renderTooltipFn,
+      contextRef: selectContextRef,
+      themeSeriesRef,
+      width,
+      height,
+    });
 
   const normalizedSeries = useMemo((): Array<{ name?: string; data: [number, number, number][] }> => {
     if (!Array.isArray(data) || data.length === 0) return [];
@@ -92,38 +117,30 @@ const ChartComponent = ({
     [normalizedSeries]
   );
 
-  selectContextRef.current = { normalizedSeries };
+  selectContextRef.current = {
+    normalizedSeries: normalizedSeries as ScatterItemTooltipContext['normalizedSeries'],
+  };
 
   const option = useMemo(() => {
-    const tooltipConfig: any = showHighlighter
+    const tooltipConfig: any = tooltipOverlayActive
       ? {
           trigger: 'item',
-          axisPointer: {
-            type: 'cross',
-            lineStyle: {
+          ...axisTooltipShowContentFlag(true),
+          ...(showHighlighter && {
+            axisPointer: {
               type: 'line',
-              width: 1,
-              color: theme.series[0]?.color ?? '#999',
+              lineStyle: {
+                type: 'line',
+                width: 1,
+                color: '#00000000',
+              },
+              label: {
+                show: false,
+              },
             },
-          },
-          formatter: (params: any) => {
-            const p = Array.isArray(params) ? params[0] : params;
-            const d = p?.data;
-            if (!d || !Array.isArray(d)) return '';
-            const name = p.seriesName ? `${p.seriesName}<br/>` : '';
-            return `${name}x: ${d[0]}, y: ${d[1]}${d[2] != null ? `, size: ${d[2]}` : ''}`;
-          },
+          }),
         }
-      : {
-          trigger: 'item',
-          formatter: (params: any) => {
-            const p = Array.isArray(params) ? params[0] : params;
-            const d = p?.data;
-            if (!d || !Array.isArray(d)) return '';
-            const name = p.seriesName ? `${p.seriesName}<br/>` : '';
-            return `${name}x: ${d[0]}, y: ${d[1]}${d[2] != null ? `, size: ${d[2]}` : ''}`;
-          },
-        };
+      : { show: false };
 
     const xAxisConfig: any = {
       type: 'value',
@@ -240,7 +257,7 @@ const ChartComponent = ({
         itemStyle: { color: seriesColor },
         emphasis: showHighlighter
           ? {
-              focus: 'self',
+              focus: 'none',
               scale: true,
               itemStyle: {
                 color: seriesColor,
@@ -279,6 +296,7 @@ const ChartComponent = ({
     showLegend,
     hasNamedSeries,
     showHighlighter,
+    tooltipOverlayActive,
     xAxisTickLabelFormatter,
     yAxisTickLabelFormatter,
     xAxisLabel,
@@ -287,10 +305,13 @@ const ChartComponent = ({
 
   useEffect(() => {
     let chart: any;
+    let detachScatterTooltip = () => {};
     if (chartRef.current) {
       try {
         chart = echarts.init(chartRef.current, 'light', { width, height });
         chart.setOption(option);
+
+        detachScatterTooltip = attachScatterItemTooltipListeners(chart);
 
         const handleSeriesClick = (params: {
           componentType?: string;
@@ -337,6 +358,7 @@ const ChartComponent = ({
       }
     }
     return () => {
+      detachScatterTooltip();
       if (chart) {
         try {
           chart.dispose();
@@ -345,9 +367,14 @@ const ChartComponent = ({
         }
       }
     };
-  }, [option, width, height]);
+  }, [option, width, height, attachScatterItemTooltipListeners]);
 
-  return <SkiaChart ref={chartRef} useRNGH />;
+  return (
+    <View style={{ width, height, position: 'relative' }}>
+      <SkiaChart ref={chartRef} useRNGH />
+      {renderScatterTooltipOverlay()}
+    </View>
+  );
 };
 
 const BubbleChartComponent = withResponsiveContainer(withChartTheme(ChartComponent));

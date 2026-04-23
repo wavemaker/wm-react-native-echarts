@@ -1,7 +1,10 @@
 import type { StoryObj } from '@storybook/react';
 import meta from '../meta';
 import { USChart } from '@components/chart/geo';
+import type { GeoItemTooltipParams } from '@components/chart/geo';
 import presidentialResultsByState from '../../../data/senate-results-by-state.json';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
 // Light colors for presidential map (used in both legend and region fill)
 const LIGHT_BLUE = '#93c5fd';
@@ -37,10 +40,33 @@ export const PresidentialResults: Story = {
     ],
     showLegend: true,
     showHighlighter: true,
-    tooltipFormatter: (params: { name: string }) => {
-      const row = presidentialResultsByState.find((s: { name: string }) => s.name === params.name) as { name: string; republican: number; democrat: number } | undefined;
-      if (!row) return params.name;
-      return `${params.name}\nRepublican: ${row.republican} EV | Democrat: ${row.democrat} EV`;
+    renderTooltip: ({ name }: GeoItemTooltipParams) => {
+      const row = presidentialResultsByState.find((s: { name: string }) => s.name === name) as
+        | { name: string; republican: number; democrat: number }
+        | undefined;
+      return (
+        <View
+          style={{
+            paddingHorizontal: 12,
+            paddingVertical: 10,
+            borderRadius: 10,
+            backgroundColor: '#fff',
+            borderWidth: StyleSheet.hairlineWidth,
+            borderColor: 'rgba(0,0,0,0.12)',
+            minWidth: 160,
+          }}
+        >
+          <Text style={{ fontSize: 13, fontWeight: '700', color: '#0f172a', marginBottom: 6 }}>{name}</Text>
+          {row != null ? (
+            <>
+              <Text style={{ fontSize: 12, color: '#334155' }}>Republican: {row.republican} EV</Text>
+              <Text style={{ fontSize: 12, color: '#334155', marginTop: 2 }}>Democrat: {row.democrat} EV</Text>
+            </>
+          ) : (
+            <Text style={{ fontSize: 12, color: '#64748b' }}>No detail row</Text>
+          )}
+        </View>
+      );
     },
   },
 };

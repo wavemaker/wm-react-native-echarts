@@ -1,0 +1,112 @@
+import { ColumnChart } from '@components/chart/column/column-chart';
+import type { AxisTooltipParams } from '@components/chart/cartesian/tooltip';
+import type { StoryObj } from '@storybook/react';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import meta from '../meta';
+
+export default { ...meta, title: 'Charts/Column/Tooltip' };
+type Story = StoryObj<typeof meta>;
+
+const SAMPLE_AXIS_DATA = [186, 305, 237, 73, 209, 214];
+
+const SAMPLE_MULTI = [
+  { name: 'Revenue', data: SAMPLE_AXIS_DATA },
+  { name: 'Cost', data: [120, 200, 150, 90, 180, 160] },
+];
+
+const styles = StyleSheet.create({
+  hint: {
+    fontSize: 13,
+    color: 'rgba(0,0,0,0.55)',
+    marginBottom: 8,
+  },
+});
+
+const baseArgs = {
+  width: '100%',
+  height: 300,
+  data: SAMPLE_MULTI,
+  showLegend: true,
+  horizontal: false,
+} as any;
+
+/** Default built-in axis tooltip (tooltip defaults to card). */
+export const Default: Story = {
+  render: (args) => (
+    <View>
+      <Text style={styles.hint}>Default tooltip preset is card (omit renderTooltip).</Text>
+      <ColumnChart {...args} />
+    </View>
+  ),
+  args: { ...baseArgs },
+};
+
+export const Card: Story = {
+  render: (args) => (
+    <View>
+      <Text style={styles.hint}>Explicit card preset (same as default).</Text>
+      <ColumnChart {...args} />
+    </View>
+  ),
+  args: { ...baseArgs, tooltip: 'card' },
+};
+
+export const Compact: Story = {
+  render: (args) => (
+    <View>
+      <Text style={styles.hint}>Compact preset.</Text>
+      <ColumnChart {...args} />
+    </View>
+  ),
+  args: { ...baseArgs, tooltip: 'compact' },
+};
+
+export const Kpi: Story = {
+  render: (args) => (
+    <View>
+      <Text style={styles.hint}>KPI preset.</Text>
+      <ColumnChart {...args} />
+    </View>
+  ),
+  args: { ...baseArgs, tooltip: 'kpi' },
+};
+
+export const Striped: Story = {
+  render: (args) => (
+    <View>
+      <Text style={styles.hint}>Striped preset.</Text>
+      <ColumnChart {...args} />
+    </View>
+  ),
+  args: { ...baseArgs, tooltip: 'striped' },
+};
+
+export const CustomOverride: Story = {
+  render: (args) => (
+    <View>
+      <Text style={styles.hint}>renderTooltip wins over the compact preset.</Text>
+      <ColumnChart {...args} />
+    </View>
+  ),
+  args: {
+    ...baseArgs,
+    tooltip: 'compact',
+    renderTooltip: ({ axisValue }: AxisTooltipParams) => (
+      <View style={{ padding: 12, borderRadius: 8, backgroundColor: '#ffedd5', borderWidth: 2, borderColor: '#ea580c' }}>
+        <Text style={{ fontWeight: '700', color: '#9a3412' }}>Custom</Text>
+        <Text style={{ marginTop: 4, color: '#431407' }}>{String(axisValue)}</Text>
+      </View>
+    ),
+  },
+};
+
+export const None: Story = {
+  render: (args) => (
+    <View>
+      <Text style={styles.hint}>None: tooltip overlay hidden.</Text>
+      <ColumnChart {...args} />
+    </View>
+  ),
+  args: { ...baseArgs, tooltip: 'none' },
+};

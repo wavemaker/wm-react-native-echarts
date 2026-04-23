@@ -25,9 +25,15 @@ const geoOnlyArgTypes = {
     control: 'boolean',
     description: 'Whether to emphasize the hovered region. Default: true',
   },
-  tooltipFormatter: {
+  tooltip: {
+    control: 'select',
+    options: ['card', 'compact', 'kpi', 'striped', 'none'],
+    description:
+      "Built-in region tooltip preset when renderTooltip is omitted. Default: 'card'. Use 'none' to hide.",
+  },
+  renderTooltip: {
     control: false,
-    description: 'Custom formatter for tooltip. (params: { name, value }) => string',
+    description: 'Custom React Native tooltip body for the hovered map region.',
   },
   visualMapMin: {
     control: 'number',

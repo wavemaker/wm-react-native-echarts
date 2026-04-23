@@ -10,8 +10,11 @@ import {
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
+import { View } from 'react-native';
 import { getAxis } from '../axis';
 import type { CartesianChartSelectEvent } from '../props/cartesian';
+import { createAxisTooltipPreset, useAxisTooltip } from '../cartesian/tooltip';
+import type { AxisTooltipContext } from '../cartesian/tooltip/axis-tooltip.types';
 
 /** common -> cartesian -> column */
 export type { ColumnChartProps } from './column-chart.props';
@@ -24,12 +27,23 @@ echarts.use([
   EChartsBarChart,
 ]);
 
+/** Stable identity for default `cornerRadius` (inline `[4,4,0,0]` in params is a new array every render). */
+const DEFAULT_COLUMN_CORNER_RADIUS: [number, number, number, number] = [4, 4, 0, 0];
+
+function columnCornerRadiusDep(
+  value: number | [number, number, number, number] | undefined
+): string | number {
+  if (typeof value === 'number') return value;
+  if (Array.isArray(value)) return value.join(',');
+  return '4,4,0,0';
+}
+
 const ChartComponent = ({
   data,
   width = 220,
   height = 350,
   boundaryGap = true,
-  cornerRadius = [4, 4, 0, 0],
+  cornerRadius = DEFAULT_COLUMN_CORNER_RADIUS,
   horizontal = false,
   stack,
   stackNormalize = false,
@@ -48,23 +62,47 @@ const ChartComponent = ({
   showYAxisSplitLines = true,
   grid,
   showLegend = false,
-  showHighlighter = true,
+  showHighlighter = false,
+  tooltip = 'card',
   xAxisTickLabelFormatter,
   yAxisTickLabelFormatter,
   xAxisTicks,
   xAxisLabel,
   yAxisLabel,
   onSelect,
+  renderTooltip,
   ...props
 }: ColumnChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
   const onSelectRef = useRef(onSelect);
   onSelectRef.current = onSelect;
-  const selectContextRef = useRef<{
-    displaySeries: Array<{ name?: string; data: [string | number, number][] }>;
-    labelOverlayDuplicate: boolean;
-  }>({ displaySeries: [], labelOverlayDuplicate: false });
+  type ColumnSelectContext = AxisTooltipContext & { labelOverlayDuplicate: boolean };
+  const selectContextRef = useRef<ColumnSelectContext>({
+    displaySeries: [],
+    categoryAxisData: [],
+    labelOverlayDuplicate: false,
+    categoryAxisIsY: false,
+  });
+  const themeSeriesRef = useRef(theme.series);
+  themeSeriesRef.current = theme.series;
+
+  const tooltipOverlayActive = renderTooltip != null || tooltip !== 'none';
+
+  const renderTooltipFn = useMemo(() => {
+    if (renderTooltip != null) return renderTooltip;
+    if (tooltip === 'none') return () => null;
+    return createAxisTooltipPreset(tooltip);
+  }, [renderTooltip, tooltip]);
+
+  const { attachAxisTooltipListeners, renderAxisTooltipOverlay } = useAxisTooltip({
+    active: tooltipOverlayActive,
+    renderTooltip: renderTooltipFn,
+    contextRef: selectContextRef as React.RefObject<AxisTooltipContext>,
+    themeSeriesRef,
+    width,
+    height,
+  });
 
   const normalizedSeries = useMemo(() => {
     let normalizedData: Array<{
@@ -144,29 +182,26 @@ const ChartComponent = ({
   const labelOverlayDuplicate =
     showLabelInside && showLabelOutside && isSingleSeries;
 
-  selectContextRef.current = { displaySeries, labelOverlayDuplicate };
+  const categoryAxisData = useMemo(() => {
+    const categories = (displaySeries[0]?.data ?? []).map((item) => String(item[0]));
+    const dataPoints = displaySeries.flatMap((s) => s.data.map((d) => d[1]));
+    return xAxisTicks != null && xAxisTicks.length > 0
+      ? xAxisTicks
+      : categories.length > 0
+        ? categories
+        : getAxis(dataPoints).map(String);
+  }, [displaySeries, xAxisTicks]);
+
+  selectContextRef.current = {
+    displaySeries,
+    categoryAxisData,
+    labelOverlayDuplicate,
+    categoryAxisIsY: horizontal,
+  };
 
   const option = useMemo(() => {
     const categories = (displaySeries[0]?.data ?? []).map((item) => String(item[0]));
-    const dataPoints = displaySeries.flatMap((s) => s.data.map((d) => d[1]));
-    const xAxisData =
-      xAxisTicks != null && xAxisTicks.length > 0
-        ? xAxisTicks
-        : categories.length > 0
-          ? categories
-          : getAxis(dataPoints).map(String);
-
-    const tooltipConfig: any = showHighlighter
-      ? {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'shadow',
-            shadowStyle: {
-              color: 'rgba(0,0,0,0.08)',
-            },
-          },
-        }
-      : { trigger: 'axis' };
+    const xAxisData = categoryAxisData;
 
     const categoryAxisConfig: any = {
       type: 'category',
@@ -476,10 +511,23 @@ const ChartComponent = ({
     }
 
     const config: any = {
-      tooltip: tooltipConfig,
       xAxis: xAxisConfig,
       yAxis: yAxisConfig,
       series: seriesConfig,
+      axisPointer: {
+        show: true,
+        type: 'line',
+        snap: true,
+        lineStyle: {
+          type: 'solid',
+          width: 1,
+          color: '#00000000',
+          show: false,
+        },
+        label: {
+          show: false,
+        },
+      },
     };
     if (legendConfig) config.legend = legendConfig;
     if (grid) config.grid = grid;
@@ -489,7 +537,7 @@ const ChartComponent = ({
     normalizedSeries,
     displaySeries,
     boundaryGap,
-    cornerRadius,
+    columnCornerRadiusDep(cornerRadius),
     horizontal,
     stack,
     stackNormalize,
@@ -510,19 +558,24 @@ const ChartComponent = ({
     showLegend,
     hasNamedSeries,
     showHighlighter,
+    tooltipOverlayActive,
     xAxisTickLabelFormatter,
     yAxisTickLabelFormatter,
     xAxisTicks,
     xAxisLabel,
     yAxisLabel,
+    categoryAxisData,
   ]);
 
   useEffect(() => {
     let chart: any;
+    let detachAxisTooltip = () => {};
     if (chartRef.current) {
       try {
         chart = echarts.init(chartRef.current, 'light', { width, height });
         chart.setOption(option);
+
+        detachAxisTooltip = attachAxisTooltipListeners(chart);
 
         const handleSeriesClick = (params: {
           componentType?: string;
@@ -573,6 +626,7 @@ const ChartComponent = ({
       }
     }
     return () => {
+      detachAxisTooltip();
       if (chart) {
         try {
           chart.dispose();
@@ -581,9 +635,14 @@ const ChartComponent = ({
         }
       }
     };
-  }, [option, width, height]);
+  }, [option, width, height, attachAxisTooltipListeners]);
 
-  return <SkiaChart ref={chartRef} useRNGH />;
+  return (
+    <View style={{ width, height, position: 'relative' }}>
+      <SkiaChart ref={chartRef} useRNGH />
+      {renderAxisTooltipOverlay()}
+    </View>
+  );
 };
 
 const ColumnChartComponent = withResponsiveContainer(withChartTheme(ChartComponent));

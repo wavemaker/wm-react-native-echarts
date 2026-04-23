@@ -72,10 +72,19 @@
       "defaultValue": true,
       "isRequired": false
     },
-    "tooltipFormatter": {
-      "name": "tooltipFormatter",
-      "displayName": "Tooltip Formatter",
-      "description": "Formatter for tooltip. (params: { name, value }) => string",
+    "tooltip": {
+      "name": "tooltip",
+      "displayName": "Tooltip",
+      "description": "Built-in React Native region tooltip overlay when renderTooltip is omitted: card (default), compact, kpi, striped, or none to hide the overlay.",
+      "type": "string",
+      "isList": false,
+      "defaultValue": "card",
+      "isRequired": false
+    },
+    "renderTooltip": {
+      "name": "renderTooltip",
+      "displayName": "Render Tooltip",
+      "description": "Optional (params) => ReactNode for the RN tooltip body at the pointer. When set, replaces the layout chosen by tooltip. Params: region name, value, color, pointerX and pointerY.",
       "type": "function",
       "isList": false,
       "isRequired": false

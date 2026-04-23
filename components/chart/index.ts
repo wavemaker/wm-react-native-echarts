@@ -1,4 +1,6 @@
 export type { CartesianChartSelectEvent } from './props/cartesian';
+export * from './cartesian/tooltip';
+export * from './tooltip';
 export * from './area';
 export * from './bar';
 export * from './column';

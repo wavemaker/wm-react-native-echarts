@@ -1,5 +1,4 @@
 import type { Preview } from '@storybook/react';
-import { ThemeProvider } from '../contexts/ThemeContext';
 import React from 'react';
 import './preview.css';
 
@@ -72,9 +71,7 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <ThemeProvider>
         <Story />
-      </ThemeProvider>
     ),
   ],
 };

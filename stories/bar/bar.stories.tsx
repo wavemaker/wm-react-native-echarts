@@ -24,10 +24,10 @@ export const ShowLegend: Story = {
   },
 };
 
-/** showHighlighter={false} — no emphasis on hover. */
+/** showHighlighter={true} — opt-in bar emphasis while the axis tooltip is active. */
 export const ShowHighlighter: Story = {
   args: {
     data: [{ name: 'Series A', data: defaultData }],
-    showHighlighter: false,
+    showHighlighter: true,
   },
 };

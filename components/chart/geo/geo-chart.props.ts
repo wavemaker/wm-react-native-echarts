@@ -1,4 +1,7 @@
 import type { CommonChartProps } from '../props/common';
+import type { ChartTooltipOption } from '../tooltip';
+import type { GeoItemTooltipParams } from './tooltip/geo-item-tooltip.types';
+import type { ReactNode } from 'react';
 
 /** Emitted when the user taps/clicks a map region. */
 export interface GeoChartSelectEvent {
@@ -60,9 +63,15 @@ export interface GeoChartProps extends CommonChartProps {
    */
   showHighlighter?: boolean;
   /**
-   * Formatter for tooltip. (params) => string. Params include name, value.
+   * Built-in region tooltip preset when `renderTooltip` is omitted. Use `none` to hide the overlay.
+   * @default 'card'
    */
-  tooltipFormatter?: (params: { name: string; value: number }) => string;
+  tooltip?: ChartTooltipOption;
+  /**
+   * Overrides the default React Native item tooltip body (see {@link GeoItemTooltipParams}).
+   * Takes precedence over {@link tooltip}.
+   */
+  renderTooltip?: (params: GeoItemTooltipParams) => ReactNode;
   /**
    * Minimum value for the visual map scale. Auto-derived from data if not set.
    */

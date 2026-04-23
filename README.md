@@ -25,6 +25,13 @@ npm install @shopify/react-native-skia @wuba/react-native-echarts echarts zrende
 
 `react` and `react-native` are also peers; they should already be present in your app.
 
+**Note**:
+There is an issue with echarts library. Due to which compilation fails with an error. Here is the link to the issue.
+https://github.com/apache/echarts/pull/20485
+
+Till the issue is fixed, follow the workaround mentioned in the below link.
+https://github.com/wuba/react-native-echarts/issues/239#issuecomment-2899678660
+
 ## Chart gallery
 
 Preview thumbnails for the chart examples in `assets/images/charts`. Each image uses the same width and height (200×200) so the layout stays even; `object-fit: contain` keeps aspect ratios readable.
@@ -335,13 +342,32 @@ cd dist/npm-packages/charts && npm publish
 
 ## Development
 
-This repo is an Expo app. To run the app and Storybook:
+Work from the **repository root** (the directory that contains `package.json`, `components/`, and `stories/`).
+
+### Browser (Storybook)
+
+Storybook runs the chart stories in the browser with Vite. After install, it serves at **http://localhost:6006**.
 
 ```bash
 npm install
-npx expo start # for mobile preview
-npm run storybook # to checout the component stories 
+npm run storybook
 ```
+
+### Mobile (Expo sample app)
+
+The **`expo-app/`** project is a small Expo Router app that consumes the library via **[yalc](https://github.com/wclr/yalc)**. Install **`yalc` globally** first so those commands are on your `PATH`.
+
+```bash
+npm install -g yalc
+cd /path/to/repo # repository root directory
+npm install
+npm run generate:package
+cd expo-app
+npm install
+npx expo start
+```
+
+Whenever you change library source under `components/` or related entry points, run **`npm run generate:package`** again from the repo root so the yalc-linked package is rebuilt and republished. When changes are not reflecting in the app even after reload, use **`npx expo start -c`**.
 
 ---
 

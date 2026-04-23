@@ -1,3 +1,6 @@
+import type { ReactNode } from 'react';
+import type { AxisTooltipParams } from '../cartesian/tooltip/axis-tooltip.types';
+import type { ChartTooltipOption } from '../tooltip';
 import type { CommonChartProps } from './common';
 
 /**
@@ -103,10 +106,17 @@ export interface CartesianChartProps extends CommonChartProps {
    */
   showLegend?: boolean;
   /**
-   * Whether to show the highlighter (emphasis) when interacting with the chart.
-   * @default true
+   * Whether ECharts applies **emphasis** (hover highlight) while the axis pointer / tooltip is near the series.
+   * Column and bar charts default this to `false`; area defaults to `true`.
    */
   showHighlighter?: boolean;
+  /**
+   * Built-in axis tooltip preset when `renderTooltip` is omitted (area, line, column, bar). Use `none` to hide the overlay.
+   * When `renderTooltip` is set, it replaces the preset body. The overlay is hidden only when `tooltip` is `none` and `renderTooltip` is omitted.
+   * Scatter and bubble use the same prop for **item** tooltips.
+   * @default 'card'
+   */
+  tooltip?: ChartTooltipOption;
   /**
    * Formatter for X-axis tick labels. (value, index?) => string
    */
@@ -119,4 +129,10 @@ export interface CartesianChartProps extends CommonChartProps {
    * Called when the user selects (taps/clicks) a data point on a series (when supported).
    */
   onSelect?: (event: CartesianChartSelectEvent) => void;
+  /**
+   * Overrides the default React Native axis tooltip body for charts that use the axis tooltip overlay (area, line, column, bar).
+   * Scatter and bubble charts use item tooltip `renderTooltip` on their own props instead.
+   * Takes precedence over {@link tooltip}.
+   */
+  renderTooltip?: (params: AxisTooltipParams) => ReactNode;
 }

@@ -23,6 +23,8 @@ pnpm-lock.yaml
 dist/
 web-build/
 
+.yalc/
+
 # Native
 *.jks
 *.p8

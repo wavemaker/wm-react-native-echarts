@@ -5,3 +5,4 @@ export type {
   RadarIndicator,
   RadarSeriesData,
 } from './radar-chart.props';
+export * from './tooltip';

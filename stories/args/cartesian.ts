@@ -59,7 +59,13 @@ export const cartesianChartArgTypes = {
   showHighlighter: {
     control: 'boolean',
     description:
-      'Whether to show the highlighter (emphasis) when interacting with the chart. Default: true',
+      'Emphasis (hover highlight) near the axis pointer. Column/bar default false; area/line default true.',
+  },
+  tooltip: {
+    control: 'select',
+    options: ['card', 'compact', 'kpi', 'striped', 'none'],
+    description:
+      "Built-in tooltip preset when renderTooltip is omitted (axis: area/line/column/bar; item: scatter/bubble). Default: 'card'. Use 'none' to hide. renderTooltip overrides the preset body.",
   },
   xAxisTickLabelFormatter: {
     control: false,
@@ -73,5 +79,10 @@ export const cartesianChartArgTypes = {
     control: false,
     description:
       'Called when the user taps/clicks a data point (Cartesian charts). Receives seriesIndex, dataIndex, seriesName, x, y; optional z (bubble) or ohlc (candlestick).',
+  },
+  renderTooltip: {
+    control: false,
+    description:
+      'Optional RN tooltip body: axis charts (area, line, column, bar) use axis params; scatter/bubble define their own item `renderTooltip` on the chart props.',
   },
 } as const;

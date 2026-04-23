@@ -10,8 +10,12 @@ import {
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
+import { View } from 'react-native';
 import { getAxis } from '../axis';
+import { axisTooltipShowContentFlag } from '../cartesian/tooltip';
 import type { CartesianChartSelectEvent } from '../props/cartesian';
+import { createScatterTooltipPreset, useScatterItemTooltip } from './tooltip';
+import type { ScatterItemTooltipContext } from './tooltip/scatter-item-tooltip.types';
 
 /** common -> cartesian -> scatter */
 export type { ScatterChartProps, ScatterSeriesData } from './scatter-chart.props';
@@ -58,6 +62,7 @@ const ChartComponent = ({
   grid,
   showLegend = false,
   showHighlighter = true,
+  tooltip = 'card',
   showRegressionLine = false,
   xAxisTickLabelFormatter,
   yAxisTickLabelFormatter,
@@ -65,15 +70,33 @@ const ChartComponent = ({
   xAxisLabel,
   yAxisLabel,
   onSelect,
+  renderTooltip,
   ...props
 }: ScatterChartProps) => {
   const { theme } = useChartTheme(props.theme, props.colors);
   const chartRef = useRef<any>(null);
   const onSelectRef = useRef(onSelect);
   onSelectRef.current = onSelect;
-  const selectContextRef = useRef<{
-    normalizedSeries: Array<{ name?: string; data: number[][] }>;
-  }>({ normalizedSeries: [] });
+  const selectContextRef = useRef<ScatterItemTooltipContext>({ normalizedSeries: [] });
+  const themeSeriesRef = useRef(theme.series);
+  themeSeriesRef.current = theme.series;
+
+  const tooltipOverlayActive = renderTooltip != null || tooltip !== 'none';
+
+  const renderTooltipFn = useMemo(() => {
+    if (renderTooltip != null) return renderTooltip;
+    if (tooltip === 'none') return () => null;
+    return createScatterTooltipPreset(tooltip);
+  }, [renderTooltip, tooltip]);
+
+  const { attachScatterItemTooltipListeners, renderScatterTooltipOverlay } = useScatterItemTooltip({
+      active: tooltipOverlayActive,
+      renderTooltip: renderTooltipFn,
+      contextRef: selectContextRef,
+      themeSeriesRef,
+      width,
+      height,
+    });
 
   const normalizedSeries = useMemo((): Array<{ name?: string; data: number[][] }> => {
     if (!Array.isArray(data) || data.length === 0) return [];
@@ -100,19 +123,25 @@ const ChartComponent = ({
       xAxisTicks != null && xAxisTicks.length > 0
         ? xAxisTicks
         : getAxis(dataPoints).map(String);
-    const tooltipConfig: any = showHighlighter
+    const tooltipConfig: any = tooltipOverlayActive
       ? {
           trigger: 'item',
-          axisPointer: {
-            type: 'cross',
-            lineStyle: {
+          ...axisTooltipShowContentFlag(true),
+          ...(showHighlighter && {
+            axisPointer: {
               type: 'line',
-              width: 1,
-              color: theme.series[0]?.color ?? '#999',
+              lineStyle: {
+                type: 'line',
+                width: 1,
+                color: '#00000000',
+              },
+              label: {
+                show: false,
+              },
             },
-          },
+          }),
         }
-      : { trigger: 'item' };
+      : { show: false };
 
     // Scatter uses value axes for both x and y (data is [x, y] pairs)
     const xAxisConfig: any = {
@@ -221,7 +250,7 @@ const ChartComponent = ({
         itemStyle: { color: seriesColor },
         emphasis: showHighlighter
           ? {
-              focus: 'self',
+              focus: 'none',
               scale: true,
               symbol: 'circle',
               symbolSize: 8,
@@ -286,6 +315,7 @@ const ChartComponent = ({
     showLegend,
     hasNamedSeries,
     showHighlighter,
+    tooltipOverlayActive,
     showRegressionLine,
     xAxisTickLabelFormatter,
     yAxisTickLabelFormatter,
@@ -296,10 +326,13 @@ const ChartComponent = ({
 
   useEffect(() => {
     let chart: any;
+    let detachScatterTooltip = () => {};
     if (chartRef.current) {
       try {
         chart = echarts.init(chartRef.current, 'light', { width, height });
         chart.setOption(option);
+
+        detachScatterTooltip = attachScatterItemTooltipListeners(chart);
 
         const handleSeriesClick = (params: {
           componentType?: string;
@@ -345,6 +378,7 @@ const ChartComponent = ({
       }
     }
     return () => {
+      detachScatterTooltip();
       if (chart) {
         try {
           chart.dispose();
@@ -353,9 +387,14 @@ const ChartComponent = ({
         }
       }
     };
-  }, [option, width, height]);
+  }, [option, width, height, attachScatterItemTooltipListeners]);
 
-  return <SkiaChart ref={chartRef} useRNGH />;
+  return (
+    <View style={{ width, height, position: 'relative' }}>
+      <SkiaChart ref={chartRef} useRNGH />
+      {renderScatterTooltipOverlay()}
+    </View>
+  );
 };
 
 const ScatterChartComponent = withResponsiveContainer(withChartTheme(ChartComponent));

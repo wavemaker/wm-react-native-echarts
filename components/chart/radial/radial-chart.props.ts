@@ -1,4 +1,7 @@
 import type { CommonChartProps } from '../props/common';
+import type { ChartTooltipOption } from '../tooltip';
+import type { RadialItemTooltipParams } from './tooltip/radial-item-tooltip.types';
+import type { ReactNode } from 'react';
 
 /** Emitted when the user taps/clicks a ring’s filled segment. */
 export interface RadialChartSelectEvent {
@@ -10,7 +13,7 @@ export interface RadialChartSelectEvent {
 
 /**
  * Single data item for radial chart: one concentric ring.
- * value = fill percentage (0–100) for that ring; label optional (tooltip).
+ * value = fill percentage (0–100) for that ring; label optional (legend / tooltip).
  */
 export interface RadialDataItem {
   label?: string;
@@ -69,6 +72,16 @@ export interface RadialChartProps extends CommonChartProps {
    * @default 'bottom'
    */
   legendPosition?: 'left' | 'right' | 'top' | 'bottom';
+  /**
+   * Built-in item tooltip preset when `renderTooltip` is omitted. Use `none` to hide the overlay.
+   * @default 'card'
+   */
+  tooltip?: ChartTooltipOption;
+  /**
+   * Overrides the default React Native item tooltip body (see {@link RadialItemTooltipParams}).
+   * Takes precedence over {@link tooltip}.
+   */
+  renderTooltip?: (params: RadialItemTooltipParams) => ReactNode;
   /**
    * Called when the user selects (taps/clicks) a ring’s value segment.
    */

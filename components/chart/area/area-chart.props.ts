@@ -1,4 +1,8 @@
 import type { CartesianChartProps, CartesianChartSelectEvent } from '../props/cartesian';
+import type { ChartTooltipOption } from '../tooltip';
+
+/** @deprecated Use {@link ChartTooltipOption} from `../tooltip`. */
+export type AreaChartTooltip = ChartTooltipOption;
 
 /**
  * Area/line/bar series data shape:
@@ -14,6 +18,11 @@ export type SeriesData =
 
 /** @deprecated Use {@link CartesianChartSelectEvent} from `../props/cartesian`. */
 export type AreaChartSelectEvent = CartesianChartSelectEvent;
+
+export type {
+  AxisTooltipParams as AreaChartAxisTooltipParams,
+  AxisTooltipSeriesItem as AreaChartTooltipSeriesItem,
+} from '../cartesian/tooltip/axis-tooltip.types';
 
 /**
  * Props for AreaChart.

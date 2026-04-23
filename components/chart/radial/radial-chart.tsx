@@ -1,11 +1,15 @@
 import { withResponsiveContainer } from '../chart-container';
 import { useChartTheme, withChartTheme } from '../chart-theme.context';
+import { axisTooltipShowContentFlag } from '../cartesian/tooltip';
 import type { RadialChartProps, RadialChartSelectEvent, RadialDataItem } from './radial-chart.props';
+import { createRadialTooltipPreset, useRadialItemTooltip } from './tooltip';
+import type { RadialItemTooltipContext } from './tooltip/radial-item-tooltip.types';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { PieChart as EChartsPieChart } from 'echarts/charts';
 import { LegendComponent, TitleComponent, TooltipComponent } from 'echarts/components';
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
+import { View } from 'react-native';
 
 // Re-export types for backward compatibility
 export type { RadialChartProps, RadialChartSelectEvent, RadialDataItem } from './radial-chart.props';
@@ -41,6 +45,8 @@ const ChartComponent = ({
   startAngle = 0,
   clockwise = false,
   ringGap = '4%',
+  tooltip = 'card',
+  renderTooltip,
   onSelect,
   ...props
 }: RadialChartProps) => {
@@ -48,7 +54,26 @@ const ChartComponent = ({
   const chartRef = useRef<any>(null);
   const onSelectRef = useRef(onSelect);
   onSelectRef.current = onSelect;
-  const selectContextRef = useRef<RadialDataItem[]>([]);
+  const radialContextRef = useRef<RadialItemTooltipContext>({ normalizedSeries: [] });
+  const themeSeriesRef = useRef(theme.series);
+  themeSeriesRef.current = theme.series;
+
+  const tooltipOverlayActive = renderTooltip != null || tooltip !== 'none';
+
+  const renderTooltipFn = useMemo(() => {
+    if (renderTooltip != null) return renderTooltip;
+    if (tooltip === 'none') return () => null;
+    return createRadialTooltipPreset(tooltip);
+  }, [renderTooltip, tooltip]);
+
+  const { attachRadialItemTooltipListeners, renderRadialTooltipOverlay } = useRadialItemTooltip({
+    active: tooltipOverlayActive,
+    renderTooltip: renderTooltipFn,
+    contextRef: radialContextRef,
+    themeSeriesRef,
+    width,
+    height,
+  });
 
   const normalizedData = useMemo(() => {
     if (!Array.isArray(data) || data.length === 0) return [] as RadialDataItem[];
@@ -58,7 +83,7 @@ const ChartComponent = ({
     }));
   }, [data]);
 
-  selectContextRef.current = normalizedData;
+  radialContextRef.current = { normalizedSeries: normalizedData };
 
   const option = useMemo(() => {
     if (normalizedData.length === 0) return { series: [] };
@@ -144,6 +169,7 @@ const ChartComponent = ({
         label: { show: false },
         labelLine: { show: false },
         emphasis: {
+          focus: 'none',
           scale: false,
           itemStyle: {
             shadowBlur: 8,
@@ -158,12 +184,15 @@ const ChartComponent = ({
       `${item.label ?? `Ring ${index + 1}`} (${item.value}%)`
     );
 
+    const tooltipConfig: any = tooltipOverlayActive
+      ? {
+          trigger: 'item',
+          ...axisTooltipShowContentFlag(true),
+        }
+      : { show: false };
+
     const config: any = {
-      tooltip: {
-        trigger: 'item',
-        formatter: (params: any) =>
-          params.name ? params.name : '',
-      },
+      tooltip: tooltipConfig,
       series: seriesConfigs,
     };
 
@@ -219,10 +248,12 @@ const ChartComponent = ({
     clockwise,
     ringGap,
     props.colors,
+    tooltipOverlayActive,
   ]);
 
   useEffect(() => {
     let chart: any;
+    let detachRadialTooltip = () => {};
     if (chartRef.current) {
       try {
         chart = echarts.init(chartRef.current, 'light', {
@@ -230,6 +261,8 @@ const ChartComponent = ({
           height,
         });
         chart.setOption(option);
+
+        detachRadialTooltip = attachRadialItemTooltipListeners(chart);
 
         const handlePieClick = (params: {
           componentType?: string;
@@ -245,7 +278,7 @@ const ChartComponent = ({
           if (params.dataIndex !== 0) return;
           const ringIndex = params.seriesIndex;
           if (typeof ringIndex !== 'number' || ringIndex < 0) return;
-          const row = selectContextRef.current[ringIndex];
+          const row = radialContextRef.current.normalizedSeries[ringIndex];
           if (!row) return;
           const event: RadialChartSelectEvent = {
             seriesIndex: ringIndex,
@@ -262,6 +295,7 @@ const ChartComponent = ({
       }
     }
     return () => {
+      detachRadialTooltip();
       if (chart) {
         try {
           chart.dispose();
@@ -270,9 +304,14 @@ const ChartComponent = ({
         }
       }
     };
-  }, [option, width, height]);
+  }, [option, width, height, attachRadialItemTooltipListeners]);
 
-  return <SkiaChart ref={chartRef} useRNGH />;
+  return (
+    <View style={{ width, height, position: 'relative' }}>
+      <SkiaChart ref={chartRef} useRNGH />
+      {renderRadialTooltipOverlay()}
+    </View>
+  );
 };
 
 const RadialChartComponent = withResponsiveContainer(withChartTheme(ChartComponent));

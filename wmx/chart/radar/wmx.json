@@ -110,6 +110,23 @@
       "defaultValue": true,
       "isRequired": false
     },
+    "tooltip": {
+      "name": "tooltip",
+      "displayName": "Tooltip",
+      "description": "Built-in React Native series tooltip overlay when renderTooltip is omitted: card (default), compact, kpi, striped, or none to hide the overlay.",
+      "type": "string",
+      "isList": false,
+      "defaultValue": "card",
+      "isRequired": false
+    },
+    "renderTooltip": {
+      "name": "renderTooltip",
+      "displayName": "Render Tooltip",
+      "description": "Optional (params) => ReactNode for the RN tooltip body at the pointer. When set, replaces the layout chosen by tooltip. Params: series name, color, dimensionValues (indicatorName and value per axis), pointerX and pointerY.",
+      "type": "function",
+      "isList": false,
+      "isRequired": false
+    },
     "width": {
       "name": "width",
       "displayName": "Width",

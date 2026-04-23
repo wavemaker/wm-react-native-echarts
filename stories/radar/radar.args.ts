@@ -37,6 +37,16 @@ const radarOnlyArgTypes = {
     control: 'boolean',
     description: 'Whether to show axis line for each indicator. Default: true',
   },
+  tooltip: {
+    control: 'select',
+    options: ['card', 'compact', 'kpi', 'striped', 'none'],
+    description:
+      "Built-in item tooltip preset when renderTooltip is omitted. Default: 'card'. Use 'none' to hide.",
+  },
+  renderTooltip: {
+    control: false,
+    description: 'Custom React Native tooltip body for the hovered radar polygon.',
+  },
   onSelect: {
     control: false,
     description:

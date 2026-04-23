@@ -4,3 +4,4 @@ export type {
   RadialChartSelectEvent,
   RadialDataItem,
 } from './radial-chart.props';
+export * from './tooltip';

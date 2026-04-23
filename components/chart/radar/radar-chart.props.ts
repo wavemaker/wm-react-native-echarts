@@ -1,4 +1,7 @@
 import type { CommonChartProps } from '../props/common';
+import type { ChartTooltipOption } from '../tooltip';
+import type { RadarItemTooltipParams } from './tooltip/radar-item-tooltip.types';
+import type { ReactNode } from 'react';
 
 /** Emitted when the user taps/clicks a radar series (polygon). */
 export interface RadarChartSelectEvent {
@@ -75,6 +78,16 @@ export interface RadarChartProps extends CommonChartProps {
    * @default true
    */
   showAxisLine?: boolean;
+  /**
+   * Built-in item tooltip preset when `renderTooltip` is omitted. Use `none` to hide the overlay.
+   * @default 'card'
+   */
+  tooltip?: ChartTooltipOption;
+  /**
+   * Overrides the default React Native item tooltip body (see {@link RadarItemTooltipParams}).
+   * Takes precedence over {@link tooltip}.
+   */
+  renderTooltip?: (params: RadarItemTooltipParams) => ReactNode;
   /**
    * Called when the user selects (taps/clicks) a radar series polygon.
    */
