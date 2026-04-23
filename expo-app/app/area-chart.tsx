@@ -1,6 +1,7 @@
 import { AreaChart } from '@wavemaker/react-native-echarts/area';
 import { useTheme } from '@/contexts/ThemeContext';
-import { Dimensions, ScrollView, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] as const;
 const scrollChartWidth = Math.max(1, Math.floor(Dimensions.get('window').width) - 24);
@@ -19,6 +20,7 @@ export default function AreaChartScreen() {
     <ScrollView style={styles.container} contentContainerStyle={{ alignSelf: 'stretch' }}>
       <AreaChart
         width={scrollChartWidth}
+        tooltip='compact'
         data={[
           {
             name: 'Mobile',
@@ -28,6 +30,10 @@ export default function AreaChartScreen() {
             name: 'Desktop',
             data: [4000, 6400, 13500, 17500, 21200, 24600, 22900, 26300, 25000, 21600, 23900, 22700, 21900, 22100, 22300, 23800],
           },
+          {
+            name: 'Tablet',
+            data: [3000, 5400, 12500, 16500, 20200, 23600, 21900, 25300, 24000, 20600, 22900, 21700, 20900, 21100, 21300, 22800],
+          }
         ]}
       />
       <AreaChart width={scrollChartWidth} data={[150, 230, 180, 120, 200, 250]} />

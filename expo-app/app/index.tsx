@@ -2,7 +2,9 @@ import { ThemeToggle } from '@/components/theme-toggle';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const chartTypes = [
   {
@@ -95,6 +97,10 @@ export default function HomeScreen() {
   const { colorScheme } = useTheme();
   
   const styles = StyleSheet.create({
+    safeRoot: {
+      flex: 1,
+      backgroundColor: colorScheme === 'dark' ? '#1a1a1a' : '#f5f5f5',
+    },
     container: {
       flex: 1,
       backgroundColor: colorScheme === 'dark' ? '#1a1a1a' : '#f5f5f5',
@@ -171,6 +177,7 @@ export default function HomeScreen() {
   });
 
   return (
+    <SafeAreaView style={styles.safeRoot} edges={['top', 'left', 'right', 'bottom']}>
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerTop}>
@@ -211,5 +218,6 @@ export default function HomeScreen() {
         ))}
       </View>
     </ScrollView>
+    </SafeAreaView>
   );
 }

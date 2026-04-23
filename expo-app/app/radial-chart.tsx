@@ -1,6 +1,7 @@
 import { RadialChart } from '@wavemaker/react-native-echarts/radial';
 import { useTheme } from '@/contexts/ThemeContext';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function RadialChartScreen() {
   const { colorScheme } = useTheme();

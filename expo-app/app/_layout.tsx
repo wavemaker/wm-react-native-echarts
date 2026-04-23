@@ -1,6 +1,10 @@
+import 'react-native-gesture-handler';
+
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import 'react-native-reanimated';
 
 import { ThemeProvider as CustomThemeProvider, useTheme } from '@/contexts/ThemeContext';
@@ -13,9 +17,13 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   return (
-    <CustomThemeProvider>
-      <ThemeProviderWrapper />
-    </CustomThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <CustomThemeProvider>
+          <ThemeProviderWrapper />
+        </CustomThemeProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
 

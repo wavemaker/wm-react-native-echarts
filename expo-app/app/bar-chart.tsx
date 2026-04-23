@@ -1,6 +1,7 @@
 import { BarChart } from '@wavemaker/react-native-echarts/bar';
 import { useTheme } from '@/contexts/ThemeContext';
-import { ScrollView, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const monthCats = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] as const;
 const monthValues = [186, 305, 237, 73, 209, 214] as const;
@@ -36,7 +37,7 @@ export default function BarChartScreen() {
           'Jun 24',
         ].map((label, i) => [label, [800, 1200, 950, 1800, 1100, 1500, 1300, 950, 1700, 1250, 1600, 1050, 1400][i]!] as [string, number])}
       />
-      <BarChart data={defaultCats} />
+      <BarChart data={defaultCats}  tooltip='striped'/>
       <BarChart
         data={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'].map((m, i) => [m, monthValues[i]!] as [string, number])}
       />

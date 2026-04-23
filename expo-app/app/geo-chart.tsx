@@ -1,6 +1,7 @@
 import { WorldChart } from '@wavemaker/react-native-echarts/geo';
 import { useTheme } from '@/contexts/ThemeContext';
-import { ScrollView, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function GeoChartScreen() {
   const { colorScheme } = useTheme();

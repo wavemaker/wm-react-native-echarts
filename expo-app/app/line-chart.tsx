@@ -1,6 +1,7 @@
 import { LineChart } from '@wavemaker/react-native-echarts/line';
 import { useTheme } from '@/contexts/ThemeContext';
-import { ScrollView, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const monthCats = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] as const;
 

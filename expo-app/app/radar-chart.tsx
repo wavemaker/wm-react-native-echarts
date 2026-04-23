@@ -1,6 +1,7 @@
 import { RadarChart } from '@wavemaker/react-native-echarts/radar';
 import { useTheme } from '@/contexts/ThemeContext';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const defaultIndicators = [
   { name: 'January', max: 400 },

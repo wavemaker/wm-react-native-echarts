@@ -1,6 +1,7 @@
 import { PieChart } from '@wavemaker/react-native-echarts/pie';
 import { useTheme } from '@/contexts/ThemeContext';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const basicData = [
   { name: 'Desktop', value: 275 },

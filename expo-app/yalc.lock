@@ -2,7 +2,7 @@
   "version": "v1",
   "packages": {
     "@wavemaker/react-native-echarts": {
-      "signature": "e454f12cdee2a10594b6b4ccfc150599",
+      "signature": "85a5500d7c6aa6e5b0a86d1ee91cea53",
       "file": true,
       "replaced": "file:../dist/npm-packages/charts"
     }

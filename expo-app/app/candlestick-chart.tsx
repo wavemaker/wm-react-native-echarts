@@ -1,6 +1,7 @@
 import { CandlestickChart } from '@wavemaker/react-native-echarts/candlestick';
 import { useTheme } from '@/contexts/ThemeContext';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const xAxisData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const priceData: [number, number, number, number][] = [
