@@ -24,7 +24,7 @@
     "data-visualization",
     "data-analysis"
   ],
-  "version": "1.0.0-dev.7",
+  "version": "1.0.0-dev.8",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
