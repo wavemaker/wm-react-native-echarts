@@ -157,6 +157,16 @@ function writeNpmIgnore(destDir) {
   log('Created npm-packages/charts/.npmignore');
 }
 
+function isYalcAvailable() {
+  try {
+    const cmd = process.platform === 'win32' ? 'where yalc' : 'command -v yalc';
+    execSync(cmd, { stdio: 'ignore' });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 function run() {
   log('Preparing npm package in dist/npm-packages/charts/');
   if (!ensureDistExists()) process.exit(1);
@@ -171,11 +181,15 @@ function run() {
   writeNpmIgnore(chartsDir);
 
   log('Done. To publish: cd dist/npm-packages/charts && npm publish');
-  // publish to yalc
-  execSync('yalc publish', { stdio: 'inherit', cwd: chartsDir });
-  log('Published to yalc');
-  execSync('yalc add @wavemaker/react-native-echarts', { stdio: 'inherit', cwd: path.join(root, 'expo-app') });
-  log('Added @wavemaker/react-native-echarts to expo-app');
+
+  if (isYalcAvailable()) {
+    execSync('yalc publish', { stdio: 'inherit', cwd: chartsDir });
+    log('Published to yalc');
+    execSync('yalc add @wavemaker/react-native-echarts', { stdio: 'inherit', cwd: path.join(root, 'expo-app') });
+    log('Added @wavemaker/react-native-echarts to expo-app');
+  } else {
+    log('Skipping yalc (not on PATH). Install globally: npm i -g yalc');
+  }
 }
 
 run();
