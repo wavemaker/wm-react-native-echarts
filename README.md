@@ -25,6 +25,13 @@ npm install @shopify/react-native-skia @wuba/react-native-echarts echarts zrende
 
 `react` and `react-native` are also peers; they should already be present in your app.
 
+**Note**:
+There is an issue with echarts library. Due to which compilation fails with an error. Here is the link to the issue.
+https://github.com/apache/echarts/pull/20485
+
+Till the issue is fixed, follow the workaround mentioned in the below link.
+https://github.com/wuba/react-native-echarts/issues/239#issuecomment-2899678660
+
 ## Chart gallery
 
 Preview thumbnails for the chart examples in `assets/images/charts`. Each image uses the same width and height (200×200) so the layout stays even; `object-fit: contain` keeps aspect ratios readable.
