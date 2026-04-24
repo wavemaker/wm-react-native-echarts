@@ -14,7 +14,7 @@ import {
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { View } from 'react-native';
-import { getAxis } from '../axis';
+import { getAxis, valueAxisBoundsFromProps, xAxisBoundsFromProps } from '../axis';
 
 // Re-export types for backward compatibility (common -> cartesian -> area)
 export type {
@@ -59,9 +59,14 @@ const ChartComponent = ({
   tooltip = 'card',
   xAxisTickLabelFormatter,
   yAxisTickLabelFormatter,
-  xAxisTicks,
   xAxisLabel,
   yAxisLabel,
+  minX,
+  maxX,
+  intervalX,
+  minY,
+  maxY,
+  intervalY,
   onSelect,
   renderTooltip,
   ...props
@@ -159,14 +164,22 @@ const ChartComponent = ({
     });
   }, [normalizedSeries, stackNormalize]);
 
+  const valueAxisBounds = useMemo(
+    () => valueAxisBoundsFromProps({ minY, maxY, intervalY }),
+    [minY, maxY, intervalY]
+  );
+
+  const xAxisBounds = useMemo(
+    () => xAxisBoundsFromProps({ minX, maxX, intervalX }),
+    [minX, maxX, intervalX]
+  );
+
   const xAxisData = useMemo((): (string | number)[] => {
     const dataPoints = normalizedSeries
       .map(s => s.data.map(item => item[0] as number))
       .flat();
-    return xAxisTicks != null && xAxisTicks.length > 0
-      ? xAxisTicks
-      : getAxis(dataPoints).map(String);
-  }, [normalizedSeries, xAxisTicks]);
+    return getAxis(dataPoints).map(String);
+  }, [normalizedSeries]);
 
   axisTooltipContextRef.current = { displaySeries, categoryAxisData: xAxisData };
 
@@ -197,7 +210,7 @@ const ChartComponent = ({
         show: false,
       },
       axisTick: {
-        show: showXAxisTicks,
+        show: showXAxis && showXAxisTicks,
         lineStyle: {
           color: theme.axis.x.tickColor,
           width: theme.axis.x.tickWidth,
@@ -210,17 +223,16 @@ const ChartComponent = ({
           width: theme.axis.x.splitLineWidth,
         },
       },
+      boundaryGap,
+      ...(xAxisBounds ?? {}),
     };
-    
-    xAxisConfig.boundaryGap = boundaryGap;
 
-    // Build yAxis config (value, auto-scale from data)
+    // Build yAxis config (value axis: optional min/max/interval; else ECharts auto-scale, except stack-normalized %)
     const yAxisConfig: any = {
       type: 'value',
-      ...(stackNormalize && displaySeries.length > 1 && {
-        min: 0,
-        max: 100,
-      }),
+      ...(stackNormalize && displaySeries.length > 1
+        ? { min: 0, max: 100 }
+        : (valueAxisBounds ?? {})),
       ...(yAxisLabel != null && yAxisLabel !== '' && {
         name: yAxisLabel,
         nameLocation: 'middle',
@@ -244,7 +256,7 @@ const ChartComponent = ({
         show: false,
       },
       axisTick: {
-        show: showYAxisTicks,
+        show: showYAxis && showYAxisTicks,
         lineStyle: {
           color: theme.axis.y.tickColor,
           width: theme.axis.y.tickWidth,
@@ -410,9 +422,10 @@ const ChartComponent = ({
     tooltipOverlayActive,
     xAxisTickLabelFormatter,
     yAxisTickLabelFormatter,
-    xAxisTicks,
     xAxisLabel,
     yAxisLabel,
+    valueAxisBounds,
+    xAxisBounds,
   ]);
 
   useEffect(() => {

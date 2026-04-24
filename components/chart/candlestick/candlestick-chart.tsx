@@ -11,6 +11,7 @@ import {
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 import type { CartesianChartSelectEvent } from '../props/cartesian';
+import { valueAxisBoundsFromProps, xAxisBoundsFromProps } from '../axis';
 
 export type { CandlestickChartProps, CandlestickData, CandlestickItem } from './candlestick-chart.props';
 
@@ -47,9 +48,14 @@ const ChartComponent = ({
   negativeColor = '#FF2C2C',
   xAxisTickLabelFormatter,
   yAxisTickLabelFormatter,
-  xAxisTicks,
   xAxisLabel,
   yAxisLabel,
+  minX,
+  maxX,
+  intervalX,
+  minY,
+  maxY,
+  intervalY,
   onSelect,
   ...props
 }: CandlestickChartProps) => {
@@ -63,10 +69,9 @@ const ChartComponent = ({
   }>({ categories: [], ohlcData: [] });
 
   const categories = useMemo(() => {
-    if (xAxisTicks != null && xAxisTicks.length > 0) return xAxisTicks;
     if (xAxisData?.length) return xAxisData.map(String);
     return data.map((_, i) => String(i));
-  }, [xAxisTicks, xAxisData, data]);
+  }, [xAxisData, data]);
 
   const hasVolume = volumeData != null && volumeData.length > 0;
   const hasMA = (ma5?.length ?? 0) > 0 || (ma10?.length ?? 0) > 0 || (ma20?.length ?? 0) > 0;
@@ -75,6 +80,9 @@ const ChartComponent = ({
 
   const option = useMemo(() => {
     if (!data?.length) return { series: [] };
+
+    const valueAxisBounds = valueAxisBoundsFromProps({ minY, maxY, intervalY });
+    const xAxisBounds = xAxisBoundsFromProps({ minX, maxX, intervalX });
 
     const tooltipConfig: any = showHighlighter
       ? {
@@ -112,13 +120,14 @@ const ChartComponent = ({
         ? { show: true, lineStyle: { color: theme.axis.x.lineColor, width: theme.axis.x.lineWidth } }
         : { show: false },
       axisTick: {
-        show: showXAxisTicks,
+        show: showXAxis && showXAxisTicks,
         lineStyle: { color: theme.axis.x.tickColor, width: theme.axis.x.tickWidth },
       },
       splitLine: {
         show: showXAxisSplitLines,
         lineStyle: { color: theme.axis.x.splitLineColor, width: theme.axis.x.splitLineWidth },
       },
+      ...(xAxisBounds ?? {}),
     };
     if (hasVolume) {
       xAxisMain.gridIndex = 0;
@@ -127,7 +136,7 @@ const ChartComponent = ({
 
     const yAxisMain: any = {
       type: 'value',
-      scale: true,
+      ...(valueAxisBounds ?? { scale: true }),
       ...(yAxisLabel != null && yAxisLabel !== '' && {
         name: yAxisLabel,
         nameLocation: 'middle',
@@ -143,7 +152,7 @@ const ChartComponent = ({
         ? { show: true, lineStyle: { color: theme.axis.y.lineColor, width: theme.axis.y.lineWidth } }
         : { show: false },
       axisTick: {
-        show: showYAxisTicks,
+        show: showYAxis && showYAxisTicks,
         lineStyle: { color: theme.axis.y.tickColor, width: theme.axis.y.tickWidth },
       },
       splitLine: {
@@ -281,9 +290,14 @@ const ChartComponent = ({
     negativeColor,
     xAxisTickLabelFormatter,
     yAxisTickLabelFormatter,
-    xAxisTicks,
     xAxisLabel,
     yAxisLabel,
+    minX,
+    maxX,
+    intervalX,
+    minY,
+    maxY,
+    intervalY,
   ]);
 
   useEffect(() => {

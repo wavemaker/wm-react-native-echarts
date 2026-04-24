@@ -15,7 +15,9 @@ export const AxesLine: Story = {
       return labels[i] ?? String(value);
     },
     type: 'smooth',
-    yAxisTicks: [0, 100, 200, 300, 400, 500, 600],
+    minY: 0,
+    maxY: 600,
+    intervalY: 100,
     xAxisLabel: 'Month',
     yAxisLabel: 'Value',
     showXAxisSplitLines: false,
@@ -81,7 +83,9 @@ export const GDPContribution: Story = {
     symbol: 'none',
     xAxisLabel: 'Year',
     yAxisLabel: 'GDP (Trillions USD)',
-    yAxisTicks: [0, 5, 10, 15, 20, 25, 30],
+    minY: 0,
+    maxY: 30,
+    intervalY: 5,
     showLegend: true,
   },
 };

@@ -11,7 +11,7 @@ import {
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { View } from 'react-native';
-import { getAxis } from '../axis';
+import { getAxis, valueAxisBoundsFromProps, xAxisBoundsFromProps } from '../axis';
 import { axisTooltipShowContentFlag } from '../cartesian/tooltip';
 import type { CartesianChartSelectEvent } from '../props/cartesian';
 import { createScatterTooltipPreset, useScatterItemTooltip } from './tooltip';
@@ -66,9 +66,14 @@ const ChartComponent = ({
   showRegressionLine = false,
   xAxisTickLabelFormatter,
   yAxisTickLabelFormatter,
-  xAxisTicks,
   xAxisLabel,
   yAxisLabel,
+  minX,
+  maxX,
+  intervalX,
+  minY,
+  maxY,
+  intervalY,
   onSelect,
   renderTooltip,
   ...props
@@ -117,12 +122,19 @@ const ChartComponent = ({
 
   selectContextRef.current = { normalizedSeries };
 
+  const valueAxisBounds = useMemo(
+    () => valueAxisBoundsFromProps({ minY, maxY, intervalY }),
+    [minY, maxY, intervalY]
+  );
+
+  const xAxisBounds = useMemo(
+    () => xAxisBoundsFromProps({ minX, maxX, intervalX }),
+    [minX, maxX, intervalX]
+  );
+
   const option = useMemo(() => {
     const dataPoints = normalizedSeries.map(s => s.data.map(item => item[0] as number)).flat();
-    const xAxisData =
-      xAxisTicks != null && xAxisTicks.length > 0
-        ? xAxisTicks
-        : getAxis(dataPoints).map(String);
+    const xAxisData = getAxis(dataPoints).map(String);
     const tooltipConfig: any = tooltipOverlayActive
       ? {
           trigger: 'item',
@@ -143,11 +155,12 @@ const ChartComponent = ({
         }
       : { show: false };
 
-    // Scatter uses value axes for both x and y (data is [x, y] pairs)
+    // X: category from binned coordinates; Y: value (data is [x, y] pairs)
     const xAxisConfig: any = {
       type: 'category',
       boundaryGap,
       data: xAxisData,
+      ...(xAxisBounds ?? {}),
       ...(xAxisLabel != null && xAxisLabel !== '' && {
         name: xAxisLabel,
         nameLocation: 'middle',
@@ -169,7 +182,7 @@ const ChartComponent = ({
           }
         : { show: false },
       axisTick: {
-        show: showXAxisTicks,
+        show: showXAxis && showXAxisTicks,
         lineStyle: {
           color: theme.axis.x.tickColor,
           width: theme.axis.x.tickWidth,
@@ -186,6 +199,7 @@ const ChartComponent = ({
 
     const yAxisConfig: any = {
       type: 'value',
+      ...(valueAxisBounds ?? {}),
       ...(yAxisLabel != null && yAxisLabel !== '' && {
         name: yAxisLabel,
         nameLocation: 'middle',
@@ -207,7 +221,7 @@ const ChartComponent = ({
           }
         : { show: false },
       axisTick: {
-        show: showYAxisTicks,
+        show: showYAxis && showYAxisTicks,
         lineStyle: {
           color: theme.axis.y.tickColor,
           width: theme.axis.y.tickWidth,
@@ -319,9 +333,10 @@ const ChartComponent = ({
     showRegressionLine,
     xAxisTickLabelFormatter,
     yAxisTickLabelFormatter,
-    xAxisTicks,
     xAxisLabel,
     yAxisLabel,
+    valueAxisBounds,
+    xAxisBounds,
   ]);
 
   useEffect(() => {

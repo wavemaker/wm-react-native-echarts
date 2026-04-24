@@ -50,3 +50,33 @@ export const YAxisLabel: Story = {
     yAxisLabel: 'Price ($)',
   },
 };
+
+/** minY and maxY — fixed price axis with non-zero floor and padding below lows / above highs. */
+export const FixedMinMax: Story = {
+  args: {
+    data,
+    xAxisData,
+    minY: 5,
+    maxY: 60,
+  },
+};
+
+/** minY, maxY, and intervalY — explicit price scale and tick step. */
+export const FixedInterval: Story = {
+  args: {
+    data,
+    xAxisData,
+    minY: 0,
+    maxY: 55,
+    intervalY: 5,
+  },
+};
+
+/** minY — price axis floor only (maximum still from data). */
+export const ValueAxisFloor: Story = {
+  args: {
+    data,
+    xAxisData,
+    minY: 5,
+  },
+};

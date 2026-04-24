@@ -46,23 +46,39 @@ export interface CartesianChartProps extends CommonChartProps {
    */
   boundaryGap?: boolean;
   /**
-   * Custom X-axis tick values (numbers only). When provided, used as the x-axis data; labels are
-   * generated using xAxisTickLabelFormatter. Otherwise each chart derives x-axis from data.
-   * @default undefined
+   * X-axis minimum when set. Applies to the chart’s **X** axis (category or value, depending on the chart).
+   * For horizontal column/bar, the **value** (bar length) scale is on **X** — use `minX` / `maxX` / `intervalX` for that scale.
+   * When omitted, the minimum is derived from the data or chosen automatically.
    */
-  xAxisTicks?: number[];
+  minX?: number;
   /**
-   * Custom Y-axis tick positions (for value axis).
-   * @default undefined
+   * X-axis maximum when set. See {@link minX} for layout notes. When omitted, the maximum is derived from the data or chosen automatically.
    */
-  yAxisTicks?: number[];
+  maxX?: number;
+  /**
+   * X-axis tick interval when set. See {@link minX} for layout notes. When omitted, the tick step is chosen automatically.
+   */
+  intervalX?: number;
+  /**
+   * Y-axis (value scale) minimum when set. Applies to the chart’s **Y** axis.
+   * When omitted, the minimum is derived from the data or chosen automatically.
+   */
+  minY?: number;
+  /**
+   * Y-axis (value scale) maximum when set. When omitted, the maximum is derived from the data or chosen automatically.
+   */
+  maxY?: number;
+  /**
+   * Y-axis (value scale) tick interval when set. When omitted, the tick step is chosen automatically.
+   */
+  intervalY?: number;
   /**
    * Whether to show the X-axis line and labels.
    * @default true
    */
   showXAxis?: boolean;
   /**
-   * Whether to show X-axis tick marks.
+   * Whether to show X-axis tick marks. Only applies when {@link showXAxis} is true.
    * @default true
    */
   showXAxisTicks?: boolean;
@@ -72,7 +88,7 @@ export interface CartesianChartProps extends CommonChartProps {
    */
   showYAxis?: boolean;
   /**
-   * Whether to show Y-axis tick marks.
+   * Whether to show Y-axis tick marks. Only applies when {@link showYAxis} is true.
    * @default true
    */
   showYAxisTicks?: boolean;
@@ -106,7 +122,7 @@ export interface CartesianChartProps extends CommonChartProps {
    */
   showLegend?: boolean;
   /**
-   * Whether ECharts applies **emphasis** (hover highlight) while the axis pointer / tooltip is near the series.
+   * Whether **emphasis** (hover highlight) is applied while the axis pointer / tooltip is near the series.
    * Column and bar charts default this to `false`; area defaults to `true`.
    */
   showHighlighter?: boolean;

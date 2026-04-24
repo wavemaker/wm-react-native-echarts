@@ -176,20 +176,52 @@
       "isList": true,
       "isRequired": false
     },
-    "xAxisTicks": {
-      "name": "xAxisTicks",
-      "displayName": "X Axis Ticks",
-      "description": "Custom X-axis tick values (numbers only). Labels from xAxisTickLabelFormatter.",
+    "minX": {
+      "name": "minX",
+      "displayName": "X Axis Min",
+      "description": "Optional minimum for the value X-axis (bar length). Bar chart is horizontal (values on X, categories on Y). When omitted, derived or automatic.",
       "type": "number",
-      "isList": true,
+      "isList": false,
       "isRequired": false
     },
-    "yAxisTicks": {
-      "name": "yAxisTicks",
-      "displayName": "Y Axis Ticks",
-      "description": "Custom Y-axis tick positions for the value axis.",
+    "maxX": {
+      "name": "maxX",
+      "displayName": "X Axis Max",
+      "description": "Optional maximum for the chart X-axis. When omitted, derived or automatic.",
       "type": "number",
-      "isList": true,
+      "isList": false,
+      "isRequired": false
+    },
+    "intervalX": {
+      "name": "intervalX",
+      "displayName": "X Axis Interval",
+      "description": "Optional tick interval for the chart X-axis. When omitted, automatic.",
+      "type": "number",
+      "isList": false,
+      "isRequired": false
+    },
+    "minY": {
+      "name": "minY",
+      "displayName": "Y Axis Min",
+      "description": "Optional minimum for the category Y-axis (bar categories). When omitted, derived or automatic.",
+      "type": "number",
+      "isList": false,
+      "isRequired": false
+    },
+    "maxY": {
+      "name": "maxY",
+      "displayName": "Y Axis Max",
+      "description": "Optional maximum for the chart Y-axis (value scale where applicable). When omitted, derived or automatic.",
+      "type": "number",
+      "isList": false,
+      "isRequired": false
+    },
+    "intervalY": {
+      "name": "intervalY",
+      "displayName": "Y Axis Interval",
+      "description": "Optional tick interval for the value axis. When omitted, automatic. Not used for multi-series stack-normalized 0–100%.",
+      "type": "number",
+      "isList": false,
       "isRequired": false
     },
     "showXAxis": {
@@ -204,7 +236,7 @@
     "showXAxisTicks": {
       "name": "showXAxisTicks",
       "displayName": "Show X Axis Ticks",
-      "description": "Whether to show X-axis tick marks. Default: true",
+      "description": "X-axis tick marks when showXAxis is true. Default: true",
       "type": "boolean",
       "isList": false,
       "defaultValue": true,
@@ -222,7 +254,7 @@
     "showYAxisTicks": {
       "name": "showYAxisTicks",
       "displayName": "Show Y Axis Ticks",
-      "description": "Whether to show Y-axis tick marks. Default: true",
+      "description": "Y-axis tick marks when showYAxis is true. Default: true",
       "type": "boolean",
       "isList": false,
       "defaultValue": true,

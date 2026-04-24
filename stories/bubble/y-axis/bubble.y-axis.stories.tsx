@@ -58,3 +58,30 @@ export const YAxisLabel: Story = {
     yAxisLabel: 'Y',
   },
 };
+
+/** minY and maxY — fixed Y range with non-zero floor (bubble Y is about 15–30). */
+export const FixedMinMax: Story = {
+  args: {
+    data,
+    minY: 12,
+    maxY: 40,
+  },
+};
+
+/** minY, maxY, and intervalY — explicit tick step on Y. */
+export const FixedInterval: Story = {
+  args: {
+    data,
+    minY: 10,
+    maxY: 35,
+    intervalY: 5,
+  },
+};
+
+/** minY — Y-axis floor only. */
+export const ValueAxisFloor: Story = {
+  args: {
+    data,
+    minY: 12,
+  },
+};
