@@ -5,7 +5,7 @@ export default { ...meta, title: 'Examples/Area' };
 type Story = StoryObj<typeof meta>;
 
 /** Area chart with axes labels matching axes-area.png.
- * Features: smooth curve, Y-axis 0-600, X-axis months (Jan-Jun), grid lines, axis labels. */
+ * Features: smooth curve, Y-axis 0–600 (explicit min/max/interval), X-axis months (Jan–Jun), grid lines, axis labels. */
 export const AxesArea: Story = {
   args: {
     data: [200, 350, 500, 300, 450, 600],
@@ -15,7 +15,9 @@ export const AxesArea: Story = {
       return labels[i] ?? String(value);
     },
     type: 'smooth',
-    yAxisTicks: [0, 100, 200, 300, 400, 500, 600],
+    minY: 0,
+    maxY: 600,
+    intervalY: 100,
     xAxisLabel: 'Month',
     yAxisLabel: 'Value',
     showXAxisSplitLines: false,

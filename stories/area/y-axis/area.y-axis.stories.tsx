@@ -44,3 +44,30 @@ export const YAxisLabel: Story = {
     yAxisLabel: 'Revenue ($)',
   },
 };
+
+/** minY and maxY — fixed value-axis bounds (non-zero min, headroom above the series). */
+export const FixedMinMax: Story = {
+  args: {
+    data,
+    minY: 30,
+    maxY: 120,
+  },
+};
+
+/** minY, maxY, and intervalY — explicit range and tick step. */
+export const FixedInterval: Story = {
+  args: {
+    data,
+    minY: 0,
+    maxY: 100,
+    intervalY: 10,
+  },
+};
+
+/** minY — value-axis floor; maximum and tick step still chosen automatically. */
+export const ValueAxisFloor: Story = {
+  args: {
+    data,
+    minY: 20,
+  },
+};

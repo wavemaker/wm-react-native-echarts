@@ -14,7 +14,9 @@ export const AxesBar: Story = {
       const i = Number(value);
       return labels[i] ?? String(value);
     },
-    yAxisTicks: [0, 100, 200, 300, 400, 500, 600],
+    minY: 0,
+    maxY: 600,
+    intervalY: 100,
     xAxisLabel: 'Month',
     yAxisLabel: 'Value',
     showXAxisSplitLines: false,
@@ -46,7 +48,9 @@ export const HorizontalBar: Story = {
       const i = Number(value);
       return labels[i] ?? String(value);
     },
-    yAxisTicks: [0, 50, 100, 150, 200, 250, 300, 350],
+    minX: 0,
+    maxX: 350,
+    intervalX: 50,
     showXAxisSplitLines: false,
     showXAxisTicks: false,
     showYAxisSplitLines: true,
@@ -92,7 +96,9 @@ export const GDPContribution: Story = {
     showYAxisSplitLines: true,
     xAxisLabel: 'Year',
     yAxisLabel: 'GDP (Trillions USD)',
-    yAxisTicks: [0, 5, 10, 15, 20, 25, 30],
+    minY: 0,
+    maxY: 30,
+    intervalY: 5,
     showLegend: true,
   },
 };

@@ -31,19 +31,6 @@ export const BoundaryGap: Story = {
   args: { data, boundaryGap: true },
 };
 
-/** xAxisTicks: numeric tick values; labels from xAxisTickLabelFormatter (6 data, 10 ticks). */
-export const CustomTicks: Story = {
-  args: {
-    data: [40, 82, 91, 74, 120, 95],
-    xAxisTicks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-    xAxisTickLabelFormatter: (value) => {
-      const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'];
-      const i = Number(value);
-      return labels[i] ?? String(value);
-    },
-  },
-};
-
 /** xAxisTickLabelFormatter: format X-axis tick labels (e.g. abbreviate or add suffix). */
 export const LabelFormatter: Story = {
   args: {
@@ -74,5 +61,32 @@ export const XAxisLabel: Story = {
   args: {
     data,
     xAxisLabel: 'Month',
+  },
+};
+
+/** minX and maxX — fixed X-axis extent (category index; six points → narrow window). */
+export const FixedMinMax: Story = {
+  args: {
+    data,
+    minX: 1,
+    maxX: 4,
+  },
+};
+
+/** minX, maxX, and intervalX — category axis with explicit tick interval. */
+export const FixedInterval: Story = {
+  args: {
+    data,
+    minX: 0,
+    maxX: 5,
+    intervalX: 2,
+  },
+};
+
+/** minX — X-axis floor (category index); maximum and step still automatic. */
+export const CategoryFloor: Story = {
+  args: {
+    data,
+    minX: 1,
   },
 };

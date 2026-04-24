@@ -37,19 +37,6 @@ export const NoSplitLines: Story = {
   },
 };
 
-/** xAxisTicks: numeric tick values; labels from xAxisTickLabelFormatter (5 data, 8 ticks). */
-export const CustomTicks: Story = {
-  args: {
-    data,
-    xAxisTicks: [0, 1, 2, 3, 4, 5, 6, 7],
-    xAxisTickLabelFormatter: (value) => {
-      const labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
-      const i = Number(value);
-      return labels[i] ?? String(value);
-    },
-  },
-};
-
 /** xAxisTickLabelFormatter: format X-axis (value) tick labels. */
 export const LabelFormatter: Story = {
   args: {
@@ -68,5 +55,32 @@ export const XAxisLabel: Story = {
   args: {
     data,
     xAxisLabel: 'X value',
+  },
+};
+
+/** minX and maxX — fixed X-axis extent (category index; non-zero min). */
+export const FixedMinMax: Story = {
+  args: {
+    data,
+    minX: 1,
+    maxX: 8,
+  },
+};
+
+/** minX, maxX, and intervalX — explicit tick interval on category X. */
+export const FixedInterval: Story = {
+  args: {
+    data,
+    minX: 0,
+    maxX: 10,
+    intervalX: 2,
+  },
+};
+
+/** minX — X-axis floor (category index). */
+export const CategoryFloor: Story = {
+  args: {
+    data,
+    minX: 2,
   },
 };

@@ -63,3 +63,30 @@ export const XAxisLabel: Story = {
     xAxisLabel: 'X',
   },
 };
+
+/** minX and maxX — fixed numeric X scale (non-zero min; bubble X ≈ 10–30). */
+export const FixedMinMax: Story = {
+  args: {
+    data,
+    minX: 8,
+    maxX: 35,
+  },
+};
+
+/** minX, maxX, and intervalX — explicit value scale and tick step on X. */
+export const FixedInterval: Story = {
+  args: {
+    data,
+    minX: 0,
+    maxX: 35,
+    intervalX: 5,
+  },
+};
+
+/** minX — value floor on X; maximum and step still automatic. */
+export const ValueAxisFloor: Story = {
+  args: {
+    data,
+    minX: 12,
+  },
+};

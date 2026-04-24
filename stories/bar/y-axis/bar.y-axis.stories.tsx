@@ -44,3 +44,30 @@ export const YAxisLabel: Story = {
     yAxisLabel: 'Category',
   },
 };
+
+/** minX and maxX — fixed bounds on the **value** axis (horizontal bar: bar length along X; non-zero min). */
+export const FixedMinMax: Story = {
+  args: {
+    data,
+    minX: 30,
+    maxX: 120,
+  },
+};
+
+/** minX, maxX, and intervalX — explicit value scale and tick step along X. */
+export const FixedInterval: Story = {
+  args: {
+    data,
+    minX: 0,
+    maxX: 100,
+    intervalX: 10,
+  },
+};
+
+/** minX — value-axis floor along X; maximum and tick step still chosen automatically. */
+export const ValueAxisFloor: Story = {
+  args: {
+    data,
+    minX: 20,
+  },
+};

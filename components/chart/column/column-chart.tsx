@@ -11,7 +11,7 @@ import {
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { View } from 'react-native';
-import { getAxis } from '../axis';
+import { getAxis, valueAxisBoundsFromProps, xAxisBoundsFromProps } from '../axis';
 import type { CartesianChartSelectEvent } from '../props/cartesian';
 import { createAxisTooltipPreset, useAxisTooltip } from '../cartesian/tooltip';
 import type { AxisTooltipContext } from '../cartesian/tooltip/axis-tooltip.types';
@@ -66,9 +66,14 @@ const ChartComponent = ({
   tooltip = 'card',
   xAxisTickLabelFormatter,
   yAxisTickLabelFormatter,
-  xAxisTicks,
   xAxisLabel,
   yAxisLabel,
+  minX,
+  maxX,
+  intervalX,
+  minY,
+  maxY,
+  intervalY,
   onSelect,
   renderTooltip,
   ...props
@@ -176,6 +181,16 @@ const ChartComponent = ({
     });
   }, [normalizedSeries, stackNormalize]);
 
+  const valueAxisBounds = useMemo(
+    () => valueAxisBoundsFromProps({ minY, maxY, intervalY }),
+    [minY, maxY, intervalY]
+  );
+
+  const xAxisBounds = useMemo(
+    () => xAxisBoundsFromProps({ minX, maxX, intervalX }),
+    [minX, maxX, intervalX]
+  );
+
   const showLabelInside = barInsideLabelFormatter != null;
   const showLabelOutside = barOutsideLabelFormatter != null;
   const isSingleSeries = displaySeries.length === 1;
@@ -185,12 +200,8 @@ const ChartComponent = ({
   const categoryAxisData = useMemo(() => {
     const categories = (displaySeries[0]?.data ?? []).map((item) => String(item[0]));
     const dataPoints = displaySeries.flatMap((s) => s.data.map((d) => d[1]));
-    return xAxisTicks != null && xAxisTicks.length > 0
-      ? xAxisTicks
-      : categories.length > 0
-        ? categories
-        : getAxis(dataPoints).map(String);
-  }, [displaySeries, xAxisTicks]);
+    return categories.length > 0 ? categories : getAxis(dataPoints).map(String);
+  }, [displaySeries]);
 
   selectContextRef.current = {
     displaySeries,
@@ -207,6 +218,7 @@ const ChartComponent = ({
       type: 'category',
       data: xAxisData,
       boundaryGap,
+      ...(!horizontal ? (xAxisBounds ?? {}) : {}),
       ...((horizontal ? yAxisLabel : xAxisLabel) != null && (horizontal ? yAxisLabel : xAxisLabel) !== '' && {
         name: horizontal ? yAxisLabel : xAxisLabel,
         nameLocation: 'middle',
@@ -243,13 +255,16 @@ const ChartComponent = ({
       },
     };
 
+    const stackPct = stackNormalize && displaySeries.length > 1;
+    const valueAxisNumericExtras = stackPct
+      ? { min: 0, max: 100 }
+      : horizontal
+        ? { ...(valueAxisBounds ?? {}), ...(xAxisBounds ?? {}) }
+        : (valueAxisBounds ?? {});
+
     const valueAxisConfig: any = {
       type: 'value',
-      ...(stackNormalize &&
-        displaySeries.length > 1 && {
-          min: 0,
-          max: 100,
-        }),
+      ...valueAxisNumericExtras,
       ...((horizontal ? xAxisLabel : yAxisLabel) != null && (horizontal ? xAxisLabel : yAxisLabel) !== '' && {
         name: horizontal ? xAxisLabel : yAxisLabel,
         nameLocation: 'middle',
@@ -561,10 +576,11 @@ const ChartComponent = ({
     tooltipOverlayActive,
     xAxisTickLabelFormatter,
     yAxisTickLabelFormatter,
-    xAxisTicks,
     xAxisLabel,
     yAxisLabel,
     categoryAxisData,
+    valueAxisBounds,
+    xAxisBounds,
   ]);
 
   useEffect(() => {

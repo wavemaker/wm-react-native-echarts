@@ -40,19 +40,6 @@ export const NoBoundaryGap: Story = {
   args: { data, xAxisData, boundaryGap: false },
 };
 
-/** xAxisTicks: numeric tick values; labels from xAxisTickLabelFormatter (7 data, 12 ticks). */
-export const CustomTicks: Story = {
-  args: {
-    data,
-    xAxisTicks: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-    xAxisTickLabelFormatter: (value) => {
-      const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-      const i = Number(value);
-      return labels[i] ?? String(value);
-    },
-  },
-};
-
 /** xAxisTickLabelFormatter — custom label format. */
 export const LabelFormatter: Story = {
   args: {
@@ -68,5 +55,35 @@ export const XAxisLabel: Story = {
     data,
     xAxisData,
     xAxisLabel: 'Day',
+  },
+};
+
+/** minX and maxX — fixed category window (five sessions → indices 1–3). */
+export const FixedMinMax: Story = {
+  args: {
+    data,
+    xAxisData,
+    minX: 1,
+    maxX: 3,
+  },
+};
+
+/** minX, maxX, and intervalX — category axis with explicit label interval. */
+export const FixedInterval: Story = {
+  args: {
+    data,
+    xAxisData,
+    minX: 0,
+    maxX: 4,
+    intervalX: 1,
+  },
+};
+
+/** minX — category axis floor (index). */
+export const CategoryFloor: Story = {
+  args: {
+    data,
+    xAxisData,
+    minX: 1,
   },
 };

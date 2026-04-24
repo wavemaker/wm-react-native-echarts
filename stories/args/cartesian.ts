@@ -3,14 +3,30 @@
  * common -> cartesian -> area | bar | scatter
  */
 export const cartesianChartArgTypes = {
-  xAxisTicks: {
-    control: 'object',
+  minX: {
+    control: 'number',
     description:
-      'Custom X-axis tick values (numbers only). When provided, used as x-axis data; labels are generated using xAxisTickLabelFormatter.',
+      'X-axis minimum when set. On horizontal bar/column, value (bar length) is on X — use minX for that scale.',
   },
-  yAxisTicks: {
-    control: 'object',
-    description: 'Custom Y-axis tick positions (for value axis).',
+  maxX: {
+    control: 'number',
+    description: 'X-axis maximum when set; otherwise derived or automatic.',
+  },
+  intervalX: {
+    control: 'number',
+    description: 'X-axis tick interval when set; otherwise automatic.',
+  },
+  minY: {
+    control: 'number',
+    description: 'Value-axis minimum when set; otherwise the axis minimum comes from the data.',
+  },
+  maxY: {
+    control: 'number',
+    description: 'Value-axis maximum when set; otherwise the axis maximum comes from the data.',
+  },
+  intervalY: {
+    control: 'number',
+    description: 'Value-axis tick interval when set; otherwise the step is chosen automatically.',
   },
   boundaryGap: {
     control: 'boolean',
@@ -34,11 +50,11 @@ export const cartesianChartArgTypes = {
   },
   showXAxisTicks: {
     control: 'boolean',
-    description: 'Whether to show X-axis tick marks. Default: true',
+    description: 'X-axis tick marks when showXAxis is true. Default: true',
   },
   showYAxisTicks: {
     control: 'boolean',
-    description: 'Whether to show Y-axis tick marks. Default: true',
+    description: 'Y-axis tick marks when showYAxis is true. Default: true',
   },
   showXAxisSplitLines: {
     control: 'boolean',
