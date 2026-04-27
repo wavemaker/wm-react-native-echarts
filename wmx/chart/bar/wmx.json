@@ -11,11 +11,7 @@
   "description": "Bar chart is the horizontal orientation of column chart. Unified horizontal bar chart supporting default, interactive, multiple, stacked, label, custom-label, negative, active, and mixed configurations",
   "iconUrl": "icon.svg",
   "dependencies": {
-    "@wuba/react-native-echarts": "3.0.1",
-    "@shopify/react-native-skia": "2.2.12",
-    "react-native-svg": "15.12.1",
-    "echarts": "5.5.1",
-    "zrender": "5.6.0"
+    "@wavemaker/react-native-echarts": "1.0.0-dev.10"
   },
   "keywords": [
     "bar",

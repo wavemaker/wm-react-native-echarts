@@ -11,12 +11,7 @@
   "description": "Concentric ring chart: multiple rings with partial fill (0–100% per ring), blue gradient, center hole, optional center text",
   "iconUrl": "icon.svg",
   "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0",
-    "@wuba/react-native-echarts": "3.0.1",
-    "@shopify/react-native-skia": "2.2.12",
-    "react-native-svg": "15.12.1",
-    "echarts": "5.5.1",
-    "zrender": "5.6.0"
+    "@wavemaker/react-native-echarts": "1.0.0-dev.10"
   },
   "keywords": [
     "radial",
