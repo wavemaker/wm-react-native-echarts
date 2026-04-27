@@ -2,6 +2,7 @@ import { withResponsiveContainer } from '../chart-container';
 import { useChartTheme, withChartTheme } from '../chart-theme.context';
 import { axisTooltipShowContentFlag } from '../cartesian/tooltip';
 import type { RadialChartProps, RadialChartSelectEvent, RadialDataItem } from './radial-chart.props';
+import { echartsLegendLayoutFragment } from '../legend/echarts-legend-layout';
 import { createRadialTooltipPreset, useRadialItemTooltip } from './tooltip';
 import type { RadialItemTooltipContext } from './tooltip/radial-item-tooltip.types';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
@@ -197,15 +198,10 @@ const ChartComponent = ({
     };
 
     if (showLegend) {
-      const isVertical = legendPosition === 'left' || legendPosition === 'right';
       config.legend = {
         show: true,
         data: legendData,
-        orient: isVertical ? 'vertical' : 'horizontal',
-        ...(legendPosition === 'top' && { top: 8 }),
-        ...(legendPosition === 'bottom' && { bottom: 8 }),
-        ...(legendPosition === 'left' && { left: 8 }),
-        ...(legendPosition === 'right' && { right: 8 }),
+        ...echartsLegendLayoutFragment(legendPosition),
         textStyle: {
           color: theme.legend?.textColor ?? '#333333',
           fontSize: theme.legend?.fontSize ?? 11,

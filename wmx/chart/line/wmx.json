@@ -11,12 +11,7 @@
   "description": "Unified line chart component supporting all variations: default, interactive, multiple, linear, step, dots, dots-colors, and custom-label configurations",
   "iconUrl": "icon.svg",
   "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0",
-    "@wuba/react-native-echarts": "3.0.1",
-    "@shopify/react-native-skia": "2.2.12",
-    "react-native-svg": "15.12.1",
-    "echarts": "5.5.1",
-    "zrender": "5.6.0"
+    "@wavemaker/react-native-echarts": "1.0.0-dev.10"
   },
   "keywords": [
     "line",
@@ -267,10 +262,19 @@
     "showLegend": {
       "name": "showLegend",
       "displayName": "Show Legend",
-      "description": "Whether to display a legend for named series. Default: false",
+      "description": "Whether to display a legend for named series. Default: true",
       "type": "boolean",
       "isList": false,
-      "defaultValue": false,
+      "defaultValue": true,
+      "isRequired": false
+    },
+    "legendPosition": {
+      "name": "legendPosition",
+      "displayName": "Legend Position",
+      "description": "Placement of the legend: 'top' | 'bottom' | 'left' | 'right'. Top and bottom use a horizontal legend with wrapping; left and right use a vertical legend. Default: 'bottom'",
+      "type": "string",
+      "isList": false,
+      "defaultValue": "bottom",
       "isRequired": false
     },
     "showHighlighter": {

@@ -2,6 +2,7 @@
  * ArgTypes for Radial chart (common + radial-specific).
  */
 import { commonChartArgTypes } from '../args/common';
+import { legendPositionArgType } from '../args/legend-position';
 
 const radialOnlyArgTypes = {
   data: {
@@ -41,11 +42,7 @@ const radialOnlyArgTypes = {
     control: 'boolean',
     description: 'Whether to show the legend (ring labels). Default: true',
   },
-  legendPosition: {
-    control: 'select',
-    options: ['left', 'right', 'top', 'bottom'],
-    description: 'Legend position. Default: bottom',
-  },
+  ...legendPositionArgType,
   tooltip: {
     control: 'select',
     options: ['card', 'compact', 'kpi', 'striped', 'none'],

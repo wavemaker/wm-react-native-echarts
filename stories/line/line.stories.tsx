@@ -13,14 +13,6 @@ export const Default: Story = {
   },
 };
 
-/** Multiple named series with legend. */
-export const showLegend: Story = {
-  args: {
-    data: [{ name: 'Series A', data: [186, 305, 237, 73, 209, 214] }],
-    showLegend: true,
-  },
-};
-
 /** showHighlighter={false} — no emphasis circle at hovered point. */
 export const showHighlighter: Story = {
   args: {

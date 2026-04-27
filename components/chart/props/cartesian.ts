@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import type { AxisTooltipParams } from '../cartesian/tooltip/axis-tooltip.types';
 import type { ChartTooltipOption } from '../tooltip';
-import type { CommonChartProps } from './common';
+import type { CommonChartProps, LegendPosition } from './common';
 
 /**
  * Emitted when the user taps/clicks a series data point on Cartesian-based charts
@@ -118,9 +118,14 @@ export interface CartesianChartProps extends CommonChartProps {
   grid?: CartesianGrid;
   /**
    * Whether to display a legend for named series.
-   * @default false
+   * @default true
    */
   showLegend?: boolean;
+  /**
+   * Legend position. Top and bottom use a horizontal legend that wraps; left and right use a vertical legend.
+   * @default 'bottom'
+   */
+  legendPosition?: LegendPosition;
   /**
    * Whether **emphasis** (hover highlight) is applied while the axis pointer / tooltip is near the series.
    * Column and bar charts default this to `false`; area defaults to `true`.

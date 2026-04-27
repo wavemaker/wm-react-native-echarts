@@ -12,6 +12,7 @@ import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 import type { CartesianChartSelectEvent } from '../props/cartesian';
 import { valueAxisBoundsFromProps, xAxisBoundsFromProps } from '../axis';
+import { echartsLegendLayoutFragment } from '../legend/echarts-legend-layout';
 
 export type { CandlestickChartProps, CandlestickData, CandlestickItem } from './candlestick-chart.props';
 
@@ -42,7 +43,8 @@ const ChartComponent = ({
   showXAxisSplitLines = true,
   showYAxisSplitLines = true,
   grid,
-  showLegend = false,
+  showLegend = true,
+  legendPosition = 'bottom',
   showHighlighter = true,
   positiveColor = '#008000',
   negativeColor = '#FF2C2C',
@@ -100,6 +102,20 @@ const ChartComponent = ({
     const volumeGrid: any = hasVolume
       ? { left: '10%', right: '8%', top: '72%', height: '18%' }
       : undefined;
+
+    if (showLegend && hasMA) {
+      if (legendPosition === 'left') {
+        mainGrid.left = '30%';
+        if (volumeGrid) volumeGrid.left = '30%';
+      } else if (legendPosition === 'right') {
+        mainGrid.right = '30%';
+        if (volumeGrid) volumeGrid.right = '30%';
+      } else if (legendPosition === 'top') {
+        mainGrid.top = hasVolume ? '18%' : '14%';
+      } else if (legendPosition === 'bottom' && !hasVolume) {
+        mainGrid.bottom = '24%';
+      }
+    }
 
     const xAxisMain: any = {
       type: 'category',
@@ -260,6 +276,7 @@ const ChartComponent = ({
           if (name === 'MA10') return ma10?.length;
           return ma20?.length;
         }),
+        ...echartsLegendLayoutFragment(legendPosition),
         textStyle: { color: theme.legend.textColor, fontSize: theme.legend.fontSize },
         backgroundColor: theme.legend.backgroundColor,
       };
@@ -285,6 +302,8 @@ const ChartComponent = ({
     showYAxisSplitLines,
     grid,
     showLegend,
+    legendPosition,
+    hasMA,
     showHighlighter,
     positiveColor,
     negativeColor,

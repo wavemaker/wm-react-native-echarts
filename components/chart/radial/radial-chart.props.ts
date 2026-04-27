@@ -1,4 +1,4 @@
-import type { CommonChartProps } from '../props/common';
+import type { CommonChartProps, LegendPosition } from '../props/common';
 import type { ChartTooltipOption } from '../tooltip';
 import type { RadialItemTooltipParams } from './tooltip/radial-item-tooltip.types';
 import type { ReactNode } from 'react';
@@ -71,7 +71,7 @@ export interface RadialChartProps extends CommonChartProps {
    * Position of the legend.
    * @default 'bottom'
    */
-  legendPosition?: 'left' | 'right' | 'top' | 'bottom';
+  legendPosition?: LegendPosition;
   /**
    * Built-in item tooltip preset when `renderTooltip` is omitted. Use `none` to hide the overlay.
    * @default 'card'

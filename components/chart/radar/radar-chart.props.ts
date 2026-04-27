@@ -1,4 +1,4 @@
-import type { CommonChartProps } from '../props/common';
+import type { CommonChartProps, LegendPosition } from '../props/common';
 import type { ChartTooltipOption } from '../tooltip';
 import type { RadarItemTooltipParams } from './tooltip/radar-item-tooltip.types';
 import type { ReactNode } from 'react';
@@ -55,9 +55,14 @@ export interface RadarChartProps extends CommonChartProps {
   symbolSize?: number | number[] | ((value: unknown) => number | number[]);
   /**
    * Whether to display a legend for named series.
-   * @default false
+   * @default true
    */
   showLegend?: boolean;
+  /**
+   * Legend position. Top and bottom use a horizontal legend that wraps; left and right use a vertical legend.
+   * @default 'bottom'
+   */
+  legendPosition?: LegendPosition;
   /**
    * Whether to show emphasis (highlight) when interacting with the chart.
    * @default true

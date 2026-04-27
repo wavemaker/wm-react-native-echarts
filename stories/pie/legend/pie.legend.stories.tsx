@@ -12,19 +12,57 @@ const data = [
   { name: 'Other', value: 90 },
 ];
 
-/** Pie with legend below. */
-export const WithLegend: Story = {
+/** Long slice names to exercise wrapped horizontal legend. */
+const wrapData = [
+  { name: 'Chrome desktop', value: 275 },
+  { name: 'Safari mobile', value: 200 },
+  { name: 'Firefox developer', value: 187 },
+  { name: 'Edge enterprise', value: 173 },
+  { name: 'Other browsers', value: 90 },
+];
+
+const smallPie = [
+  { name: 'Alpha', value: 45 },
+  { name: 'Beta', value: 35 },
+  { name: 'Gamma', value: 20 },
+];
+
+/** Slices rendered without the legend (`showLegend={false}`). */
+export const HideLegend: Story = {
   args: {
-    data,
-    showLegend: true,
+    data: smallPie,
+    showLegend: false,
   },
 };
 
-/** Pie with legend, custom colors. */
-export const LegendWithColors: Story = {
+/** Legend above the pie. */
+export const LegendTop: Story = {
   args: {
-    data,
-    showLegend: true,
-    colors: ['#F2A65A', '#6F8F72', '#132440', '#7B68EE', '#50C878'],
+    data: wrapData,
+    legendPosition: 'top',
+  },
+};
+
+/** Legend on the left. */
+export const LegendLeft: Story = {
+  args: {
+    data: wrapData,
+    legendPosition: 'left',
+  },
+};
+
+/** Legend on the right. */
+export const LegendRight: Story = {
+  args: {
+    data: wrapData,
+    legendPosition: 'right',
+  },
+};
+
+/** Legend at bottom (explicit). */
+export const LegendBottom: Story = {
+  args: {
+    data: wrapData,
+    legendPosition: 'bottom',
   },
 };
