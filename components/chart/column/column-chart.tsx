@@ -14,6 +14,10 @@ import { View } from 'react-native';
 import { getAxis, valueAxisBoundsFromProps, xAxisBoundsFromProps } from '../axis';
 import type { CartesianChartSelectEvent } from '../props/cartesian';
 import { createAxisTooltipPreset, useAxisTooltip } from '../cartesian/tooltip';
+import {
+  echartsLegendLayoutFragment,
+  mergeCartesianGridForLegend,
+} from '../legend/echarts-legend-layout';
 import type { AxisTooltipContext } from '../cartesian/tooltip/axis-tooltip.types';
 
 /** common -> cartesian -> column */
@@ -61,7 +65,8 @@ const ChartComponent = ({
   showXAxisSplitLines = true,
   showYAxisSplitLines = true,
   grid,
-  showLegend = false,
+  showLegend = true,
+  legendPosition = 'bottom',
   showHighlighter = false,
   tooltip = 'card',
   xAxisTickLabelFormatter,
@@ -314,6 +319,7 @@ const ChartComponent = ({
             data: normalizedSeries
               .filter((s) => 'name' in s && s.name)
               .map((s) => (s as { name: string }).name),
+            ...echartsLegendLayoutFragment(legendPosition),
             textStyle: {
               color: theme.legend.textColor,
               fontSize: theme.legend.fontSize,
@@ -545,7 +551,15 @@ const ChartComponent = ({
       },
     };
     if (legendConfig) config.legend = legendConfig;
-    if (grid) config.grid = grid;
+    const mergedGrid = mergeCartesianGridForLegend(
+      grid,
+      legendPosition,
+      showLegend,
+      hasNamedSeries
+    );
+    if (mergedGrid !== undefined && Object.keys(mergedGrid).length > 0) {
+      config.grid = mergedGrid;
+    }
     return config;
   }, [
     theme,
@@ -571,6 +585,7 @@ const ChartComponent = ({
     showYAxisSplitLines,
     grid,
     showLegend,
+    legendPosition,
     hasNamedSeries,
     showHighlighter,
     tooltipOverlayActive,

@@ -2,6 +2,7 @@
  * ArgTypes for Radar chart (common + radar-specific).
  */
 import { commonChartArgTypes } from '../args/common';
+import { legendPositionArgType } from '../args/legend-position';
 
 const radarOnlyArgTypes = {
   indicators: {
@@ -19,8 +20,9 @@ const radarOnlyArgTypes = {
   },
   showLegend: {
     control: 'boolean',
-    description: 'Whether to display a legend for named series. Default: false',
+    description: 'Whether to display a legend for named series. Default: true',
   },
+  ...legendPositionArgType,
   showHighlighter: {
     control: 'boolean',
     description: 'Whether to show emphasis when interacting with the chart. Default: true',

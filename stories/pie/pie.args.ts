@@ -2,6 +2,7 @@
  * ArgTypes for Pie chart (common + pie-specific).
  */
 import { commonChartArgTypes } from '../args/common';
+import { legendPositionArgType } from '../args/legend-position';
 
 const pieOnlyArgTypes = {
   data: {
@@ -15,8 +16,9 @@ const pieOnlyArgTypes = {
   },
   showLegend: {
     control: 'boolean',
-    description: 'Whether to show the legend for slices. Default: false',
+    description: 'Whether to show the legend for slices. Default: true',
   },
+  ...legendPositionArgType,
   showLabel: {
     control: 'boolean',
     description: 'Whether to show slice labels on the chart. Default: true',

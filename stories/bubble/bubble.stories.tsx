@@ -24,29 +24,6 @@ export const Default: Story = {
   },
 };
 
-/** Multiple named series with legend (each series is array of [x, y, size]). */
-export const ShowLegend: Story = {
-  args: {
-    data: [
-      { name: 'Series A', data: defaultData },
-      {
-        name: 'Series B',
-        data: [
-          [12, 18, 25],
-          [18, 22, 35],
-          [22, 28, 20],
-          [28, 14, 40],
-          [32, 26, 30],
-          [38, 20, 22],
-          [42, 30, 38],
-          [48, 16, 28],
-        ],
-      },
-    ],
-    showLegend: true,
-  },
-};
-
 /** showHighlighter={false} — no emphasis at hovered point. */
 export const ShowHighlighter: Story = {
   args: {

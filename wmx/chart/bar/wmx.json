@@ -305,10 +305,19 @@
     "showLegend": {
       "name": "showLegend",
       "displayName": "Show Legend",
-      "description": "Whether to display a legend for named series. Default: false",
+      "description": "Whether to display a legend for named series. Default: true",
       "type": "boolean",
       "isList": false,
-      "defaultValue": false,
+      "defaultValue": true,
+      "isRequired": false
+    },
+    "legendPosition": {
+      "name": "legendPosition",
+      "displayName": "Legend Position",
+      "description": "Placement of the legend: 'top' | 'bottom' | 'left' | 'right'. Top and bottom use a horizontal legend with wrapping; left and right use a vertical legend. Default: 'bottom'",
+      "type": "string",
+      "isList": false,
+      "defaultValue": "bottom",
       "isRequired": false
     },
     "showHighlighter": {

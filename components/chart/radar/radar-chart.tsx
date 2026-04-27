@@ -7,6 +7,10 @@ import type {
   RadarIndicator,
   RadarSeriesData,
 } from './radar-chart.props';
+import {
+  echartsLegendLayoutFragment,
+  radarGeometryForLegend,
+} from '../legend/echarts-legend-layout';
 import { createRadarTooltipPreset, useRadarItemTooltip } from './tooltip';
 import type { RadarItemTooltipContext } from './tooltip/radar-item-tooltip.types';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
@@ -56,7 +60,8 @@ const ChartComponent = ({
   height = 350,
   symbol = 'none',
   symbolSize,
-  showLegend = false,
+  showLegend = true,
+  legendPosition = 'bottom',
   showHighlighter = true,
   showIndicatorLabels = true,
   showSplitLine = true,
@@ -122,7 +127,10 @@ const ChartComponent = ({
     const radarAxis = theme.axis.r;
     const gridStyle = theme.grid.r;
 
+    const hasRadarLegend = showLegend && normalizedSeries.some((s) => s.name);
+
     const radarConfig: any = {
+      ...radarGeometryForLegend(legendPosition, showLegend, hasRadarLegend),
       indicator: indicators.map((ind, i) => ({
         name: ind.name,
         max: indicatorMax[i] ?? ind.max ?? 100,
@@ -179,9 +187,10 @@ const ChartComponent = ({
     };
 
     const legendConfig =
-      showLegend && normalizedSeries.some(s => s.name)
+      showLegend && normalizedSeries.some((s) => s.name)
         ? {
-            data: normalizedSeries.map(s => s.name),
+            data: normalizedSeries.map((s) => s.name),
+            ...echartsLegendLayoutFragment(legendPosition),
             textStyle: {
               color: theme.legend.textColor,
               fontSize: theme.legend.fontSize,
@@ -212,6 +221,7 @@ const ChartComponent = ({
     symbol,
     symbolSize,
     showLegend,
+    legendPosition,
     showHighlighter,
     showIndicatorLabels,
     showSplitLine,

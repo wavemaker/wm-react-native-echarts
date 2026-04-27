@@ -1,5 +1,8 @@
 import type { ChartTheme } from '../chart-theme.context';
 
+/** Placement of the chart legend (or geo visual map). */
+export type LegendPosition = 'top' | 'bottom' | 'left' | 'right';
+
 /**
  * Props shared by all chart components (common base).
  * common -> cartesian -> area | bar | scatter -> line (extends area) | bubble (extends scatter)

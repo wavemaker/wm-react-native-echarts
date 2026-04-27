@@ -1,4 +1,4 @@
-import type { CommonChartProps } from '../props/common';
+import type { CommonChartProps, LegendPosition } from '../props/common';
 import type { ChartTooltipOption } from '../tooltip';
 import type { PieItemTooltipParams } from './tooltip/pie-item-tooltip.types';
 import type { ReactNode } from 'react';
@@ -76,9 +76,14 @@ export interface PieChartProps extends CommonChartProps {
   radius?: number | string | (number | string)[];
   /**
    * Whether to show the legend for slices.
-   * @default false
+   * @default true
    */
   showLegend?: boolean;
+  /**
+   * Legend position. Top and bottom use a horizontal legend that wraps; left and right use a vertical legend.
+   * @default 'bottom'
+   */
+  legendPosition?: LegendPosition;
   /**
    * Whether to show slice labels (name/value on the chart).
    * @default true

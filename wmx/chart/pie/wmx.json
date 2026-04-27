@@ -53,10 +53,19 @@
     "showLegend": {
       "name": "showLegend",
       "displayName": "Show Legend",
-      "description": "Whether to show the legend for slices. Default: false",
+      "description": "Whether to show the legend for slices. Default: true",
       "type": "boolean",
       "isList": false,
-      "defaultValue": false,
+      "defaultValue": true,
+      "isRequired": false
+    },
+    "legendPosition": {
+      "name": "legendPosition",
+      "displayName": "Legend Position",
+      "description": "Placement of the slice legend: 'top' | 'bottom' | 'left' | 'right'. Top and bottom use a horizontal legend with wrapping; left and right use a vertical legend. The pie center shifts when the legend is on the side. Default: 'bottom'",
+      "type": "string",
+      "isList": false,
+      "defaultValue": "bottom",
       "isRequired": false
     },
     "showLabel": {

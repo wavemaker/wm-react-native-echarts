@@ -8,6 +8,7 @@ import type {
   PieRingData,
 } from './pie-chart.props';
 import { isConcentricPieData } from './pie-chart.props';
+import { echartsLegendLayoutFragment, pieCenterForLegend } from '../legend/echarts-legend-layout';
 import { createPieTooltipPreset, usePieItemTooltip } from './tooltip';
 import type { PieItemTooltipContext } from './tooltip/pie-item-tooltip.types';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
@@ -42,7 +43,8 @@ const ChartComponent = ({
   width = 220,
   height = 350,
   radius = '75%',
-  showLegend = false,
+  showLegend = true,
+  legendPosition = 'bottom',
   showLabel = true,
   labelPosition = 'outside',
   showLabelLine = true,
@@ -106,7 +108,8 @@ const ChartComponent = ({
     const buildSeriesConfig = (
       pieData: Array<{ name: string; value: number; itemStyle?: { color?: string } }>,
       seriesRadius: number | string | (number | string)[],
-      ringName?: string
+      ringName?: string,
+      seriesCenter?: [string, string]
     ): any => {
       const total = pieData.reduce((sum, d) => sum + d.value, 0);
       const labelConfig: any = showLabel
@@ -125,6 +128,7 @@ const ChartComponent = ({
         type: 'pie',
         name: ringName,
         radius: Array.isArray(seriesRadius) ? seriesRadius : seriesRadius,
+        ...(seriesCenter ? { center: seriesCenter } : {}),
         data: pieData,
         label: labelConfig,
         labelLine: {
@@ -148,6 +152,7 @@ const ChartComponent = ({
 
     if (isConcentricPieData(data)) {
       const rings = data as PieRingData[];
+      const pieSeriesCenter = pieCenterForLegend(legendPosition, showLegend);
       let colorIndex = 0;
       const seriesConfigs = rings.map((ring) => {
         const pieData = ring.data.map((item) => ({
@@ -157,7 +162,7 @@ const ChartComponent = ({
             ? { color: item.itemStyle.color }
             : { color: seriesColors[colorIndex++ % seriesColors.length] },
         }));
-        return buildSeriesConfig(pieData, ring.radius, ring.name);
+        return buildSeriesConfig(pieData, ring.radius, ring.name, pieSeriesCenter);
       });
 
       const legendData = showLegend
@@ -179,10 +184,8 @@ const ChartComponent = ({
       };
       if (legendData?.length) {
         config.legend = {
-          orient: 'horizontal',
-          left: 'center',
-          bottom: 0,
           data: legendData,
+          ...echartsLegendLayoutFragment(legendPosition),
           textStyle: labelStyle,
           backgroundColor: theme.legend.backgroundColor,
         };
@@ -199,7 +202,8 @@ const ChartComponent = ({
         : { color: seriesColors[index % seriesColors.length] },
     }));
 
-    const seriesConfig = buildSeriesConfig(pieData, radius);
+    const pieSeriesCenter = pieCenterForLegend(legendPosition, showLegend);
+    const seriesConfig = buildSeriesConfig(pieData, radius, undefined, pieSeriesCenter);
 
     const tooltipConfig: any = tooltipOverlayActive
       ? {
@@ -208,17 +212,14 @@ const ChartComponent = ({
         }
       : { show: false };
 
-    const legendConfig =
-      showLegend
-        ? {
-            orient: 'horizontal',
-            left: 'center',
-            bottom: 0,
-            data: pieData.map((d) => d.name),
-            textStyle: labelStyle,
-            backgroundColor: theme.legend.backgroundColor,
-          }
-        : undefined;
+    const legendConfig = showLegend
+      ? {
+          data: pieData.map((d) => d.name),
+          ...echartsLegendLayoutFragment(legendPosition),
+          textStyle: labelStyle,
+          backgroundColor: theme.legend.backgroundColor,
+        }
+      : undefined;
 
     const config: any = {
       tooltip: tooltipConfig,
@@ -232,6 +233,7 @@ const ChartComponent = ({
     data,
     radius,
     showLegend,
+    legendPosition,
     showLabel,
     labelPosition,
     showLabelLine,

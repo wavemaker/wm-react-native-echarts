@@ -18,14 +18,6 @@ export const Default: Story = {
   },
 };
 
-/** Pie with legend. */
-export const ShowLegend: Story = {
-  args: {
-    data: defaultData,
-    showLegend: true,
-  },
-};
-
 /** Pie with highlighter disabled. */
 export const ShowHighlighter: Story = {
   args: {

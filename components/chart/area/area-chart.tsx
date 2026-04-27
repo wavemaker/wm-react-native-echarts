@@ -15,6 +15,10 @@ import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { View } from 'react-native';
 import { getAxis, valueAxisBoundsFromProps, xAxisBoundsFromProps } from '../axis';
+import {
+  echartsLegendLayoutFragment,
+  mergeCartesianGridForLegend,
+} from '../legend/echarts-legend-layout';
 
 // Re-export types for backward compatibility (common -> cartesian -> area)
 export type {
@@ -54,7 +58,8 @@ const ChartComponent = ({
   showXAxisSplitLines = true,
   showYAxisSplitLines = true,
   grid,
-  showLegend = false,
+  showLegend = true,
+  legendPosition = 'bottom',
   showHighlighter = true,
   tooltip = 'card',
   xAxisTickLabelFormatter,
@@ -272,16 +277,20 @@ const ChartComponent = ({
     };
 
     // Build legend config
-    const legendConfigFinal: any = showLegend && hasNamedSeries ? {
-      data: normalizedSeries
-        .filter(s => 'name' in s && s.name)
-        .map(s => s.name),
-      textStyle: {
-        color: theme.legend.textColor,
-        fontSize: theme.legend.fontSize,
-      },
-      backgroundColor: theme.legend.backgroundColor,
-    } : undefined;
+    const legendConfigFinal: any =
+      showLegend && hasNamedSeries
+        ? {
+            data: normalizedSeries
+              .filter((s) => 'name' in s && s.name)
+              .map((s) => s.name),
+            ...echartsLegendLayoutFragment(legendPosition),
+            textStyle: {
+              color: theme.legend.textColor,
+              fontSize: theme.legend.fontSize,
+            },
+            backgroundColor: theme.legend.backgroundColor,
+          }
+        : undefined;
 
     // Build series config (use displaySeries so stackNormalize uses percentage data)
     const seriesConfig = displaySeries.map((s, index) => {
@@ -388,9 +397,14 @@ const ChartComponent = ({
       config.legend = legendConfigFinal;
     }
 
-    // Add grid if configured
-    if (grid) {
-      config.grid = grid;
+    const mergedGrid = mergeCartesianGridForLegend(
+      grid,
+      legendPosition,
+      showLegend,
+      hasNamedSeries
+    );
+    if (mergedGrid !== undefined && Object.keys(mergedGrid).length > 0) {
+      config.grid = mergedGrid;
     }
 
     return config;
@@ -417,6 +431,7 @@ const ChartComponent = ({
     showYAxisSplitLines,
     grid,
     showLegend,
+    legendPosition,
     hasNamedSeries,
     showHighlighter,
     tooltipOverlayActive,

@@ -38,7 +38,13 @@ export const cartesianChartArgTypes = {
   },
   showLegend: {
     control: 'boolean',
-    description: 'Whether to display a legend for named series. Default: false',
+    description: 'Whether to display a legend for named series. Default: true',
+  },
+  legendPosition: {
+    control: 'select',
+    options: ['top', 'bottom', 'left', 'right'],
+    description:
+      'Legend position. Top and bottom: horizontal, wrapped. Left and right: vertical. Default: bottom.',
   },
   showXAxis: {
     control: 'boolean',

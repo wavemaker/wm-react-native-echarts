@@ -12,14 +12,7 @@ const data = [
   { label: 'Edge', value: 38 },
 ];
 
-/** Default: legend at bottom. */
-export const Default: Story = {
-  args: {
-    data,
-  },
-};
-
-/** Without legend. */
+/** All rings without the ring legend (`showLegend={false}`). */
 export const HideLegend: Story = {
   args: {
     data,
@@ -27,11 +20,18 @@ export const HideLegend: Story = {
   },
 };
 
+/** Legend at bottom (explicit). */
+export const LegendBottom: Story = {
+  args: {
+    data,
+    legendPosition: 'bottom',
+  },
+};
+
 /** Legend above. */
 export const LegendTop: Story = {
   args: {
     data,
-    showLegend: true,
     legendPosition: 'top',
   },
 };
@@ -40,7 +40,6 @@ export const LegendTop: Story = {
 export const LegendLeft: Story = {
   args: {
     data,
-    showLegend: true,
     legendPosition: 'left',
   },
 };
@@ -49,7 +48,6 @@ export const LegendLeft: Story = {
 export const LegendRight: Story = {
   args: {
     data,
-    showLegend: true,
     legendPosition: 'right',
   },
 };

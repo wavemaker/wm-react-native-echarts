@@ -21,17 +21,6 @@ export const Default: Story = {
   },
 };
 
-/** Radar with legend (multiple named series). */
-export const ShowLegend: Story = {
-  args: {
-    indicators: defaultIndicators,
-    data: [
-      { name: 'Series A', value: [80, 60, 75, 55, 70] },
-    ],
-    showLegend: true,
-  },
-};
-
 /** Radar with highlighter disabled. */
 export const ShowHighlighter: Story = {
   args: {
