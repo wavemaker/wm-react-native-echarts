@@ -1,0 +1,13 @@
+import{R as e}from"./iframe-7fGkfOWr.js";import{c as V,s as x,a as G}from"./gauge.args-DRbYbJf0.js";import{V as n,T as i,s as L}from"./install-NEgcrzy7.js";import"./preload-helper-DkhvmF2b.js";import"./install-j5bgd6PW.js";import"./dataSample-LQN_tCZn.js";import"./labelHelper-C-GbgMxG.js";import"./sectorHelper-BbU6gYt3.js";import"./createSeriesDataSimply-DaXRNxVR.js";import"./Axis-0FyMA-GH.js";import"./jsx-runtime-BjG_zV1W.js";const t=L.create({container:{padding:20,borderRadius:8},sourceContainer:{marginTop:16,padding:12,backgroundColor:"rgba(0,0,0,0.04)",borderRadius:6,borderWidth:1,borderColor:"rgba(0,0,0,0.08)"},sourceLabel:{fontSize:11,fontWeight:"600",marginBottom:6,color:"rgba(0,0,0,0.5)",textTransform:"uppercase",letterSpacing:.5},sourceCode:{fontFamily:"ui-monospace, monospace",fontSize:12,color:"rgba(0,0,0,0.85)"}}),R={title:"Charts/Gauge/Speedometer",component:G,parameters:{layout:"centered"},tags:["autodocs"],argTypes:{...x},args:{...V,value:65,width:400,height:250,axisColors:["#e74c3c","#f39c12","#2ecc71"],axisColorLengths:[40,80,100]},decorators:[(T,s)=>{var c;return e.createElement(n,{style:t.container},e.createElement(T,null),((c=s.parameters)==null?void 0:c.source)!=null&&e.createElement(n,{style:t.sourceContainer},e.createElement(i,{style:t.sourceLabel},"React Native"),e.createElement(i,{style:t.sourceCode},String(s.parameters.source))))}]},j={...R,title:"Charts/Gauge/Speedometer"},r={args:{value:65}},a={args:{value:20}},o={args:{value:88}};var m,p,l,u,d;r.parameters={...r.parameters,docs:{...(m=r.parameters)==null?void 0:m.docs,source:{originalSource:`{
+  args: {
+    value: 65
+  }
+}`,...(l=(p=r.parameters)==null?void 0:p.docs)==null?void 0:l.source},description:{story:"Speedometer gauge with segment colors (e.g. red / yellow / green).",...(d=(u=r.parameters)==null?void 0:u.docs)==null?void 0:d.description}}};var g,h,y,S,f;a.parameters={...a.parameters,docs:{...(g=a.parameters)==null?void 0:g.docs,source:{originalSource:`{
+  args: {
+    value: 20
+  }
+}`,...(y=(h=a.parameters)==null?void 0:h.docs)==null?void 0:y.source},description:{story:"Speedometer at low value.",...(f=(S=a.parameters)==null?void 0:S.docs)==null?void 0:f.description}}};var b,C,v,w,E;o.parameters={...o.parameters,docs:{...(b=o.parameters)==null?void 0:b.docs,source:{originalSource:`{
+  args: {
+    value: 88
+  }
+}`,...(v=(C=o.parameters)==null?void 0:C.docs)==null?void 0:v.source},description:{story:"Speedometer at high value.",...(E=(w=o.parameters)==null?void 0:w.docs)==null?void 0:E.description}}};const q=["Default","LowValue","HighValue"];export{r as Default,o as HighValue,a as LowValue,q as __namedExportsOrder,j as default};

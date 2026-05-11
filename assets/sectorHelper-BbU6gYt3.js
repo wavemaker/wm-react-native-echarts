@@ -1,0 +1,1 @@
+import{d as i,m as o,p as s}from"./install-NEgcrzy7.js";function c(e,a,n){var r=e.get("borderRadius");if(r==null)return n?{cornerRadius:0}:null;i(r)||(r=[r,r,r,r]);var t=Math.abs(a.r||0-a.r0||0);return{cornerRadius:o(r,function(u){return s(u,t)})}}export{c as g};
