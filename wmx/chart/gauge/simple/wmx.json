@@ -4,9 +4,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/gauge/labeled-gauge"
+    "url": "https://github.com/wavemaker/wm-react-native-echarts"
   },
-  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-gauge-labeled-gauge--docs",
+  "homepage": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-gauge-simple--default",
   "displayName": "Labeled Gauge",
   "description": "Gauge chart with custom title and detail text labels for metric display",
   "iconUrl": "icon.svg",
@@ -16,7 +16,12 @@
     "../../chart-theme.context.tsx"
   ],
   "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0-dev.10"
+    "@wavemaker/react-native-echarts": "1.0.0-dev.10",
+    "@shopify/react-native-skia": "2.6.2",
+    "@wuba/react-native-echarts": "3.0.1",
+    "echarts": "6.0.0",
+    "zrender": "6.0.0",
+    "react-native-svg": "15.12.1"
   },
   "keywords": [
     "gauge",
@@ -90,8 +95,59 @@
       "type": "string",
       "isList": true,
       "isRequired": false
+    },
+    "axisBgColor": {
+      "name": "axisBgColor",
+      "displayName": "Axis Background Color",
+      "description": "Background color for the unfilled portion of the gauge axis arc.",
+      "type": "string",
+      "isList": false,
+      "isRequired": false
+    },
+    "axisWidth": {
+      "name": "axisWidth",
+      "displayName": "Axis Width",
+      "description": "Thickness of the gauge axis arc line in pixels. Default: 50",
+      "type": "number",
+      "isList": false,
+      "defaultValue": 50,
+      "isRequired": false
+    },
+    "tickColor": {
+      "name": "tickColor",
+      "displayName": "Tick Color",
+      "description": "Color override for title and detail label text (tick label color from theme when omitted).",
+      "type": "string",
+      "isList": false,
+      "isRequired": false
+    },
+    "title": {
+      "name": "title",
+      "displayName": "Title",
+      "description": "Title label shown on the gauge (series name). Default: 'Metric'",
+      "type": "string",
+      "isList": false,
+      "defaultValue": "Metric",
+      "isRequired": false
+    },
+    "detailText": {
+      "name": "detailText",
+      "displayName": "Detail Text",
+      "description": "Formatted detail string below the value (e.g. percentage or unit). Default: '30%'",
+      "type": "string",
+      "isList": false,
+      "defaultValue": "30%",
+      "isRequired": false
     }
   },
   "group": "chart/gauge",
+  "marketplace": {
+    "carouselImages": [
+      "/assets/images/simple.png"
+    ],
+    "thumbnailImage": "/assets/images/thumbnail.png",
+    "icon": "icon.svg",
+    "previewUrl": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-gauge-simple--default"
+  },
   "webSupport": true
 }

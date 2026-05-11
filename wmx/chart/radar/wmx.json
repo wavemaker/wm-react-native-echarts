@@ -4,14 +4,19 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/radar"
+    "url": "https://github.com/wavemaker/wm-react-native-echarts"
   },
-  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-radar-radarchart--docs",
+  "homepage": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-radar--default",
   "displayName": "Radar Chart",
   "description": "Unified radar chart component supporting all variations: basic, multiple, grid-circle, grid-filled, dots, lines-only, and custom-label configurations",
   "iconUrl": "icon.svg",
   "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0-dev.10"
+    "@wavemaker/react-native-echarts": "1.0.0-dev.10",
+    "@shopify/react-native-skia": "2.6.2",
+    "@wuba/react-native-echarts": "3.0.1",
+    "echarts": "6.0.0",
+    "zrender": "6.0.0",
+    "react-native-svg": "15.12.1"
   },
   "keywords": [
     "radar",
@@ -167,5 +172,15 @@
     }
   },
   "group": "chart/radar",
+  "marketplace": {
+    "carouselImages": [
+      "/assets/images/default.png",
+      "/assets/images/multiple.png",
+      "/assets/images/with-symbol.png"
+    ],
+    "thumbnailImage": "/assets/images/thumbnail.png",
+    "icon": "icon.svg",
+    "previewUrl": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-radar--default"
+  },
   "webSupport": true
 }

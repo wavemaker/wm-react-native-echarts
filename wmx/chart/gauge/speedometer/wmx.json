@@ -4,9 +4,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/gauge/semi-circular-gauge"
+    "url": "https://github.com/wavemaker/wm-react-native-echarts"
   },
-  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-gauge-semi-circular-gauge--docs",
+  "homepage": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-gauge-speedometer--default",
   "displayName": "Semi Circular Gauge",
   "description": "Semi-circular gauge chart with color-coded segments, customizable tick marks, and modern design",
   "iconUrl": "icon.svg",
@@ -16,7 +16,12 @@
     "../../chart-theme.context.tsx"
   ],
   "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0-dev.10"
+    "@wavemaker/react-native-echarts": "1.0.0-dev.10",
+    "@shopify/react-native-skia": "2.6.2",
+    "@wuba/react-native-echarts": "3.0.1",
+    "echarts": "6.0.0",
+    "zrender": "6.0.0",
+    "react-native-svg": "15.12.1"
   },
   "keywords": [
     "gauge",
@@ -61,19 +66,19 @@
     "width": {
       "name": "width",
       "displayName": "Width",
-      "description": "Width of the chart in pixels. Example: 220",
+      "description": "Width of the chart in pixels. Example: 400",
       "type": "number",
       "isList": false,
-      "defaultValue": 220,
+      "defaultValue": 400,
       "isRequired": false
     },
     "height": {
       "name": "height",
       "displayName": "Height",
-      "description": "Height of the chart in pixels. Example: 350",
+      "description": "Height of the chart in pixels. Example: 250",
       "type": "number",
       "isList": false,
-      "defaultValue": 240,
+      "defaultValue": 250,
       "isRequired": false
     },
     "theme": {
@@ -87,12 +92,64 @@
     "colors": {
       "name": "colors",
       "displayName": "Colors",
-      "description": "Colors for the chart. Example: ['#3b82f6', '#10b981', '#f59e0b']",
+      "description": "Theme series colors (fallback when axis segment colors are not set). Example: ['#3b82f6', '#10b981']",
       "type": "string",
+      "isList": true,
+      "isRequired": false
+    },
+    "axisBgColor": {
+      "name": "axisBgColor",
+      "displayName": "Axis Background Color",
+      "description": "Background track color behind the colored segments on the backing gauge layer. Default: 'transparent'",
+      "type": "string",
+      "isList": false,
+      "defaultValue": "transparent",
+      "isRequired": false
+    },
+    "axisWidth": {
+      "name": "axisWidth",
+      "displayName": "Axis Width",
+      "description": "Thickness of the colored gauge arc in pixels. Default: 30",
+      "type": "number",
+      "isList": false,
+      "defaultValue": 30,
+      "isRequired": false
+    },
+    "tickColor": {
+      "name": "tickColor",
+      "displayName": "Tick Color",
+      "description": "Color for tick marks and major split lines. Falls back to theme when omitted.",
+      "type": "string",
+      "isList": false,
+      "isRequired": false
+    },
+    "axisColors": {
+      "name": "axisColors",
+      "displayName": "Axis Segment Colors",
+      "description": "Colors for each arc segment (left to right). Example: ['#e74c3c', '#3498db', '#2ecc71']. When omitted, theme series colors are used.",
+      "type": "string",
+      "isList": true,
+      "isRequired": false
+    },
+    "axisColorLengths": {
+      "name": "axisColorLengths",
+      "displayName": "Axis Segment Thresholds",
+      "description": "Numeric endpoints for each segment (same length as axisColors). Example: [40, 80, 120] for ranges 0–40, 40–80, 80–120. When omitted, the scale is divided evenly.",
+      "type": "number",
       "isList": true,
       "isRequired": false
     }
   },
   "group": "chart/gauge",
+  "marketplace": {
+    "carouselImages": [
+      "/assets/images/digital.png",
+      "/assets/images/radial.png",
+      "/assets/images/simple.png"
+    ],
+    "thumbnailImage": "/assets/images/thumbnail.png",
+    "icon": "icon.svg",
+    "previewUrl": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-gauge-speedometer--default"
+  },
   "webSupport": true
 }
