@@ -1,17 +1,22 @@
 {
   "name": "rne-line-chart",
-  "version": "1.0.0",
+  "version": "1.0.0-dev.11",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/line"
+    "url": "https://github.com/wavemaker/wm-react-native-echarts"
   },
-  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-line-linechart--docs",
+  "homepage": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-line--default",
   "displayName": "Line Chart",
   "description": "Unified line chart component supporting all variations: default, interactive, multiple, linear, step, dots, dots-colors, and custom-label configurations",
   "iconUrl": "icon.svg",
   "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0-dev.10"
+    "@wavemaker/react-native-echarts": "1.0.0-dev.10",
+    "@shopify/react-native-skia": "2.6.2",
+    "@wuba/react-native-echarts": "3.0.1",
+    "echarts": "6.0.0",
+    "zrender": "6.0.0",
+    "react-native-svg": "15.12.1"
   },
   "keywords": [
     "line",
@@ -321,5 +326,15 @@
     }
   },
   "group": "chart/line",
+  "marketplace": {
+    "carouselImages": [
+      "/assets/images/multi-line.png",
+      "/assets/images/standard-line.png",
+      "/assets/images/trend-line.png"
+    ],
+    "thumbnailImage": "/assets/images/thumbnail.png",
+    "icon": "icon.svg",
+    "previewUrl": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-line--default"
+  },
   "webSupport": true
 }

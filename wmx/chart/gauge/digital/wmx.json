@@ -1,12 +1,12 @@
 {
   "name": "rne-animated-gauge",
-  "version": "1.0.0",
+  "version": "1.0.0-dev.11",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/gauge/animated-gauge"
+    "url": "https://github.com/wavemaker/wm-react-native-echarts"
   },
-  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-gauge-animated-gauge--docs",
+  "homepage": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-gauge-digital--default",
   "displayName": "Animated Gauge",
   "description": "Animated gauge chart with smooth value transitions and gradient tick marks using SVG",
   "iconUrl": "icon.svg",
@@ -16,7 +16,12 @@
     "../../chart-theme.context.tsx"
   ],
   "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0-dev.10"
+    "@wavemaker/react-native-echarts": "1.0.0-dev.10",
+    "@shopify/react-native-skia": "2.6.2",
+    "@wuba/react-native-echarts": "3.0.1",
+    "echarts": "6.0.0",
+    "zrender": "6.0.0",
+    "react-native-svg": "15.12.1"
   },
   "keywords": [
     "gauge",
@@ -90,8 +95,58 @@
       "type": "string",
       "isList": true,
       "isRequired": false
+    },
+    "axisBgColor": {
+      "name": "axisBgColor",
+      "displayName": "Axis Background Color",
+      "description": "Background color for the gauge axis/track arc. Example: '#e5e7eb'",
+      "type": "string",
+      "isList": false,
+      "isRequired": false
+    },
+    "axisWidth": {
+      "name": "axisWidth",
+      "displayName": "Axis Width",
+      "description": "Width of the axis line in pixels.",
+      "type": "number",
+      "isList": false,
+      "isRequired": false
+    },
+    "tickColor": {
+      "name": "tickColor",
+      "displayName": "Tick Color",
+      "description": "Color for tick marks and split lines. Example: '#9ca3af'",
+      "type": "string",
+      "isList": false,
+      "isRequired": false
+    },
+    "showInnerArc": {
+      "name": "showInnerArc",
+      "displayName": "Show Inner Arc",
+      "description": "Whether to render the inner decorative arc. Default: false",
+      "type": "boolean",
+      "isList": false,
+      "defaultValue": false,
+      "isRequired": false
+    },
+    "animationDuration": {
+      "name": "animationDuration",
+      "displayName": "Animation Duration",
+      "description": "Duration of the value animation in milliseconds. Default: 1000",
+      "type": "number",
+      "isList": false,
+      "defaultValue": 1000,
+      "isRequired": false
     }
   },
   "group": "chart/gauge",
+  "marketplace": {
+    "carouselImages": [
+      "/assets/images/digital.png"
+    ],
+    "thumbnailImage": "/assets/images/thumbnail.png",
+    "icon": "icon.svg",
+    "previewUrl": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-gauge-digital--default"
+  },
   "webSupport": true
 }

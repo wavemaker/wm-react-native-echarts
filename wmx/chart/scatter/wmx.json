@@ -1,0 +1,313 @@
+{
+  "name": "rne-scatter-chart",
+  "version": "1.0.0-dev.11",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wavemaker/wm-react-native-echarts"
+  },
+  "homepage": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-scatter--default",
+  "displayName": "Scatter Chart",
+  "description": "Unified scatter chart component supporting all variations: default, multiple series, custom symbols, interactions, regression line, and tooltip configurations",
+  "iconUrl": "icon.svg",
+  "dependencies": {
+    "@wavemaker/react-native-echarts": "1.0.0-dev.10",
+    "@shopify/react-native-skia": "2.6.2",
+    "@wuba/react-native-echarts": "3.0.1",
+    "echarts": "6.0.0",
+    "zrender": "6.0.0",
+    "react-native-svg": "15.12.1"
+  },
+  "keywords": [
+    "scatter",
+    "chart",
+    "unified",
+    "master",
+    "multi-series",
+    "symbol",
+    "regression",
+    "interactive",
+    "tooltip",
+    "visualization",
+    "data-analysis",
+    "chart/scatter"
+  ],
+  "props": {
+    "data": {
+      "name": "data",
+      "displayName": "Data",
+      "description": "Scatter data. Single series as number[][] with [x, y] pairs, or multiple series as Array<{name?: string, data: number[][]}>.",
+      "type": "object",
+      "isList": true,
+      "isRequired": true
+    },
+    "symbol": {
+      "name": "symbol",
+      "displayName": "Symbol",
+      "description": "Symbol type for points. Options: 'none', 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'. Default: 'circle'",
+      "type": "string",
+      "isList": false,
+      "defaultValue": "circle",
+      "isRequired": false
+    },
+    "symbolSize": {
+      "name": "symbolSize",
+      "displayName": "Symbol Size",
+      "description": "Size of the symbol. Number, [width, height], or function. Default: 8",
+      "type": "number",
+      "isList": false,
+      "defaultValue": 8,
+      "isRequired": false
+    },
+    "showRegressionLine": {
+      "name": "showRegressionLine",
+      "displayName": "Show Regression Line",
+      "description": "When true, draws a linear regression line for each scatter series. Default: false",
+      "type": "boolean",
+      "isList": false,
+      "defaultValue": false,
+      "isRequired": false
+    },
+    "width": {
+      "name": "width",
+      "displayName": "Width",
+      "description": "Width of the chart in pixels. Default: 220",
+      "type": "number",
+      "isList": false,
+      "defaultValue": 220,
+      "isRequired": false
+    },
+    "height": {
+      "name": "height",
+      "displayName": "Height",
+      "description": "Height of the chart in pixels. Default: 350",
+      "type": "number",
+      "isList": false,
+      "defaultValue": 350,
+      "isRequired": false
+    },
+    "theme": {
+      "name": "theme",
+      "displayName": "Theme",
+      "description": "Partial theme override for customizing chart appearance. Merged with default theme from ChartThemeContext.",
+      "type": "object",
+      "isList": false,
+      "isRequired": false
+    },
+    "colors": {
+      "name": "colors",
+      "displayName": "Colors",
+      "description": "Colors for chart series. Overrides theme colors. Example: ['#3b82f6', '#10b981', '#f59e0b']",
+      "type": "string",
+      "isList": true,
+      "isRequired": false
+    },
+    "boundaryGap": {
+      "name": "boundaryGap",
+      "displayName": "Boundary Gap",
+      "description": "Whether to leave gaps at the start and end of the axis. Default: false",
+      "type": "boolean",
+      "isList": false,
+      "defaultValue": false,
+      "isRequired": false
+    },
+    "minX": {
+      "name": "minX",
+      "displayName": "X Axis Min",
+      "description": "Optional minimum for the X-axis. When omitted, automatic.",
+      "type": "number",
+      "isList": false,
+      "isRequired": false
+    },
+    "maxX": {
+      "name": "maxX",
+      "displayName": "X Axis Max",
+      "description": "Optional maximum for the X-axis. When omitted, automatic.",
+      "type": "number",
+      "isList": false,
+      "isRequired": false
+    },
+    "intervalX": {
+      "name": "intervalX",
+      "displayName": "X Axis Interval",
+      "description": "Optional tick interval for the X-axis. When omitted, automatic.",
+      "type": "number",
+      "isList": false,
+      "isRequired": false
+    },
+    "minY": {
+      "name": "minY",
+      "displayName": "Y Axis Min",
+      "description": "Optional minimum for the Y-axis. When omitted, automatic.",
+      "type": "number",
+      "isList": false,
+      "isRequired": false
+    },
+    "maxY": {
+      "name": "maxY",
+      "displayName": "Y Axis Max",
+      "description": "Optional maximum for the Y-axis. When omitted, automatic.",
+      "type": "number",
+      "isList": false,
+      "isRequired": false
+    },
+    "intervalY": {
+      "name": "intervalY",
+      "displayName": "Y Axis Interval",
+      "description": "Optional tick interval for the Y-axis. When omitted, automatic.",
+      "type": "number",
+      "isList": false,
+      "isRequired": false
+    },
+    "showXAxis": {
+      "name": "showXAxis",
+      "displayName": "Show X Axis",
+      "description": "Whether to show the X-axis line and labels. Default: true",
+      "type": "boolean",
+      "isList": false,
+      "defaultValue": true,
+      "isRequired": false
+    },
+    "showXAxisTicks": {
+      "name": "showXAxisTicks",
+      "displayName": "Show X Axis Ticks",
+      "description": "X-axis tick marks when showXAxis is true. Default: true",
+      "type": "boolean",
+      "isList": false,
+      "defaultValue": true,
+      "isRequired": false
+    },
+    "showYAxis": {
+      "name": "showYAxis",
+      "displayName": "Show Y Axis",
+      "description": "Whether to show the Y-axis line and labels. Default: true",
+      "type": "boolean",
+      "isList": false,
+      "defaultValue": true,
+      "isRequired": false
+    },
+    "showYAxisTicks": {
+      "name": "showYAxisTicks",
+      "displayName": "Show Y Axis Ticks",
+      "description": "Y-axis tick marks when showYAxis is true. Default: true",
+      "type": "boolean",
+      "isList": false,
+      "defaultValue": true,
+      "isRequired": false
+    },
+    "showXAxisSplitLines": {
+      "name": "showXAxisSplitLines",
+      "displayName": "Show X Axis Split Lines",
+      "description": "Whether to show vertical grid lines. Default: true",
+      "type": "boolean",
+      "isList": false,
+      "defaultValue": true,
+      "isRequired": false
+    },
+    "showYAxisSplitLines": {
+      "name": "showYAxisSplitLines",
+      "displayName": "Show Y Axis Split Lines",
+      "description": "Whether to show horizontal grid lines. Default: true",
+      "type": "boolean",
+      "isList": false,
+      "defaultValue": true,
+      "isRequired": false
+    },
+    "xAxisLabel": {
+      "name": "xAxisLabel",
+      "displayName": "X Axis Label",
+      "description": "Label text for the X-axis (displayed along the axis).",
+      "type": "string",
+      "isList": false,
+      "isRequired": false
+    },
+    "yAxisLabel": {
+      "name": "yAxisLabel",
+      "displayName": "Y Axis Label",
+      "description": "Label text for the Y-axis (displayed along the axis).",
+      "type": "string",
+      "isList": false,
+      "isRequired": false
+    },
+    "grid": {
+      "name": "grid",
+      "displayName": "Grid",
+      "description": "Grid positioning. Values: percentages (e.g. '10%') or pixels. Example: {left: '10%', right: '5%', bottom: '10%', top: '10%'}",
+      "type": "object",
+      "isList": false,
+      "isRequired": false
+    },
+    "showLegend": {
+      "name": "showLegend",
+      "displayName": "Show Legend",
+      "description": "Whether to display a legend for named series. Default: true",
+      "type": "boolean",
+      "isList": false,
+      "defaultValue": true,
+      "isRequired": false
+    },
+    "legendPosition": {
+      "name": "legendPosition",
+      "displayName": "Legend Position",
+      "description": "Placement of the legend: 'top' | 'bottom' | 'left' | 'right'. Top and bottom use a horizontal legend with wrapping; left and right use a vertical legend. Default: 'bottom'",
+      "type": "string",
+      "isList": false,
+      "defaultValue": "bottom",
+      "isRequired": false
+    },
+    "showHighlighter": {
+      "name": "showHighlighter",
+      "displayName": "Show Highlighter",
+      "description": "Whether to show the highlighter (emphasis) when interacting with the chart. Default: true",
+      "type": "boolean",
+      "isList": false,
+      "defaultValue": true,
+      "isRequired": false
+    },
+    "tooltip": {
+      "name": "tooltip",
+      "displayName": "Tooltip",
+      "description": "Built-in React Native item-tooltip overlay when renderTooltip is omitted: card (default), compact, kpi, striped, or none to hide the overlay.",
+      "type": "string",
+      "isList": false,
+      "defaultValue": "card",
+      "isRequired": false
+    },
+    "renderTooltip": {
+      "name": "renderTooltip",
+      "displayName": "Render Tooltip",
+      "description": "Optional (params) => ReactNode for the RN tooltip body at the pointer. When set, replaces the layout chosen by tooltip. Params include series name, x and y values, color, and pointer coordinates.",
+      "type": "function",
+      "isList": false,
+      "isRequired": false
+    },
+    "xAxisTickLabelFormatter": {
+      "name": "xAxisTickLabelFormatter",
+      "displayName": "X Axis Tick Label Formatter",
+      "description": "Formatter for X-axis tick labels. (value, index?) => string",
+      "type": "function",
+      "isList": false,
+      "isRequired": false
+    },
+    "yAxisTickLabelFormatter": {
+      "name": "yAxisTickLabelFormatter",
+      "displayName": "Y Axis Tick Label Formatter",
+      "description": "Formatter for Y-axis tick labels. (value, index?) => string",
+      "type": "function",
+      "isList": false,
+      "isRequired": false
+    }
+  },
+  "group": "chart/scatter",
+  "marketplace": {
+    "carouselImages": [
+      "/assets/images/default.png",
+      "/assets/images/multi.png",
+      "/assets/images/with-symbol.png"
+    ],
+    "thumbnailImage": "/assets/images/thumbnail.png",
+    "icon": "icon.svg",
+    "previewUrl": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-scatter--default"
+  },
+  "webSupport": true
+}

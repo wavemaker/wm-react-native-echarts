@@ -1,17 +1,22 @@
 {
   "name": "rne-column-chart",
-  "version": "1.0.0",
+  "version": "1.0.0-dev.11",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/column"
+    "url": "https://github.com/wavemaker/wm-react-native-echarts"
   },
-  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-column-columnchart--docs",
+  "homepage": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-column--default",
   "displayName": "Column Chart",
   "description": "Unified column chart component supporting all variations: default, interactive, multiple, stacked, label, custom-label, negative, active, and mixed configurations",
   "iconUrl": "icon.svg",
   "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0-dev.10"
+    "@wavemaker/react-native-echarts": "1.0.0-dev.10",
+    "@shopify/react-native-skia": "2.6.2",
+    "@wuba/react-native-echarts": "3.0.1",
+    "echarts": "6.0.0",
+    "zrender": "6.0.0",
+    "react-native-svg": "15.12.1"
   },
   "keywords": [
     "column",
@@ -368,5 +373,15 @@
     }
   },
   "group": "chart/column",
+  "marketplace": {
+    "carouselImages": [
+      "/assets/images/active-column.png",
+      "/assets/images/multi-series.png",
+      "/assets/images/standard.png"
+    ],
+    "thumbnailImage": "/assets/images/thumbnail.png",
+    "icon": "icon.svg",
+    "previewUrl": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-column--default"
+  },
   "webSupport": true
 }

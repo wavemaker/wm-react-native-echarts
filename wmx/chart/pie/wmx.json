@@ -1,17 +1,22 @@
 {
   "name": "rne-pie-chart",
-  "version": "1.0.0",
+  "version": "1.0.0-dev.11",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/pie"
+    "url": "https://github.com/wavemaker/wm-react-native-echarts"
   },
-  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-pie-piechart--docs",
+  "homepage": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-pie--default",
   "displayName": "Pie Chart",
   "description": "Unified pie chart component supporting all variations: basic, donut, stacked, label, legend, donut-text, donut-active, interactive, and separator-none configurations",
   "iconUrl": "icon.svg",
   "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0-dev.10"
+    "@wavemaker/react-native-echarts": "1.0.0-dev.10",
+    "@shopify/react-native-skia": "2.6.2",
+    "@wuba/react-native-echarts": "3.0.1",
+    "echarts": "6.0.0",
+    "zrender": "6.0.0",
+    "react-native-svg": "15.12.1"
   },
   "keywords": [
     "pie",
@@ -152,5 +157,15 @@
     }
   },
   "group": "chart/pie",
+  "marketplace": {
+    "carouselImages": [
+      "/assets/images/concentric.png",
+      "/assets/images/donut.png",
+      "/assets/images/pie.png"
+    ],
+    "thumbnailImage": "/assets/images/thumbnail.png",
+    "icon": "icon.svg",
+    "previewUrl": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-pie--default"
+  },
   "webSupport": true
 }

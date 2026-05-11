@@ -1,17 +1,22 @@
 {
   "name": "rne-radial-chart",
-  "version": "1.0.0",
+  "version": "1.0.0-dev.11",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sboyina/rn-widgets/tree/0.0.0-dev/components/chart/radial"
+    "url": "https://github.com/wavemaker/wm-react-native-echarts"
   },
-  "homepage": "https://rn-charts.storybook.wavemaker.com/?path=/docs/charts-radial-radialchart--docs",
+  "homepage": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-radial--default",
   "displayName": "Radial Chart",
   "description": "Concentric ring chart: multiple rings with partial fill (0–100% per ring), blue gradient, center hole, optional center text",
   "iconUrl": "icon.svg",
   "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0-dev.10"
+    "@wavemaker/react-native-echarts": "1.0.0-dev.10",
+    "@shopify/react-native-skia": "2.6.2",
+    "@wuba/react-native-echarts": "3.0.1",
+    "echarts": "6.0.0",
+    "zrender": "6.0.0",
+    "react-native-svg": "15.12.1"
   },
   "keywords": [
     "radial",
@@ -163,5 +168,15 @@
     }
   },
   "group": "chart/radial",
+  "marketplace": {
+    "carouselImages": [
+      "/assets/images/custom-colors.png",
+      "/assets/images/default.png",
+      "/assets/images/with-bg.png"
+    ],
+    "thumbnailImage": "/assets/images/thumbnail.png",
+    "icon": "icon.svg",
+    "previewUrl": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-radial--default"
+  },
   "webSupport": true
 }
