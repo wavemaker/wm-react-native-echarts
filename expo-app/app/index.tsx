@@ -63,13 +63,13 @@ const chartTypes = [
   //   icon: 'funnel' as const,
   //   color: '#6be6c1',
   // },
-  // {
-  //   id: 'heatmap-chart',
-  //   title: 'Heatmap Chart',
-  //   description: 'Data density and correlation patterns',
-  //   icon: 'grid' as const,
-  //   color: '#626c91',
-  // },
+  {
+    id: 'heatmap-chart',
+    title: 'Heatmap Chart',
+    description: 'Data density and correlation patterns',
+    icon: 'grid' as const,
+    color: '#626c91',
+  },
       {
         id: 'candlestick-chart',
         title: 'Candlestick Chart',
