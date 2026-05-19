@@ -11,6 +11,7 @@ Documentation for agents and humans who need to understand this repository **wit
 5. Use [05-tooltips-interaction.md](./05-tooltips-interaction.md) for tooltips, legends, and `onSelect`.
 6. Use [06-build-wmx-publish.md](./06-build-wmx-publish.md) for npm/WMX packaging.
 7. Use [07-storybook-development.md](./07-storybook-development.md) for verification and local dev.
+8. Read [08-spec-based-development-readiness.md](./08-spec-based-development-readiness.md) — **are we ready to start spec-based dev?** (yes, with two layers).
 
 ## File index
 
@@ -23,6 +24,7 @@ Documentation for agents and humans who need to understand this repository **wit
 | [05-tooltips-interaction.md](./05-tooltips-interaction.md) | Axis vs item tooltips, events | ≤200 |
 | [06-build-wmx-publish.md](./06-build-wmx-publish.md) | `build:lib`, WMX zips, npm | ≤200 |
 | [07-storybook-development.md](./07-storybook-development.md) | Stories, Expo app, commands | ≤200 |
+| [08-spec-based-development-readiness.md](./08-spec-based-development-readiness.md) | Readiness: `spec/` + Storybook | ≤200 |
 
 ## Constraints for agents
 
