@@ -46,6 +46,7 @@ wm-react-native-echarts/
 | Family | Components | ECharts series type |
 |--------|------------|---------------------|
 | Cartesian | Area, Line, Column, Bar, Scatter, Bubble, Candlestick | line, bar, scatter, candlestick |
+| Matrix | HeatmapChart | heatmap |
 | Polar / radial | Pie, Radial, Radar | pie, pie (polar), radar |
 | Gauge | Simple, Digital, Speedometer, Radial | gauge |
 | Geo | GeoChart, USChart, WorldChart | map / geo |
@@ -60,6 +61,7 @@ Most charts accept flexible `data` props documented on `*.props.ts` files:
 - **Multi series**: `{ name?: string; data: ... }[]`.
 - **Pie**: `PieDataItem[]` or concentric `PieRingData[]` (see `isConcentricPieData`).
 - **Geo**: region/value pairs with bundled GeoJSON (`world.json`, `us-states.json`).
+- **Heatmap**: `xAxisData` / `yAxisData` category labels; `data` as `[xIndex, yIndex, value]` tuples.
 
 Charts normalize input in `useMemo` before building ECharts `option` objects.
 

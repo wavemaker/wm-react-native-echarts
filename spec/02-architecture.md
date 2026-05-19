@@ -37,6 +37,8 @@ CommonChartProps          (width, height, theme, colors)
             └── *ChartProps per chart (area, bar, pie, …)
 ```
 
+`HeatmapChart` extends **`CommonChartProps` only** (category matrix + visual map, not value axes).
+
 Inheritance in **components** (not only types):
 
 - `LineChart` → delegates to `AreaChart` with zero fill.
@@ -78,7 +80,7 @@ Adding a new chart type requires choosing the correct ECharts chart/component im
 ECharts’ built-in HTML tooltip is **not** used for final UI. Instead:
 
 - **Cartesian** (area, line, column, bar): `useAxisTooltip` listens to `showTip`/`hideTip`, renders RN overlay via `ChartPointerTooltipOverlay`.
-- **Item-based** (pie, radar, radial, scatter, geo): per-chart `use*ItemTooltip` hooks with the same overlay primitive.
+- **Item-based** (pie, radar, radial, scatter, geo, heatmap): per-chart `use*ItemTooltip` hooks with the same overlay primitive.
 
 Preset bodies: `card`, `compact`, `kpi`, `striped`, or `none`. Custom: `renderTooltip` callback.
 

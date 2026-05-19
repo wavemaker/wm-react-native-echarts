@@ -23,6 +23,7 @@ Source root: `components/chart/`. Each chart folder usually contains:
 | `RadarChart` | `radar/` | Spider chart |
 | `SimpleGauge`, `DigitalGauge`, `SpeedometerGauge`, `RadialGauge` | `gauge/` | Separate components |
 | `GeoChart`, `USChart`, `WorldChart` | `geo/` | Maps + bundled GeoJSON |
+| `HeatmapChart` | `heatmap/` | Category matrix + visual map |
 | `ChartThemeProvider`, `useChartTheme`, `LIGHT_THEME`, `DARK_THEME` | `chart-theme.context.tsx` | |
 | `withResponsiveContainer` | `chart-container.tsx` | |
 | Cartesian tooltip helpers | `cartesian/tooltip/` | |
@@ -78,6 +79,19 @@ Each registers gauge-related ECharts modules independently.
 - Tooltips: `useGeoItemTooltip`, geo-specific presets.
 - Stories may use `d3-geo` in devDependencies for projections in docs only.
 
+## Heatmap (`heatmap/`)
+
+Matrix chart on **two category axes** (not `CartesianChartProps`). Extends `CommonChartProps` only.
+
+- **Data**: `xAxisData: string[]`, `yAxisData: string[]`, `data: [xIndex, yIndex, value][]`.
+- **Color scale**: `showLegend` toggles the ECharts visual map; `visualMapMin` / `visualMapMax`, `visualMapMode` (`continuous` \| `piecewise`), `piecewisePieces`.
+- **Display**: `showLabel` (cell values), `showHighlighter`, `showXAxis`, `showYAxis`.
+- **Tooltips**: `useHeatmapItemTooltip`, `createHeatmapTooltipPreset` — item tooltips with row/column labels.
+- **Selection**: `onSelect` → `HeatmapChartSelectEvent` (`xIndex`, `yIndex`, `xLabel`, `yLabel`, `value`).
+- **ECharts modules**: `HeatmapChart`, `VisualMapComponent`, `GridComponent`, `TooltipComponent`, `SkiaRenderer`.
+- **Storybook**: `stories/heatmap/` — base stories plus `labels/`, `visual-map/`, `axes/`, `colors/`, `dimensions/`, `tooltip/`, `interaction/`.
+- **Expo**: `expo-app/app/heatmap-chart.tsx`.
+
 ## WMX mirror (`wmx/chart/`)
 
 One folder per Studio widget, e.g. `wmx/chart/line/`:
@@ -96,7 +110,8 @@ Gauge variants live under `wmx/chart/gauge/<variant>/`. Run `npm run generate:wm
 4. Apply `withResponsiveContainer(withChartTheme(...))`.
 5. Add `stories/<name>/` with `meta.tsx`, `*.stories.tsx`, `*.args.ts`.
 6. Add `wmx/chart/<name>/wmx.json` + thin `index.tsx` if Studio needs it.
-7. Run `npm run lint`, `npm run storybook` (spot-check), `npm run build:lib` before release.
+7. Update `spec/01-overview.md` and `spec/03-chart-components.md` (and tooltip/architecture docs if behavior differs).
+8. Run `npm run lint`, `npm run storybook` (spot-check), `npm run build:lib` before release.
 
 ## File naming conventions
 

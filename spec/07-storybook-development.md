@@ -53,7 +53,7 @@ Many metas wrap stories in a padded `View` and optionally show a **source** snip
 
 ## Expo sample app (`expo-app/`)
 
-- Expo Router screens under `expo-app/app/` — one route per chart family (`line-chart.tsx`, `pie-chart.tsx`, …).
+- Expo Router screens under `expo-app/app/` — one route per chart family (`line-chart.tsx`, `pie-chart.tsx`, `heatmap-chart.tsx`, …).
 - Consumes library through **yalc** after `npm run generate:package` from monorepo root.
 - `expo-app/contexts/ThemeContext.tsx` — app-level light/dark (separate from `ChartThemeProvider`).
 
