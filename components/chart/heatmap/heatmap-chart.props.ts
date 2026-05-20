@@ -17,7 +17,7 @@ export interface HeatmapChartSelectEvent {
 
 /**
  * Props for HeatmapChart.
- * common -> heatmap (matrix chart with category axes and visual map)
+ * common -> heatmap (matrix chart with category axes)
  */
 export interface HeatmapChartProps extends CommonChartProps {
   /** Category labels for the X axis (columns). */
@@ -28,25 +28,12 @@ export interface HeatmapChartProps extends CommonChartProps {
   data: HeatmapDataPoint[];
   /** When true, shows the numeric value on each cell. @default false */
   showLabel?: boolean;
-  /** Whether to show the color scale (visual map). @default true */
-  showLegend?: boolean;
   /** Whether to emphasize the hovered cell. @default true */
   showHighlighter?: boolean;
   /** Whether to show the X-axis line and category labels. @default true */
   showXAxis?: boolean;
   /** Whether to show the Y-axis line and category labels. @default true */
   showYAxis?: boolean;
-  /** Minimum value for the visual map scale. Auto-derived from data if not set. */
-  visualMapMin?: number;
-  /** Maximum value for the visual map scale. Auto-derived from data if not set. */
-  visualMapMax?: number;
-  /**
-   * Visual map mode: `continuous` (gradient) or `piecewise` (distinct bands).
-   * @default 'continuous'
-   */
-  visualMapMode?: 'continuous' | 'piecewise';
-  /** When `visualMapMode` is `piecewise`, define bands: `[{ min, max, label, color }]`. */
-  piecewisePieces?: Array<{ min: number; max: number; label: string; color: string }>;
   /**
    * Built-in cell tooltip preset when `renderTooltip` is omitted. Use `none` to hide the overlay.
    * @default 'card'

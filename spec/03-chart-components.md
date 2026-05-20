@@ -84,12 +84,12 @@ Each registers gauge-related ECharts modules independently.
 Matrix chart on **two category axes** (not `CartesianChartProps`). Extends `CommonChartProps` only.
 
 - **Data**: `xAxisData: string[]`, `yAxisData: string[]`, `data: [xIndex, yIndex, value][]`.
-- **Color scale**: `showLegend` toggles the ECharts visual map; `visualMapMin` / `visualMapMax`, `visualMapMode` (`continuous` \| `piecewise`), `piecewisePieces`.
+- **Coloring**: cell colors use a hidden ECharts visual map (min/max auto-derived from data; gradient from `colors` / theme `series`).
 - **Display**: `showLabel` (cell values), `showHighlighter`, `showXAxis`, `showYAxis`.
 - **Tooltips**: `useHeatmapItemTooltip`, `createHeatmapTooltipPreset` — item tooltips with row/column labels.
 - **Selection**: `onSelect` → `HeatmapChartSelectEvent` (`xIndex`, `yIndex`, `xLabel`, `yLabel`, `value`).
 - **ECharts modules**: `HeatmapChart`, `VisualMapComponent`, `GridComponent`, `TooltipComponent`, `SkiaRenderer`.
-- **Storybook**: `stories/heatmap/` — base stories plus `labels/`, `visual-map/`, `axes/`, `colors/`, `dimensions/`, `tooltip/`, `interaction/`.
+- **Storybook**: `stories/heatmap/` — base stories plus `labels/`, `axes/`, `colors/`, `dimensions/`, `tooltip/`, `interaction/`.
 - **Expo**: `expo-app/app/heatmap-chart.tsx`.
 
 ## WMX mirror (`wmx/chart/`)

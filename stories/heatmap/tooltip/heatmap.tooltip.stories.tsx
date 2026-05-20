@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const baseArgs = { ...heatmapBaseArgs, showLegend: true };
+const baseArgs = { ...heatmapBaseArgs };
 
 export const Default: Story = {
   render: (args) => (

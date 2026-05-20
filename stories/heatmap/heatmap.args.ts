@@ -20,10 +20,6 @@ const heatmapOnlyArgTypes = {
     control: 'boolean',
     description: 'When true, shows the numeric value on each cell. Default: false',
   },
-  showLegend: {
-    control: 'boolean',
-    description: 'Whether to show the visual map (color scale). Default: true',
-  },
   showHighlighter: {
     control: 'boolean',
     description: 'Whether to emphasize the hovered cell. Default: true',
@@ -35,23 +31,6 @@ const heatmapOnlyArgTypes = {
   showYAxis: {
     control: 'boolean',
     description: 'Whether to show the Y-axis labels. Default: true',
-  },
-  visualMapMin: {
-    control: 'number',
-    description: 'Minimum value for the color scale. Auto-derived when omitted.',
-  },
-  visualMapMax: {
-    control: 'number',
-    description: 'Maximum value for the color scale. Auto-derived when omitted.',
-  },
-  visualMapMode: {
-    control: 'select',
-    options: ['continuous', 'piecewise'],
-    description: 'Color scale mode. Default: continuous',
-  },
-  piecewisePieces: {
-    control: 'object',
-    description: 'Bands when visualMapMode is piecewise: [{ min, max, label, color }].',
   },
   tooltip: {
     control: 'select',
@@ -97,30 +76,3 @@ export const heatmapBaseArgs = {
   yAxisData: heatmapDemoDays,
   data: buildHeatmapDemoData(),
 } as const;
-
-export const heatmapPiecewiseArgs = {
-  width: 420,
-  height: 280,
-  xAxisData: ['Low', 'Mid', 'High'],
-  yAxisData: ['A', 'B', 'C', 'D'],
-  data: [
-    [0, 0, 2],
-    [0, 1, 8],
-    [0, 2, 4],
-    [0, 3, 1],
-    [1, 0, 5],
-    [1, 1, 3],
-    [1, 2, 9],
-    [1, 3, 6],
-    [2, 0, 7],
-    [2, 1, 2],
-    [2, 2, 5],
-    [2, 3, 10],
-  ] as Array<[number, number, number]>,
-  visualMapMode: 'piecewise' as const,
-  piecewisePieces: [
-    { min: 0, max: 3, label: 'Low', color: '#dbeafe' },
-    { min: 3, max: 7, label: 'Mid', color: '#3b82f6' },
-    { min: 7, max: 10, label: 'High', color: '#1e3a8a' },
-  ],
-};

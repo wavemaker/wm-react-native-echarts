@@ -41,13 +41,8 @@ const ChartComponent = ({
   showLabel = false,
   showXAxis = true,
   showYAxis = true,
-  showLegend = true,
   showHighlighter = true,
   tooltip = 'card',
-  visualMapMin,
-  visualMapMax,
-  visualMapMode = 'continuous',
-  piecewisePieces,
   onSelect,
   renderTooltip,
   ...props
@@ -104,10 +99,10 @@ const ChartComponent = ({
   const valueRange = useMemo(() => {
     if (normalizedData.length === 0) return { min: 0, max: 10 };
     const values = normalizedData.map((d) => Number(d[2]));
-    const min = visualMapMin ?? Math.min(...values);
-    const max = visualMapMax ?? Math.max(...values);
+    const min = Math.min(...values);
+    const max = Math.max(...values);
     return { min: min === max ? min - 1 : min, max: min === max ? max + 1 : max };
-  }, [normalizedData, visualMapMin, visualMapMax]);
+  }, [normalizedData]);
 
   const option = useMemo(() => {
     const seriesColor = theme.series[0]?.color ?? '#3b82f6';
@@ -161,49 +156,11 @@ const ChartComponent = ({
       splitLine: { show: false },
     };
 
-    const visualMapConfig: any = showLegend
-      ? visualMapMode === 'piecewise' && piecewisePieces?.length
-        ? {
-            type: 'piecewise',
-            min: valueRange.min,
-            max: valueRange.max,
-            pieces: piecewisePieces.map((p) => ({
-              min: p.min,
-              max: p.max,
-              label: p.label,
-              color: p.color,
-            })),
-            textStyle: {
-              color: theme.legend.textColor,
-              fontSize: theme.legend.fontSize,
-            },
-            left: 'center',
-            bottom: 8,
-            orient: 'horizontal',
-          }
-        : {
-            type: 'continuous',
-            min: valueRange.min,
-            max: valueRange.max,
-            calculable: true,
-            orient: 'horizontal',
-            left: 'center',
-            bottom: 8,
-            inRange: {
-              color: [theme.series[1]?.color ?? '#93c5fd', seriesColor],
-            },
-            textStyle: {
-              color: theme.legend.textColor,
-              fontSize: theme.legend.fontSize,
-            },
-          }
-      : undefined;
-
     const grid = {
       top: '8%',
       left: '12%',
       right: '4%',
-      bottom: showLegend ? '18%' : '8%',
+      bottom: '8%',
       containLabel: true,
     };
 
@@ -232,7 +189,15 @@ const ChartComponent = ({
       yAxis: yAxisConfig,
       series: [seriesConfig],
     };
-    if (visualMapConfig) config.visualMap = visualMapConfig;
+    config.visualMap = {
+      type: 'continuous',
+      min: valueRange.min,
+      max: valueRange.max,
+      show: false,
+      inRange: {
+        color: [theme.series[1]?.color ?? '#93c5fd', seriesColor],
+      },
+    };
     return config;
   }, [
     xAxisData,
@@ -242,11 +207,8 @@ const ChartComponent = ({
     showLabel,
     showXAxis,
     showYAxis,
-    showLegend,
     showHighlighter,
     tooltipOverlayActive,
-    visualMapMode,
-    piecewisePieces,
     valueRange,
   ]);
 
