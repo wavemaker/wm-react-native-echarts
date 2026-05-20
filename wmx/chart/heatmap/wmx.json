@@ -164,5 +164,17 @@
       "isList": true,
       "isRequired": false
     }
-  }
+  },
+  "group": "chart/heatmap",
+  "marketplace": {
+    "carouselImages": [
+      "/assets/images/default.png",
+      "/assets/images/with-cell-labels.png",
+      "/assets/images/piecewise.png"
+    ],
+    "thumbnailImage": "/assets/images/thumbnail.png",
+    "icon": "icon.svg",
+    "previewUrl": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-heatmap--default"
+  },
+  "webSupport": true
 }
