@@ -1,6 +1,6 @@
 {
   "name": "RNEHeatmapChart",
-  "version": "1.0.0-dev.11",
+  "version": "1.0.0-dev.12",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,7 +11,7 @@
   "description": "Heatmap chart for matrix data on category X/Y axes with theme-based cell coloring and React Native tooltips.",
   "iconUrl": "icon.svg",
   "dependencies" : {
-    "@wavemaker/react-native-echarts" : "1.0.0-dev.11",
+    "@wavemaker/react-native-echarts" : "1.0.0-dev.12",
     "@shopify/react-native-skia" : "2.6.2"
   },
   "keywords": [

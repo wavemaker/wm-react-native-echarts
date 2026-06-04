@@ -1,6 +1,6 @@
 {
   "name": "RNEAreaChart",
-  "version": "1.0.0-dev.11",
+  "version": "1.0.0-dev.12",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,7 +11,7 @@
   "description": "Unified area chart component supporting all variations: default, gradient, stacked, interactive, linear, step, axes, icons, and legend configurations",
   "iconUrl": "icon.svg",
   "dependencies" : {
-    "@wavemaker/react-native-echarts" : "1.0.0-dev.11",
+    "@wavemaker/react-native-echarts" : "1.0.0-dev.12",
     "@shopify/react-native-skia" : "2.6.2"
   },
   "keywords": [
