@@ -1,6 +1,6 @@
 {
-  "name": "rne-radial-gauge",
-  "version": "1.0.0-dev.11",
+  "name": "RNERadialGauge",
+  "version": "1.0.0-dev.12",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -15,13 +15,9 @@
     "../../chart-container.tsx",
     "../../chart-theme.context.tsx"
   ],
-  "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0-dev.10",
-    "@shopify/react-native-skia": "2.6.2",
-    "@wuba/react-native-echarts": "3.0.1",
-    "echarts": "6.0.0",
-    "zrender": "6.0.0",
-    "react-native-svg": "15.12.1"
+  "dependencies" : {
+    "@wavemaker/react-native-echarts" : "1.0.0-dev.12",
+    "@shopify/react-native-skia" : "2.6.2"
   },
   "keywords": [
     "gauge",

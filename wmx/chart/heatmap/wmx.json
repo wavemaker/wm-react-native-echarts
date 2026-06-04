@@ -1,0 +1,141 @@
+{
+  "name": "RNEHeatmapChart",
+  "version": "1.0.0-dev.12",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wavemaker/wm-react-native-echarts"
+  },
+  "homepage": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-heatmap--default",
+  "displayName": "Heatmap Chart",
+  "description": "Heatmap chart for matrix data on category X/Y axes with theme-based cell coloring and React Native tooltips.",
+  "iconUrl": "icon.svg",
+  "dependencies" : {
+    "@wavemaker/react-native-echarts" : "1.0.0-dev.12",
+    "@shopify/react-native-skia" : "2.6.2"
+  },
+  "keywords": [
+    "heatmap",
+    "chart",
+    "matrix",
+    "visualization",
+    "chart/heatmap"
+  ],
+  "props": {
+    "xAxisData": {
+      "name": "xAxisData",
+      "displayName": "X Axis Categories",
+      "description": "Category labels for the X axis (columns).",
+      "type": "string",
+      "isList": true,
+      "isRequired": true
+    },
+    "yAxisData": {
+      "name": "yAxisData",
+      "displayName": "Y Axis Categories",
+      "description": "Category labels for the Y axis (rows).",
+      "type": "string",
+      "isList": true,
+      "isRequired": true
+    },
+    "data": {
+      "name": "data",
+      "displayName": "Data",
+      "description": "Cell values as [xIndex, yIndex, value] tuples.",
+      "type": "object",
+      "isList": true,
+      "isRequired": true
+    },
+    "showLabel": {
+      "name": "showLabel",
+      "displayName": "Show Cell Labels",
+      "description": "When true, shows the numeric value on each cell. Default: false",
+      "type": "boolean",
+      "isList": false,
+      "defaultValue": false,
+      "isRequired": false
+    },
+    "showHighlighter": {
+      "name": "showHighlighter",
+      "displayName": "Show Highlighter",
+      "description": "Whether to emphasize the hovered cell. Default: true",
+      "type": "boolean",
+      "isList": false,
+      "defaultValue": true,
+      "isRequired": false
+    },
+    "showXAxis": {
+      "name": "showXAxis",
+      "displayName": "Show X Axis",
+      "description": "Whether to show X-axis category labels. Default: true",
+      "type": "boolean",
+      "isList": false,
+      "defaultValue": true,
+      "isRequired": false
+    },
+    "showYAxis": {
+      "name": "showYAxis",
+      "displayName": "Show Y Axis",
+      "description": "Whether to show Y-axis category labels. Default: true",
+      "type": "boolean",
+      "isList": false,
+      "defaultValue": true,
+      "isRequired": false
+    },
+    "tooltip": {
+      "name": "tooltip",
+      "displayName": "Tooltip",
+      "description": "Built-in cell tooltip preset: card, compact, kpi, striped, or none.",
+      "type": "string",
+      "isList": false,
+      "defaultValue": "card",
+      "isRequired": false
+    },
+    "width": {
+      "name": "width",
+      "displayName": "Width",
+      "description": "Width of the chart in pixels. Default: 320",
+      "type": "number",
+      "isList": false,
+      "defaultValue": 320,
+      "isRequired": false
+    },
+    "height": {
+      "name": "height",
+      "displayName": "Height",
+      "description": "Height of the chart in pixels. Default: 300",
+      "type": "number",
+      "isList": false,
+      "defaultValue": 300,
+      "isRequired": false
+    },
+    "theme": {
+      "name": "theme",
+      "displayName": "Theme",
+      "description": "Partial theme override merged with ChartThemeContext.",
+      "type": "object",
+      "isList": false,
+      "isRequired": false
+    },
+    "colors": {
+      "name": "colors",
+      "displayName": "Colors",
+      "description": "Series colors for the cell color gradient (low to high).",
+      "type": "string",
+      "isList": true,
+      "isRequired": false
+    }
+  },
+  "group": "chart/heatmap",
+  "marketplace": {
+    "carouselImages": [
+      "/assets/images/default.png",
+      "/assets/images/with-cell-labels.png",
+      "/assets/images/custom-colors.png"
+    ],
+    "thumbnailImage": "/assets/images/thumbnail.png",
+    "icon": "icon.svg",
+    "previewUrl": "https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-heatmap--default"
+  },
+  "webSupport": true
+}

@@ -13,6 +13,7 @@ export * from './gauge';
 export * from './geo';
 export * from './bubble';
 export * from './candlestick';
+export * from './heatmap';
 export * from './axis';
 export * from './chart-theme.context';
 export * from './chart-container';

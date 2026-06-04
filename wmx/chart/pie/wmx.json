@@ -1,6 +1,6 @@
 {
-  "name": "rne-pie-chart",
-  "version": "1.0.0-dev.11",
+  "name": "RNEPieChart",
+  "version": "1.0.0-dev.12",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -10,13 +10,9 @@
   "displayName": "Pie Chart",
   "description": "Unified pie chart component supporting all variations: basic, donut, stacked, label, legend, donut-text, donut-active, interactive, and separator-none configurations",
   "iconUrl": "icon.svg",
-  "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0-dev.10",
-    "@shopify/react-native-skia": "2.6.2",
-    "@wuba/react-native-echarts": "3.0.1",
-    "echarts": "6.0.0",
-    "zrender": "6.0.0",
-    "react-native-svg": "15.12.1"
+  "dependencies" : {
+    "@wavemaker/react-native-echarts" : "1.0.0-dev.12",
+    "@shopify/react-native-skia" : "2.6.2"
   },
   "keywords": [
     "pie",

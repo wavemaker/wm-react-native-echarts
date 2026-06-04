@@ -182,6 +182,30 @@ Preview thumbnails for the chart examples in `assets/images/charts`. Each image 
   </tbody>
 </table>
 
+### Heatmap
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center">
+        <a href="https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-heatmap--default" target="_blank">
+          <img src="assets/images/charts/heatmap/default.png" width="200" height="200" alt="Heatmap default" style="object-fit: contain;" /><br /><sub>default</sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-heatmap-labels--with-cell-labels" target="_blank">
+          <img src="assets/images/charts/heatmap/with-cell-labels.png" width="200" height="200" alt="Heatmap with cell labels" style="object-fit: contain;" /><br /><sub>with-cell-labels</sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://wavemaker.github.io/wm-react-native-echarts/?path=/story/charts-heatmap-colors--custom-colors" target="_blank">
+          <img src="assets/images/charts/heatmap/custom-colors.png" width="200" height="200" alt="Heatmap custom colors" style="object-fit: contain;" /><br /><sub>custom-colors</sub>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 ### Gauge
 
 <table>
