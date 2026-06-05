@@ -10,9 +10,9 @@
   "displayName": "Geo Chart",
   "description": "Map chart component for geographic data. Displays regions colored by value with optional visual map legend and tooltips.",
   "iconUrl": "icon.svg",
-  "dependencies" : {
-    "@wavemaker/react-native-echarts" : "1.0.0-dev.12",
-    "@shopify/react-native-skia" : "2.6.2"
+  "dependencies": {
+    "@wavemaker/react-native-echarts": "1.0.0-dev.12",
+    "@shopify/react-native-skia": "2.6.2"
   },
   "keywords": [
     "geo",
@@ -73,8 +73,16 @@
       "displayName": "Tooltip",
       "description": "Built-in React Native region tooltip overlay when renderTooltip is omitted: card (default), compact, kpi, striped, or none to hide the overlay.",
       "type": "string",
-      "isList": false,
+      "widget": "list",
+      "options": [
+        "card",
+        "compact",
+        "kpi",
+        "striped",
+        "none"
+      ],
       "defaultValue": "card",
+      "isList": false,
       "isRequired": false
     },
     "renderTooltip": {
@@ -106,8 +114,13 @@
       "displayName": "Visual Map Mode",
       "description": "Visual map mode: 'continuous' (gradient) or 'piecewise' (distinct bands). Default: 'continuous'",
       "type": "string",
-      "isList": false,
+      "widget": "list",
+      "options": [
+        "continuous",
+        "piecewise"
+      ],
       "defaultValue": "continuous",
+      "isList": false,
       "isRequired": false
     },
     "piecewisePieces": {
@@ -121,19 +134,21 @@
     "width": {
       "name": "width",
       "displayName": "Width",
-      "description": "Width of the chart in pixels. Default: 220",
-      "type": "number",
+      "description": "Width of the chart in pixels.",
+      "type": "string",
+      "pattern": "^\\d+(%|px|pt)?$",
+      "defaultValue": "100%",
       "isList": false,
-      "defaultValue": 220,
       "isRequired": false
     },
     "height": {
       "name": "height",
       "displayName": "Height",
-      "description": "Height of the chart in pixels. Default: 350",
-      "type": "number",
+      "description": "Height of the chart in pixels.",
+      "type": "string",
+      "pattern": "^\\d+(%|px|pt)?$",
+      "defaultValue": "300",
       "isList": false,
-      "defaultValue": 350,
       "isRequired": false
     },
     "theme": {
@@ -150,6 +165,19 @@
       "description": "Colors for the chart series. Overrides theme colors.",
       "type": "string",
       "isList": true,
+      "isRequired": false
+    }
+  },
+  "events": {
+    "onSelect": {
+      "name": "onSelect",
+      "displayName": "On Select",
+      "description": "Callback when the user selects (taps/clicks) a data point on a series (when supported).",
+      "type": "function",
+      "params": [
+        "event"
+      ],
+      "isList": false,
       "isRequired": false
     }
   },

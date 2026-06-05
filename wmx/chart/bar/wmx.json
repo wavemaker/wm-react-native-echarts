@@ -10,9 +10,9 @@
   "displayName": "Bar Chart",
   "description": "Bar chart is the horizontal orientation of column chart. Unified horizontal bar chart supporting default, interactive, multiple, stacked, label, custom-label, negative, active, and mixed configurations",
   "iconUrl": "icon.svg",
-  "dependencies" : {
-    "@wavemaker/react-native-echarts" : "1.0.0-dev.12",
-    "@shopify/react-native-skia" : "2.6.2"
+  "dependencies": {
+    "@wavemaker/react-native-echarts": "1.0.0-dev.12",
+    "@shopify/react-native-skia": "2.6.2"
   },
   "keywords": [
     "bar",
@@ -102,8 +102,14 @@
       "displayName": "Bar Inside Label Position",
       "description": "Position of the label inside the bar. 'start' | 'middle' | 'end' or function. Default: 'start'",
       "type": "string",
-      "isList": false,
+      "widget": "list",
+      "options": [
+        "start",
+        "middle",
+        "end"
+      ],
       "defaultValue": "start",
+      "isList": false,
       "isRequired": false
     },
     "barInsideLabelFormatter": {
@@ -119,8 +125,13 @@
       "displayName": "Bar Outside Label Position",
       "description": "Position of the label outside the bar. 'start' | 'end' or function. Default: 'start'",
       "type": "string",
-      "isList": false,
+      "widget": "list",
+      "options": [
+        "start",
+        "end"
+      ],
       "defaultValue": "start",
+      "isList": false,
       "isRequired": false
     },
     "barOutsideLabelFormatter": {
@@ -142,19 +153,21 @@
     "width": {
       "name": "width",
       "displayName": "Width",
-      "description": "Width of the chart in pixels. Default: 220",
-      "type": "number",
+      "description": "Width of the chart in pixels.",
+      "type": "string",
+      "pattern": "^\\d+(%|px|pt)?$",
+      "defaultValue": "100%",
       "isList": false,
-      "defaultValue": 220,
       "isRequired": false
     },
     "height": {
       "name": "height",
       "displayName": "Height",
-      "description": "Height of the chart in pixels. Default: 350",
-      "type": "number",
+      "description": "Height of the chart in pixels.",
+      "type": "string",
+      "pattern": "^\\d+(%|px|pt)?$",
+      "defaultValue": "300",
       "isList": false,
-      "defaultValue": 350,
       "isRequired": false
     },
     "theme": {
@@ -313,8 +326,15 @@
       "displayName": "Legend Position",
       "description": "Placement of the legend: 'top' | 'bottom' | 'left' | 'right'. Top and bottom use a horizontal legend with wrapping; left and right use a vertical legend. Default: 'bottom'",
       "type": "string",
-      "isList": false,
+      "widget": "list",
+      "options": [
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
       "defaultValue": "bottom",
+      "isList": false,
       "isRequired": false
     },
     "showHighlighter": {
@@ -331,8 +351,16 @@
       "displayName": "Tooltip",
       "description": "Built-in React Native axis-tooltip overlay when renderTooltip is omitted: card (default), compact, kpi, striped, or none to hide the overlay.",
       "type": "string",
-      "isList": false,
+      "widget": "list",
+      "options": [
+        "card",
+        "compact",
+        "kpi",
+        "striped",
+        "none"
+      ],
       "defaultValue": "card",
+      "isList": false,
       "isRequired": false
     },
     "renderTooltip": {
@@ -356,6 +384,19 @@
       "displayName": "Y Axis Tick Label Formatter",
       "description": "Formatter for Y-axis tick labels. (value, index?) => string",
       "type": "function",
+      "isList": false,
+      "isRequired": false
+    }
+  },
+  "events": {
+    "onSelect": {
+      "name": "onSelect",
+      "displayName": "On Select",
+      "description": "Callback when the user selects (taps/clicks) a data point on a series (when supported).",
+      "type": "function",
+      "params": [
+        "event"
+      ],
       "isList": false,
       "isRequired": false
     }

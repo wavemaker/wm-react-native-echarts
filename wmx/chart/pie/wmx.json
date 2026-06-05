@@ -10,9 +10,9 @@
   "displayName": "Pie Chart",
   "description": "Unified pie chart component supporting all variations: basic, donut, stacked, label, legend, donut-text, donut-active, interactive, and separator-none configurations",
   "iconUrl": "icon.svg",
-  "dependencies" : {
-    "@wavemaker/react-native-echarts" : "1.0.0-dev.12",
-    "@shopify/react-native-skia" : "2.6.2"
+  "dependencies": {
+    "@wavemaker/react-native-echarts": "1.0.0-dev.12",
+    "@shopify/react-native-skia": "2.6.2"
   },
   "keywords": [
     "pie",
@@ -60,8 +60,15 @@
       "displayName": "Legend Position",
       "description": "Placement of the slice legend: 'top' | 'bottom' | 'left' | 'right'. Top and bottom use a horizontal legend with wrapping; left and right use a vertical legend. The pie center shifts when the legend is on the side. Default: 'bottom'",
       "type": "string",
-      "isList": false,
+      "widget": "list",
+      "options": [
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
       "defaultValue": "bottom",
+      "isList": false,
       "isRequired": false
     },
     "showLabel": {
@@ -78,8 +85,14 @@
       "displayName": "Label Position",
       "description": "Label position: 'outside' | 'inside' | 'center'. Default: 'outside'",
       "type": "string",
-      "isList": false,
+      "widget": "list",
+      "options": [
+        "outside",
+        "inside",
+        "center"
+      ],
       "defaultValue": "outside",
+      "isList": false,
       "isRequired": false
     },
     "showLabelLine": {
@@ -105,8 +118,16 @@
       "displayName": "Tooltip",
       "description": "Built-in React Native slice tooltip overlay when renderTooltip is omitted: card (default), compact, kpi, striped, or none to hide the overlay.",
       "type": "string",
-      "isList": false,
+      "widget": "list",
+      "options": [
+        "card",
+        "compact",
+        "kpi",
+        "striped",
+        "none"
+      ],
       "defaultValue": "card",
+      "isList": false,
       "isRequired": false
     },
     "renderTooltip": {
@@ -120,19 +141,21 @@
     "width": {
       "name": "width",
       "displayName": "Width",
-      "description": "Width of the chart in pixels. Default: 220",
-      "type": "number",
+      "description": "Width of the chart in pixels.",
+      "type": "string",
+      "pattern": "^\\d+(%|px|pt)?$",
+      "defaultValue": "100%",
       "isList": false,
-      "defaultValue": 220,
       "isRequired": false
     },
     "height": {
       "name": "height",
       "displayName": "Height",
-      "description": "Height of the chart in pixels. Default: 350",
-      "type": "number",
+      "description": "Height of the chart in pixels.",
+      "type": "string",
+      "pattern": "^\\d+(%|px|pt)?$",
+      "defaultValue": "300",
       "isList": false,
-      "defaultValue": 350,
       "isRequired": false
     },
     "theme": {
@@ -149,6 +172,19 @@
       "description": "Colors for the chart series. Overrides theme colors. Example: ['#3b82f6', '#10b981', '#f59e0b']",
       "type": "string",
       "isList": true,
+      "isRequired": false
+    }
+  },
+  "events": {
+    "onSelect": {
+      "name": "onSelect",
+      "displayName": "On Select",
+      "description": "Callback when the user selects (taps/clicks) a data point on a series (when supported).",
+      "type": "function",
+      "params": [
+        "event"
+      ],
+      "isList": false,
       "isRequired": false
     }
   },

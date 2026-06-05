@@ -10,9 +10,9 @@
   "displayName": "Heatmap Chart",
   "description": "Heatmap chart for matrix data on category X/Y axes with theme-based cell coloring and React Native tooltips.",
   "iconUrl": "icon.svg",
-  "dependencies" : {
-    "@wavemaker/react-native-echarts" : "1.0.0-dev.12",
-    "@shopify/react-native-skia" : "2.6.2"
+  "dependencies": {
+    "@wavemaker/react-native-echarts": "1.0.0-dev.12",
+    "@shopify/react-native-skia": "2.6.2"
   },
   "keywords": [
     "heatmap",
@@ -87,26 +87,36 @@
       "displayName": "Tooltip",
       "description": "Built-in cell tooltip preset: card, compact, kpi, striped, or none.",
       "type": "string",
-      "isList": false,
+      "widget": "list",
+      "options": [
+        "card",
+        "compact",
+        "kpi",
+        "striped",
+        "none"
+      ],
       "defaultValue": "card",
+      "isList": false,
       "isRequired": false
     },
     "width": {
       "name": "width",
       "displayName": "Width",
-      "description": "Width of the chart in pixels. Default: 320",
-      "type": "number",
+      "description": "Width of the chart in pixels.",
+      "type": "string",
+      "pattern": "^\\d+(%|px|pt)?$",
+      "defaultValue": "100%",
       "isList": false,
-      "defaultValue": 320,
       "isRequired": false
     },
     "height": {
       "name": "height",
       "displayName": "Height",
-      "description": "Height of the chart in pixels. Default: 300",
-      "type": "number",
+      "description": "Height of the chart in pixels.",
+      "type": "string",
+      "pattern": "^\\d+(%|px|pt)?$",
+      "defaultValue": "300",
       "isList": false,
-      "defaultValue": 300,
       "isRequired": false
     },
     "theme": {
@@ -123,6 +133,19 @@
       "description": "Series colors for the cell color gradient (low to high).",
       "type": "string",
       "isList": true,
+      "isRequired": false
+    }
+  },
+  "events": {
+    "onSelect": {
+      "name": "onSelect",
+      "displayName": "On Select",
+      "description": "Callback when the user selects (taps/clicks) a data point on a series (when supported).",
+      "type": "function",
+      "params": [
+        "event"
+      ],
+      "isList": false,
       "isRequired": false
     }
   },

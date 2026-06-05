@@ -106,7 +106,7 @@ const ChartComponent = ({
 
   // Derive smooth/step from type
   const effectiveSmooth = type === 'smooth';
-  const effectiveStep = type === 'step' ? (step ?? 'start') : (step ?? false);
+  const effectiveStep = type === 'step' ? (step ?? 'start') : false;
 
   // Normalize data to array of { data: number[] } or { name: string; data: number[] }
   const normalizedSeries = useMemo(() => {
