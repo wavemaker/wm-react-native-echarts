@@ -1,0 +1,5 @@
+import{m as p}from"./meta-CmcNvKTP.js";import"./iframe-DQBbESXd.js";import"./preload-helper-DkhvmF2b.js";import"./area-chart-DrjqnKLG.js";import"./install-D_wEXfzl.js";import"./jsx-runtime-BjG_zV1W.js";import"./use-axis-tooltip-I7UAJfpW.js";import"./axis-tooltip-presets-CGVD2u9r.js";import"./axis-B8VaOuT_.js";import"./echarts-legend-layout-B14L7phv.js";import"./common-WjgByzXx.js";import"./install-Bq1Dc6dC.js";import"./Axis-CD6BD_BD.js";import"./install-B-FBt8Sx.js";import"./createSeriesData-VE2uRjI9.js";import"./points-CpfmDJP4.js";import"./dataSample-C3ms-4cx.js";import"./CoordinateSystem-C8P-Cleg.js";import"./cartesian-C7nMcwZE.js";const j={...p,title:"Charts/Line",tags:["autodocs"]},m=[186,305,237,73,209,214],t={args:{data:m}};var r,o,a,e,i;t.parameters={...t.parameters,docs:{...(r=t.parameters)==null?void 0:r.docs,source:{originalSource:`{
+  args: {
+    data: defaultData
+  }
+}`,...(a=(o=t.parameters)==null?void 0:o.docs)==null?void 0:a.source},description:{story:"Default line chart (type: default).",...(i=(e=t.parameters)==null?void 0:e.docs)==null?void 0:i.description}}};const k=["Default"];export{t as Default,k as __namedExportsOrder,j as default};

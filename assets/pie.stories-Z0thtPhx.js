@@ -1,0 +1,5 @@
+import{m}from"./meta-DCwOsjf7.js";import"./iframe-DQBbESXd.js";import"./preload-helper-DkhvmF2b.js";import"./install-D_wEXfzl.js";import"./jsx-runtime-BjG_zV1W.js";import"./use-axis-tooltip-I7UAJfpW.js";import"./echarts-legend-layout-B14L7phv.js";import"./common-WjgByzXx.js";import"./install-JQrd69Od.js";import"./legend-position-CLb_FM1L.js";import"./sectorHelper-e2TAJmFq.js";import"./createSeriesDataSimply-BM5eq_8k.js";const b={...m,title:"Charts/Pie",tags:["autodocs"]},i=[{name:"Desktop",value:275},{name:"Mobile",value:200},{name:"Tablet",value:187},{name:"Other",value:90}],t={args:{data:i}};var a,e,r,o,s;t.parameters={...t.parameters,docs:{...(a=t.parameters)==null?void 0:a.docs,source:{originalSource:`{
+  args: {
+    data: defaultData
+  }
+}`,...(r=(e=t.parameters)==null?void 0:e.docs)==null?void 0:r.source},description:{story:"Default pie chart.",...(s=(o=t.parameters)==null?void 0:o.docs)==null?void 0:s.description}}};const x=["Default"];export{t as Default,x as __namedExportsOrder,b as default};

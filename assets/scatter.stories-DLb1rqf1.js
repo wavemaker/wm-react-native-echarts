@@ -1,0 +1,5 @@
+import{m}from"./meta-Wes3cbXa.js";import"./iframe-DQBbESXd.js";import"./preload-helper-DkhvmF2b.js";import"./install-D_wEXfzl.js";import"./jsx-runtime-BjG_zV1W.js";import"./axis-B8VaOuT_.js";import"./echarts-legend-layout-B14L7phv.js";import"./use-axis-tooltip-I7UAJfpW.js";import"./use-scatter-item-tooltip-pODPcTwS.js";import"./createSeriesData-VE2uRjI9.js";import"./points-CpfmDJP4.js";import"./install-Bq1Dc6dC.js";import"./Axis-CD6BD_BD.js";import"./common-WjgByzXx.js";import"./install-B-FBt8Sx.js";import"./dataSample-C3ms-4cx.js";import"./CoordinateSystem-C8P-Cleg.js";import"./cartesian-C7nMcwZE.js";const b={...m,title:"Charts/Scatter",tags:["autodocs"]},e=[[2,3],[4,6],[12,22],[14,26],[16,30],[6,11],[8,15],[10,19],[18,35],[11,26],[13,30],[15,34],[17,32],[19,42],[1,4],[3,8],[5,12],[7,16],[9,21]],t={args:{data:e}};var r,o,a;t.parameters={...t.parameters,docs:{...(r=t.parameters)==null?void 0:r.docs,source:{originalSource:`{
+  args: {
+    data: defaultData
+  }
+}`,...(a=(o=t.parameters)==null?void 0:o.docs)==null?void 0:a.source}}};const j=["Default"];export{t as Default,j as __namedExportsOrder,b as default};
