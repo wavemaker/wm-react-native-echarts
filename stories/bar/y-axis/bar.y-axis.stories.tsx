@@ -31,8 +31,15 @@ export const LabelFormatter: Story = {
   args: {
     data,
     yAxisTickLabelFormatter: (value) => {
-      const n = Number(value);
-      return n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
+      const labels: Record<string, string> = {
+        '0': 'Jan',
+        '1': 'Feb',
+        '2': 'Mar',
+        '3': 'Apr',
+        '4': 'May',
+        '5': 'Jun',
+      };
+      return labels[String(value)] ?? String(value);
     },
   },
 };
@@ -45,29 +52,29 @@ export const YAxisLabel: Story = {
   },
 };
 
-/** minX and maxX — fixed bounds on the **value** axis (horizontal bar: bar length along X; non-zero min). */
+/** minY and maxY — fixed category extent (horizontal bar: category index along Y). */
 export const FixedMinMax: Story = {
   args: {
-    data,
-    minX: 30,
-    maxX: 120,
+    data: [40, 82, 91, 74, 120, 95],
+    minY: 1,
+    maxY: 4,
   },
 };
 
-/** minX, maxX, and intervalX — explicit value scale and tick step along X. */
+/** minY, maxY, and intervalY — category axis with explicit tick interval along Y. */
 export const FixedInterval: Story = {
   args: {
-    data,
-    minX: 0,
-    maxX: 100,
-    intervalX: 10,
+    data: [40, 82, 91, 74, 120, 95],
+    minY: 0,
+    maxY: 5,
+    intervalY: 2,
   },
 };
 
-/** minX — value-axis floor along X; maximum and tick step still chosen automatically. */
-export const ValueAxisFloor: Story = {
+/** minY — category-axis floor along Y; maximum and step still automatic. */
+export const CategoryFloor: Story = {
   args: {
-    data,
-    minX: 20,
+    data: [40, 82, 91, 74, 120, 95],
+    minY: 1,
   },
 };

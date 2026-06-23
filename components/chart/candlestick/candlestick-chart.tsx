@@ -11,7 +11,7 @@ import {
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 import type { CartesianChartSelectEvent } from '../props/cartesian';
-import { valueAxisBoundsFromProps, xAxisBoundsFromProps } from '../axis';
+import { valueAxisBoundsFromProps, categoryAxisBoundsFromProps } from '../axis';
 import { echartsLegendLayoutFragment } from '../legend/echarts-legend-layout';
 
 export type { CandlestickChartProps, CandlestickData, CandlestickItem } from './candlestick-chart.props';
@@ -84,7 +84,7 @@ const ChartComponent = ({
     if (!data?.length) return { series: [] };
 
     const valueAxisBounds = valueAxisBoundsFromProps({ minY, maxY, intervalY });
-    const xAxisBounds = xAxisBoundsFromProps({ minX, maxX, intervalX });
+    const categoryAxisBounds = categoryAxisBoundsFromProps({ minX, maxX, intervalX });
 
     const tooltipConfig: any = showHighlighter
       ? {
@@ -131,6 +131,9 @@ const ChartComponent = ({
         show: showXAxis || xAxisTickLabelFormatter != null,
         color: theme.axis.x.tickLabelColor,
         formatter: xAxisTickLabelFormatter ?? undefined,
+        ...(categoryAxisBounds?.axisLabelInterval !== undefined
+          ? { interval: categoryAxisBounds.axisLabelInterval }
+          : {}),
       },
       axisLine: showXAxis
         ? { show: true, lineStyle: { color: theme.axis.x.lineColor, width: theme.axis.x.lineWidth } }
@@ -143,7 +146,8 @@ const ChartComponent = ({
         show: showXAxisSplitLines,
         lineStyle: { color: theme.axis.x.splitLineColor, width: theme.axis.x.splitLineWidth },
       },
-      ...(xAxisBounds ?? {}),
+      ...(categoryAxisBounds?.min !== undefined && { min: categoryAxisBounds.min }),
+      ...(categoryAxisBounds?.max !== undefined && { max: categoryAxisBounds.max }),
     };
     if (hasVolume) {
       xAxisMain.gridIndex = 0;

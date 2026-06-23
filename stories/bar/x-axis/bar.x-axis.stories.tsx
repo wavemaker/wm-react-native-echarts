@@ -36,15 +36,8 @@ export const LabelFormatter: Story = {
   args: {
     data,
     xAxisTickLabelFormatter: (value) => {
-      const labels: Record<string, string> = {
-        '0': 'Jan',
-        '1': 'Feb',
-        '2': 'Mar',
-        '3': 'Apr',
-        '4': 'May',
-        '5': 'Jun',
-      };
-      return labels[String(value)] ?? String(value);
+      const n = Number(value);
+      return n > 0 ?  n+ 'k $' : '0$';
     },
   },
 };

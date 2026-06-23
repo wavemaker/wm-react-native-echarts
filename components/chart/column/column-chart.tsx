@@ -11,7 +11,7 @@ import {
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { View } from 'react-native';
-import { getAxis, valueAxisBoundsFromProps, xAxisBoundsFromProps } from '../axis';
+import { getAxis, valueAxisBoundsFromProps, xAxisBoundsFromProps, categoryAxisBoundsFromProps } from '../axis';
 import type { CartesianChartSelectEvent } from '../props/cartesian';
 import { createAxisTooltipPreset, useAxisTooltip } from '../cartesian/tooltip';
 import {
@@ -195,6 +195,13 @@ const ChartComponent = ({
     () => xAxisBoundsFromProps({ minX, maxX, intervalX }),
     [minX, maxX, intervalX]
   );
+  const categoryAxisBounds = useMemo(
+    () =>
+      horizontal
+        ? categoryAxisBoundsFromProps({ minX: minY, maxX: maxY, intervalX: intervalY })
+        : categoryAxisBoundsFromProps({ minX, maxX, intervalX }),
+    [horizontal, minX, maxX, intervalX, minY, maxY, intervalY]
+  );
 
   const showLabelInside = barInsideLabelFormatter != null;
   const showLabelOutside = barOutsideLabelFormatter != null;
@@ -219,43 +226,61 @@ const ChartComponent = ({
     const categories = (displaySeries[0]?.data ?? []).map((item) => String(item[0]));
     const xAxisData = categoryAxisData;
 
+    const categoryShow = horizontal ? showYAxis : showXAxis;
+    const categoryShowTicks = horizontal ? showYAxisTicks : showXAxisTicks;
+    const categoryShowSplitLines = horizontal ? showYAxisSplitLines : showXAxisSplitLines;
+    const categoryTickFormatter = horizontal ? yAxisTickLabelFormatter : xAxisTickLabelFormatter;
+    const categoryAxisTheme = horizontal ? theme.axis.y : theme.axis.x;
+    const categoryAxisTitle = horizontal ? yAxisLabel : xAxisLabel;
+
+    const valueShow = horizontal ? showXAxis : showYAxis;
+    const valueShowTicks = horizontal ? showXAxisTicks : showYAxisTicks;
+    const valueShowSplitLines = horizontal ? showXAxisSplitLines : showYAxisSplitLines;
+    const valueTickFormatter = horizontal ? xAxisTickLabelFormatter : yAxisTickLabelFormatter;
+    const valueAxisTheme = horizontal ? theme.axis.x : theme.axis.y;
+    const valueAxisTitle = horizontal ? xAxisLabel : yAxisLabel;
+
     const categoryAxisConfig: any = {
       type: 'category',
       data: xAxisData,
       boundaryGap,
-      ...(!horizontal ? (xAxisBounds ?? {}) : {}),
-      ...((horizontal ? yAxisLabel : xAxisLabel) != null && (horizontal ? yAxisLabel : xAxisLabel) !== '' && {
-        name: horizontal ? yAxisLabel : xAxisLabel,
+      ...(categoryAxisBounds?.min !== undefined && { min: categoryAxisBounds.min }),
+      ...(categoryAxisBounds?.max !== undefined && { max: categoryAxisBounds.max }),
+      ...(categoryAxisTitle != null && categoryAxisTitle !== '' && {
+        name: categoryAxisTitle,
         nameLocation: 'middle',
         nameGap: 25,
-        nameTextStyle: { color: horizontal ? theme.axis.y.tickLabelColor : theme.axis.x.tickLabelColor },
+        nameTextStyle: { color: categoryAxisTheme.tickLabelColor },
       }),
       axisLabel: {
-        show: showXAxis || xAxisTickLabelFormatter != null,
-        color: theme.axis.x.tickLabelColor,
-        formatter: xAxisTickLabelFormatter ?? undefined,
+        show: categoryShow || categoryTickFormatter != null,
+        color: categoryAxisTheme.tickLabelColor,
+        formatter: categoryTickFormatter ?? undefined,
+        ...(categoryAxisBounds?.axisLabelInterval !== undefined
+          ? { interval: categoryAxisBounds.axisLabelInterval }
+          : {}),
       },
-      axisLine: showXAxis
+      axisLine: categoryShow
         ? {
             show: true,
             lineStyle: {
-              color: theme.axis.x.lineColor,
-              width: theme.axis.x.lineWidth,
+              color: categoryAxisTheme.lineColor,
+              width: categoryAxisTheme.lineWidth,
             },
           }
         : { show: false },
       axisTick: {
-        show: showXAxis && showXAxisTicks,
+        show: categoryShow && categoryShowTicks,
         lineStyle: {
-          color: theme.axis.x.tickColor,
-          width: theme.axis.x.tickWidth,
+          color: categoryAxisTheme.tickColor,
+          width: categoryAxisTheme.tickWidth,
         },
       },
       splitLine: {
-        show: showXAxisSplitLines,
+        show: categoryShowSplitLines,
         lineStyle: {
-          color: theme.axis.x.splitLineColor,
-          width: theme.axis.x.splitLineWidth,
+          color: categoryAxisTheme.splitLineColor,
+          width: categoryAxisTheme.splitLineWidth,
         },
       },
     };
@@ -264,48 +289,48 @@ const ChartComponent = ({
     const valueAxisNumericExtras = stackPct
       ? { min: 0, max: 100 }
       : horizontal
-        ? { ...(valueAxisBounds ?? {}), ...(xAxisBounds ?? {}) }
+        ? (xAxisBounds ?? {})
         : (valueAxisBounds ?? {});
 
     const valueAxisConfig: any = {
       type: 'value',
       ...valueAxisNumericExtras,
-      ...((horizontal ? xAxisLabel : yAxisLabel) != null && (horizontal ? xAxisLabel : yAxisLabel) !== '' && {
-        name: horizontal ? xAxisLabel : yAxisLabel,
+      ...(valueAxisTitle != null && valueAxisTitle !== '' && {
+        name: valueAxisTitle,
         nameLocation: 'middle',
         nameGap: 40,
-        nameTextStyle: { color: horizontal ? theme.axis.x.tickLabelColor : theme.axis.y.tickLabelColor },
+        nameTextStyle: { color: valueAxisTheme.tickLabelColor },
       }),
       axisLabel: {
-        show: showYAxis || yAxisTickLabelFormatter != null,
-        color: theme.axis.y.tickLabelColor,
+        show: valueShow || valueTickFormatter != null,
+        color: valueAxisTheme.tickLabelColor,
         formatter:
-          yAxisTickLabelFormatter ??
+          valueTickFormatter ??
           (stackNormalize && displaySeries.length > 1
             ? (value: number) => `${value}%`
             : undefined),
       },
-      axisLine: showYAxis
+      axisLine: valueShow
         ? {
             show: true,
             lineStyle: {
-              color: theme.axis.y.lineColor,
-              width: theme.axis.y.lineWidth,
+              color: valueAxisTheme.lineColor,
+              width: valueAxisTheme.lineWidth,
             },
           }
         : { show: false },
       axisTick: {
-        show: showYAxis && showYAxisTicks,
+        show: valueShow && valueShowTicks,
         lineStyle: {
-          color: theme.axis.y.tickColor,
-          width: theme.axis.y.tickWidth,
+          color: valueAxisTheme.tickColor,
+          width: valueAxisTheme.tickWidth,
         },
       },
       splitLine: {
-        show: showYAxisSplitLines,
+        show: valueShowSplitLines,
         lineStyle: {
-          color: theme.axis.y.splitLineColor,
-          width: theme.axis.y.splitLineWidth,
+          color: valueAxisTheme.splitLineColor,
+          width: valueAxisTheme.splitLineWidth,
         },
       },
     };
@@ -595,6 +620,7 @@ const ChartComponent = ({
     yAxisLabel,
     categoryAxisData,
     valueAxisBounds,
+    categoryAxisBounds,
     xAxisBounds,
   ]);
 

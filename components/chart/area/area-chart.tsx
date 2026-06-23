@@ -14,7 +14,7 @@ import {
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { View } from 'react-native';
-import { getAxis, valueAxisBoundsFromProps, xAxisBoundsFromProps } from '../axis';
+import { getAxis, valueAxisBoundsFromProps, categoryAxisBoundsFromProps } from '../axis';
 import {
   echartsLegendLayoutFragment,
   mergeCartesianGridForLegend,
@@ -152,20 +152,27 @@ const ChartComponent = ({
     }
     const len = normalizedSeries[0]?.data?.length ?? 0;
     if (len === 0) return normalizedSeries;
-    return normalizedSeries.map(s => {
+    return normalizedSeries.map((s) => {
       const rawData = s.data;
       const sumsAt = new Array(len).fill(0);
-      normalizedSeries.forEach((other, _i) => {
+      normalizedSeries.forEach((other) => {
         const d = 'data' in other ? other.data : [];
-        d.forEach((v, i) => { if (i < len) sumsAt[i] += v; });
+        d.forEach((v, i) => {
+          if (i < len) sumsAt[i] += typeof v === 'number' ? v : v[1];
+        });
       });
       const normalizedData = rawData.map((v, i) => {
+        const val = typeof v === 'number' ? v : v[1];
         const sum = sumsAt[i] || 1;
-        return sum > 0 ? (v[1] / sum) * 100 : 0;
+        return sum > 0 ? (val / sum) * 100 : 0;
       });
-      return 'name' in s && s.name
-        ? { name: s.name, data: normalizedData }
-        : { data: normalizedData };
+      return {
+        name: s.name,
+        data: rawData.map((v, i) => [typeof v === 'number' ? String(i) : v[0], normalizedData[i]] as [
+          string | number,
+          number,
+        ]),
+      };
     });
   }, [normalizedSeries, stackNormalize]);
 
@@ -174,8 +181,8 @@ const ChartComponent = ({
     [minY, maxY, intervalY]
   );
 
-  const xAxisBounds = useMemo(
-    () => xAxisBoundsFromProps({ minX, maxX, intervalX }),
+  const categoryAxisBounds = useMemo(
+    () => categoryAxisBoundsFromProps({ minX, maxX, intervalX }),
     [minX, maxX, intervalX]
   );
 
@@ -204,6 +211,9 @@ const ChartComponent = ({
         show: showXAxis || xAxisTickLabelFormatter != null,
         color: theme.axis.x.tickLabelColor,
         formatter: xAxisTickLabelFormatter ?? undefined,
+        ...(categoryAxisBounds?.axisLabelInterval !== undefined
+          ? { interval: categoryAxisBounds.axisLabelInterval }
+          : {}),
       },
       axisLine: showXAxis ? {
         show: true,
@@ -229,7 +239,8 @@ const ChartComponent = ({
         },
       },
       boundaryGap,
-      ...(xAxisBounds ?? {}),
+      ...(categoryAxisBounds?.min !== undefined && { min: categoryAxisBounds.min }),
+      ...(categoryAxisBounds?.max !== undefined && { max: categoryAxisBounds.max }),
     };
 
     // Build yAxis config (value axis: optional min/max/interval; else ECharts auto-scale, except stack-normalized %)
@@ -440,7 +451,7 @@ const ChartComponent = ({
     xAxisLabel,
     yAxisLabel,
     valueAxisBounds,
-    xAxisBounds,
+    categoryAxisBounds,
   ]);
 
   useEffect(() => {
