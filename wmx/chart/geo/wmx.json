@@ -1,6 +1,6 @@
 {
   "name": "RNEGeoChart",
-  "version": "1.0.0-dev.12",
+  "version": "1.0.0-dev.13",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,7 +11,7 @@
   "description": "Map chart component for geographic data. Displays regions colored by value with optional visual map legend and tooltips.",
   "iconUrl": "icon.svg",
   "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0-dev.12",
+    "@wavemaker/react-native-echarts": "1.0.0-dev.13",
     "@shopify/react-native-skia": "2.6.2"
   },
   "keywords": [
