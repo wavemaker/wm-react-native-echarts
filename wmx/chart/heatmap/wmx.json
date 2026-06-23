@@ -55,15 +55,6 @@
       "defaultValue": false,
       "isRequired": false
     },
-    "showHighlighter": {
-      "name": "showHighlighter",
-      "displayName": "Show Highlighter",
-      "description": "Whether to emphasize the hovered cell. Default: true",
-      "type": "boolean",
-      "isList": false,
-      "defaultValue": true,
-      "isRequired": false
-    },
     "showXAxis": {
       "name": "showXAxis",
       "displayName": "Show X Axis",

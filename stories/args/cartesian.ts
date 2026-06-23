@@ -1,5 +1,5 @@
 /**
- * ArgTypes for Cartesian chart props (axes, grid, legend, highlighter).
+ * ArgTypes for Cartesian chart props (axes, grid, legend, tooltip).
  * common -> cartesian -> area | bar | scatter
  */
 export const cartesianChartArgTypes = {
@@ -77,11 +77,6 @@ export const cartesianChartArgTypes = {
   yAxisLabel: {
     control: 'text',
     description: 'Label text for the Y-axis (displayed along the axis).',
-  },
-  showHighlighter: {
-    control: 'boolean',
-    description:
-      'Emphasis (hover highlight) near the axis pointer. Column/bar default false; area/line default true.',
   },
   tooltip: {
     control: 'select',

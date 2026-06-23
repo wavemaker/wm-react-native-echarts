@@ -16,11 +16,3 @@ export const Default: Story = {
   },
 };
 
-/** showHighlighter={false} — no emphasis circle at hovered point. */
-export const showHighlighter: Story = {
-  args: {
-    data: defaultData,
-    showHighlighter: false,
-  },
-};
-

@@ -31,11 +31,3 @@ export const NoLegend: Story = {
     showLegend: false,
   },
 };
-
-/** With highlighter disabled. */
-export const NoHighlighter: Story = {
-  args: {
-    data: defaultData,
-    showHighlighter: false,
-  },
-};

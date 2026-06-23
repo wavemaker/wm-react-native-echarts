@@ -271,15 +271,6 @@
       "isList": false,
       "isRequired": false
     },
-    "showHighlighter": {
-      "name": "showHighlighter",
-      "displayName": "Show Highlighter",
-      "description": "Whether to show the highlighter (emphasis) when interacting with the chart. Default: true",
-      "type": "boolean",
-      "isList": false,
-      "defaultValue": true,
-      "isRequired": false
-    },
     "tooltip": {
       "name": "tooltip",
       "displayName": "Tooltip",

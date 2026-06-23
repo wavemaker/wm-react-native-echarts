@@ -9,8 +9,3 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: { ...heatmapBaseArgs },
 };
-
-/** showHighlighter={false} — no cell emphasis on hover. */
-export const NoHighlighter: Story = {
-  args: { ...heatmapBaseArgs, showHighlighter: false },
-};

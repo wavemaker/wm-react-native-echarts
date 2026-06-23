@@ -12,7 +12,11 @@ export const Default: Story = {
 
 /** showXAxis={false} — hide column labels. */
 export const HideXAxis: Story = {
-  args: { ...heatmapBaseArgs, showXAxis: false },
+  args: {
+    ...heatmapBaseArgs,
+    showXAxis: false,
+    xAxisData: []
+  },
 };
 
 /** showYAxis={false} — hide row labels. */

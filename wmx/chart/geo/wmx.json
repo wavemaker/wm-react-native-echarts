@@ -59,15 +59,6 @@
       "defaultValue": true,
       "isRequired": false
     },
-    "showHighlighter": {
-      "name": "showHighlighter",
-      "displayName": "Show Highlighter",
-      "description": "Whether to emphasize (highlight) the hovered region. Default: true",
-      "type": "boolean",
-      "isList": false,
-      "defaultValue": true,
-      "isRequired": false
-    },
     "tooltip": {
       "name": "tooltip",
       "displayName": "Tooltip",

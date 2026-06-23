@@ -23,10 +23,6 @@ const radarOnlyArgTypes = {
     description: 'Whether to display a legend for named series. Default: true',
   },
   ...legendPositionArgType,
-  showHighlighter: {
-    control: 'boolean',
-    description: 'Whether to show emphasis when interacting with the chart. Default: true',
-  },
   showIndicatorLabels: {
     control: 'boolean',
     description: 'Whether to show indicator (axis) labels. Default: true',
