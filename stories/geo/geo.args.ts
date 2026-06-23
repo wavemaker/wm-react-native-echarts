@@ -21,10 +21,6 @@ const geoOnlyArgTypes = {
     control: 'boolean',
     description: 'Whether to show the visual map (color scale) legend. Default: true',
   },
-  showHighlighter: {
-    control: 'boolean',
-    description: 'Whether to emphasize the hovered region. Default: true',
-  },
   tooltip: {
     control: 'select',
     options: ['card', 'compact', 'kpi', 'striped', 'none'],

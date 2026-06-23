@@ -23,11 +23,3 @@ export const Default: Story = {
     data: defaultData,
   },
 };
-
-/** showHighlighter={false} — no emphasis at hovered point. */
-export const ShowHighlighter: Story = {
-  args: {
-    data: defaultData,
-    showHighlighter: false,
-  },
-};

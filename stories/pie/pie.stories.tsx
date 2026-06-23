@@ -17,11 +17,3 @@ export const Default: Story = {
     data: defaultData,
   },
 };
-
-/** Pie with highlighter disabled. */
-export const ShowHighlighter: Story = {
-  args: {
-    data: defaultData,
-    showHighlighter: false,
-  },
-};

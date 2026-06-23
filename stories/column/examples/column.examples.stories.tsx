@@ -90,7 +90,7 @@ const interactiveDateLabels = [
 ];
 
 /** Interactive column chart matching interactive-bar.png.
- * Features: 11 vertical blue bars, date labels on x-axis (Apr–Jun), horizontal grid, tooltip/highlighter on interaction. */
+ * Features: 11 vertical blue bars, date labels on x-axis (Apr–Jun), horizontal grid, tooltip on interaction. */
 export const InteractiveColumn: Story = {
   args: {
     data: [85, 120, 95, 140, 110, 160, 130, 175, 150, 125, 90],
@@ -103,7 +103,6 @@ export const InteractiveColumn: Story = {
     showXAxisSplitLines: false,
     showYAxisSplitLines: true,
     showYAxisTicks: false,
-    showHighlighter: true,
   },
 };
 

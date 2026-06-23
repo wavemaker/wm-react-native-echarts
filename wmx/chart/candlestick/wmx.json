@@ -1,6 +1,6 @@
 {
   "name": "RNECandlestickChart",
-  "version": "1.0.0-dev.12",
+  "version": "1.0.0-dev.13",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -10,9 +10,9 @@
   "displayName": "Candlestick Chart",
   "description": "Candlestick (OHLC) chart with optional volume bars and moving averages (MA5, MA10, MA20)",
   "iconUrl": "icon.svg",
-  "dependencies" : {
-    "@wavemaker/react-native-echarts" : "1.0.0-dev.12",
-    "@shopify/react-native-skia" : "2.6.2"
+  "dependencies": {
+    "@wavemaker/react-native-echarts": "1.0.0-dev.13",
+    "@shopify/react-native-skia": "2.6.2"
   },
   "keywords": [
     "candlestick",
@@ -93,19 +93,21 @@
     "width": {
       "name": "width",
       "displayName": "Width",
-      "description": "Width of the chart in pixels. Default: 220",
-      "type": "number",
+      "description": "Width of the chart in pixels.",
+      "type": "string",
+      "pattern": "^\\d+(%|px|pt)?$",
+      "defaultValue": "100%",
       "isList": false,
-      "defaultValue": 220,
       "isRequired": false
     },
     "height": {
       "name": "height",
       "displayName": "Height",
-      "description": "Height of the chart in pixels. Default: 350",
-      "type": "number",
+      "description": "Height of the chart in pixels.",
+      "type": "string",
+      "pattern": "^\\d+(%|px|pt)?$",
+      "defaultValue": "300",
       "isList": false,
-      "defaultValue": 350,
       "isRequired": false
     },
     "theme": {
@@ -265,17 +267,15 @@
       "displayName": "Legend Position",
       "description": "Placement of the legend: 'top' | 'bottom' | 'left' | 'right'. Top and bottom use a horizontal legend with wrapping; left and right use a vertical legend. Default: 'bottom'",
       "type": "string",
-      "isList": false,
+      "widget": "list",
+      "options": [
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
       "defaultValue": "bottom",
-      "isRequired": false
-    },
-    "showHighlighter": {
-      "name": "showHighlighter",
-      "displayName": "Show Highlighter",
-      "description": "Whether to show the highlighter when interacting with the chart. Default: true",
-      "type": "boolean",
       "isList": false,
-      "defaultValue": true,
       "isRequired": false
     },
     "xAxisTickLabelFormatter": {
@@ -291,6 +291,19 @@
       "displayName": "Y Axis Tick Label Formatter",
       "description": "Formatter for Y-axis tick labels. (value, index?) => string",
       "type": "function",
+      "isList": false,
+      "isRequired": false
+    }
+  },
+  "events": {
+    "onSelect": {
+      "name": "onSelect",
+      "displayName": "On Select",
+      "description": "Callback when the user selects (taps/clicks) a data point on a series (when supported).",
+      "type": "function",
+      "params": [
+        "event"
+      ],
       "isList": false,
       "isRequired": false
     }

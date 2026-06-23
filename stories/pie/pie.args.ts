@@ -32,10 +32,6 @@ const pieOnlyArgTypes = {
     control: 'boolean',
     description: 'Whether to show label lines (connectors). Default: true when labels outside',
   },
-  showHighlighter: {
-    control: 'boolean',
-    description: 'Whether to emphasize the hovered slice. Default: true',
-  },
   tooltip: {
     control: 'select',
     options: ['card', 'compact', 'kpi', 'striped', 'none'],

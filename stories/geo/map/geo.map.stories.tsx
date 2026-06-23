@@ -39,7 +39,6 @@ export const PresidentialResults: Story = {
       { min: 0.5, max: 55, label: 'Republican', color: LIGHT_RED },
     ],
     showLegend: true,
-    showHighlighter: true,
     renderTooltip: ({ name }: GeoItemTooltipParams) => {
       const row = presidentialResultsByState.find((s: { name: string }) => s.name === name) as
         | { name: string; republican: number; democrat: number }

@@ -91,15 +91,6 @@ export const WithMovingAverage: Story = {
   },
 };
 
-/** Candlestick with highlighter disabled. */
-export const ShowHighlighter: Story = {
-  args: {
-    data: defaultData,
-    xAxisData,
-    showHighlighter: false,
-  },
-};
-
 /** Stock price 9 AM–4 PM with one 10-min candle per slot (42 candles). */
 export const Default: Story = {
   args: {

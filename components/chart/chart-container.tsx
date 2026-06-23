@@ -70,7 +70,7 @@ const ChartContainer: React.FC<ChartContainerProps> = ({
       style={[styles.container, containerStyle, style]}
       onLayout={handleLayout}
     >
-      {data? (
+      {data !== undefined && data !== null ? (
           dimensions ? render(dimensions.width, dimensions.height) : null
         ): (
         <View style={[styles.noDataContainer, noDataContainerStyle, style]}>
@@ -108,7 +108,7 @@ export const withResponsiveContainer = <T extends React.ComponentType<any>>(Comp
         height: height,
       });
     }, [props]);
-    const data = dataName.length > 0 ? dataName.find((name) => !!props[name]) || props.data : props.data
+    const data = dataName.length > 0 ? dataName.find((name) => props[name] !== undefined) || props.data : props.data
     return (
       <ChartContainer 
         width={props.width} 

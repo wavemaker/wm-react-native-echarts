@@ -1,5 +1,5 @@
 /**
- * ArgTypes for Cartesian chart props (axes, grid, legend, highlighter).
+ * ArgTypes for Cartesian chart props (axes, grid, legend, tooltip).
  * common -> cartesian -> area | bar | scatter
  */
 export const cartesianChartArgTypes = {
@@ -18,15 +18,18 @@ export const cartesianChartArgTypes = {
   },
   minY: {
     control: 'number',
-    description: 'Value-axis minimum when set; otherwise the axis minimum comes from the data.',
+    description:
+      'Y-axis minimum when set. On horizontal bar, category index along Y; on column/area/line, value-axis minimum.',
   },
   maxY: {
     control: 'number',
-    description: 'Value-axis maximum when set; otherwise the axis maximum comes from the data.',
+    description:
+      'Y-axis maximum when set. On horizontal bar, category index along Y; otherwise value-axis maximum.',
   },
   intervalY: {
     control: 'number',
-    description: 'Value-axis tick interval when set; otherwise the step is chosen automatically.',
+    description:
+      'Y-axis tick interval when set. On horizontal bar, category label step along Y; otherwise value-axis step.',
   },
   boundaryGap: {
     control: 'boolean',
@@ -77,11 +80,6 @@ export const cartesianChartArgTypes = {
   yAxisLabel: {
     control: 'text',
     description: 'Label text for the Y-axis (displayed along the axis).',
-  },
-  showHighlighter: {
-    control: 'boolean',
-    description:
-      'Emphasis (hover highlight) near the axis pointer. Column/bar default false; area/line default true.',
   },
   tooltip: {
     control: 'select',

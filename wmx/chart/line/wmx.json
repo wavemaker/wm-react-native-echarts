@@ -1,6 +1,6 @@
 {
   "name": "RNELineChart",
-  "version": "1.0.0-dev.12",
+  "version": "1.0.0-dev.13",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -10,9 +10,9 @@
   "displayName": "Line Chart",
   "description": "Unified line chart component supporting all variations: default, interactive, multiple, linear, step, dots, dots-colors, and custom-label configurations",
   "iconUrl": "icon.svg",
-  "dependencies" : {
-    "@wavemaker/react-native-echarts" : "1.0.0-dev.12",
-    "@shopify/react-native-skia" : "2.6.2"
+  "dependencies": {
+    "@wavemaker/react-native-echarts": "1.0.0-dev.13",
+    "@shopify/react-native-skia": "2.6.2"
   },
   "keywords": [
     "line",
@@ -45,8 +45,14 @@
       "displayName": "Type",
       "description": "Curve type: 'default' (linear), 'smooth' (Bezier), or 'step'. Default: 'default'",
       "type": "string",
-      "isList": false,
+      "widget": "list",
+      "options": [
+        "default",
+        "smooth",
+        "step"
+      ],
       "defaultValue": "default",
+      "isList": false,
       "isRequired": false
     },
     "step": {
@@ -54,6 +60,12 @@
       "displayName": "Step",
       "description": "Step mode when type='step'. Options: 'start', 'middle', 'end', or false.",
       "type": "string",
+      "widget": "list",
+      "options": [
+        "start",
+        "middle",
+        "end"
+      ],
       "isList": false,
       "isRequired": false
     },
@@ -79,8 +91,19 @@
       "displayName": "Symbol",
       "description": "Symbol type for data points. Options: 'none', 'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow'. Default: 'none'",
       "type": "string",
-      "isList": false,
+      "widget": "list",
+      "options": [
+        "none",
+        "circle",
+        "rect",
+        "roundRect",
+        "triangle",
+        "diamond",
+        "pin",
+        "arrow"
+      ],
       "defaultValue": "none",
+      "isList": false,
       "isRequired": false
     },
     "symbolSize": {
@@ -94,19 +117,21 @@
     "width": {
       "name": "width",
       "displayName": "Width",
-      "description": "Width of the chart in pixels. Default: 220",
-      "type": "number",
+      "description": "Width of the chart in pixels.",
+      "type": "string",
+      "pattern": "^\\d+(%|px|pt)?$",
+      "defaultValue": "100%",
       "isList": false,
-      "defaultValue": 220,
       "isRequired": false
     },
     "height": {
       "name": "height",
       "displayName": "Height",
-      "description": "Height of the chart in pixels. Default: 350",
-      "type": "number",
+      "description": "Height of the chart in pixels.",
+      "type": "string",
+      "pattern": "^\\d+(%|px|pt)?$",
+      "defaultValue": "300",
       "isList": false,
-      "defaultValue": 350,
       "isRequired": false
     },
     "theme": {
@@ -274,17 +299,15 @@
       "displayName": "Legend Position",
       "description": "Placement of the legend: 'top' | 'bottom' | 'left' | 'right'. Top and bottom use a horizontal legend with wrapping; left and right use a vertical legend. Default: 'bottom'",
       "type": "string",
-      "isList": false,
+      "widget": "list",
+      "options": [
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
       "defaultValue": "bottom",
-      "isRequired": false
-    },
-    "showHighlighter": {
-      "name": "showHighlighter",
-      "displayName": "Show Highlighter",
-      "description": "Whether to show the highlighter (emphasis) when interacting with the chart. Default: true",
-      "type": "boolean",
       "isList": false,
-      "defaultValue": true,
       "isRequired": false
     },
     "tooltip": {
@@ -292,8 +315,16 @@
       "displayName": "Tooltip",
       "description": "Built-in React Native axis-tooltip overlay when renderTooltip is omitted: card (default), compact, kpi, striped, or none to hide the overlay.",
       "type": "string",
-      "isList": false,
+      "widget": "list",
+      "options": [
+        "card",
+        "compact",
+        "kpi",
+        "striped",
+        "none"
+      ],
       "defaultValue": "card",
+      "isList": false,
       "isRequired": false
     },
     "renderTooltip": {
@@ -317,6 +348,19 @@
       "displayName": "Y Axis Tick Label Formatter",
       "description": "Formatter for Y-axis tick labels. (value, index?) => string",
       "type": "function",
+      "isList": false,
+      "isRequired": false
+    }
+  },
+  "events": {
+    "onSelect": {
+      "name": "onSelect",
+      "displayName": "On Select",
+      "description": "Callback when the user selects (taps/clicks) a data point on a series (when supported).",
+      "type": "function",
+      "params": [
+        "event"
+      ],
       "isList": false,
       "isRequired": false
     }

@@ -62,3 +62,25 @@ export function xAxisBoundsFromProps(params: {
     interval: params.intervalX,
   });
 }
+
+/**
+ * Category-axis bounds: `min` / `max` on the axis; `intervalX` maps to `axisLabel.interval`
+ * (ECharts skips `interval` on category axes at the root).
+ */
+export function categoryAxisBoundsFromProps(params: {
+  minX?: number;
+  maxX?: number;
+  intervalX?: number;
+}): { min?: number; max?: number; axisLabelInterval?: number } | undefined {
+  const raw = xAxisBoundsFromProps(params);
+  if (!raw) return undefined;
+  const { min, max, interval } = raw;
+  const out: { min?: number; max?: number; axisLabelInterval?: number } = {};
+  if (min !== undefined) out.min = min;
+  if (max !== undefined) out.max = max;
+  if (interval !== undefined) {
+    // intervalX step N → show every Nth category label (0, N, 2N, …)
+    out.axisLabelInterval = interval <= 1 ? 0 : interval - 1;
+  }
+  return Object.keys(out).length > 0 ? out : undefined;
+}

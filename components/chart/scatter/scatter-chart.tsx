@@ -11,7 +11,7 @@ import {
 import * as echarts from 'echarts/core';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { View } from 'react-native';
-import { getAxis, valueAxisBoundsFromProps, xAxisBoundsFromProps } from '../axis';
+import { getAxis, valueAxisBoundsFromProps, categoryAxisBoundsFromProps } from '../axis';
 import {
   echartsLegendLayoutFragment,
   mergeCartesianGridForLegend,
@@ -132,8 +132,8 @@ const ChartComponent = ({
     [minY, maxY, intervalY]
   );
 
-  const xAxisBounds = useMemo(
-    () => xAxisBoundsFromProps({ minX, maxX, intervalX }),
+  const categoryAxisBounds = useMemo(
+    () => categoryAxisBoundsFromProps({ minX, maxX, intervalX }),
     [minX, maxX, intervalX]
   );
 
@@ -165,7 +165,8 @@ const ChartComponent = ({
       type: 'category',
       boundaryGap,
       data: xAxisData,
-      ...(xAxisBounds ?? {}),
+      ...(categoryAxisBounds?.min !== undefined && { min: categoryAxisBounds.min }),
+      ...(categoryAxisBounds?.max !== undefined && { max: categoryAxisBounds.max }),
       ...(xAxisLabel != null && xAxisLabel !== '' && {
         name: xAxisLabel,
         nameLocation: 'middle',
@@ -176,6 +177,9 @@ const ChartComponent = ({
         show: showXAxis || xAxisTickLabelFormatter != null,
         color: theme.axis.x.tickLabelColor,
         ...(xAxisTickLabelFormatter && { formatter: xAxisTickLabelFormatter }),
+        ...(categoryAxisBounds?.axisLabelInterval !== undefined
+          ? { interval: categoryAxisBounds.axisLabelInterval }
+          : {}),
       },
       axisLine: showXAxis
         ? {
@@ -351,7 +355,7 @@ const ChartComponent = ({
     xAxisLabel,
     yAxisLabel,
     valueAxisBounds,
-    xAxisBounds,
+    categoryAxisBounds,
   ]);
 
   useEffect(() => {

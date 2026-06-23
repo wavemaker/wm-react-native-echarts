@@ -12,10 +12,3 @@ export const Default: Story = {
     data: defaultData,
   },
 };
-
-export const showHighlighter: Story = {
-  args: {
-    data: [{ name: 'Series A', data: [186, 305, 237, 73, 209, 214] }],
-    showHighlighter: false,
-  },
-};

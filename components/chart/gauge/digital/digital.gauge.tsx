@@ -1,6 +1,7 @@
 import { withResponsiveContainer } from '../../chart-container';
 import { useChartTheme, withChartTheme } from '../../chart-theme.context';
-import React, { useEffect, useRef, useState } from 'react';
+import { getAxisByMinMax } from '../../axis';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import Svg, { Circle, Defs, G, LinearGradient, Path, Stop, Text as SvgText } from 'react-native-svg';
 import type { BaseGaugeProps } from '../gauge.types';
@@ -26,6 +27,7 @@ interface DigitalGaugeProps extends BaseGaugeProps {
 // SVG Gauge Component
 const SVGGaugeChart = ({ 
   value, 
+  min = 0,
   max = 100,
   showInnerArc = false,
   width,
@@ -92,6 +94,15 @@ const SVGGaugeChart = ({
       }
     };
   }, [value, animationDuration]);
+
+  const { majorTickPositions, minorStep } = useMemo(() => {
+    const scaleRange = Math.max(max - min, 1);
+    const majors = getAxisByMinMax(min, max);
+    const majorInterval =
+      majors.length >= 2 ? majors[1] - majors[0] : Math.max(scaleRange / 5, 1);
+    const step = Math.max(1, Math.round(majorInterval / 10));
+    return { majorTickPositions: majors, minorStep: step };
+  }, [min, max]);
   
   // If height not provided, use 90% of available height
   // If width not provided, use the same as height to keep it square
@@ -106,7 +117,9 @@ const SVGGaugeChart = ({
   const startAngle = -135;
   const endAngle = 135;
   const totalAngle = endAngle - startAngle;
-  const percentage = (animatedValue / max) * 100;
+  const scaleRange = Math.max(max - min, 1);
+  const normalizedValue = (animatedValue - min) / scaleRange;
+  const percentage = normalizedValue * 100;
   const valueAngle = (percentage / 100) * totalAngle;
 
   const polarToCartesian = (centerX: number, centerY: number, radius: number, angleInDegrees: number) => {
@@ -194,19 +207,19 @@ const SVGGaugeChart = ({
     );
   }
 
-  // Generate scale labels and inner ticks
+  // Generate scale labels and inner ticks from min/max
   const scaleLabels = [];
   const innerTicks = [];
-  const majorTickPositions = [0, 20, 40, 60, 80, 100];
   const labelRadius = radius - 40;
   const innerTickLength = 4;
   const minorTickLength = 2;
   const gapFromOuterTicks = 4; // Gap between outer and inner elements
   const innerTickOuterRadius = radius - outerTickLength - gapFromOuterTicks;
+  const majorTickSet = new Set(majorTickPositions);
   
   // Add major ticks and labels
   for (const labelValue of majorTickPositions) {
-    const labelAngle = startAngle + (labelValue / max) * totalAngle;
+    const labelAngle = startAngle + ((labelValue - min) / scaleRange) * totalAngle;
     const labelPosition = polarToCartesian(center, center, labelRadius, labelAngle);
     
     // Add scale label
@@ -238,20 +251,17 @@ const SVGGaugeChart = ({
     );
   }
 
-  // Add minor ticks (9 ticks between each major tick)
-  // Major ticks are at 0, 20, 40, 60, 80, 100
-  // So we need ticks at every 2 units, excluding the major positions
-  for (let value = 0; value <= max; value += 2) {
-    // Skip if this is a major tick position
-    if (majorTickPositions.includes(value)) continue;
-    
-    const tickAngle = startAngle + (value / max) * totalAngle;
+  // Minor ticks between major labels
+  for (let tickValue = min; tickValue <= max; tickValue += minorStep) {
+    if (majorTickSet.has(tickValue)) continue;
+
+    const tickAngle = startAngle + ((tickValue - min) / scaleRange) * totalAngle;
     const tickOuterPoint = polarToCartesian(center, center, innerTickOuterRadius, tickAngle);
     const tickInnerPoint = polarToCartesian(center, center, innerTickOuterRadius - minorTickLength, tickAngle);
     
     innerTicks.push(
       <Path
-        key={`inner-minor-tick-${value}`}
+        key={`inner-minor-tick-${tickValue}`}
         d={`M ${tickOuterPoint.x} ${tickOuterPoint.y} L ${tickInnerPoint.x} ${tickInnerPoint.y}`}
         stroke={inactiveTickColor}
         strokeWidth={1}
@@ -330,7 +340,7 @@ const SVGGaugeChart = ({
 const ChartComponent = ({
   value = 46,
   min = 0,
-  max = 90,
+  max = 100,
   width,
   height,
   axisBgColor,
@@ -343,6 +353,7 @@ const ChartComponent = ({
   return (
     <SVGGaugeChart
       value={value}
+      min={min}
       max={max}
       width={width}
       height={height}

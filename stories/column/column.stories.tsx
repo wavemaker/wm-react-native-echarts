@@ -13,14 +13,6 @@ export const Default: Story = {
   },
 };
 
-/** showHighlighter={true} — opt-in bar emphasis while the axis tooltip is active. */
-export const ShowHighlighter: Story = {
-  args: {
-    data: [{ name: 'Series A', data: defaultData }],
-    showHighlighter: true,
-  },
-};
-
 /** horizontal={true} — horizontal bars (same as BarChart). */
 export const Horizontal: Story = {
   args: {

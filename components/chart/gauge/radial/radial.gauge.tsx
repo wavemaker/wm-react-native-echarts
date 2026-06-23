@@ -1,5 +1,6 @@
 import { withResponsiveContainer } from '../../chart-container';
 import { useChartTheme, withChartTheme } from '../../chart-theme.context';
+import { getAxisByMinMax } from '../../axis';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
 import { BarChart } from 'echarts/charts';
 import { GaugeChart } from 'echarts/charts';
@@ -54,6 +55,7 @@ const ChartComponent = ({
         radius: [innerRadius, outerRadius],
       },
       angleAxis: {
+        min: min,
         max: max,
         startAngle: 225,
         endAngle: -45,
@@ -68,7 +70,7 @@ const ChartComponent = ({
       series: [
         {
           type: 'bar',
-          data: [max],
+          data: [max - min],
           coordinateSystem: 'polar',
           name: 'Background',
           tooltip: {
@@ -86,7 +88,7 @@ const ChartComponent = ({
         },
         {
           type: 'bar',
-          data: [value],
+          data: [Math.max(value - min, 0)],
           coordinateSystem: 'polar',
           name: 'Value',
           itemStyle: {
@@ -101,7 +103,7 @@ const ChartComponent = ({
         },
       ]
     };
-  }, [chartTheme, value, max, width, height, axisBgColorProp]);
+  }, [chartTheme, value, min, max, width, height, axisBgColorProp]);
 
   // Gauge option (progressArcOption)
   const gaugeOption = useMemo(() => {
@@ -119,6 +121,9 @@ const ChartComponent = ({
     const valueColor = chartTheme.axis.r.tickLabelColor;
     const unitColor = chartTheme.axis.r.tickLabelColor;
     
+    const majorTicks = getAxisByMinMax(min, max);
+    const splitNumber = Math.max(majorTicks.length - 1, 1);
+    
     return {
       series: [
         {
@@ -129,7 +134,7 @@ const ChartComponent = ({
           endAngle: -45,
           min: min,
           max: max,
-          splitNumber: 5,
+          splitNumber,
           axisLine: {
             show: false,
             distance: 1,
@@ -169,12 +174,7 @@ const ChartComponent = ({
             distance: 16,
             fontSize: 12,
             color: labelColor,
-            formatter: function(value: number) {
-              if (value === 20 || value === 80) {
-                return value.toString();
-              }
-              return '';
-            },
+            formatter: (tickValue: number) => String(Math.round(tickValue)),
           },
           anchor: {
             show: true,
@@ -190,9 +190,8 @@ const ChartComponent = ({
           },
           detail: {
             valueAnimation: true,
-            formatter: function(value: number) {
-              return '{value|' + Math.round(value) + '}{unit|/100}';
-            },
+            formatter: (detailValue: number) =>
+              `{value|${Math.round(detailValue)}}{unit|/${max}}`,
             offsetCenter: [0, '70%'],
             rich: {
               value: {

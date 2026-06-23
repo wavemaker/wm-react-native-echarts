@@ -20,12 +20,3 @@ export const Default: Story = {
     data: defaultData,
   },
 };
-
-/** Radar with highlighter disabled. */
-export const ShowHighlighter: Story = {
-  args: {
-    indicators: defaultIndicators,
-    data: defaultData,
-    showHighlighter: false,
-  },
-};

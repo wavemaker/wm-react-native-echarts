@@ -20,10 +20,6 @@ const heatmapOnlyArgTypes = {
     control: 'boolean',
     description: 'When true, shows the numeric value on each cell. Default: false',
   },
-  showHighlighter: {
-    control: 'boolean',
-    description: 'Whether to emphasize the hovered cell. Default: true',
-  },
   showXAxis: {
     control: 'boolean',
     description: 'Whether to show the X-axis labels. Default: true',
