@@ -1,6 +1,6 @@
 {
   "name": "RNEAnimatedGauge",
-  "version": "1.0.0-dev.13",
+  "version": "1.0.0-dev.14",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "../../chart-theme.context.tsx"
   ],
   "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0-dev.13",
+    "@wavemaker/react-native-echarts": "1.0.0-dev.14",
     "@shopify/react-native-skia": "2.6.2"
   },
   "keywords": [
