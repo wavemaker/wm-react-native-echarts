@@ -20,7 +20,7 @@ npm install @wavemaker/react-native-echarts
 The library declares peer dependencies. Add any your app does not already include (align versions with your React Native or Expo SDK):
 
 ```bash
-npm install @shopify/react-native-skia @wuba/react-native-echarts echarts zrender react-native-svg
+npm install @shopify/react-native-skia @wuba/react-native-echarts echarts@6.0.0 zrender@6.0.0 react-native-svg
 ```
 
 `react` and `react-native` are also peers; they should already be present in your app.
