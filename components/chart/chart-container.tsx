@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { View, LayoutChangeEvent, StyleSheet, Text } from 'react-native';
 
 interface ChartChildProps {
@@ -101,6 +101,18 @@ const styles = StyleSheet.create({
 
 export const withResponsiveContainer = <T extends React.ComponentType<any>>(Component: T, ...dataName: string[]) => {
   return (props: React.ComponentProps<T> & { width?: number | string; height?: number | string }) => {
+    const width = useMemo(() => {
+      if (typeof props.width === 'string' && !props.width.endsWith('%')) {
+        return parseFloat(props.width.match(/\d+/)?.[0] || '0');
+      }
+      return props.width;
+    }, [props.width]);
+    const height = useMemo(() => {
+      if (typeof props.height === 'string' && !props.height.endsWith('%')) {
+        return parseFloat(props.height.match(/\d+/)?.[0] || '0');
+      }
+      return props.height;
+    }, [props.height]);
     const render = useCallback((width: number, height: number) => {
       return React.createElement(Component, {
         ...(props as React.ComponentProps<T>),
@@ -111,8 +123,8 @@ export const withResponsiveContainer = <T extends React.ComponentType<any>>(Comp
     const data = dataName.length > 0 ? dataName.find((name) => props[name] !== undefined) || props.data : props.data
     return (
       <ChartContainer 
-        width={props.width} 
-        height={props.height}
+        width={width} 
+        height={height}
         style={props.style}
         data={data}
         render={render}

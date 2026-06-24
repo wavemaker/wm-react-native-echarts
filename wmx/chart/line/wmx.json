@@ -1,6 +1,6 @@
 {
   "name": "RNELineChart",
-  "version": "1.0.0-dev.13",
+  "version": "1.0.0-dev.14",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,7 +11,7 @@
   "description": "Unified line chart component supporting all variations: default, interactive, multiple, linear, step, dots, dots-colors, and custom-label configurations",
   "iconUrl": "icon.svg",
   "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0-dev.13",
+    "@wavemaker/react-native-echarts": "1.0.0-dev.14",
     "@shopify/react-native-skia": "2.6.2"
   },
   "keywords": [
