@@ -395,7 +395,7 @@
     }
   },
   "group": "chart/bar",
-  "marketplace": {
+  "marketplace_unsupported": {
     "carouselImages": [
       "/assets/images/horizontal-bar.png",
       "/assets/images/labeled-bar.png",

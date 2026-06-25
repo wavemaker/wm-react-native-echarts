@@ -368,7 +368,7 @@
     }
   },
   "group": "chart/line",
-  "marketplace": {
+  "marketplace_unsupported": {
     "carouselImages": [
       "/assets/images/multi-line.png",
       "/assets/images/standard-line.png",

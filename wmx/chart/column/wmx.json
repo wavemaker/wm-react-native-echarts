@@ -403,7 +403,7 @@
     }
   },
   "group": "chart/column",
-  "marketplace": {
+  "marketplace_unsupported": {
     "carouselImages": [
       "/assets/images/active-column.png",
       "/assets/images/multi-series.png",

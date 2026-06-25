@@ -394,7 +394,7 @@
     }
   },
   "group": "chart/line/area",
-  "marketplace": {
+  "marketplace_unsupported": {
     "carouselImages": [
       "/assets/images/default.png",
       "/assets/images/with-gradient-bg.png",

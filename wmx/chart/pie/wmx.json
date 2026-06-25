@@ -182,7 +182,7 @@
     }
   },
   "group": "chart/pie",
-  "marketplace": {
+  "marketplace_unsupported": {
     "carouselImages": [
       "/assets/images/concentric.png",
       "/assets/images/donut.png",
