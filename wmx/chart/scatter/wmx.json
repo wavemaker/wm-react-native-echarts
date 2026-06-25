@@ -101,7 +101,8 @@
       "description": "Partial theme override for customizing chart appearance. Merged with default theme from ChartThemeContext.",
       "type": "object",
       "isList": false,
-      "isRequired": false
+      "isRequired": false,
+      "show": false
     },
     "colors": {
       "name": "colors",
@@ -294,7 +295,8 @@
       "description": "Optional (params) => ReactNode for the RN tooltip body at the pointer. When set, replaces the layout chosen by tooltip. Params include series name, x and y values, color, and pointer coordinates.",
       "type": "function",
       "isList": false,
-      "isRequired": false
+      "isRequired": false,
+      "show": false
     },
     "xAxisTickLabelFormatter": {
       "name": "xAxisTickLabelFormatter",

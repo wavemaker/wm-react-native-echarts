@@ -127,7 +127,8 @@
       "description": "Optional (params) => ReactNode for the RN tooltip body at the pointer. When set, replaces the layout chosen by tooltip. Params: slice name, value, percent (0–100), color, seriesIndex, dataIndex, optional ringName for concentric pies, pointerX and pointerY.",
       "type": "function",
       "isList": false,
-      "isRequired": false
+      "isRequired": false,
+      "show": false
     },
     "width": {
       "name": "width",
@@ -155,7 +156,8 @@
       "description": "Partial theme override. Merged with default theme from ChartThemeContext.",
       "type": "object",
       "isList": false,
-      "isRequired": false
+      "isRequired": false,
+      "show": false
     },
     "colors": {
       "name": "colors",

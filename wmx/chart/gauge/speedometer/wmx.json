@@ -85,7 +85,8 @@
       "description": "Partial theme override for customizing chart appearance. Example: {series: [{color: '#3b82f6'}]}",
       "type": "object",
       "isList": false,
-      "isRequired": false
+      "isRequired": false,
+      "show": false
     },
     "colors": {
       "name": "colors",
