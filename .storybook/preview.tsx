@@ -18,9 +18,9 @@ const preview: Preview = {
         const themingPrefix = 'Theming/';
         const bucket = (title) => {
           if (title.startsWith(introPrefix)) return 0;
-          if (title.startsWith(chartsPrefix)) return 1;
-          if (title.startsWith(examplesPrefix)) return 2;
-          if (title.startsWith(themingPrefix) || title === 'Theming') return 3;
+          if (title.startsWith(themingPrefix) || title === 'Theming') return 1;
+          if (title.startsWith(chartsPrefix)) return 2;
+          if (title.startsWith(examplesPrefix)) return 3;
           return 4;
         };
         const ba = bucket(a.title);
@@ -33,7 +33,19 @@ const preview: Preview = {
             return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
           }
         }
-        if (ba === 2) {
+        if (ba === 1) {
+          const themingOrder = [
+            'Theming/Overview',
+            'Theming/Theme Reference',
+            'Theming/Examples',
+          ];
+          const ai = themingOrder.indexOf(a.title);
+          const bi = themingOrder.indexOf(b.title);
+          if (ai !== -1 || bi !== -1) {
+            return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+          }
+        }
+        if (ba === 3) {
           const examplesOrder = [
             'Examples/Area',
             'Examples/Bar',
@@ -42,14 +54,6 @@ const preview: Preview = {
           ];
           const ai = examplesOrder.indexOf(a.title);
           const bi = examplesOrder.indexOf(b.title);
-          if (ai !== -1 || bi !== -1) {
-            return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
-          }
-        }
-        if (ba === 3) {
-          const themingOrder = ['Theming/Overview', 'Theming/Examples'];
-          const ai = themingOrder.indexOf(a.title);
-          const bi = themingOrder.indexOf(b.title);
           if (ai !== -1 || bi !== -1) {
             return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
           }
