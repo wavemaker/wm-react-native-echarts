@@ -1,6 +1,6 @@
 {
   "name": "RNESemiCircularGauge",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "../../chart-theme.context.tsx"
   ],
   "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0",
+    "@wavemaker/react-native-echarts": "1.0.1",
     "@shopify/react-native-skia": "2.6.2"
   },
   "keywords": [
@@ -85,7 +85,8 @@
       "description": "Partial theme override for customizing chart appearance. Example: {series: [{color: '#3b82f6'}]}",
       "type": "object",
       "isList": false,
-      "isRequired": false
+      "isRequired": false,
+      "show": false
     },
     "colors": {
       "name": "colors",

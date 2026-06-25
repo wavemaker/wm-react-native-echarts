@@ -1,6 +1,6 @@
 {
   "name": "RNEBarChart",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,7 +11,7 @@
   "description": "Bar chart is the horizontal orientation of column chart. Unified horizontal bar chart supporting default, interactive, multiple, stacked, label, custom-label, negative, active, and mixed configurations",
   "iconUrl": "icon.svg",
   "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0",
+    "@wavemaker/react-native-echarts": "1.0.1",
     "@shopify/react-native-skia": "2.6.2"
   },
   "keywords": [
@@ -176,7 +176,8 @@
       "description": "Partial theme override. Merged with default theme from ChartThemeContext.",
       "type": "object",
       "isList": false,
-      "isRequired": false
+      "isRequired": false,
+      "show": false
     },
     "colors": {
       "name": "colors",
@@ -360,7 +361,8 @@
       "description": "Optional (params) => ReactNode for the RN tooltip body at the pointer. When set, replaces the layout chosen by tooltip. Params: category axis value, dataIndex, per-series rows (name, value, color, seriesIndex), pointerX and pointerY in chart pixel space.",
       "type": "function",
       "isList": false,
-      "isRequired": false
+      "isRequired": false,
+      "show": false
     },
     "xAxisTickLabelFormatter": {
       "name": "xAxisTickLabelFormatter",
@@ -393,7 +395,7 @@
     }
   },
   "group": "chart/bar",
-  "marketplace": {
+  "marketplace_unsupported": {
     "carouselImages": [
       "/assets/images/horizontal-bar.png",
       "/assets/images/labeled-bar.png",

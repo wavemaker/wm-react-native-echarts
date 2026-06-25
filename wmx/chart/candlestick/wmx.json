@@ -1,6 +1,6 @@
 {
   "name": "RNECandlestickChart",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,7 +11,7 @@
   "description": "Candlestick (OHLC) chart with optional volume bars and moving averages (MA5, MA10, MA20)",
   "iconUrl": "icon.svg",
   "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0",
+    "@wavemaker/react-native-echarts": "1.0.1",
     "@shopify/react-native-skia": "2.6.2"
   },
   "keywords": [
@@ -116,7 +116,8 @@
       "description": "Partial theme override. Merged with default theme from ChartThemeContext.",
       "type": "object",
       "isList": false,
-      "isRequired": false
+      "isRequired": false,
+      "show": false
     },
     "boundaryGap": {
       "name": "boundaryGap",

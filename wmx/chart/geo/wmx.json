@@ -1,6 +1,6 @@
 {
   "name": "RNEGeoChart",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,7 +11,7 @@
   "description": "Map chart component for geographic data. Displays regions colored by value with optional visual map legend and tooltips.",
   "iconUrl": "icon.svg",
   "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0",
+    "@wavemaker/react-native-echarts": "1.0.1",
     "@shopify/react-native-skia": "2.6.2"
   },
   "keywords": [
@@ -82,7 +82,8 @@
       "description": "Optional (params) => ReactNode for the RN tooltip body at the pointer. When set, replaces the layout chosen by tooltip. Params: region name, value, color, pointerX and pointerY.",
       "type": "function",
       "isList": false,
-      "isRequired": false
+      "isRequired": false,
+      "show": false
     },
     "visualMapMin": {
       "name": "visualMapMin",
@@ -148,7 +149,8 @@
       "description": "Partial theme override. Merged with default theme from ChartThemeContext.",
       "type": "object",
       "isList": false,
-      "isRequired": false
+      "isRequired": false,
+      "show": false
     },
     "colors": {
       "name": "colors",

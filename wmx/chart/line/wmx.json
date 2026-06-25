@@ -1,6 +1,6 @@
 {
   "name": "RNELineChart",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,7 +11,7 @@
   "description": "Unified line chart component supporting all variations: default, interactive, multiple, linear, step, dots, dots-colors, and custom-label configurations",
   "iconUrl": "icon.svg",
   "dependencies": {
-    "@wavemaker/react-native-echarts": "1.0.0",
+    "@wavemaker/react-native-echarts": "1.0.1",
     "@shopify/react-native-skia": "2.6.2"
   },
   "keywords": [
@@ -140,7 +140,8 @@
       "description": "Partial theme override for customizing chart appearance. Merged with default theme from ChartThemeContext.",
       "type": "object",
       "isList": false,
-      "isRequired": false
+      "isRequired": false,
+      "show": false
     },
     "colors": {
       "name": "colors",
@@ -333,7 +334,8 @@
       "description": "Optional (params) => ReactNode for the RN tooltip body at the pointer. When set, replaces the layout chosen by tooltip. Params: category axis value, dataIndex, per-series rows (name, value, color, seriesIndex), pointerX and pointerY in chart pixel space.",
       "type": "function",
       "isList": false,
-      "isRequired": false
+      "isRequired": false,
+      "show": false
     },
     "xAxisTickLabelFormatter": {
       "name": "xAxisTickLabelFormatter",
@@ -366,7 +368,7 @@
     }
   },
   "group": "chart/line",
-  "marketplace": {
+  "marketplace_unsupported": {
     "carouselImages": [
       "/assets/images/multi-line.png",
       "/assets/images/standard-line.png",
