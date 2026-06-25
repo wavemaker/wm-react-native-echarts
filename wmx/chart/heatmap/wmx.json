@@ -116,7 +116,8 @@
       "description": "Partial theme override merged with ChartThemeContext.",
       "type": "object",
       "isList": false,
-      "isRequired": false
+      "isRequired": false,
+      "show": false
     },
     "colors": {
       "name": "colors",

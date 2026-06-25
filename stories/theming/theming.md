@@ -2,13 +2,15 @@
 
 Charts read a **chart theme** object that controls axes, grid lines, tooltips, legends, and the default **series palette** (colors, line widths, bar radii, and so on). You can rely on defaults, set a theme for a whole subtree with **`ChartThemeProvider`**, read or tweak the active theme with **`useChartTheme`**, or override a single chart with **`theme`** and **`colors`** props.
 
+For a field-by-field list of every theme property, default values, and which charts consume each token, see **Theming → Theme Reference**.
+
 ## What the theme covers
 
 | Area | Role |
 | --- | --- |
 | **`axis`** (`x`, `y`, `r`) | Axis lines, labels, ticks, split lines |
-| **`grid`** | Grid line color and width |
-| **`tooltip`** | Background, text, border, radius, padding (ECharts tooltip surface styling) |
+| **`grid`** | Grid line color and width (radar split lines; cartesian charts use `axis.*.splitLine*`) |
+| **`tooltip`** | React Native tooltip overlay chrome (background, labels, values, border, radius, padding) |
 | **`legend`** | Text color, font size, background |
 | **`series`** | Ordered styles used for each data series (color, `lineWidth`, bar `borderRadius`, etc.) |
 

@@ -116,7 +116,8 @@
       "description": "Partial theme override. Merged with default theme from ChartThemeContext.",
       "type": "object",
       "isList": false,
-      "isRequired": false
+      "isRequired": false,
+      "show": false
     },
     "boundaryGap": {
       "name": "boundaryGap",
