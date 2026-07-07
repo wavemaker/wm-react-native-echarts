@@ -286,12 +286,20 @@
     },
     "renderTooltip": {
       "name": "renderTooltip",
-      "displayName": "Render Tooltip",
+      "displayName": "Tooltip Content",
       "description": "Optional (params) => ReactNode for the RN tooltip body at the pointer. When set, replaces the layout chosen by tooltip. Params include series name, x/y values, bubble size value, color, and pointer coordinates.",
-      "type": "function",
+      "params": [
+          "seriesName",
+          "x",
+          "y",
+          "z",
+          "color",
+          "pointerX",
+          "pointerY"
+      ],
+      "type": "content",
       "isList": false,
-      "isRequired": false,
-      "show": false
+      "isRequired": false
     },
     "xAxisTickLabelFormatter": {
       "name": "xAxisTickLabelFormatter",
