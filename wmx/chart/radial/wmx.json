@@ -137,12 +137,18 @@
     },
     "renderTooltip": {
       "name": "renderTooltip",
-      "displayName": "Render Tooltip",
+      "displayName": "Tooltip Content",
       "description": "Optional (params) => ReactNode for the RN tooltip body at the pointer. When set, replaces the layout chosen by tooltip. Params: ringLabel, value (fill 0–100), color, pointerX and pointerY.",
-      "type": "function",
+      "params": [
+          "ringLabel",
+          "value",
+          "color",
+          "pointerX",
+          "pointerY"
+      ],
+      "type": "content",
       "isList": false,
-      "isRequired": false,
-      "show": false
+      "isRequired": false
     },
     "width": {
       "name": "width",

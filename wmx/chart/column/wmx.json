@@ -365,12 +365,18 @@
     },
     "renderTooltip": {
       "name": "renderTooltip",
-      "displayName": "Render Tooltip",
+      "displayName": "Tooltip Content",
       "description": "Optional (params) => ReactNode for the RN tooltip body at the pointer. When set, replaces the layout chosen by tooltip. Params: category axis value, dataIndex, per-series rows (name, value, color, seriesIndex), pointerX and pointerY in chart pixel space.",
-      "type": "function",
+      "params": [
+          "axisValue",
+          "dataIndex",
+          "series",
+          "pointerX",
+          "pointerY"
+      ],
+      "type": "content",
       "isList": false,
-      "isRequired": false,
-      "show": false
+      "isRequired": false
     },
     "xAxisTickLabelFormatter": {
       "name": "xAxisTickLabelFormatter",

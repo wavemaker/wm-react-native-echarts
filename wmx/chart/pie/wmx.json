@@ -123,12 +123,22 @@
     },
     "renderTooltip": {
       "name": "renderTooltip",
-      "displayName": "Render Tooltip",
+      "displayName": "Tooltip Content",
       "description": "Optional (params) => ReactNode for the RN tooltip body at the pointer. When set, replaces the layout chosen by tooltip. Params: slice name, value, percent (0–100), color, seriesIndex, dataIndex, optional ringName for concentric pies, pointerX and pointerY.",
-      "type": "function",
+      "params": [
+          "name",
+          "value",
+          "percent",
+          "color",
+          "seriesIndex",
+          "dataIndex",
+          "ringName",
+          "pointerX",
+          "pointerY"
+      ],
+      "type": "content",
       "isList": false,
-      "isRequired": false,
-      "show": false
+      "isRequired": false
     },
     "width": {
       "name": "width",
