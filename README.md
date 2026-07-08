@@ -25,6 +25,9 @@ npm install @shopify/react-native-skia @wuba/react-native-echarts echarts@6.0.0 
 
 `react` and `react-native` are also peers; they should already be present in your app.
 
+Deploying to a browser (Vite, Webpack, Next.js, Expo web)? See [WEB.md](WEB.md) — `@shopify/react-native-skia`
+is an optional peer and isn't needed for web-only builds.
+
 **Note**:
 There is an issue with echarts library. Due to which compilation fails with an error. Here is the link to the issue.
 https://github.com/apache/echarts/pull/20485

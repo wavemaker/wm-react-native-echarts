@@ -52,6 +52,11 @@
     "react-native-svg": "*",
     "zrender": "*"
   },
+  "peerDependenciesMeta": {
+    "@shopify/react-native-skia": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@react-navigation/native": "^7.1.8",
     "@storybook/addon-docs": "^10.2.1",

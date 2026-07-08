@@ -102,6 +102,13 @@ function buildPackageJson() {
     peerDependencies[dep] = rootPeers[dep] || allDeps[dep] || '*';
   }
 
+  // @shopify/react-native-skia backs SkiaRenderer, which @wuba/react-native-echarts
+  // only uses on native; web builds resolve its `.web` files (a zrender SVG painter)
+  // and never import it, so it should not be a hard requirement for web-only consumers.
+  const peerDependenciesMeta = {
+    '@shopify/react-native-skia': { optional: true },
+  };
+
   const entries = findEntryPoints(distDir);
   const main = 'index.js';
   const hasModule = Boolean(entries.module);
@@ -128,6 +135,7 @@ function buildPackageJson() {
     }),
     files: ['*'],
     peerDependencies,
+    peerDependenciesMeta,
     dependencies,
   };
 
