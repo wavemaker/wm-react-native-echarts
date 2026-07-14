@@ -336,7 +336,7 @@ const ChartComponent = ({
       const series: any = {
         data: 'data' in s ? s.data : [],
         type: 'line',
-        symbol: !symbol || symbol === 'none' ? undefined : symbol,
+        symbol: symbol || undefined,
         symbolSize: symbolSize || 8,
         areaStyle: areaStyleConfig,
         itemStyle: {

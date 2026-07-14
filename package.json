@@ -24,7 +24,7 @@
     "data-visualization",
     "data-analysis"
   ],
-  "version": "1.0.2",
+  "version": "1.0.3",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -51,6 +51,11 @@
     "react-native": "*",
     "react-native-svg": "*",
     "zrender": "*"
+  },
+  "peerDependenciesMeta": {
+    "@shopify/react-native-skia": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@react-navigation/native": "^7.1.8",
