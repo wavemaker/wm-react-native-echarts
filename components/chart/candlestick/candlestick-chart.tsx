@@ -2,6 +2,7 @@ import { withResponsiveContainer } from '../chart-container';
 import { useChartTheme, withChartTheme } from '../chart-theme.context';
 import type { CandlestickChartProps, CandlestickData } from './candlestick-chart.props';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
+import { scrollFriendlyGesture } from '../gesture';
 import { BarChart, CandlestickChart as EChartsCandlestickChart, LineChart } from 'echarts/charts';
 import {
   GridComponent,
@@ -374,7 +375,7 @@ const ChartComponent = ({
     };
   }, [option, width, height]);
 
-  return <SkiaChart ref={chartRef} useRNGH />;
+  return <SkiaChart ref={chartRef} useRNGH gesture={scrollFriendlyGesture} />;
 };
 
 const CandlestickChartComponent = withResponsiveContainer(withChartTheme(ChartComponent));
