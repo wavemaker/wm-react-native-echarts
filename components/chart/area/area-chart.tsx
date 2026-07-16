@@ -5,6 +5,7 @@ import type { AreaChartProps } from './area-chart.props';
 import { createAxisTooltipPreset, useAxisTooltip } from '../cartesian/tooltip';
 import type { AxisTooltipContext } from '../cartesian/tooltip/axis-tooltip.types';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
+import { scrollFriendlyGesture } from '../gesture';
 import { LineChart } from 'echarts/charts';
 import {
   GridComponent,
@@ -534,7 +535,7 @@ const ChartComponent = ({
 
   return (
     <View style={{ width, height, position: 'relative' }}>
-      <SkiaChart ref={chartRef} useRNGH />
+      <SkiaChart ref={chartRef} useRNGH gesture={scrollFriendlyGesture} />
       {renderAxisTooltipOverlay()}
     </View>
   );
