@@ -12,6 +12,7 @@ import { echartsLegendLayoutFragment, pieCenterForLegend } from '../legend/echar
 import { createPieTooltipPreset, usePieItemTooltip } from './tooltip';
 import type { PieItemTooltipContext } from './tooltip/pie-item-tooltip.types';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
+import { scrollFriendlyGesture } from '../gesture';
 import { PieChart as EChartsPieChart } from 'echarts/charts';
 import {
   LegendComponent,
@@ -306,7 +307,7 @@ const ChartComponent = ({
 
   return (
     <View style={{ width, height, position: 'relative' }}>
-      <SkiaChart ref={chartRef} useRNGH />
+      <SkiaChart ref={chartRef} useRNGH gesture={scrollFriendlyGesture} />
       {renderPieTooltipOverlay()}
     </View>
   );

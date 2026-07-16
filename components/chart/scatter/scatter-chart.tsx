@@ -2,6 +2,7 @@ import { withResponsiveContainer } from '../chart-container';
 import { useChartTheme, withChartTheme } from '../chart-theme.context';
 import type { ScatterChartProps } from './scatter-chart.props';
 import { SkiaChart, SkiaRenderer } from '@wuba/react-native-echarts';
+import { scrollFriendlyGesture } from '../gesture';
 import { LineChart as EChartsLineChart, ScatterChart as EChartsScatterChart } from 'echarts/charts';
 import {
   GridComponent,
@@ -425,7 +426,7 @@ const ChartComponent = ({
 
   return (
     <View style={{ width, height, position: 'relative' }}>
-      <SkiaChart ref={chartRef} useRNGH />
+      <SkiaChart ref={chartRef} useRNGH gesture={scrollFriendlyGesture} />
       {renderScatterTooltipOverlay()}
     </View>
   );
