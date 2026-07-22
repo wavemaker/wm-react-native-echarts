@@ -104,6 +104,22 @@
       "defaultValue": true,
       "isRequired": false
     },
+    "labelFormat": {
+      "name": "labelFormat",
+      "displayName": "Label Format",
+      "description": "What to display in each slice label: key (name only), key-value (name+value), percentage (percent only), or value (raw value only). Default: 'key-value'",
+      "type": "string",
+      "widget": "list",
+      "options": [
+        "key",
+        "key-value",
+        "percentage",
+        "value"
+      ],
+      "defaultValue": "key-value",
+      "isList": false,
+      "isRequired": false
+    },
     "tooltip": {
       "name": "tooltip",
       "displayName": "Tooltip",

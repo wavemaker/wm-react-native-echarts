@@ -48,6 +48,7 @@ const ChartComponent = ({
   showLabel = true,
   labelPosition = 'outside',
   showLabelLine = true,
+  labelFormat = 'key-value',
   showHighlighter = true,
   tooltip = 'card',
   renderTooltip,
@@ -118,7 +119,17 @@ const ChartComponent = ({
             position: labelPosition,
             formatter: (params: any) => {
               const pct = total > 0 ? ((params.value / total) * 100).toFixed(1) : '0';
-              return `${params.name}\n${pct}%`;
+              switch (labelFormat) {
+                case 'key':
+                  return params.name;
+                case 'percentage':
+                  return `${pct}%`;
+                case 'value':
+                  return String(params.value);
+                case 'key-value':
+                default:
+                  return `${params.name}\n${params.value}`;
+              }
             },
             ...labelStyle,
           }
@@ -237,6 +248,7 @@ const ChartComponent = ({
     showLabel,
     labelPosition,
     showLabelLine,
+    labelFormat,
     showHighlighter,
     tooltipOverlayActive,
     theme,

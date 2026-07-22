@@ -49,3 +49,39 @@ export const NoLabels: Story = {
     showLabel: false,
   },
 };
+
+/** Labels showing just the slice name. */
+export const KeyOnly: Story = {
+  args: {
+    data,
+    showLabel: true,
+    labelFormat: 'key',
+  },
+};
+
+/** Labels showing name and raw value (default). */
+export const KeyAndValue: Story = {
+  args: {
+    data,
+    showLabel: true,
+    labelFormat: 'key-value',
+  },
+};
+
+/** Labels showing just the percent. */
+export const Percentage: Story = {
+  args: {
+    data,
+    showLabel: true,
+    labelFormat: 'percentage',
+  },
+};
+
+/** Labels showing just the raw value. */
+export const ValueOnly: Story = {
+  args: {
+    data,
+    showLabel: true,
+    labelFormat: 'value',
+  },
+};

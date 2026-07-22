@@ -100,6 +100,11 @@ export interface PieChartProps extends CommonChartProps {
    */
   showLabelLine?: boolean;
   /**
+   * What to display in each slice label: name only (key), name+value (key-value), percent only (percentage), or raw value only (value).
+   * @default 'key-value'
+   */
+  labelFormat?: 'key' | 'key-value' | 'percentage' | 'value';
+  /**
    * Whether to emphasize (scale/highlight) the hovered slice.
    * @default true
    */
