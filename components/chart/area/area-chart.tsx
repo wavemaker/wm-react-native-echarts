@@ -66,6 +66,8 @@ const ChartComponent = ({
   yAxisTickLabelFormatter,
   xAxisLabel,
   yAxisLabel,
+  xAxisNameGap,
+  yAxisNameGap,
   minX,
   maxX,
   intervalX,
@@ -204,7 +206,7 @@ const ChartComponent = ({
       ...(xAxisLabel != null && xAxisLabel !== '' && {
         name: xAxisLabel,
         nameLocation: 'middle',
-        nameGap: 25,
+        nameGap: xAxisNameGap ?? 25,
         nameTextStyle: { color: theme.axis.x.tickLabelColor },
       }),
       axisLabel: {
@@ -252,7 +254,7 @@ const ChartComponent = ({
       ...(yAxisLabel != null && yAxisLabel !== '' && {
         name: yAxisLabel,
         nameLocation: 'middle',
-        nameGap: 40,
+        nameGap: yAxisNameGap ?? 40,
         nameTextStyle: { color: theme.axis.y.tickLabelColor },
       }),
       axisLabel: {
@@ -450,6 +452,8 @@ const ChartComponent = ({
     yAxisTickLabelFormatter,
     xAxisLabel,
     yAxisLabel,
+    xAxisNameGap,
+    yAxisNameGap,
     valueAxisBounds,
     categoryAxisBounds,
   ]);
