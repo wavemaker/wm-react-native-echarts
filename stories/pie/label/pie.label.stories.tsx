@@ -49,3 +49,34 @@ export const NoLabels: Story = {
     showLabel: false,
   },
 };
+
+/** Custom formatter: show only the slice name. */
+export const CustomFormatterName: Story = {
+  args: {
+    data,
+    showLabel: true,
+    labelPosition: 'outside',
+    labelFormatter: (params: any) => params.name,
+  },
+};
+
+/** Custom formatter: show the raw value instead of percent. */
+export const CustomFormatterValue: Story = {
+  args: {
+    data,
+    showLabel: true,
+    labelPosition: 'outside',
+    labelFormatter: (params: any) => `${params.name}: ${params.value}`,
+  },
+};
+
+/** Custom formatter: name and value on one line, inside the slice. */
+export const CustomFormatterInside: Story = {
+  args: {
+    data,
+    showLabel: true,
+    labelPosition: 'inside',
+    showLabelLine: false,
+    labelFormatter: (params: any) => `${params.name} (${params.value})`,
+  },
+};
