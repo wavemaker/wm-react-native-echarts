@@ -33,6 +33,7 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "storybook": "storybook dev -p 6006",
+    "storybook:clean": "rm -rf node_modules/.cache/storybook node_modules/.vite && storybook dev -p 6006",
     "build-storybook": "storybook build",
     "generate:wmx": "node ./scripts/generate-wmx.js",
     "build:lib": "node ./scripts/build-lib.js",

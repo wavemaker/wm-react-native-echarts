@@ -623,6 +623,8 @@ const ChartComponent = ({
     yAxisTickLabelFormatter,
     xAxisLabel,
     yAxisLabel,
+    xAxisNameGap,
+    yAxisNameGap,
     categoryAxisData,
     valueAxisBounds,
     categoryAxisBounds,
