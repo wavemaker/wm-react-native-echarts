@@ -40,6 +40,7 @@ const ChartComponent = ({
   width = 320,
   height = 300,
   showLabel = false,
+  labelFormatter,
   showXAxis = true,
   showYAxis = true,
   showHighlighter = true,
@@ -172,6 +173,7 @@ const ChartComponent = ({
       label: {
         show: showLabel,
         color: theme.legend.textColor,
+        ...(labelFormatter ? { formatter: labelFormatter } : {}),
       },
       emphasis: showHighlighter
         ? {
@@ -206,6 +208,7 @@ const ChartComponent = ({
     normalizedData,
     theme,
     showLabel,
+    labelFormatter,
     showXAxis,
     showYAxis,
     showHighlighter,

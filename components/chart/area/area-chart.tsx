@@ -13,6 +13,7 @@ import {
   TooltipComponent
 } from 'echarts/components';
 import * as echarts from 'echarts/core';
+import { parse, stringify } from 'zrender/lib/tool/color';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { View } from 'react-native';
 import { getAxis, valueAxisBoundsFromProps, categoryAxisBoundsFromProps } from '../axis';
@@ -38,6 +39,12 @@ echarts.use([
   SkiaRenderer,
   LineChart,
 ]);
+
+const applyOpacity = (colorStr: string, opacity: number) => {
+  const rgba = parse(colorStr);
+  if (!rgba) return colorStr;
+  return stringify([rgba[0], rgba[1], rgba[2], opacity], 'rgba');
+};
 
 const ChartComponent = ({
   data,
@@ -67,6 +74,8 @@ const ChartComponent = ({
   yAxisTickLabelFormatter,
   xAxisLabel,
   yAxisLabel,
+  xAxisNameGap,
+  yAxisNameGap,
   minX,
   maxX,
   intervalX,
@@ -205,7 +214,7 @@ const ChartComponent = ({
       ...(xAxisLabel != null && xAxisLabel !== '' && {
         name: xAxisLabel,
         nameLocation: 'middle',
-        nameGap: 25,
+        nameGap: xAxisNameGap ?? 25,
         nameTextStyle: { color: theme.axis.x.tickLabelColor },
       }),
       axisLabel: {
@@ -253,7 +262,7 @@ const ChartComponent = ({
       ...(yAxisLabel != null && yAxisLabel !== '' && {
         name: yAxisLabel,
         nameLocation: 'middle',
-        nameGap: 40,
+        nameGap: yAxisNameGap ?? 40,
         nameTextStyle: { color: theme.axis.y.tickLabelColor },
       }),
       axisLabel: {
@@ -309,11 +318,9 @@ const ChartComponent = ({
       const seriesColor = theme.series[index % theme.series.length].color;
       const seriesLineWidth = theme.series[index]?.lineWidth ?? theme.series[0].lineWidth ?? 2;
       
-      // Convert opacity (0-1) to hex (00-FF)
-      const opacityHex = Math.round(areaOpacity * 255).toString(16).padStart(2, '0');
-      const colorWithOpacity = seriesColor + opacityHex;
-      const transparentColor = seriesColor + '00';
-      const solidColor = seriesColor + 'ff';
+      const colorWithOpacity = applyOpacity(seriesColor, areaOpacity);
+      const transparentColor = applyOpacity(seriesColor, 0);
+      const solidColor = applyOpacity(seriesColor, 1);
       
       const areaStyleConfig =
         areaFill === 'gradient'
@@ -451,6 +458,8 @@ const ChartComponent = ({
     yAxisTickLabelFormatter,
     xAxisLabel,
     yAxisLabel,
+    xAxisNameGap,
+    yAxisNameGap,
     valueAxisBounds,
     categoryAxisBounds,
   ]);
