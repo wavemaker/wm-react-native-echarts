@@ -1,6 +1,6 @@
 {
   "name": "RNEStackChart",
-  "version": "1.1.1",
+  "version": "1.1.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -10,9 +10,8 @@
   "displayName": "Stack Chart",
   "description": "Single stacked track rendered as a bar, semi-circle or arc: segments either overlap from a shared origin or run end to end, with an optional unfilled remainder for progress-style tracks",
   "iconUrl": "icon.svg",
-  "dependencies": {
-    "@wavemaker/react-native-echarts": "1.1.1",
-    "@shopify/react-native-skia": "2.6.2"
+  "devDependencies": {
+    "@wavemaker/react-native-echarts": "^1.1.1"
   },
   "keywords": [
     "stack",
